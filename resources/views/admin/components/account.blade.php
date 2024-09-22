@@ -43,13 +43,13 @@
                 <i class="fas fa-align-left mr-3"></i>
                 Users
             </a>
-            <a href="{{('./account')}}" class="flex items-center active-nav-link text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
-                <i class="fas fa-tablet-alt mr-3"></i>
-                Account
-            </a>
             <a href="{{('./deals')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                 <i class="fas fa-calendar mr-3"></i>
                 Deals
+            </a>
+            <a href="{{('./account')}}" class="flex items-center active-nav-link text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                <i class="fas fa-tablet-alt mr-3"></i>
+                Account
             </a>
         </nav>
     </aside>
@@ -60,7 +60,7 @@
             <div class="w-1/2"></div>
             <div x-data="{ isOpen: false }" class="relative w-1/2 flex justify-end">
                 <button @click="isOpen = !isOpen" class="realtive z-10 w-12 h-12 rounded-full overflow-hidden border-4 border-gray-400 hover:border-gray-300 focus:border-gray-300 focus:outline-none">
-                    <img src="{{ asset('public/frontend/admin/images/sweetoria.png') }}"/>
+                    <img src="{{ asset('public/frontend/admin/images/sweetoria.png') }}" />
                 </button>
                 <button x-show="isOpen" @click="isOpen = false" class="h-full w-full fixed inset-0 cursor-default"></button>
                 <div x-show="isOpen" class="absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16">
@@ -81,46 +81,32 @@
             </div>
 
             <!-- Dropdown Nav -->
-            <nav :class="isOpen ? 'flex': 'hidden'" class="flex flex-col pt-4">
-                <a href="dashboard.html" class="flex items-center active-nav-link text-black py-2 pl-4 nav-item">
+            <nav class="text-black text-base font-semibold pt-3">
+                <a href="{{('./dashboard')}}" class="flex items-center  text-black py-4 pl-6 nav-item">
                     <i class="fas fa-tachometer-alt mr-3"></i>
                     Dashboard
                 </a>
-                <a href="blank.html" class="flex items-center text-black opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+                <a href="{{('./products')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                     <i class="fas fa-sticky-note mr-3"></i>
-                    Blank Page
+                    Products
                 </a>
-                <a href="tables.html" class="flex items-center text-black opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+                <a href="{{('./orders')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                     <i class="fas fa-table mr-3"></i>
-                    Tables
+                    Orders
                 </a>
-                <a href="forms.html" class="flex items-center text-black opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+                <a href="{{('./users')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                     <i class="fas fa-align-left mr-3"></i>
-                    Forms
+                    Users
                 </a>
-                <a href="tabs.html" class="flex items-center text-black opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
-                    <i class="fas fa-tablet-alt mr-3"></i>
-                    Tabbed Content
-                </a>
-                <a href="calendar.html" class="flex items-center text-black opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+                <a href="{{('./deals')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                     <i class="fas fa-calendar mr-3"></i>
-                    Calendar
+                    Deals
                 </a>
-                <a href="#" class="flex items-center text-black opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
-                    <i class="fas fa-cogs mr-3"></i>
-                    Support
+                <a href="{{('./account')}}" class="flex items-center active-nav-link text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                    <i class="fas fa-tablet-alt mr-3"></i>
+                    Account
                 </a>
-                <a href="#" class="flex items-center text-black opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
-                    <i class="fas fa-user mr-3"></i>
-                    My Account
-                </a>
-                <a href="#" class="flex items-center text-black opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
-                    <i class="fas fa-sign-out-alt mr-3"></i>
-                    Sign Out
-                </a>
-                <button class="w-full bg-white cta-btn font-semibold py-2 mt-3 rounded-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
-                    <i class="fas fa-arrow-circle-up mr-3"></i> Upgrade to Pro!
-                </button>
+
             </nav>
             <!-- <button class="w-full bg-white cta-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
                 <i class="fas fa-plus mr-3"></i> New Report

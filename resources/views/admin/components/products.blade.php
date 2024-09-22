@@ -46,13 +46,13 @@
                 <i class="fas fa-align-left mr-3"></i>
                 Users
             </a>
-            <a href="{{('./account')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
-                <i class="fas fa-tablet-alt mr-3"></i>
-                Account
-            </a>
             <a href="{{('./deals')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                 <i class="fas fa-calendar mr-3"></i>
                 Deals
+            </a>
+            <a href="{{('./account')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                <i class="fas fa-tablet-alt mr-3"></i>
+                Account
             </a>
         </nav>
 
@@ -85,42 +85,32 @@
             </div>
 
             <!-- Dropdown Nav -->
-            <nav :class="isOpen ? 'flex': 'hidden'" class="flex flex-col pt-4">
-                <a href="index.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+            <nav class="text-black text-base font-semibold pt-3">
+                <a href="{{('./dashboard')}}" class="flex items-center  text-black py-4 pl-6 nav-item">
                     <i class="fas fa-tachometer-alt mr-3"></i>
                     Dashboard
                 </a>
-                <a href="blank.html" class="flex items-center active-nav-link text-white py-2 pl-4 nav-item">
+                <a href="{{('./products')}}" class="flex items-center active-nav-link text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                     <i class="fas fa-sticky-note mr-3"></i>
-                    Blank Page
+                    Products
                 </a>
-                <a href="tables.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+                <a href="{{('./orders')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                     <i class="fas fa-table mr-3"></i>
-                    Tables
+                    Orders
                 </a>
-                <a href="forms.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+                <a href="{{('./users')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                     <i class="fas fa-align-left mr-3"></i>
-                    Forms
+                    Users
                 </a>
-                <a href="tabs.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
-                    <i class="fas fa-tablet-alt mr-3"></i>
-                    Tabbed Content
-                </a>
-                <a href="calendar.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+                <a href="{{('./deals')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                     <i class="fas fa-calendar mr-3"></i>
-                    Calendar
+                    Deals
                 </a>
-                <a href="#" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
-                    <i class="fas fa-user mr-3"></i>
-                    My Account
+                <a href="{{('./account')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                    <i class="fas fa-tablet-alt mr-3"></i>
+                    Account
                 </a>
-                <a href="#" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
-                    <i class="fas fa-sign-out-alt mr-3"></i>
-                    Sign Out
-                </a>
-                <button class="w-full bg-white cta-btn font-semibold py-2 mt-3 rounded-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
-                    <i class="fas fa-arrow-circle-up mr-3"></i> Upgrade to Pro!
-                </button>
+
             </nav>
             <!-- <button class="w-full bg-white cta-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
                 <i class="fas fa-plus mr-3"></i> New Report
@@ -136,8 +126,8 @@
                     <form class="max-w-md" style="width: 500px;">
                         <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                         <div class="relative">
-                            <input type="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Mockups, Logos..." required />
-                            <button type="submit" class="text-white absolute top-2 right-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+                            <input type="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search products" required />
+                            <button type="submit" class="text-white absolute top-2 right-2.5 bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-800">Search</button>
                         </div>
                     </form>
 
@@ -161,9 +151,9 @@
                         <table class="min-w-full bg-white">
                             <thead class="bg-gray-800 text-white">
                                 <tr>
+                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Product_ID</th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Product</th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Name</th>
-                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">ID</th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">SKU</th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Price</th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Manage</th>
@@ -171,9 +161,9 @@
                             </thead>
                             <tbody class="text-gray-700">
                                 <tr>
-                                    <td class="text-left py-3 px-4">Lian</td>
+                                    <td class="text-center py-3 px-4">Lian</td>
                                     <td class="text-left py-3 px-4">Smith</td>
-                                    <td class="text-center py-3 px-4"><a class="hover:text-blue-500" href="tel:622322662">622322662</a></td>
+                                    <td class="text-left py-3 px-4"><a class="hover:text-blue-500" href="tel:622322662">622322662</a></td>
                                     <td class="text-left py-3 px-4"><a class="hover:text-blue-500" href="mailto:jonsmith@mail.com">jonsmith@mail.com</a></td>
                                     <td class="text-center py-3 px-4">Lian</td>
                                     <td class="text-center py-3 px-4">
@@ -184,6 +174,7 @@
                                             <i class="fa-solid fa-trash"></i>
                                         </button>
                                     </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
