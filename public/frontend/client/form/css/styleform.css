@@ -6,7 +6,7 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-image: url(public/frontend/client/form/img_form/column_green.png);
+    background-image: url("public/frontend/client/form/img_form/column_green.png");
 }
 
 .container {
@@ -54,7 +54,7 @@ nav ul li a {
 .form-box {
     text-align: center;
     width: 650px;
-    background-image: url(public/frontend/client/form//img_form/nenformkologo.jpg);
+    background-image: url("public/frontend/client/form/img_form/nenformkologo.jpg");
     padding: 30px;
     border-radius: 15px;
     background-size: cover; /* Ảnh nền bao phủ toàn bộ vùng chứa */

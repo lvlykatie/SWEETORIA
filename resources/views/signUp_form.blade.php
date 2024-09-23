@@ -9,6 +9,18 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
+
+    <style>
+        body {
+            background-image: url("{{ asset('public/frontend/client/form/img_form/column_green.png') }}");
+        }
+        
+        .form-box {
+
+           background-image: url("public/frontend/client/form/img_form/nenformkologo.jpg");
+        }
+    </style>
+
   </head>
   <body>
     <div class="container">
