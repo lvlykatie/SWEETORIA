@@ -1,194 +1,194 @@
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-  font-family: Arial, sans-serif;
-  background-image: url(/img/column_green.png);
+    font-family: Arial, sans-serif;
+    background-image: url(public/frontend/client/form/img_form/column_green.png);
 }
 
 .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 header {
-  width: 100%;
-  background-color: #fffdd0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 50px;
-  font-size: 20px;
+    width: 100%;
+    background-color: #fffdd0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+    font-size: 20px;
 }
 
 .logo img {
-  width: 190px;
+    width: 190px;
 }
 
 nav ul {
-  list-style: none;
-  display: flex;
-  gap: 20px;
+    list-style: none;
+    display: flex;
+    gap: 20px;
 }
 
 nav ul li a {
-  text-decoration: none;
-  color: #000000;
-  font-weight: bold;
+    text-decoration: none;
+    color: #000000;
+    font-weight: bold;
 }
 
 .form-container {
-  background: linear-gradient(to right, #ffecd2 0%, #fcb69f 100%);
-  padding: 50px;
-  border-radius: 15px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  width: 50%; /* Chiều rộng của container */
-  margin-top: 5%;
-  margin-bottom: 2%;
+    background: linear-gradient(to right, #ffecd2 0%, #fcb69f 100%);
+    padding: 50px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    width: 50%; /* Chiều rộng của container */
+    margin-top: 5%;
+    margin-bottom: 2%;
 }
 
 .form-box {
-  text-align: center;
-  width: 650px;
-  background-image: url(/img/nenformkologo.jpg);
-  padding: 30px;
-  border-radius: 15px;
-  background-size: cover; /* Ảnh nền bao phủ toàn bộ vùng chứa */
-  background-position: center; /* Căn giữa ảnh nền */
-  justify-items: center;
-  align-items: center;
+    text-align: center;
+    width: 650px;
+    background-image: url(public/frontend/client/form//img_form/nenformkologo.jpg);
+    padding: 30px;
+    border-radius: 15px;
+    background-size: cover; /* Ảnh nền bao phủ toàn bộ vùng chứa */
+    background-position: center; /* Căn giữa ảnh nền */
+    justify-items: center;
+    align-items: center;
 }
 
 h1 {
-  font-family: "Pacifico", cursive;
-  color: #d75d73;
-  margin-bottom: 20px;
+    font-family: "Pacifico", cursive;
+    color: #d75d73;
+    margin-bottom: 20px;
 }
 
 form {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
 }
 .form-group {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  margin-bottom: 15px; /* Khoảng cách giữa các dòng */
-  /* margin-top: 50px; Điều chỉnh giá trị theo nhu cầu */
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 15px; /* Khoảng cách giữa các dòng */
+    /* margin-top: 50px; Điều chỉnh giá trị theo nhu cầu */
 }
 
 h1 {
-  font-family: "Inner", cursive;
-  color: #d75d73;
-  margin-bottom: 20px;
+    font-family: "Inner", cursive;
+    color: #d75d73;
+    margin-bottom: 20px;
 }
 
 label {
-  font-weight: bold;
-  color: #333;
-  width: 100px; /* Độ rộng của label */
-  margin-right: 10px; /* Điều chỉnh khoảng cách giữa label và input */
-  padding-left: 25px;
+    font-weight: bold;
+    color: #333;
+    width: 100px; /* Độ rộng của label */
+    margin-right: 10px; /* Điều chỉnh khoảng cách giữa label và input */
+    padding-left: 25px;
 }
 
 input[type="email"],
 input[type="text"],
 input[type="password"] {
-  padding: 10px; /* Khoảng cách giữa text và viền */
-  border: 2px solid #d7d7d7;
-  border-radius: 10px;
-  width: 400px; /* Chiều rộng của ô input */
-  padding-right: 10px;
+    padding: 10px; /* Khoảng cách giữa text và viền */
+    border: 2px solid #d7d7d7;
+    border-radius: 10px;
+    width: 400px; /* Chiều rộng của ô input */
+    padding-right: 10px;
 }
 
 .remember {
-  display: flex;
-  /* align-items: center; */
-  gap: 15px; /* Khoảng cách giữa checkbox và nhãn */
-  align-items: center; /* Căn giữa theo chiều dọc */
-  font-size: 17px;
+    display: flex;
+    /* align-items: center; */
+    gap: 15px; /* Khoảng cách giữa checkbox và nhãn */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    font-size: 17px;
 }
 .remember input[type="checkbox"] {
-  width: 20px; /* Chiều rộng của checkbox */
-  height: 20px; /* Chiều cao của checkbox */
+    width: 20px; /* Chiều rộng của checkbox */
+    height: 20px; /* Chiều cao của checkbox */
 }
 
 .forgot-password {
-  text-align: right;
-  margin-bottom: 15px;
-  font-size: 17px;
+    text-align: right;
+    margin-bottom: 15px;
+    font-size: 17px;
 }
 
 .remem-pass {
-  display: flex;
-  align-items: center;
-  justify-content: space-between; /* Căn đều hai phần tử ở hai bên */
-  width: 100%; /* Đảm bảo container chiếm hết chiều rộng của khung */
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Căn đều hai phần tử ở hai bên */
+    width: 100%; /* Đảm bảo container chiếm hết chiều rộng của khung */
 }
 
 button {
-  padding: 10px;
-  background-color: #d75d73;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  width: auto; /* Chiều dài của button */
+    padding: 10px;
+    background-color: #d75d73;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    width: auto; /* Chiều dài của button */
 }
 
 button:hover {
-  background-color: #c14c63;
+    background-color: #c14c63;
 }
 
 .google-signin button {
-  background-color: #4285f4;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 15px; /* Điều chỉnh khoảng cách giữa icon và text */
+    background-color: #4285f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px; /* Điều chỉnh khoảng cách giữa icon và text */
 }
 
 .google-signin button:hover {
-  background-color: #357ae8;
+    background-color: #357ae8;
 }
 
 .bt_back button {
-  background-color: #4285f4;
-  display: flex;
-  justify-content: left;
-  align-items: left;
-  gap: 15px; /* Điều chỉnh khoảng cách giữa icon và text */
+    background-color: #4285f4;
+    display: flex;
+    justify-content: left;
+    align-items: left;
+    gap: 15px; /* Điều chỉnh khoảng cách giữa icon và text */
 }
 
 .bt_back button:hover {
-  background-color: #357ae8;
+    background-color: #357ae8;
 }
 
 footer {
-  width: 100%;
-  background-color: #fffdd0;
-  padding: 20px 50px;
-  margin-top: 50px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    width: 100%;
+    background-color: #fffdd0;
+    padding: 20px 50px;
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 footer p {
-  font-size: 16px;
+    font-size: 16px;
 }
 .bocongthuong {
-  text-align: center; /* Căn giữa nội dung bên trong */
+    text-align: center; /* Căn giữa nội dung bên trong */
 }
 
 .footer-info {
-  display: flex;
-  justify-content: left;
-  width: 100%;
-  gap: 60px;
+    display: flex;
+    justify-content: left;
+    width: 100%;
+    gap: 60px;
 }

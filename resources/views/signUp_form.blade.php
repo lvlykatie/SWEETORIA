@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sweetoria Sign In</title>
-    <link rel="stylesheet" href="{{ asset('public/frontend/client/css/styleform.css') }}" />
+    <link rel="stylesheet" href="{{ asset('public/frontend/client/form/css/styleform.css') }}" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
@@ -14,7 +14,7 @@
     <div class="container">
       <header>
         <div class="logo">
-          <img src="{{ asset('img_form/logo2.png') }}" alt="Sweetoria Logo" />
+          <img src="{{ asset('public/frontend/client/form/img_form/logo2.png') }}" alt="Sweetoria Logo" />
         </div>
         <nav>
           <ul>
@@ -37,7 +37,7 @@
       <div class="form-container">
         <div class="form-box">
           <h1>Sign up</h1>
-          <img src="{{ asset('img_form/nen_form.jpg') }}" alt="Logo sweetoria form" width="50%" />
+          <img src="{{ asset('public/frontend/client/form/img_form/nen_form.jpg') }}" alt="Logo sweetoria form" width="50%" />
           <!-- <h1>Sweetoria</h1> -->
           <form action="#" method="POST" autocomplete="on" validate required>
             <div class="form-group">
@@ -129,7 +129,7 @@
             </p>
           </div>
 
-          <img src="{{ asset('img_form/logo_footer.png') }}" alt="logo sweetoria" width="10%" />
+          <img src="{{ asset('public/frontend/client/form/img_form/logo_footer.png') }}" alt="logo sweetoria" width="10%" />
         </div>
       </footer>
     </div>
