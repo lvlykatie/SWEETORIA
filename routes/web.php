@@ -33,3 +33,7 @@ Route::get('/admin/deals', function () {
 Route::get('/admin/account', function () {
     return view('admin.components.account');
 });
+
+Route::get('/client/SignUp_form', function () {
+    return view('SignUp_form'); // Thay 'home' bằng tên file .blade.php của bạn
+});
