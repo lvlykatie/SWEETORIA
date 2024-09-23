@@ -117,7 +117,7 @@
         <div class="w-full overflow-x-hidden border-t flex flex-col">
         <main class="w-full flex-grow p-6">
                 <div class="flex justify-between">
-                    <h1 class="text-3xl text-extrabold pb-6">Products</h1>
+                    <h1 class="text-3xl text-extrabold pb-6">Deals</h1>
 
 
                     <form class="max-w-md" style="width: 500px;">
