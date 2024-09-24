@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sweetoria Sign In</title>
+    <title>Sweetoria Sign Up</title>
     <link rel="stylesheet" href="{{ asset('public/frontend/client/form/css/styleform.css') }}" />
     <link
       rel="stylesheet"
