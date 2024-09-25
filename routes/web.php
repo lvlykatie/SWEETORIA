@@ -33,3 +33,5 @@ Route::get('/admin/users', 'App\Http\Controllers\admin\UserController@showUserPa
 Route::get('/admin/deals', 'App\Http\Controllers\admin\DealController@showDealPage');
 
 Route::get('/admin/accounts', 'App\Http\Controllers\admin\AccountController@showAccountPage');
+
+Route::get('/admin/products/create', 'App\Http\Controllers\admin\ProductController@addProductPage');

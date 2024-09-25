@@ -9,6 +9,6 @@ use App\Http\Requests;
 class AccountController extends Controller
 {
     public function showAccountPage(){
-        return view ('admin.components.accounts');
+        return view ('admin.accounts.accounts');
     }
 }

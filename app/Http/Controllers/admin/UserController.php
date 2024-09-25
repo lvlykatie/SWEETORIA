@@ -9,6 +9,6 @@ use App\Http\Requests;
 class UserController extends Controller
 {
     public function showUserPage(){
-        return view ('admin.components.users');
+        return view ('admin.users.users');
     }
 }

@@ -9,6 +9,9 @@ use App\Http\Requests;
 class ProductController extends Controller
 {
     public function showProductPage(){
-        return view ('admin.components.products');
+        return view ('admin.products.products');
+    }
+    public function addProductPage(){
+        return view ('admin.products.add-product');
     }
 }

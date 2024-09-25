@@ -9,6 +9,6 @@ use App\Http\Requests;
 class DealController extends Controller
 {
     public function showDealPage(){
-        return view ('admin.components.deals');
+        return view ('admin.deals.deals');
     }
 }

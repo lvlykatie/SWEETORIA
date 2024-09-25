@@ -9,6 +9,6 @@ use App\Http\Requests;
 class OrderController extends Controller
 {
     public function showOrderPage(){
-        return view ('admin.components.orders');
+        return view ('admin.orders.orders');
     }
 }
