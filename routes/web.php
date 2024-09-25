@@ -22,29 +22,14 @@ Route::get('/resetpass', function () {
 
 
 
-Route::get('/admin/dashboard', function () {
-    return view('admin.dashboard');
-});
+Route::get('/admin/dashboard', 'App\Http\Controllers\admin\DashboardController@showDashboard');
 
+Route::get('/admin/products', 'App\Http\Controllers\admin\ProductController@showProductPage');
 
-Route::get('/admin/products', function () {
-    return view('admin.components.products');
-});
+Route::get('/admin/orders', 'App\Http\Controllers\admin\OrderController@showOrderPage');
 
-Route::get('/admin/orders', function () {
-    return view('admin.components.orders');
-});
+Route::get('/admin/users', 'App\Http\Controllers\admin\UserController@showUserPage');
 
+Route::get('/admin/deals', 'App\Http\Controllers\admin\DealController@showDealPage');
 
-Route::get('/admin/users', function () {
-    return view('admin.components.users');
-});
-
-
-Route::get('/admin/deals', function () {
-    return view('admin.components.deals');
-});
-
-Route::get('/admin/account', function () {
-    return view('admin.components.account');
-});
+Route::get('/admin/accounts', 'App\Http\Controllers\admin\AccountController@showAccountPage');

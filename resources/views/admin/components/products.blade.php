@@ -50,7 +50,7 @@
                 <i class="fas fa-calendar mr-3"></i>
                 Deals
             </a>
-            <a href="{{('./account')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+            <a href="{{('./accounts')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                 <i class="fas fa-tablet-alt mr-3"></i>
                 Account
             </a>
@@ -106,7 +106,7 @@
                     <i class="fas fa-calendar mr-3"></i>
                     Deals
                 </a>
-                <a href="{{('./account')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                <a href="{{('./accounts')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                     <i class="fas fa-tablet-alt mr-3"></i>
                     Account
                 </a>
