@@ -64,7 +64,9 @@ nav ul li a {
 }
 
 h1 {
-    font-family: "Pacifico", cursive;
+    text-decoration: none;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
     color: #d75d73;
     margin-bottom: 20px;
 }
@@ -83,9 +85,10 @@ form {
 }
 
 h1 {
-    font-family: "Inner", cursive;
+    font-family: "Inner", sans-serif; /* Sử dụng font Inner */
     color: #d75d73;
     margin-bottom: 20px;
+    font-size: 40px;
 }
 
 label {
@@ -111,7 +114,7 @@ input[type="password"] {
     /* align-items: center; */
     gap: 15px; /* Khoảng cách giữa checkbox và nhãn */
     align-items: center; /* Căn giữa theo chiều dọc */
-    font-size: 17px;
+    font-size: 18px;
 }
 .remember input[type="checkbox"] {
     width: 20px; /* Chiều rộng của checkbox */
@@ -121,7 +124,7 @@ input[type="password"] {
 .forgot-password {
     text-align: right;
     margin-bottom: 15px;
-    font-size: 17px;
+    font-size: 18px;
 }
 
 .remem-pass {
@@ -139,6 +142,8 @@ button {
     border-radius: 10px;
     cursor: pointer;
     width: auto; /* Chiều dài của button */
+    font-size: 20px;
+    font-weight: bold;
 }
 
 button:hover {

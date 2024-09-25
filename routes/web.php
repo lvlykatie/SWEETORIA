@@ -10,6 +10,16 @@ Route::get('/signup', function () {
     return view('signUp_form');
 });
 
+Route::get('/signin', function () {
+    return view('signIn_form');
+});
+Route::get('/forgetpass', function () {
+    return view('forgetPass_form');
+});
+Route::get('/resetpass', function () {
+    return view('resetPass_form');
+});
+
 
 
 Route::get('/admin/dashboard', function () {
