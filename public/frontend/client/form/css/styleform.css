@@ -114,7 +114,7 @@ input[type="password"] {
     /* align-items: center; */
     gap: 15px; /* Khoảng cách giữa checkbox và nhãn */
     align-items: center; /* Căn giữa theo chiều dọc */
-    font-size: 17px;
+    font-size: 18px;
 }
 .remember input[type="checkbox"] {
     width: 20px; /* Chiều rộng của checkbox */
@@ -124,7 +124,7 @@ input[type="password"] {
 .forgot-password {
     text-align: right;
     margin-bottom: 15px;
-    font-size: 17px;
+    font-size: 18px;
 }
 
 .remem-pass {

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sweetoria Sign Up</title>
+    <title>Sweetoria Forget Password</title>
     <link rel="stylesheet" href="{{ asset('public/frontend/client/form/css/styleform.css') }}" />
     <link
       rel="stylesheet"
@@ -48,19 +48,9 @@
 
       <div class="form-container">
         <div class="form-box">
-          <h1>Sign up</h1>
+          <h1>Forget Pass</h1>
           <img src="{{ asset('public/frontend/client/form/img_form/nen_form.jpg') }}" alt="Logo sweetoria form" width="50%" />
-          <!-- <h1>Sweetoria</h1> -->
           <form action="#" method="POST" autocomplete="on" validate required>
-            <div class="form-group">
-              <label for="username" style="text-align: left">Username</label>
-              <input
-                type="text"
-                id="username"
-                placeholder="Enter your username"
-              />
-            </div>
-
             <div class="form-group">
               <label for="userEmail" style="text-align: left">Email</label>
               <!-- name="user_email" them dong nay vaof input email neu dc-->
@@ -71,40 +61,12 @@
               />
             </div>
 
-            <div class="form-group">
-              <label for="phonenum" style="text-align: left">Phone</label>
-              <input
-                type="text"
-                id="phonenum"
-                placeholder="Enter your phone number"
-              />
-            </div>
+            <button type="submit">Send OTP</button>
 
-            <div class="form-group">
-              <label for="password" style="text-align: left">Password</label>
-              <input type="password" id="password" placeholder="********" />
+            <div class="bt_back">
+              <button type="button" onclick="goBack()">Back</button>
             </div>
-
-            <div class="form-group">
-              <label for="confirm" style="text-align: left">Confirm</label>
-              <input
-                type="password"
-                id="confirm"
-                placeholder="Confirm your password"
-              />
-            </div>
-
-            <button type="submit">Sign up</button>
           </form>
-
-          <div class="haven't got an account">
-            <br />
-            <label
-              >Have an account?
-              <a href="{{ url('/signin') }}">Sign in</a>
-            </label
-            >
-          </div>
         </div>
       </div>
 
@@ -146,5 +108,13 @@
         </div>
       </footer>
     </div>
+
+    <script>
+  function goBack() {
+    window.location.href = "{{ url('/signin') }}"; // Chuyển đến trang '/signin'
+  }
+</script>
+
   </body>
 </html>
+
