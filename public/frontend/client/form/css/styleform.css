@@ -156,6 +156,7 @@ button:hover {
     justify-content: center;
     align-items: center;
     gap: 15px; /* Điều chỉnh khoảng cách giữa icon và text */
+    font-size: 17px;
 }
 
 .google-signin button:hover {

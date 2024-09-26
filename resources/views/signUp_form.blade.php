@@ -52,6 +52,8 @@
           <img src="{{ asset('public/frontend/client/form/img_form/nen_form.jpg') }}" alt="Logo sweetoria form" width="50%" />
           <!-- <h1>Sweetoria</h1> -->
           <form action="#" method="POST" autocomplete="on" validate required>
+          @csrf  <!-- Token bảo mật của Laravel -->
+
             <div class="form-group">
               <label for="username" style="text-align: left">Username</label>
               <input
@@ -87,11 +89,16 @@
 
             <div class="form-group">
               <label for="confirm" style="text-align: left">Confirm</label>
+              <span class="error-message"></span>
               <input
                 type="password"
                 id="confirm"
                 placeholder="Confirm your password"
               />
+            </div>
+
+            <div class="error-signUp error">
+                <!-- username hoặc password không đúng! -->
             </div>
 
             <button type="submit">Sign up</button>
@@ -146,5 +153,8 @@
         </div>
       </footer>
     </div>
+
+     <!-- Link tới file JS -->
+     <script src="{{ asset('public/frontend//js/validation.js') }}"></script>
   </body>
 </html>
