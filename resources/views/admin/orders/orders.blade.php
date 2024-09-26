@@ -36,7 +36,7 @@
                 <i class="fas fa-sticky-note mr-3"></i>
                 Products
             </a>
-            <a href="{{('./orders')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+            <a href="{{('./orders')}}" class="flex items-center active-nav-link text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                 <i class="fas fa-table mr-3"></i>
                 Orders
             </a>
@@ -44,11 +44,11 @@
                 <i class="fas fa-align-left mr-3"></i>
                 Users
             </a>
-            <a href="{{('./deals')}}" class="flex items-center active-nav-link text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+            <a href="{{('./deals')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                 <i class="fas fa-calendar mr-3"></i>
                 Deals
             </a>
-            <a href="{{('./account')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+            <a href="{{('./accounts')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                 <i class="fas fa-tablet-alt mr-3"></i>
                 Account
             </a>
@@ -65,8 +65,9 @@
                 </button>
                 <button x-show="isOpen" @click="isOpen = false" class="h-full w-full fixed inset-0 cursor-default"></button>
                 <div x-show="isOpen" class="absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16">
-                    <a href="#" class="block px-4 py-2 account-link hover:text-black">Account</a>
-                    <a href="#" class="block px-4 py-2 account-link hover:text-black">Sign Out</a>
+                    <main class="w-full flex-grow p-6">
+                        <a href="#" class="block px-4 py-2 account-link hover:text-black">Account</a>
+                        <a href="#" class="block px-4 py-2 account-link hover:text-black">Sign Out</a>
                 </div>
             </div>
         </header>
@@ -91,7 +92,7 @@
                     <i class="fas fa-sticky-note mr-3"></i>
                     Products
                 </a>
-                <a href="{{('./orders')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                <a href="{{('./orders')}}" class="flex items-center active-nav-link text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                     <i class="fas fa-table mr-3"></i>
                     Orders
                 </a>
@@ -103,7 +104,7 @@
                     <i class="fas fa-calendar mr-3"></i>
                     Deals
                 </a>
-                <a href="{{('./account')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                <a href="{{('./accounts')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                     <i class="fas fa-tablet-alt mr-3"></i>
                     Account
                 </a>
@@ -115,21 +116,19 @@
         </header>
 
         <div class="w-full overflow-x-hidden border-t flex flex-col">
-        <main class="w-full flex-grow p-6">
+            <main class="w-full flex-grow p-6">
                 <div class="flex justify-between">
-                    <h1 class="text-3xl text-extrabold pb-6">Products</h1>
+                    <h1 class="text-3xl text-extrabold pb-6">Orders</h1>
 
 
                     <form class="max-w-md" style="width: 500px;">
                         <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                         <div class="relative">
-                            <input type="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search deals" required />
+                            <input type="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search orders" required />
                             <button type="submit" class="text-white absolute top-2 right-2.5 bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-800">Search</button>
                         </div>
                     </form>
-
                 </div>
-
                 <div class="w-full mt-6">
                     <p class="text-xl pb-3 flex items-center justify-between">
                         <!-- Left section: All products -->
@@ -137,28 +136,30 @@
                             <svg class="svg-inline--fa fa-list fa-w-16 mr-3" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="list" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="">
                                 <path fill="currentColor" d="M80 368H16a16 16 0 0 0-16 16v64a16 16 0 0 0 16 16h64a16 16 0 0 0 16-16v-64a16 16 0 0 0-16-16zm0-320H16A16 16 0 0 0 0 64v64a16 16 0 0 0 16 16h64a16 16 0 0 0 16-16V64a16 16 0 0 0-16-16zm0 160H16a16 16 0 0 0-16 16v64a16 16 0 0 0 16 16h64a16 16 0 0 0 16-16v-64a16 16 0 0 0-16-16zm416 176H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0-320H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16V80a16 16 0 0 0-16-16zm0 160H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16z"></path>
                             </svg>
-                            <span>All deals</span>
+                            <span>All orders</span>
                         </span>
-                        <button class="bg-blue-500 text-white py-1 px-4 rounded ml-auto">
-                            <i class="fa-solid fa-circle-plus mr-1"></i>
-                            <span>Deal</span>
-                        </button>
                     </p>
                     <div class="bg-white overflow-auto">
                         <table class="min-w-full bg-white">
                             <thead class="bg-gray-800 text-white">
                                 <tr>
-                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Deal_ID</th>
-                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Deal</th>
-                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Title</th>
+                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Order_ID</th>
+                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Mail</th>
+                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Total</th>
+                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Date</th>
+                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Payment</th>
+                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Status</th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Manage</th>
                                 </tr>
                             </thead>
                             <tbody class="text-gray-700">
                                 <tr>
-                                    <td class="text-center py-3 px-4"><a class="hover:text-blue-500" href="tel:622322662">622322662</a></td>
-                                    <td class="text-center py-3 px-4"><a class="hover:text-blue-500" href="mailto:jonsmith@mail.com">jonsmith@mail.com</a></td>
                                     <td class="text-left py-3 px-4">Lian</td>
+                                    <td class="text-left py-3 px-4"><a class="hover:text-blue-500" href="mailto:jonsmith@mail.com">jonsmith@mail.com</a></td>
+                                    <td class="text-left py-3 px-4"><a class="hover:text-blue-500" href="tel:622322662">622322662</a>
+                                    <td class="text-center py-3 px-4">Lian</td>
+                                    <td class="text-center py-3 px-4">Lian</td>
+                                    <td class="text-center py-3 px-4">Lian</td>
                                     <td class="text-center py-3 px-4">
                                         <button class="bg-green-500 text-white py-1 px-4 rounded">
                                             <i class="fa-solid fa-pen"></i>

@@ -6,34 +6,32 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/signup', function () {
+    return view('signUp_form');
+});
 
-Route::get('/admin/dashboard', function () {
-    return view('admin.dashboard');
+Route::get('/signin', function () {
+    return view('signIn_form');
+});
+Route::get('/forgetpass', function () {
+    return view('forgetPass_form');
+});
+Route::get('/resetpass', function () {
+    return view('resetPass_form');
 });
 
 
-Route::get('/admin/products', function () {
-    return view('admin.components.products');
-});
 
-Route::get('/admin/orders', function () {
-    return view('admin.components.orders');
-});
+Route::get('/admin/dashboard', 'App\Http\Controllers\admin\DashboardController@showDashboard');
 
+Route::get('/admin/products', 'App\Http\Controllers\admin\ProductController@showProductPage');
 
-Route::get('/admin/users', function () {
-    return view('admin.components.users');
-});
+Route::get('/admin/orders', 'App\Http\Controllers\admin\OrderController@showOrderPage');
 
+Route::get('/admin/users', 'App\Http\Controllers\admin\UserController@showUserPage');
 
-Route::get('/admin/deals', function () {
-    return view('admin.components.deals');
-});
+Route::get('/admin/deals', 'App\Http\Controllers\admin\DealController@showDealPage');
 
-Route::get('/admin/account', function () {
-    return view('admin.components.account');
-});
+Route::get('/admin/accounts', 'App\Http\Controllers\admin\AccountController@showAccountPage');
 
-Route::get('/client/SignUp_form', function () {
-    return view('SignUp_form'); // Thay 'home' bằng tên file .blade.php của bạn
-});
+Route::get('/admin/products/create', 'App\Http\Controllers\admin\ProductController@addProductPage');
