@@ -1,7 +1,7 @@
 @extends('admin.layout')
-@section('add-product')
+@section('add-deal')
 <main class="w-full flex-grow p-6">
-    <h1 class="w-full text-3xl text-black pb-6">Create new product</h1>
+    <h1 class="w-full text-3xl text-black pb-6">Create new deal</h1>
 
     <div class="flex flex-wrap">
         <div class="w-full my-6 pr-0 lg:pr-2">
@@ -13,7 +13,7 @@
             <div class="leading-loose">
                 <form class="p-10 bg-white rounded shadow-xl">
                     <div class="">
-                        <label class="block text-xl text-gray-600" for="name">Product name</label>
+                        <label class="block text-xl text-gray-600" for="name">Deal title</label>
                         <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="name" name="name" type="text" required="" placeholder="Enter product's name" aria-label="Name">
                     </div>
                     <div class="mt-2">
