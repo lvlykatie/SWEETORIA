@@ -51,7 +51,7 @@
           <h1>Sign In</h1>
           <img src="{{ asset('public/frontend/client/form/img_form/nen_form.jpg') }}" alt="Logo sweetoria form" width="50%" />
           <!-- <h1>Sweetoria</h1> -->
-          <form action="#" method="POST" autocomplete="on" validate required>
+          <form action="#" method="POST" autocomplete="on" id="signinForm" validate required>
           <div class="form-group">
               <label for="userEmail" style="text-align: left">Email</label>
               <!-- name="user_email" them dong nay vaof input email neu dc-->
@@ -135,5 +135,8 @@
         </div>
       </footer>
     </div>
+
+    <!-- Kết nối file JS ở đây -->
+    <script src="{{ asset('public/frontend/js/validation.js') }}"></script>
   </body>
 </html>

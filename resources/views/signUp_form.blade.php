@@ -51,7 +51,7 @@
           <h1>Sign up</h1>
           <img src="{{ asset('public/frontend/client/form/img_form/nen_form.jpg') }}" alt="Logo sweetoria form" width="50%" />
           <!-- <h1>Sweetoria</h1> -->
-          <form action="#" method="POST" autocomplete="on" validate required>
+          <form action="#" method="POST" autocomplete="on" id="signupForm" validate require>
           @csrf  <!-- Token bảo mật của Laravel -->
 
             <div class="form-group">
