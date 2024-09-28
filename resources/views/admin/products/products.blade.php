@@ -144,7 +144,7 @@
                         </span>
                         <button class="bg-blue-500 text-white py-1 px-4 rounded ml-auto">
                             <i class="fa-solid fa-circle-plus mr-1"></i>
-                            <span>Product</span>
+                            <a href="{{URL::to('admin/products/create')}}">Product</a>
                         </button>
                     </p>
                     <div class="bg-white overflow-auto">
@@ -152,6 +152,7 @@
                             <thead class="bg-gray-800 text-white">
                                 <tr>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Product_ID</th>
+                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Category</th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Product</th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Name</th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">SKU</th>
@@ -162,6 +163,7 @@
                             <tbody class="text-gray-700">
                                 <tr>
                                     <td class="text-center py-3 px-4">Lian</td>
+                                    <td class="text-left py-3 px-4">Smith</td>
                                     <td class="text-left py-3 px-4">Smith</td>
                                     <td class="text-left py-3 px-4"><a class="hover:text-blue-500" href="tel:622322662">622322662</a></td>
                                     <td class="text-left py-3 px-4"><a class="hover:text-blue-500" href="mailto:jonsmith@mail.com">jonsmith@mail.com</a></td>

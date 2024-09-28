@@ -141,7 +141,7 @@
                         </span>
                         <button class="bg-blue-500 text-white py-1 px-4 rounded ml-auto">
                             <i class="fa-solid fa-circle-plus mr-1"></i>
-                            <span>Deal</span>
+                            <a href="{{URL::to('admin/deals/create')}}">Deal</a>
                         </button>
                     </p>
                     <div class="bg-white overflow-auto">
