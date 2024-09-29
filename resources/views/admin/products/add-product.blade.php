@@ -11,10 +11,11 @@
                 </svg><!-- <i class="fas fa-list mr-3"></i> --> Information
             </p>
             <div class="leading-loose">
-                <form class="p-10 bg-white rounded shadow-xl">
+                <form class="p-10 bg-white rounded shadow-xl" role="form" action="{{URL::to('/save')}}" method="post">
+                    {{ csrf_field() }}
                     <div class="">
                         <label class="block text-xl text-gray-600" for="name">Product name</label>
-                        <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="name" name="name" type="text" required="" placeholder="Enter product's name" aria-label="Name">
+                        <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="name" name="product_name" type="text" required="" placeholder="Enter product's name" aria-label="Name">
                     </div>
                     <div class="mt-2">
                         <label class="block text-xl text-gray-600" for="category">Category</label>
@@ -29,7 +30,7 @@
                         <label class="block text-xl text-gray-600" for="sku">SKU</label>
                         <input class="w-full px-5 py-2 text-gray-700 bg-gray-200 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             id="sku"
-                            name="sku"
+                            name="product_sku"
                             type="number"
                             required
                             placeholder="Enter SKU"
@@ -39,7 +40,7 @@
                         <label class="block text-xl text-gray-600" for="price">Price</label>
                         <input class="w-full pl-16 pr-5 py-2 text-gray-700 bg-gray-200 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             id="price"
-                            name="price"
+                            name="product_price"
                             type="number"
                             step="1000"
                             min="1000"
@@ -47,6 +48,10 @@
                             placeholder="1000"
                             aria-label="Price">
                         <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">₫</span>
+                    </div>
+                    <div class="mt-2 relative">
+                        <label class="block text-xl text-gray-600" for="name">Describe</label>
+                        <textarea class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="name" name="product_desc" type="text" required="" placeholder="Enter product's describe" aria-label="Name"></textarea> 
                     </div>
                     <div class="mt-2 relative">
                         <label class="block text-xl text-gray-600">Image</label>
@@ -70,7 +75,7 @@
                             <img style="display:none" class="h-52" src="#"
                                 alt="img preview" id="imgPreview">
                         </div>
-                        <div class="mt-6">
+                        <div class="mt-6 flex justify-center">
                             <button class="px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded" type="submit">Submit</button>
                         </div>
                 </form>

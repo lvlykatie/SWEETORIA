@@ -157,6 +157,7 @@
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Name</th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">SKU</th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Price</th>
+                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Describe</th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Manage</th>
                                 </tr>
                             </thead>
@@ -168,6 +169,7 @@
                                     <td class="text-left py-3 px-4"><a class="hover:text-blue-500" href="tel:622322662">622322662</a></td>
                                     <td class="text-left py-3 px-4"><a class="hover:text-blue-500" href="mailto:jonsmith@mail.com">jonsmith@mail.com</a></td>
                                     <td class="text-center py-3 px-4">Lian</td>
+                                    <td class="text-left py-3 px-4">Smith</td>
                                     <td class="text-center py-3 px-4">
                                         <button class="bg-green-500 text-white py-1 px-4 rounded">
                                             <i class="fa-solid fa-pen"></i>
