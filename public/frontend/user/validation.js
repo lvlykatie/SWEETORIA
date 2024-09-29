@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Hàm kiểm tra thông tin cho form đăng nhập
     function validateSigninForm(signinForm) {
         let isValid = true;
-        const email = signinForm.querySelector("#userEmail").value;
+        const email = signinForm.querySelector("#userEmail").value; // #userEmail: id
         const password = signinForm.querySelector("#password").value;
         const errorMessages = [];
 
@@ -98,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("remember") &&
                 document.getElementById("remember").checked
             ) {
-                localStorage.setItem("email", email);
+                localStorage.setItem("email", email); // "email" là tên tự đặt trong localStorage, còn email là tên biến const đặt ở đầu
                 localStorage.setItem("password", password);
             } else {
                 localStorage.removeItem("email");

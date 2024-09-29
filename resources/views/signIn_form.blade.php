@@ -48,27 +48,29 @@
 
       <div class="form-container">
         <div class="form-box">
+
           <h1>Sign In</h1>
           <img src="{{ asset('public/frontend/client/form/img_form/nen_form.jpg') }}" alt="Logo sweetoria form" width="50%" />
-          <!-- <h1>Sweetoria</h1> -->
-          <form action="#" method="POST" autocomplete="on" id="signinForm" validate required>
+
+          <form action="{{ url('/signin') }}" method="POST" autocomplete="on" id="signinForm" validate required>
+            @csrf
           <div class="form-group">
               <label for="userEmail" style="text-align: left">Email</label>
-              <!-- name="user_email" them dong nay vaof input email neu dc-->
               <input
                 type="email"
                 id="userEmail"
+                name="userEmail"
                 placeholder="Enter your Email"
               />
             </div>
 
             <div class="form-group">
               <label for="password" style="text-align: left">Password</label>
-              <input type="password" id="password" placeholder="********" />
+              <input type="password" id="password" name="password" placeholder="********" />
             </div>
             <div class="remem-pass">
               <div class="remember">
-                <input type="checkbox" id="remember" />
+                <input type="checkbox" id="remember" name="remember"/>
                 <label for="remember" style="text-align: auto">Remember</label>
               </div>
 
@@ -78,10 +80,10 @@
             </div>
 
 
-            <button type="submit">Sign in</button>
+            <button type="submit" id="bt_signin">Sign in</button>
 
             <div class="google-signin">
-              <button type="button">
+              <button type="button" id="bt_signin_gg">
                 <i class="fa-brands fa-google fa-lg"></i> Sign in with Google
               </button>
             </div>
