@@ -50,7 +50,7 @@
         <div class="form-box">
           <h1>Forget Pass</h1>
           <img src="{{ asset('public/frontend/client/form/img_form/nen_form.jpg') }}" alt="Logo sweetoria form" width="50%" />
-          <form action="#" method="POST" autocomplete="on" validate required>
+          <form action="#" method="POST" autocomplete="on" id="forgetpassForm" validate required>
             <div class="form-group">
               <label for="userEmail" style="text-align: left">Email</label>
               <!-- name="user_email" them dong nay vaof input email neu dc-->
@@ -114,6 +114,8 @@
     window.location.href = "{{ url('/signin') }}"; // Chuyển đến trang '/signin'
   }
 </script>
+<!-- Kết nối file JS ở đây -->
+<script src="{{ asset('public/frontend/js/validation.js') }}"></script>
 
   </body>
 </html>

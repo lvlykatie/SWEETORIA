@@ -50,13 +50,39 @@
         <div class="form-box">
           <h1>Sign up</h1>
           <img src="{{ asset('public/frontend/client/form/img_form/nen_form.jpg') }}" alt="Logo sweetoria form" width="50%" />
-          <!-- <h1>Sweetoria</h1> -->
-          <form action="#" method="POST" autocomplete="on" validate required>
+
+           <!-- Thêm mã hiển thị thông báo lỗi -->
+           @if ($errors->any())
+                    <div class="alert">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                <br>
+                
+                <!-- thêm mã thông báo thành công -->
+                @if (session('success'))
+                     <div class="alert alert-success">
+                       {{ session('success') }}
+                     </div>
+                @endif
+
+
+                
+          
+
+          <form action="{{ url('/signup') }}" method="POST" autocomplete="on" id="signupForm" validate require>
+          @csrf  <!-- Token bảo mật của Laravel -->
+
             <div class="form-group">
               <label for="username" style="text-align: left">Username</label>
               <input
                 type="text"
                 id="username"
+                name="username"
                 placeholder="Enter your username"
               />
             </div>
@@ -67,6 +93,7 @@
               <input
                 type="email"
                 id="userEmail"
+                name="userEmail"
                 placeholder="Enter your Email"
               />
             </div>
@@ -76,22 +103,30 @@
               <input
                 type="text"
                 id="phonenum"
+                name="phonenum"
                 placeholder="Enter your phone number"
               />
             </div>
 
             <div class="form-group">
               <label for="password" style="text-align: left">Password</label>
-              <input type="password" id="password" placeholder="********" />
+              <input type="password" id="password" name="password" placeholder="********" />
             </div>
 
             <div class="form-group">
               <label for="confirm" style="text-align: left">Confirm</label>
+              <span class="error-message"></span>
+              <!-- Sử dụng tên chuẩn cho xác nhận mật khẩu password_confirmation -->
               <input
                 type="password"
-                id="confirm"
+                id="confirm pass"
+                name="password_confirmation"    
                 placeholder="Confirm your password"
               />
+            </div>
+
+            <div class="error-signUp error">
+                <!-- username hoặc password không đúng! -->
             </div>
 
             <button type="submit">Sign up</button>
@@ -146,5 +181,8 @@
         </div>
       </footer>
     </div>
+
+     <!-- Link tới file JS -->
+     <script src="{{ asset('public/frontend//js/validation.js') }}"></script>
   </body>
 </html>

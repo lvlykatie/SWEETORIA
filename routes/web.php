@@ -13,9 +13,22 @@ Route::get('/signup', function () {
 Route::get('/signin', function () {
     return view('signIn_form');
 });
+
+// Route xử lý đăng nhập (POST)
+// Route::post('/signin', 'App\Http\Controllers\client\UserAuthController@login');
+
+// Route xử lý yêu cầu đăng nhập (POST)
+Route::post('/signin', 'App\Http\Controllers\client\loginController@signIn');
+
+// Route xử lý yêu cầu đăng kí (POST)
+Route::post('/signup', 'App\Http\Controllers\client\registerController@register');
+
+
 Route::get('/forgetpass', function () {
     return view('forgetPass_form');
 });
+//Route::post('/check-email', 'App\Http\Controllers\client\UserAuthController@checkEmail');
+
 Route::get('/resetpass', function () {
     return view('resetPass_form');
 });
