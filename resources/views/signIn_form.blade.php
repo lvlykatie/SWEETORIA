@@ -52,6 +52,18 @@
           <h1>Sign In</h1>
           <img src="{{ asset('public/frontend/client/form/img_form/nen_form.jpg') }}" alt="Logo sweetoria form" width="50%" />
 
+          <!-- Thêm mã hiển thị thông báo lỗi -->
+          @if ($errors->any())
+                    <div class="alert">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                <br>
+
           <form action="{{ url('/signin') }}" method="POST" autocomplete="on" id="signinForm" validate required>
             @csrf
           <div class="form-group">
