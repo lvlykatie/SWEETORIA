@@ -11,8 +11,8 @@
     <!-- Tailwind -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('public/frontend/admin/css/dashboard-styles.css')}}">
-    <script src="{{asset ('public/frontend/admin/js/dashboard-scripts.js')}}"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 
 </head>
@@ -162,23 +162,27 @@
                                 </tr>
                             </thead>
                             <tbody class="text-gray-700">
+                                @foreach($all_products as $product)
                                 <tr>
-                                    <td class="text-center py-3 px-4">Lian</td>
-                                    <td class="text-left py-3 px-4">Smith</td>
-                                    <td class="text-left py-3 px-4">Smith</td>
-                                    <td class="text-left py-3 px-4"><a class="hover:text-blue-500" href="tel:622322662">622322662</a></td>
-                                    <td class="text-left py-3 px-4"><a class="hover:text-blue-500" href="mailto:jonsmith@mail.com">jonsmith@mail.com</a></td>
-                                    <td class="text-center py-3 px-4">Lian</td>
-                                    <td class="text-left py-3 px-4">Smith</td>
+                                    <td class="text-center py-3 px-4">{{ $product->product_id }}</td>
+                                    <td class="text-left py-3 px-4">{{ $product->category_name }}</td>
+                                    <td class="text-left py-3 px-4">
+                                        <img src="{{ asset('backend/image/'.$product->product_image) }}" width="40px" height="40px" alt="">
+                                    </td>
+                                    <td class="text-left py-3 px-4">{{ $product->product_name }}</td>
+                                    <td class="text-left py-3 px-4">{{ $product->product_sku }}</td>
+                                    <td class="text-center py-3 px-4">{{ number_format($product->product_price, 0, ',', '.') }} VND</td>
+                                    <td class="text-left py-3 px-4">{{ Str::limit($product->product_desc, 50) }}</td>
                                     <td class="text-center py-3 px-4">
-                                        <button class="bg-green-500 text-white py-1 px-4 rounded">
+                                        <button class="bg-green-500 text-white py-1 px-4 rounded hover:bg-green-600">
                                             <i class="fa-solid fa-pen"></i>
                                         </button>
-                                        <button class="bg-red-500 text-white py-1 px-4 rounded">
+                                        <button class="bg-red-500 text-white py-1 px-4 rounded hover:bg-red-600">
                                             <i class="fa-solid fa-trash"></i>
                                         </button>
                                     </td>
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

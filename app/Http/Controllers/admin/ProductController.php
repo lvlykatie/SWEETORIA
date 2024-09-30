@@ -14,7 +14,8 @@ session_start();
 class ProductController extends Controller
 {
     public function showProductPage(){
-        return view ('admin.products.products');
+        $all_products = DB::table('tbl_product')->get();
+        return view('admin.products.products')->with('all_products', $all_products);
     }
     public function addProductPage(){
         return view ('admin.products.add-product');
@@ -30,6 +31,6 @@ class ProductController extends Controller
 
         DB::table('tbl_product')->insert($data);
         Session::put('message','Successfully create new product');
-        return Redirect::to('add-product');
+        return Redirect::to('admin/products');
     }
 }
