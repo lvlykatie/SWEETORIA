@@ -1,10 +1,30 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\AccountController;
 
-Route::get('/', function () {
-    return view('welcome');
+// Homepage Route
+Route::get('/', [PageController::class, 'homepage'])->name('homepage');
+
+// Product Routes
+Route::prefix('product')->group(function () {
+    Route::get('/', [ProductController::class, 'index'])->name('product');
+    Route::get('/{id}/detail', [ProductController::class, 'detail'])->name('detail');
+    Route::get('/hotdeals', [ProductController::class, 'hotdeals'])->name('hotdeals');
 });
+
+// Account Routes
+Route::prefix('account')->group(function () {
+    Route::get('/', [AccountController::class, 'index'])->name('account');
+    Route::get('/orders', [AccountController::class, 'orders'])->name('orders');
+    Route::get('/changepw', [AccountController::class, 'changePassword'])->name('changepw');
+});
+
+// Cart Route
+Route::get('/cart', [PageController::class, 'cart'])->name('cart');
+
 
 Route::get('/signup', function () {
     return view('signUp_form');
