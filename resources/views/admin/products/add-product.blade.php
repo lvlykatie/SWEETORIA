@@ -3,6 +3,17 @@
 <main class="w-full flex-grow p-6">
     <h1 class="w-full text-3xl text-black pb-6">Create new product</h1>
 
+    <div class='panel-body'>
+        <?php
+        $message = Session::get('message');
+        if ($message) {
+            echo '<span class="text-green-600">' . $message . '</span>';
+            Session::put('message', null);
+        }
+        ?>
+    </div>
+
+
     <div class="flex flex-wrap">
         <div class="w-full my-6 pr-0 lg:pr-2">
             <p class="text-xl pb-6 flex items-center">
@@ -11,7 +22,7 @@
                 </svg><!-- <i class="fas fa-list mr-3"></i> --> Information
             </p>
             <div class="leading-loose">
-                <form class="p-10 bg-white rounded shadow-xl" role="form" action="{{URL::to('/save')}}" method="post">
+                <form class="p-10 bg-white rounded shadow-xl" role="form" action="{{URL::to('admin/products/save')}}" method="post">
                     {{ csrf_field() }}
                     <div class="">
                         <label class="block text-xl text-gray-600" for="name">Product name</label>
@@ -51,7 +62,7 @@
                     </div>
                     <div class="mt-2 relative">
                         <label class="block text-xl text-gray-600" for="name">Describe</label>
-                        <textarea class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="name" name="product_desc" type="text" required="" placeholder="Enter product's describe" aria-label="Name"></textarea> 
+                        <textarea class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="name" name="product_desc" type="text" required="" placeholder="Enter product's describe" aria-label="Name"></textarea>
                     </div>
                     <div class="mt-2 relative">
                         <label class="block text-xl text-gray-600">Image</label>

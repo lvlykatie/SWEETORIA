@@ -18,8 +18,8 @@ return new class extends Migration
             $table->longText('product_desc');
             $table->longText('product_image');
             $table->integer('product_sku');
-            $table->integer('product_quantity');
-            $table->string('product_fact');
+            $table->integer('product_quantity')->default(0);
+            $table->string('product_fact')->default('N/A');
             $table->string('category_name');
             $table->enum('status', ['show', 'hide'])->default('show');
             $table->timestamps();
