@@ -8,7 +8,7 @@
         </div>
         <div class="d-flex justify-around">
             <div class="col-md-4 d-flex flex-column align-items-center">
-                <img src="{{ asset('frontend/client/page/image/bestsell.png') }}" width="299" alt="Whipping Cream Anchor" />
+                <img src="{{ asset('public/frontend/client/page/image/bestsell.png') }}" width="299" alt="Whipping Cream Anchor" />
                 <div class="item-name text-3xl text-center font-extrabold">
                     Whipping cream Anchor
                 </div>

@@ -96,7 +96,7 @@
         </div>
         <div class="col-3">
             <div class="row flex justify-end pr-6">
-                <img class=" h-52 w-52 " src="{{ asset('frontend/admin/images/logo.png') }}" alt="Logo">
+                <img class=" h-52 w-52 " src="{{ asset('public/frontend/admin/images/logo.png') }}" alt="Logo">
             </div>
 
         </div>
@@ -108,7 +108,7 @@
                     đổi lần thứ 1 ngày 9/2/2017.</span>
             </div>
             <div class="col-3">
-                <img width="115" height="50" src="{{ asset('frontend/client/page/image/bct.png') }}"
+                <img width="115" height="50" src="{{ asset('public/frontend/client/page/image/bct.png') }}"
                     alt="Ten">
             </div>
             <div class="col-4">

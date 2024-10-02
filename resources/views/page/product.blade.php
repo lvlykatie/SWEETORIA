@@ -4,7 +4,7 @@
 @section('content')
     <div id="product">
         <div class="search-bg relative flex items-center justify-center"
-            style="background-image: url('{{ asset('frontend/client/page/image/homepagebg.png') }}');
+            style="background-image: url('{{ asset('public/frontend/client/page/image/homepagebg.png') }}');
         background-size: cover; background-position: center; height: 450px;">
         </div>
         <div class="filter w-full p-6 bg-white shadow-md rounded-md">
@@ -63,7 +63,7 @@
         <div class="product-list">
             <div class="row">
                 <div class="col-md-4 d-flex flex-column align-items-center">
-                    <img src="{{ asset('frontend/client/page/image/bestsell.png') }}" width="299" />
+                    <img src="{{ asset('public/frontend/client/page/image/bestsell.png') }}" width="299" />
                     <div class="item-name text-3xl text-center font-extrabold">
                         Whipping cream Anchor
                     </div>
@@ -80,7 +80,7 @@
                     </div>
                 </div>
                 <div class="col-md-4 flex flex-column align-items-center">
-                    <img src="{{ asset('frontend/client/page/image/bestsell.png') }}" width="299" />
+                    <img src="{{ asset('public/frontend/client/page/image/bestsell.png') }}" width="299" />
                     <div class="item-name text-3xl text-center font-extrabold">
                         Whipping cream Anchor
                     </div>
@@ -97,7 +97,7 @@
                     </div>
                 </div>
                 <div class="col-md-4 d-flex flex-column align-items-center">
-                    <img src="{{ asset('frontend/client/page/image/bestsell.png') }}" width="299" />
+                    <img src="{{ asset('public/frontend/client/page/image/bestsell.png') }}" width="299" />
                     <div class="item-name text-3xl text-center font-extrabold">
                         Whipping cream Anchor
                     </div>

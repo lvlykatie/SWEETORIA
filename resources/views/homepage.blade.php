@@ -5,7 +5,7 @@
 @section('content')
     <div class="">
         <div class="search-bg relative flex items-center justify-center"
-            style="background-image: url('{{ asset('frontend/client/page/image/homepagebg.png') }}');
+            style="background-image: url('{{ asset('public/frontend/client/page/image/homepagebg.png') }}');
         background-size: cover; background-position: center; height: 450px;">
             <div class="flex justify-center absolute bottom-20">
                 <!-- Dropdown Location -->
@@ -45,13 +45,13 @@
             <div class="text-center font-black text-6xl py-12">Hot Deals</div>
             <div class="hotdeal-images row gap-32 px-6 py-16">
                 <div class="col ">
-                    <img class=" w-full" src="{{ asset('frontend/client/page/image/Deal_1.png') }}" alt="Hot Deal 1">
+                    <img class=" w-full" src="{{ asset('public/frontend/client/page/image/Deal_1.png') }}" alt="Hot Deal 1">
                 </div>
                 <div class="col ">
-                    <img class="w-full" src="{{ asset('frontend/client/page/image/Deal_2.png') }}" alt="Hot Deal 2">
+                    <img class="w-full" src="{{ asset('public/frontend/client/page/image/Deal_2.png') }}" alt="Hot Deal 2">
                 </div>
                 <div class="col ">
-                    <img class="w-full" src="{{ asset('frontend/client/page/image/Deal_3.png') }}" alt="Hot Deal 3">
+                    <img class="w-full" src="{{ asset('public/frontend/client/page/image/Deal_3.png') }}" alt="Hot Deal 3">
                 </div>
 
             </div>
@@ -65,14 +65,14 @@
                 <div class="row mt-10">
                     <div class="col-6 flex flex-col justify-center">
                         <div class="flex justify-center">
-                            <img src="{{ asset('frontend/client/page/image/category1.png') }}" width="auto"
+                            <img src="{{ asset('public/frontend/client/page/image/category1.png') }}" width="auto"
                                 alt="Baking ingredients">
                         </div>
                         <div class=" text-center text-5xl py-6 font-extrabold"> Baking ingredientss</div>
                     </div>
                     <div class="col-6 flex flex-col justify-center">
                         <div class="flex justify-center">
-                            <img src="{{ asset('frontend/client/page/image/category1.png') }}" width="auto"
+                            <img src="{{ asset('public/frontend/client/page/image/category1.png') }}" width="auto"
                                 alt="Baking ingredients">
                         </div>
                         <div class=" text-center text-5xl py-6 font-extrabold"> Baking ingredientss</div>
@@ -81,14 +81,14 @@
                 <div class="row mt-10">
                     <div class="col-6 flex flex-col justify-center">
                         <div class="flex justify-center">
-                            <img src="{{ asset('frontend/client/page/image/category1.png') }}" width="auto"
+                            <img src="{{ asset('public/frontend/client/page/image/category1.png') }}" width="auto"
                                 alt="Baking ingredients">
                         </div>
                         <div class="text-center text-5xl py-6 font-extrabold"> Baking ingredientss</div>
                     </div>
                     <div class="col-6 flex flex-col justify-center">
                         <div class="flex justify-center">
-                            <img src="{{ asset('frontend/client/page/image/category1.png') }}" width="auto"
+                            <img src="{{ asset('public/frontend/client/page/image/category1.png') }}" width="auto"
                                 alt="Baking ingredients">
                         </div>
                         <div class=" text-center text-5xl py-6 font-extrabold"> Baking ingredients</div>
@@ -104,7 +104,7 @@
             <div class="best-seller_items my-16 rounded-3xl" style="background-color: #FCC">
                 <div class="row py-16 justify-content-between">
                     <div class="col-md-3 d-flex flex-column align-items-center">
-                        <img src="{{ asset('frontend/client/page/image/bestsell.png') }}" width="299" />
+                        <img src="{{ asset('public/frontend/client/page/image/bestsell.png') }}" width="299" />
                         <div class="item-name text-3xl text-center font-extrabold">
                             Whipping cream Anchor
                         </div>
@@ -121,7 +121,7 @@
                         </div>
                     </div>
                     <div class="col-md-3 d-flex flex-column align-items-center">
-                        <img src="{{ asset('frontend/client/page/image/bestsell.png') }}" width="299" />
+                        <img src="{{ asset('public/frontend/client/page/image/bestsell.png') }}" width="299" />
                         <div class="item-name text-3xl text-center font-extrabold">
                             Whipping cream Anchor
                         </div>
@@ -138,7 +138,7 @@
                         </div>
                     </div>
                     <div class="col-md-3 d-flex flex-column align-items-center">
-                        <img src="{{ asset('frontend/client/page/image/bestsell.png') }}" width="299" />
+                        <img src="{{ asset('public/frontend/client/page/image/bestsell.png') }}" width="299" />
                         <div class="item-name text-3xl text-center font-extrabold">
                             Whipping cream Anchor
                         </div>
@@ -155,7 +155,7 @@
                         </div>
                     </div>
                     <div class="col-md-3 d-flex flex-column align-items-center">
-                        <img src="{{ asset('frontend/client/page/image/bestsell.png') }}" width="299" />
+                        <img src="{{ asset('public/frontend/client/page/image/bestsell.png') }}" width="299" />
                         <div class="item-name text-3xl text-center font-extrabold">
                             Whipping cream Anchor
                         </div>

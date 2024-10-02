@@ -31,6 +31,6 @@ class ProductController extends Controller
 
         DB::table('tbl_product')->insert($data);
         Session::put('message','Successfully create new product');
-        return Redirect::to('admin/products');
+        return Redirect::to('admin/products/create');
     }
 }

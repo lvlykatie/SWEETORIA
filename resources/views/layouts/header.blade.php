@@ -1,6 +1,6 @@
 <header class="flex justify-around">
     <div class="logo flex items-center">
-        <img class="h-24 w-24 pr-4" src="{{ asset('frontend/admin/images/logo.png') }}" alt="Logo">
+        <img class="h-24 w-24 pr-4" src="{{ asset('public/frontend/admin/images/logo.png') }}" alt="Logo">
         <div class="title font-medium italic">SWEETORIA</div>
     </div>
     <nav class="px-40 flex">
