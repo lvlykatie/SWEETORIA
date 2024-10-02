@@ -44,14 +44,14 @@
         <div class="hot-deal my-16 mx-16 rounded-3xl" style="background-color: #FFFDD0;">
             <div class="text-center font-black text-6xl py-12">Hot Deals</div>
             <div class="hotdeal-images row gap-32 px-6 py-16">
-                <div class="col ">
-                    <img class=" w-full" src="{{ asset('frontend/client/page/image/Deal_1.png') }}" alt="Hot Deal 1">
+               <div class="col-md ">
+                    <img class="" src="{{ asset('frontend/client/page/image/Deal_1.png') }}" alt="Hot Deal 1">
                 </div>
-                <div class="col ">
-                    <img class="w-full" src="{{ asset('frontend/client/page/image/Deal_2.png') }}" alt="Hot Deal 2">
+                <div class="col-md ">
+                    <img class="" src="{{ asset('frontend/client/page/image/Deal_2.png') }}" alt="Hot Deal 2">
                 </div>
-                <div class="col ">
-                    <img class="w-full" src="{{ asset('frontend/client/page/image/Deal_3.png') }}" alt="Hot Deal 3">
+                <div class="col-md ">
+                    <img class="" src="{{ asset('frontend/client/page/image/Deal_3.png') }}" alt="Hot Deal 3">
                 </div>
 
             </div>
