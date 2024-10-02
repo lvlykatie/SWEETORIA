@@ -47,10 +47,10 @@
                <div class="col-md ">
                     <img class="" src="{{ asset('public/frontend/client/page/image/Deal_1.png') }}" alt="Hot Deal 1">
                 </div>
-                <div class="col ">
+                <div class="col-md ">
                     <img class="w-full" src="{{ asset('public/frontend/client/page/image/Deal_2.png') }}" alt="Hot Deal 2">
                 </div>
-                <div class="col ">
+                <div class="col-md ">
                     <img class="w-full" src="{{ asset('public/frontend/client/page/image/Deal_3.png') }}" alt="Hot Deal 3">
                 </div>
 
