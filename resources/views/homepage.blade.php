@@ -32,7 +32,7 @@
                 <!-- Search Form -->
                 <form class="relative flex items-center" action="" method="get">
                     <input style="height: 52px; width: 643px; border-radius:20px; font-size:16px; line-heigh: 24px"
-                        type="text" class="text-center" placeholder="What you want to buy?" />
+                        type="text" class="text-center" placeholder="What do you want to buy?" />
                     <button type="submit" class="absolute right-4 w-6 h-6">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </button>
