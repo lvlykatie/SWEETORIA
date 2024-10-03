@@ -5,3 +5,7 @@
         .active-nav-link { background: #D5A759; }
         .nav-item:hover { background: #D5A759; }
         .account-link:hover { background: #FFFDD0; }
+
+.loginbox{
+        z-index: 9999;
+}
