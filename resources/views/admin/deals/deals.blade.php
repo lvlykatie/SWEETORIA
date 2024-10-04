@@ -151,6 +151,7 @@
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Deal_ID</th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Deal</th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Title</th>
+                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Describe</th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Manage</th>
                                 </tr>
                             </thead>

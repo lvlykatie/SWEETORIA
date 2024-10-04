@@ -134,6 +134,51 @@
             });
         }
     }
+
+    function addProducts() {
+        const container = document.getElementById('product-list');
+        const newProductBlock = document.createElement('div');
+        newProductBlock.classList.add('product-block', 'flex', 'flex-col', 'mb-4');
+
+        newProductBlock.innerHTML = `
+        <div class="mt-2 flex items-center space-x-3" id ="product-block">
+        <div class="flex-grow">
+            <label class="block text-sm text-gray-600" for="product-name">Product Name</label>
+            <input class="w-full px-5 py-2 text-gray-700 bg-gray-200 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                id="product-name"
+                name="product-name[]"
+                type="text"
+                required
+                placeholder="Enter product name"
+                aria-label="Product Name">
+        </div>
+
+        <div class="flex-grow relative">
+            <label class="block text-sm text-gray-600" for="price">Price</label>
+             <input class="w-full pl-16 pr-5 py-2 text-gray-700 bg-gray-200 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                id="price"
+                name="price[]"
+                type="number"
+                step="0.01"
+                min="1000"
+                required
+                placeholder="1000"
+                aria-label="Price">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">₫</span>
+        </div>
+
+        <button type="button" class="mt-6 text-red-500 hover:text-red-700" onclick="removeProduct(this)">
+            <i class="fa-solid fa-trash"></i>
+        </button>
+        </div>
+    `;
+
+        container.appendChild(newProductBlock);
+    }
+    function removeProduct(button) {
+            const productBlock = button.closest('.product-block'); // Lấy khối sản phẩm chứa nút bấm
+            productBlock.remove(); // Xóa khối sản phẩm
+    }
 </script>
 
 </html>
