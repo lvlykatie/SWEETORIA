@@ -3,12 +3,10 @@
 
 <head>
     <title>@yield('title')</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Iceland&display=swap');
@@ -29,17 +27,12 @@
 
         header {
             background-color: #FFFDD0;
-            padding: 0 30px;
+            /* padding: 0 30px; */
             text-align: center;
             position: fixed;
-            margin: 0 90px;
+            /* margin: 0 90px; */
         }
 
-        footer {
-            background-color: #FFFDD0;
-            padding: 0 30px;
-            text-align: center;
-        }
 
         header {
             top: 0;
@@ -49,7 +42,7 @@
         }
 
         body {
-            padding: 20px 90px;
+            padding: 20px 0;
             /* background-color: #FFFDD0; */
         }
 
@@ -102,11 +95,19 @@
 
         .acc-input {
             font-family: "Jomhuria", serif;
-            font-size: 5rem;
+            font-size: 3rem;
             height: 5rem;
-            /* Adjust the height as needed */
             line-height: 5rem;
-            /* Match the line-height to the height */
+        }
+
+        @media(min-width: 768px) {
+            .md-acc-input {
+                font-family: "Jomhuria", serif;
+                font-size: 4.5rem;
+                height: 5rem;
+                line-height: 5rem;
+
+            }
         }
 
         .font-jomhuria {
@@ -116,7 +117,7 @@
         .acc-input::placeholder {
             color: #D5A759;
             font-family: "Jomhuria", serif;
-            font-size: 5rem;
+            font-size: 3rem;
             font-weight: 400;
             line-height: 5rem;
             /* Match the line-height to the height */
@@ -131,9 +132,11 @@
             color: #D5A759;
         }
 
-        .ten-san-pham {
-            font-size: 45px;
-            line-height: 32px;
+        @media (min-width: 768px) {
+            .ten-san-pham {
+                font-size: 45px;
+                line-height: 32px;
+            }
         }
 
         .bg-product {
@@ -144,6 +147,26 @@
             background-color: #ccb7b7;
             cursor: pointer;
         }
+
+        .content {
+            margin-top: 40px;
+        }
+
+        .font-16 {
+            font-size: 16px;
+        }
+
+        @media (min-width: 768px) {
+            .md-h-450 {
+                height: 450px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .md-w-643 {
+                width: 643px;
+            }
+        }
     </style>
 </head>
 
@@ -153,12 +176,24 @@
     @include('layouts.header')
 
     <!-- Nội dung chính -->
-    <div class="content contain-content">
+    <div class="content contain-content container-fluid">
         @yield('content')
     </div>
 
     <!-- Include footer -->
     @include('layouts.footer')
 </body>
+<script>
+    function toggleDropdown() {
+        var dropdown = document.getElementById('dropdown');
+        dropdown.classList.toggle('hidden');
+    }
+
+    function toggleMenu() {
+        var navDemo = document.getElementById('navDemo');
+        navDemo.classList.toggle('hidden');
+    }
+</script>
+
 
 </html>
