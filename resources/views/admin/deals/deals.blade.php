@@ -107,7 +107,7 @@
                     <i class="fas fa-tablet-alt mr-3"></i>
                     Account
                 </a>
- 
+
             </nav>
             <!-- <button class="w-full bg-white cta-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
                 <i class="fas fa-plus mr-3"></i> New Report
@@ -115,7 +115,7 @@
         </header>
 
         <div class="w-full overflow-x-hidden border-t flex flex-col">
-        <main class="w-full flex-grow p-6">
+            <main class="w-full flex-grow p-6">
                 <div class="flex justify-between">
                     <h1 class="text-3xl text-extrabold pb-6">Deals</h1>
 
@@ -156,19 +156,23 @@
                                 </tr>
                             </thead>
                             <tbody class="text-gray-700">
-                                <tr>
-                                    <td class="text-center py-3 px-4"><a class="hover:text-blue-500" href="tel:622322662">622322662</a></td>
-                                    <td class="text-center py-3 px-4"><a class="hover:text-blue-500" href="mailto:jonsmith@mail.com">jonsmith@mail.com</a></td>
-                                    <td class="text-left py-3 px-4">Lian</td>
-                                    <td class="text-center py-3 px-4">
-                                        <button class="bg-green-500 text-white py-1 px-4 rounded">
-                                            <i class="fa-solid fa-pen"></i>
-                                        </button>
-                                        <button class="bg-red-500 text-white py-1 px-4 rounded">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </button>
-                                    </td>
+                                @foreach($all_deals as $deal)
+                                <td class="text-center py-3">{{ $deal->deal_id }}</td>
+                                <td class="text-center py-3">{{ $deal->deal_name }}</td>
+                                <td class="text-center py-3 mx-auto">
+                                    <img src="{{ asset('public/backend/image/'.$deal->deal_image) }}" class="mx-auto" width="100px" height="100px" alt="">
+                                </td>
+                                <td class="text-center py-3 px-4">{{ $deal->deal_desc }}</td>
+                                <td class="text-center py-3 px-1">
+                                    <button class="bg-green-500 text-white py-1 px-4 rounded hover:bg-green-600">
+                                        <i class="fa-solid fa-pen"></i>
+                                    </button>
+                                    <button class="bg-red-500 text-white py-1 px-4 rounded hover:bg-red-600">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </td>
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

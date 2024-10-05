@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 
 session_start();
-
+ 
 class ProductController extends Controller
 {
     public function showProductPage()
@@ -37,13 +37,13 @@ class ProductController extends Controller
             $get_image->move('public/backend/image', $new_image);
             $data['product_image'] = ($new_image);
             DB::table('tbl_product')->insert($data);
-            Session::put('message', 'Thêm sản phẩm thành công.');
-            return Redirect::to('admin/products');
+            Session::put('message', 'Create successfully.');
+            return Redirect::to('admin/products/create');
         } else {
             $data['product_image'] = '';
             DB::table('tbl_product')->insert($data);
-            Session::put('message', 'Thêm sản phẩm thành công.');
-            return Redirect::to('admin/products');
+            Session::put('message', 'Create successfully.');
+            return Redirect::to('admin/products/create');
         }
     }
 }

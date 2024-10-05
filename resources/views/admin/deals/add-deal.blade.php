@@ -110,3 +110,5 @@
     </div>
 </main>
 @endsection
+
+    <!--Sửa id, name từ product về deal, đổi dòng tên product thành thanh tìm kiếm kèm combo box-->
