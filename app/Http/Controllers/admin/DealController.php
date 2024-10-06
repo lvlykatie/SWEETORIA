@@ -24,50 +24,54 @@ class DealController extends Controller
     }
     public function saveDeal(Request $request)
     {
-        $data = array();
-        $data['deal_name'] = $request->deal_name;
-        $data['deal_desc'] = $request->deal_desc;
-        $data['deal_price'] = $request->deal_price;
-        $data['product_name'] = $request->input('product_name');
-
+        $product_names = $request->input('product_name', []);
         $get_image = $request->file('deal_image');
         if ($get_image) {
             $new_image = $get_image->getClientOriginalName();
             $get_image->move('public/backend/image', $new_image);
+        } else {
+            $new_image = ''; // If no image is uploaded
+        }
+        
+
+        foreach ($product_names as $product_name) {
+            $data = array();
+            $data['deal_name'] = $request->deal_name;
+            $data['deal_desc'] = $request->deal_desc;
+            $data['deal_price'] = $request->deal_price;
+            $data['product_name'] = $product_name;
             $data['deal_image'] = $new_image;
-        } else {
-            $data['deal_image'] = ''; // If no image is uploaded
-        }
-
-        // Insert the deal into the database
-        $deal_id = DB::table('tbl_deal')->insertGetId($data);
-
-        if ($deal_id) {
-            // Check if the product exists before updating
-            $product = DB::table('tbl_product')
-                ->where('product_name', $request->product_name)
-                ->first();
-
-            if ($product) {
-                // Store the original price if not already stored
-                if (!$product->original_price) {
+            // Insert the deal into the database
+            $deal_id = DB::table('tbl_deal')->insert($data);
+            if ($deal_id) {
+                // Check if the product exists before updating
+                $product = DB::table('tbl_product')
+                    ->where('product_name', $product_name)
+                    ->first();
+    
+                if ($product) {
+                    // Store the original price if not already stored
+                    if (!$product->original_price) {
+                        DB::table('tbl_product')
+                            ->where('product_name', $product_name)
+                            ->update(['original_price' => $product->product_price]);
+                    }
+    
+                    // Update the product price based on the discount logic (1 - deal_price)
                     DB::table('tbl_product')
-                        ->where('product_name', $request->product_name)
-                        ->update(['original_price' => $product->product_price]);
+                        ->where('product_name', $product_name)
+                        ->update(['product_price' => DB::raw('product_price * (1 - ' . $request->deal_price . ')')]);
+    
+                    Session::put('message', 'Deal created and product price updated successfully.');
+                } else {
+                    Session::put('message', 'Product not found. Deal created but price update failed.');
                 }
-
-                // Update the product price based on the discount logic (1 - deal_price)
-                DB::table('tbl_product')
-                    ->where('product_name', $request->product_name)
-                    ->update(['product_price' => DB::raw('product_price * (1 - ' . $request->deal_price . ')')]);
-
-                Session::put('message', 'Deal created and product price updated successfully.');
             } else {
-                Session::put('message', 'Product not found. Deal created but price update failed.');
+                Session::put('message', 'Deal creation failed.');
             }
-        } else {
-            Session::put('message', 'Deal creation failed.');
         }
+
+       
 
         return Redirect::to('admin/deals/create');
     }

@@ -70,7 +70,7 @@
                                 <label class="block text-sm text-gray-600" for="product-name">Product Name</label>
                                 <input class="w-full px-5 py-2 text-gray-700 bg-gray-200 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                     id="product-name"
-                                    name="product_name"
+                                    name="product_name[]"
                                     type="text"
                                     required
                                     placeholder="Enter product name"
