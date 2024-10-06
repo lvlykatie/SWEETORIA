@@ -38,7 +38,7 @@
                 <i class="fas fa-sticky-note mr-3"></i>
                 Products
             </a>
-            <a href="{{URL::to('admin/orders')}}"" class=" flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+            <a href="{{URL::to('admin/orders')}}" class=" flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                 <i class="fas fa-table mr-3"></i>
                 Orders
             </a>
@@ -146,25 +146,11 @@
             <label class="block text-sm text-gray-600" for="product-name">Product Name</label>
             <input class="w-full px-5 py-2 text-gray-700 bg-gray-200 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 id="product-name"
-                name="product-name[]"
+                name="product-name"
                 type="text"
                 required
                 placeholder="Enter product name"
                 aria-label="Product Name">
-        </div>
-
-        <div class="flex-grow relative">
-            <label class="block text-sm text-gray-600" for="price">Price</label>
-             <input class="w-full pl-16 pr-5 py-2 text-gray-700 bg-gray-200 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                id="price"
-                name="price[]"
-                type="number"
-                step="0.01"
-                min="1000"
-                required
-                placeholder="1000"
-                aria-label="Price">
-                <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">₫</span>
         </div>
 
         <button type="button" class="mt-6 text-red-500 hover:text-red-700" onclick="removeProduct(this)">

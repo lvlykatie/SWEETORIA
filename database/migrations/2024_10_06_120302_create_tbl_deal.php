@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('tbl_deal', function (Blueprint $table) {
             $table->increments('deal_id');
             $table->string('deal_name');
+            $table->string('product_name')->default('gg');
+            $table->float('deal_price');
             $table->longText('deal_desc');
             $table->longText('deal_image');
         });

@@ -151,6 +151,7 @@
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Deal_ID</th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Deal</th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Title</th>
+                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Price</th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Describe</th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Manage</th>
                                 </tr>
@@ -158,18 +159,22 @@
                             <tbody class="text-gray-700">
                                 @foreach($all_deals as $deal)
                                 <td class="text-center py-3">{{ $deal->deal_id }}</td>
-                                <td class="text-center py-3">{{ $deal->deal_name }}</td>
                                 <td class="text-center py-3 mx-auto">
                                     <img src="{{ asset('public/backend/image/'.$deal->deal_image) }}" class="mx-auto" width="100px" height="100px" alt="">
                                 </td>
+                                <td class="text-center py-3">{{ $deal->deal_name }}</td>
+                                <td class="text-center py-3">{{ $deal->deal_price }}</td>
                                 <td class="text-center py-3 px-4">{{ $deal->deal_desc }}</td>
                                 <td class="text-center py-3 px-1">
-                                    <button class="bg-green-500 text-white py-1 px-4 rounded hover:bg-green-600">
-                                        <i class="fa-solid fa-pen"></i>
-                                    </button>
-                                    <button class="bg-red-500 text-white py-1 px-4 rounded hover:bg-red-600">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </button>
+                                    <form action="{{ URL::to('admin/deals/delete/'.$deal->deal_id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this voucher?');">
+                                        @csrf <!-- This is important for CSRF protection in Laravel -->
+                                        <button class="bg-green-500 text-white py-1 px-4 rounded hover:bg-green-600">
+                                            <i class="fa-solid fa-pen"></i>
+                                        </button>
+                                        <button type="submit" class="bg-red-500 text-white py-1 px-4 rounded hover:bg-red-600">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </form>
                                 </td>
                                 </tr>
                                 @endforeach

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Redirect;
 
 session_start();
 
@@ -26,23 +27,81 @@ class DealController extends Controller
         $data = array();
         $data['deal_name'] = $request->deal_name;
         $data['deal_desc'] = $request->deal_desc;
-        $data['product_name'] = $request->product_name;
-        $data['product_price'] = $request->product_price;
+        $data['deal_price'] = $request->deal_price;
+        $data['product_name'] = $request->input('product_name');
 
         $get_image = $request->file('deal_image');
         if ($get_image) {
             $new_image = $get_image->getClientOriginalName();
             $get_image->move('public/backend/image', $new_image);
-            $data['deal_image'] = ($new_image);
-            DB::table('tbl_deal')->insert($data);
-            Session::put('message', 'Create successfully.');
-            return Redirect::to('admin/deals/create');
+            $data['deal_image'] = $new_image;
         } else {
-            $data['product_image'] = '';
-            DB::table('tbl_deal')->insert($data);
-            Session::put('message', 'Create successfully.');
-            return Redirect::to('admin/deals/create');
+            $data['deal_image'] = ''; // If no image is uploaded
         }
-//Tạo tbl chứa deal id và product id, xem hướng dẫn típ di clm fck
+
+        // Insert the deal into the database
+        $deal_id = DB::table('tbl_deal')->insertGetId($data);
+
+        if ($deal_id) {
+            // Check if the product exists before updating
+            $product = DB::table('tbl_product')
+                ->where('product_name', $request->product_name)
+                ->first();
+
+            if ($product) {
+                // Store the original price if not already stored
+                if (!$product->original_price) {
+                    DB::table('tbl_product')
+                        ->where('product_name', $request->product_name)
+                        ->update(['original_price' => $product->product_price]);
+                }
+
+                // Update the product price based on the discount logic (1 - deal_price)
+                DB::table('tbl_product')
+                    ->where('product_name', $request->product_name)
+                    ->update(['product_price' => DB::raw('product_price * (1 - ' . $request->deal_price . ')')]);
+
+                Session::put('message', 'Deal created and product price updated successfully.');
+            } else {
+                Session::put('message', 'Product not found. Deal created but price update failed.');
+            }
+        } else {
+            Session::put('message', 'Deal creation failed.');
+        }
+
+        return Redirect::to('admin/deals/create');
+    }
+    public function deleteDeal($deal_id)
+    {
+        // Find the deal to be deleted
+        $deal = DB::table('tbl_deal')->where('deal_id', $deal_id)->first();
+
+        if ($deal) {
+            // Find the associated product
+            $product = DB::table('tbl_product')
+                ->where('product_name', $deal->product_name)
+                ->first();
+
+            if ($product && $product->original_price) {
+                // Restore the original price of the product
+                DB::table('tbl_product')
+                    ->where('product_name', $deal->product_name)
+                    ->update(['product_price' => $product->original_price]);
+
+                // Optionally, set original_price to NULL again
+                DB::table('tbl_product')
+                    ->where('product_name', $deal->product_name)
+                    ->update(['original_price' => null]);
+            }
+
+            // Delete the deal
+            DB::table('tbl_deal')->where('deal_id', $deal_id)->delete();
+
+            Session::put('message', 'Deal deleted and product price restored successfully.');
+        } else {
+            Session::put('message', 'Deal not found.');
+        }
+
+        return Redirect::to('admin/deals');
     }
 }

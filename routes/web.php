@@ -69,6 +69,7 @@ Route::get('/admin/users', 'App\Http\Controllers\admin\UserController@showUserPa
 Route::get('/admin/deals', 'App\Http\Controllers\admin\DealController@showDealPage');
 Route::get('/admin/deals/create', 'App\Http\Controllers\admin\DealController@addDealPage');
 Route::post('/admin/deals/save', 'App\Http\Controllers\admin\DealController@saveDeal');
+Route::post('/admin/deals/delete/{deal_id}', 'App\Http\Controllers\admin\DealController@deleteDeal');
 
 Route::get('/admin/accounts', 'App\Http\Controllers\admin\AccountController@showAccountPage');
 

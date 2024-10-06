@@ -23,7 +23,7 @@
             </p>
             <div class="leading-loose">
                 <form class="p-10 bg-white rounded shadow-xl" role="form" action="{{URL::to('admin/deals/save')}}" method="post" enctype="multipart/form-data">
-                {{ csrf_field() }}
+                    {{ csrf_field() }}
                     <div class="">
                         <label class="block text-xl text-gray-600" for="name">Deal title</label>
                         <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="name" name="deal_name" type="text" required="" placeholder="Enter product's name" aria-label="Name">
@@ -31,6 +31,10 @@
                     <div class="">
                         <label class="block text-xl text-gray-600" for="name">Describe</label>
                         <textarea class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="name" name="deal_desc" type="text" required="" placeholder="Enter product's name" aria-label="Name"></textarea>
+                    </div>
+                    <div class="">
+                        <label class="block text-xl text-gray-600" for="name">Deal price</label>
+                        <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" type="number" step="0.01" min="0.1" id="name" name="deal_price" type="text" required="" placeholder="Enter product's name" aria-label="Name">
                     </div>
                     <div class="mt-2 relative">
                         <label class="block text-xl text-gray-600">Image</label>
@@ -60,32 +64,17 @@
                         </div>
                     </div>
                     <div id="product-list">
-                        <div class="mt-2 flex items-center space-x-3" id ="product-block">
+                        <div class="mt-2 flex items-center space-x-3" id="product-block">
                             <!-- Product Name Input -->
                             <div class="flex-grow">
                                 <label class="block text-sm text-gray-600" for="product-name">Product Name</label>
                                 <input class="w-full px-5 py-2 text-gray-700 bg-gray-200 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                     id="product-name"
-                                    name="product-name[]"
+                                    name="product_name"
                                     type="text"
                                     required
                                     placeholder="Enter product name"
                                     aria-label="Product Name">
-                            </div>
-
-                            <!-- Price Input with Currency Symbol -->
-                            <div class="flex-grow relative">
-                                <label class="block text-sm text-gray-600" for="price">Price</label>
-                                <input class="w-full pl-16 pr-5 py-2 text-gray-700 bg-gray-200 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                    id="price"
-                                    name="price[]"
-                                    type="number"
-                                    step="0.01"
-                                    min="1000"
-                                    required
-                                    placeholder="1000"
-                                    aria-label="Price">
-                                <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">₫</span>
                             </div>
 
                             <!-- Remove Button (X) -->
@@ -111,4 +100,4 @@
 </main>
 @endsection
 
-    <!--Sửa id, name từ product về deal, đổi dòng tên product thành thanh tìm kiếm kèm combo box-->
+<!--Sửa id, name từ product về deal, đổi dòng tên product thành thanh tìm kiếm kèm combo box-->
