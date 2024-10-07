@@ -176,7 +176,7 @@
     @include('layouts.header')
 
     <!-- Nội dung chính -->
-    <div class="content contain-content container-fluid">
+    <div class="content contain-content container-fluid ">
         @yield('content')
     </div>
 

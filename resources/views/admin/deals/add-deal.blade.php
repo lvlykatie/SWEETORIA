@@ -68,13 +68,12 @@
                             <!-- Product Name Input -->
                             <div class="flex-grow">
                                 <label class="block text-sm text-gray-600" for="product-name">Product Name</label>
-                                <input class="w-full px-5 py-2 text-gray-700 bg-gray-200 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                    id="product-name"
-                                    name="product_name[]"
-                                    type="text"
-                                    required
-                                    placeholder="Enter product name"
-                                    aria-label="Product Name">
+                                <select id="product-name" name="product_name[]" required aria-label="Product Name" class="w-full px-5 py-2 text-gray-700 bg-gray-200 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="" disabled selected>Select product</option>
+                                    @foreach($all_products as $product)
+                                        <option value="<?= htmlspecialchars($product->product_id); ?>"><?= htmlspecialchars($product->product_name); ?></option>
+                                    @endforeach
+                                </select>
                             </div>
 
                             <!-- Remove Button (X) -->

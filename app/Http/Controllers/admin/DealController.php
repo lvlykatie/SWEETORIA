@@ -32,7 +32,7 @@ class DealController extends Controller
         } else {
             $new_image = ''; // If no image is uploaded
         }
-        
+
 
         foreach ($product_names as $product_name) {
             $data = array();
@@ -48,7 +48,7 @@ class DealController extends Controller
                 $product = DB::table('tbl_product')
                     ->where('product_name', $product_name)
                     ->first();
-    
+
                 if ($product) {
                     // Store the original price if not already stored
                     if (!$product->original_price) {
@@ -56,12 +56,12 @@ class DealController extends Controller
                             ->where('product_name', $product_name)
                             ->update(['original_price' => $product->product_price]);
                     }
-    
+
                     // Update the product price based on the discount logic (1 - deal_price)
                     DB::table('tbl_product')
                         ->where('product_name', $product_name)
                         ->update(['product_price' => DB::raw('product_price * (1 - ' . $request->deal_price . ')')]);
-    
+
                     Session::put('message', 'Deal created and product price updated successfully.');
                 } else {
                     Session::put('message', 'Product not found. Deal created but price update failed.');
@@ -71,7 +71,7 @@ class DealController extends Controller
             }
         }
 
-       
+
 
         return Redirect::to('admin/deals/create');
     }
