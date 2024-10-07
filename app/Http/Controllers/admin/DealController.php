@@ -20,7 +20,8 @@ class DealController extends Controller
     }
     public function addDealPage()
     {
-        return view('admin.deals.add-deal');
+        $all_products = DB::table('tbl_product')->get();
+        return view('admin.deals.add-deal')->with('all_products', $all_products);;
     }
     public function saveDeal(Request $request)
     {

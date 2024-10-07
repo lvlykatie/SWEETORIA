@@ -12,6 +12,9 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('public/frontend/admin/css/dashboard-styles.css')}}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+
 
 </head>
 
@@ -141,30 +144,47 @@
         newProductBlock.classList.add('product-block', 'flex', 'flex-col', 'mb-4');
 
         newProductBlock.innerHTML = `
-        <div class="mt-2 flex items-center space-x-3" id ="product-block">
-        <div class="flex-grow">
-            <label class="block text-sm text-gray-600" for="product-name">Product Name</label>
-            <input class="w-full px-5 py-2 text-gray-700 bg-gray-200 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                id="product-name"
-                name="product_name[]"
-                type="text"
-                required
-                placeholder="Enter product name"
-                aria-label="Product Name">
-        </div>
-
-        <button type="button" class="mt-6 text-red-500 hover:text-red-700" onclick="removeProduct(this)">
-            <i class="fa-solid fa-trash"></i>
-        </button>
+        <div class="mt-2 flex items-center space-x-3" id="product-block">
+            <div class="flex-grow">
+                <label class="block text-sm text-gray-600" for="product-name">Product Name</label>
+                <select class="product-name" name="product_name[]" required aria-label="Product Name" class="w-full px-5 py-2 text-gray-700 bg-gray-200 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="" disabled selected>Select product</option>
+                    @foreach($all_products as $product)
+                        <option value="{{ $product->product_id }}">{{ $product->product_name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <button type="button" class="mt-6 text-red-500 hover:text-red-700" onclick="removeProduct(this)">
+                <i class="fa-solid fa-trash"></i>
+            </button>
         </div>
     `;
 
+        // Thêm block sản phẩm vào container
         container.appendChild(newProductBlock);
+
+        // Khởi tạo Choices cho select box mới
+        const productSelect = newProductBlock.querySelector('.product-name');
+        new Choices(productSelect, {
+            searchEnabled: true,
+            placeholder: true,
+            searchPlaceholderValue: 'Search products...',
+        });
     }
+
+
     function removeProduct(button) {
-            const productBlock = button.closest('.product-block'); // Lấy khối sản phẩm chứa nút bấm
-            productBlock.remove(); // Xóa khối sản phẩm
+        const productBlock = button.closest('.product-block'); // Lấy khối sản phẩm chứa nút bấm
+        productBlock.remove(); // Xóa khối sản phẩm
     }
+    document.addEventListener('DOMContentLoaded', function() {
+        const productSelect = document.getElementById('product-name');
+        const choices = new Choices(productSelect, {
+            searchEnabled: true,
+            placeholder: true,
+            searchPlaceholderValue: 'Search products...',
+        });
+    });
 </script>
 
 </html>
