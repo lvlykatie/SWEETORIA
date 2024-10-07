@@ -151,7 +151,7 @@
                         <table class="min-w-full bg-white">
                             <thead class="bg-gray-800 text-white">
                                 <tr>
-                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Product_ID</th>
+                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Product ID</th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Category</th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Product</th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Name</th>
@@ -174,12 +174,15 @@
                                     <td class="text-center py-3 px-4">{{ number_format($product->product_price, 0, ',', '.') }} VND</td>
                                     <td class="text-center py-3 px-4">{{ Str::limit($product->product_desc, 50) }}</td>
                                     <td class="text-center py-3 px-1">
-                                        <button class="bg-green-500 text-white py-1 px-4 rounded hover:bg-green-600">
-                                            <i class="fa-solid fa-pen"></i>
-                                        </button>
-                                        <button class="bg-red-500 text-white py-1 px-4 rounded hover:bg-red-600">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </button>
+                                        <form action="{{ URL::to('admin/products/delete/'.$product->product_id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this product?');">
+                                            @csrf <!-- This is important for CSRF protection in Laravel -->
+                                            <button class="bg-green-500 text-white py-1 px-4 rounded hover:bg-green-600">
+                                                <i class="fa-solid fa-pen"></i>
+                                            </button>
+                                            <button type="submit" class="bg-red-500 text-white py-1 px-4 rounded hover:bg-red-600">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                                 @endforeach

@@ -107,7 +107,7 @@
                     <i class="fas fa-tablet-alt mr-3"></i>
                     Account
                 </a>
- 
+
             </nav>
             <!-- <button class="w-full bg-white cta-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
                 <i class="fas fa-plus mr-3"></i> New Report
@@ -142,7 +142,7 @@
                         <table class="min-w-full bg-white">
                             <thead class="bg-gray-800 text-white">
                                 <tr>
-                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">User_ID</th>
+                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">User ID</th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Mail</th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Name</th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Phone</th>
@@ -150,20 +150,28 @@
                                 </tr>
                             </thead>
                             <tbody class="text-gray-700">
+                                @foreach($all_users as $user)
                                 <tr>
-                                    <td class="text-left py-3 px-4">Lian</td>
-                                    <td class="text-left py-3 px-4"><a class="hover:text-blue-500" href="mailto:jonsmith@mail.com">jonsmith@mail.com</a></td>
-                                    <td class="text-center py-3 px-4"><a class="hover:text-blue-500" href="tel:622322662">622322662</a>
-                                    <td class="text-center py-3 px-4">Lian</td>
+                                    <td class="text-center py-3">{{ $user->user_id }}</td>
+                                    <td class="text-left py-3">
+                                        <a class="hover:text-blue-500" href="mailto:{{ $user->user_email }}">{{ $user->user_email }}</a>
+                                    </td>
+                                    <td class="text-center py-3">{{ $user->user_name }}</td>
+                                    <td class="text-center py-3">
+                                        <a class="hover:text-blue-500" href="tel:{{ $user->user_phone }}">{{ $user->user_phone }}</a>
                                     <td class="text-center py-3 px-4">
-                                        <button class="bg-green-500 text-white py-1 px-4 rounded">
-                                            <i class="fa-solid fa-pen"></i>
-                                        </button>
-                                        <button class="bg-red-500 text-white py-1 px-4 rounded">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </button>
+                                        <form action="{{ URL::to('admin/users/delete/'.$user->user_id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this user?');">
+                                            @csrf <!-- This is important for CSRF protection in Laravel -->
+                                            <button class="bg-green-500 text-white py-1 px-4 rounded hover:bg-green-600">
+                                                <i class="fa-solid fa-pen"></i>
+                                            </button>
+                                            <button type="submit" class="bg-red-500 text-white py-1 px-4 rounded hover:bg-red-600">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

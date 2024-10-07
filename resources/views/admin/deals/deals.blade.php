@@ -119,7 +119,6 @@
                 <div class="flex justify-between">
                     <h1 class="text-3xl text-extrabold pb-6">Deals</h1>
 
-
                     <form class="max-w-md" style="width: 500px;">
                         <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                         <div class="relative">
@@ -148,7 +147,7 @@
                         <table class="min-w-full bg-white">
                             <thead class="bg-gray-800 text-white">
                                 <tr>
-                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Deal_ID</th>
+                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Deal ID</th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Deal</th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Title</th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Price</th>
@@ -166,7 +165,7 @@
                                 <td class="text-center py-3">{{ $deal->deal_price }}</td>
                                 <td class="text-center py-3 px-4">{{ $deal->deal_desc }}</td>
                                 <td class="text-center py-3 px-1">
-                                    <form action="{{ URL::to('admin/deals/delete/'.$deal->deal_id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this voucher?');">
+                                    <form action="{{ URL::to('admin/deals/delete/'.$deal->deal_id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this deal?');">
                                         @csrf <!-- This is important for CSRF protection in Laravel -->
                                         <button class="bg-green-500 text-white py-1 px-4 rounded hover:bg-green-600">
                                             <i class="fa-solid fa-pen"></i>
