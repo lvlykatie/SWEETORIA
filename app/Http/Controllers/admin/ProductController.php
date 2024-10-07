@@ -20,7 +20,8 @@ class ProductController extends Controller
     }
     public function addProductPage()
     {
-        return view('admin.products.add-product');
+        $products = DB::table('tbl_product')->get();
+        return view('admin.products.add-product')->with('products', $products);
     }
     public function saveProduct(Request $request)
     {

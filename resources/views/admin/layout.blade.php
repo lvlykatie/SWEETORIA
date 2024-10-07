@@ -149,7 +149,7 @@
                 <label class="block text-sm text-gray-600" for="product-name">Product Name</label>
                 <select class="product-name" name="product_name[]" required aria-label="Product Name" class="w-full px-5 py-2 text-gray-700 bg-gray-200 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
                     <option value="" disabled selected>Select product</option>
-                    @foreach($all_products as $product)
+                    @foreach($products as $product)
                         <option value="{{ $product->product_id }}">{{ $product->product_name }}</option>
                     @endforeach
                 </select>
