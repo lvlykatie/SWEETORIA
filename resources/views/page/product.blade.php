@@ -3,22 +3,21 @@
 @section('title', 'Product')
 @section('content')
     <div id="product">
-        <div class="search-bg relative flex items-center justify-center"
-            style="background-image: url('{{ asset('public/frontend/client/page/image/homepagebg.png') }}');
-        background-size: cover; background-position: center; height: 450px;">
+        <div class="search-bg relative flex items-center justify-center bg-cover bg-center h-72 md:h-[463px]"
+            style="background-image: url('{{ asset('public/frontend/client/page/image/homepagebg.png') }}');">
         </div>
         <div class="filter w-full p-6 bg-white shadow-md rounded-md">
-            <div class="row">
-                <div class="col-6 pl-16">
-                    <div class="row text-3xl font-black">
+            <div class="flex flex-wrap">
+                <div class="w-1/2 pl-16">
+                    <div class="flex flex-wrap text-3xl font-black">
                         Filter
                     </div>
-                    <div class="row gap-7 mt-4">
-                        <div class="col-12 text-3xl font-extrabold flex items-center">
+                    <div class="flex flex-wrap gap-7 mt-4">
+                        <div class="w-full text-3xl font-extrabold flex items-center">
                             <input type="checkbox" style="width: 30px; height: 30px;" name="" id="">
                             <label class="pl-8" for="">Baking ingredients </label>
                         </div>
-                        <div class="col-12 text-3xl font-extrabold flex items-center">
+                        <div class="w-full text-3xl font-extrabold flex items-center">
                             <input type="checkbox" style="width: 30px; height: 30px;" name="" id="">
                             <label class="pl-8" for="">Baking ingredients </label>
                         </div>
@@ -26,32 +25,32 @@
 
 
                 </div>
-                <div class="col-6 text-3xl">
-                    <div class="row flex justify-center ">
-                        <button class="w-1/6 text-3xl font-black rounded-xl bg-gray-500">Clear filter</button>
+                <div class="w-1/2 text-3xl">
+                    <div class="flex flex-wrap justify-center ">
+                        <button class="w-2/3 md:w-1/6 text-3xl font-black rounded-xl bg-gray-500">Clear filter</button>
                     </div>
-                    <div class="row pl-16 gap-7 mt-4">
-                        <div class="col-12 text-3xl font-extrabold flex items-center">
+                    <div class="flex flex-wrap pl-16 gap-7 mt-4">
+                        <div class="w-full text-3xl font-extrabold flex items-center">
                             <input type="checkbox" class="rounded-md" style="width: 30px; height: 30px; border-radius: 5px;"
                                 name="" id="">
                             <label class="pl-8" for="">Baking ingredients </label>
                         </div>
-                        <div class="col-12 text-3xl font-extrabold flex items-center">
+                        <div class="w-full text-3xl font-extrabold flex items-center">
                             <input type="checkbox" style="width: 30px; height: 30px;" name="" id="">
                             <label class="pl-8" for="">Baking ingredients </label>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row text-3xl font-black mt-4 " style="padding-left: 32px">
+            <div class="flex flex-wrap text-3xl font-black mt-4 " style="padding-left: 32px">
                 Price
             </div>
-            <div class="row mt-4">
-                <div class="col-6 pl-16 text-3xl font-extrabold flex items-center">
+            <div class="flex flex-wrap mt-4">
+                <div class="w-1/2 pl-16 text-3xl font-extrabold flex items-center">
                     <input type="checkbox" style="width: 30px; height: 30px;" name="" id="">
                     <label class="pl-8" for="">Low to high </label>
                 </div>
-                <div class="col-6 text-3xl font-extrabold flex items-center" style="padding-left: 48px">
+                <div class="w-1/2 text-3xl font-extrabold flex items-center pl-16">
                     <input type="checkbox" style="width: 30px; height: 30px;" name="" id="">
                     <label class="pl-8" for="">High to low</label>
                 </div>
@@ -61,8 +60,8 @@
             Products
         </div>
         <div class="product-list">
-            <div class="row">
-                <div class="col-md-4 d-flex flex-column align-items-center">
+            <div class="flex flex-wrap">
+                <div class="md:w-1/3 w-full flex flex-col items-center">
                     <img src="{{ asset('public/frontend/client/page/image/bestsell.png') }}" width="299" />
                     <div class="item-name text-3xl text-center font-extrabold">
                         Whipping cream Anchor
@@ -79,14 +78,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 flex flex-column align-items-center">
+                <div class="md:w-1/3 w-full flex flex-col items-center">
                     <img src="{{ asset('public/frontend/client/page/image/bestsell.png') }}" width="299" />
                     <div class="item-name text-3xl text-center font-extrabold">
                         Whipping cream Anchor
                     </div>
                     <div class="price relative text-center pt-2">
                         <span class="text-3xl font-normal">200,000</span>
-                        <div class="absolute bottom-0" style="right: -110px">
+                        <div class="absolute bottom-0 right-[-110px]">
                             <svg xmlns="http://www.w3.org/2000/svg" width="29" height="100%" viewBox="0 0 33 30"
                                 fill="none">
                                 <path
@@ -96,7 +95,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 d-flex flex-column align-items-center">
+                <div class="md:w-1/3 w-full flex flex-col items-center">
                     <img src="{{ asset('public/frontend/client/page/image/bestsell.png') }}" width="299" />
                     <div class="item-name text-3xl text-center font-extrabold">
                         Whipping cream Anchor

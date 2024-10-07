@@ -64,7 +64,7 @@
                     <img src="{{ asset('public/frontend/admin/images/sweetoria.png') }}" />
                 </button>
                 <button x-show="isOpen" @click="isOpen = false" class="h-full w-full fixed inset-0 cursor-default"></button>
-                <div x-show="isOpen" class="absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16">
+                <div x-show="isOpen" class="loginbox absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16">
                     <a href="#" class="block px-4 py-2 account-link hover:text-black">Account</a>
                     <a href="#" class="block px-4 py-2 account-link hover:text-black">Sign Out</a>
                 </div>
@@ -107,7 +107,7 @@
                     <i class="fas fa-tablet-alt mr-3"></i>
                     Account
                 </a>
- 
+
             </nav>
             <!-- <button class="w-full bg-white cta-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
                 <i class="fas fa-plus mr-3"></i> New Report
@@ -115,7 +115,7 @@
         </header>
 
         <div class="w-full overflow-x-hidden border-t flex flex-col">
-        <main class="w-full flex-grow p-6">
+            <main class="w-full flex-grow p-6">
                 <div class="flex justify-between">
                     <h1 class="text-3xl text-extrabold pb-6">Deals</h1>
 
@@ -151,23 +151,33 @@
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Deal_ID</th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Deal</th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Title</th>
+                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Price</th>
+                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Describe</th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Manage</th>
                                 </tr>
                             </thead>
                             <tbody class="text-gray-700">
-                                <tr>
-                                    <td class="text-center py-3 px-4"><a class="hover:text-blue-500" href="tel:622322662">622322662</a></td>
-                                    <td class="text-center py-3 px-4"><a class="hover:text-blue-500" href="mailto:jonsmith@mail.com">jonsmith@mail.com</a></td>
-                                    <td class="text-left py-3 px-4">Lian</td>
-                                    <td class="text-center py-3 px-4">
-                                        <button class="bg-green-500 text-white py-1 px-4 rounded">
+                                @foreach($all_deals as $deal)
+                                <td class="text-center py-3">{{ $deal->deal_id }}</td>
+                                <td class="text-center py-3 mx-auto">
+                                    <img src="{{ asset('public/backend/image/'.$deal->deal_image) }}" class="mx-auto" width="100px" height="100px" alt="">
+                                </td>
+                                <td class="text-center py-3">{{ $deal->deal_name }}</td>
+                                <td class="text-center py-3">{{ $deal->deal_price }}</td>
+                                <td class="text-center py-3 px-4">{{ $deal->deal_desc }}</td>
+                                <td class="text-center py-3 px-1">
+                                    <form action="{{ URL::to('admin/deals/delete/'.$deal->deal_id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this voucher?');">
+                                        @csrf <!-- This is important for CSRF protection in Laravel -->
+                                        <button class="bg-green-500 text-white py-1 px-4 rounded hover:bg-green-600">
                                             <i class="fa-solid fa-pen"></i>
                                         </button>
-                                        <button class="bg-red-500 text-white py-1 px-4 rounded">
+                                        <button type="submit" class="bg-red-500 text-white py-1 px-4 rounded hover:bg-red-600">
                                             <i class="fa-solid fa-trash"></i>
                                         </button>
-                                    </td>
+                                    </form>
+                                </td>
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

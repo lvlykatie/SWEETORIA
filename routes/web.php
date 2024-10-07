@@ -56,17 +56,20 @@ Route::get('/resetpass', function () {
 Route::get('/admin/dashboard', 'App\Http\Controllers\admin\DashboardController@showDashboard');
 
 Route::get('/admin/products', 'App\Http\Controllers\admin\ProductController@showProductPage');
+Route::get('/admin/products/create', 'App\Http\Controllers\admin\ProductController@addProductPage');
+Route::post('/admin/products/save', 'App\Http\Controllers\admin\ProductController@saveProduct');
+
 
 Route::get('/admin/orders', 'App\Http\Controllers\admin\OrderController@showOrderPage');
 
 Route::get('/admin/users', 'App\Http\Controllers\admin\UserController@showUserPage');
 
 Route::get('/admin/deals', 'App\Http\Controllers\admin\DealController@showDealPage');
+Route::get('/admin/deals/create', 'App\Http\Controllers\admin\DealController@addDealPage');
+Route::post('/admin/deals/save', 'App\Http\Controllers\admin\DealController@saveDeal');
+Route::post('/admin/deals/delete/{deal_id}', 'App\Http\Controllers\admin\DealController@deleteDeal');
 
 Route::get('/admin/accounts', 'App\Http\Controllers\admin\AccountController@showAccountPage');
 
-Route::get('/admin/products/create', 'App\Http\Controllers\admin\ProductController@addProductPage');
 
-Route::post('/admin/products/save', 'App\Http\Controllers\admin\ProductController@saveProduct');
 
-Route::get('/admin/deals/create', 'App\Http\Controllers\admin\DealController@addDealPage');

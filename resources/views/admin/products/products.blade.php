@@ -67,7 +67,7 @@
                     <img src="{{ asset('public/frontend/admin/images/sweetoria.png') }}" />
                 </button>
                 <button x-show="isOpen" @click="isOpen = false" class="h-full w-full fixed inset-0 cursor-default"></button>
-                <div x-show="isOpen" class="absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16">
+                <div x-show="isOpen" class="loginbox absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16">
                     <a href="#" class="block px-4 py-2 account-link hover:text-white">Account</a>
                     <a href="#" class="block px-4 py-2 account-link hover:text-white">Sign Out</a>
                 </div>
@@ -164,16 +164,16 @@
                             <tbody class="text-gray-700">
                                 @foreach($all_products as $product)
                                 <tr>
-                                    <td class="text-center py-3 px-4">{{ $product->product_id }}</td>
-                                    <td class="text-left py-3 px-4">{{ $product->category_name }}</td>
-                                    <td class="text-left py-3 px-4">
-                                        <img src="{{ asset('backend/image/'.$product->product_image) }}" width="40px" height="40px" alt="">
+                                    <td class="text-center py-3">{{ $product->product_id }}</td>
+                                    <td class="text-center py-3">{{ $product->category_name }}</td>
+                                    <td class="text-center py-3 mx-auto">
+                                        <img src="{{ asset('public/backend/image/'.$product->product_image) }}" class="mx-auto" width="100px" height="100px" alt="">
                                     </td>
-                                    <td class="text-left py-3 px-4">{{ $product->product_name }}</td>
-                                    <td class="text-left py-3 px-4">{{ $product->product_sku }}</td>
+                                    <td class="text-center py-3 px-4">{{ $product->product_name }}</td>
+                                    <td class="text-center py-3 px-4">{{ $product->product_sku }}</td>
                                     <td class="text-center py-3 px-4">{{ number_format($product->product_price, 0, ',', '.') }} VND</td>
-                                    <td class="text-left py-3 px-4">{{ Str::limit($product->product_desc, 50) }}</td>
-                                    <td class="text-center py-3 px-4">
+                                    <td class="text-center py-3 px-4">{{ Str::limit($product->product_desc, 50) }}</td>
+                                    <td class="text-center py-3 px-1">
                                         <button class="bg-green-500 text-white py-1 px-4 rounded hover:bg-green-600">
                                             <i class="fa-solid fa-pen"></i>
                                         </button>

@@ -22,7 +22,7 @@
                 </svg><!-- <i class="fas fa-list mr-3"></i> --> Information
             </p>
             <div class="leading-loose">
-                <form class="p-10 bg-white rounded shadow-xl" role="form" action="{{URL::to('admin/products/save')}}" method="post">
+                <form class="p-10 bg-white rounded shadow-xl" role="form" action="{{URL::to('admin/products/save')}}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="">
                         <label class="block text-xl text-gray-600" for="name">Product name</label>

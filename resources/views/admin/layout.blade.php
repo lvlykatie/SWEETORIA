@@ -38,7 +38,7 @@
                 <i class="fas fa-sticky-note mr-3"></i>
                 Products
             </a>
-            <a href="{{URL::to('admin/orders')}}"" class=" flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+            <a href="{{URL::to('admin/orders')}}" class=" flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                 <i class="fas fa-table mr-3"></i>
                 Orders
             </a>
@@ -66,7 +66,7 @@
                     <img src="{{ asset('public/frontend/admin/images/sweetoria.png') }}" />
                 </button>
                 <button x-show="isOpen" @click="isOpen = false" class="h-full w-full fixed inset-0 cursor-default"></button>
-                <div x-show="isOpen" class="absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16">
+                <div x-show="isOpen" class="loginbox absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16">
                     <a href="#" class="block px-4 py-2 account-link hover:text-black">Account</a>
                     <a href="#" class="block px-4 py-2 account-link hover:text-black">Sign Out</a>
                 </div>
@@ -133,6 +133,37 @@
                 "display": "block"
             });
         }
+    }
+
+    function addProducts() {
+        const container = document.getElementById('product-list');
+        const newProductBlock = document.createElement('div');
+        newProductBlock.classList.add('product-block', 'flex', 'flex-col', 'mb-4');
+
+        newProductBlock.innerHTML = `
+        <div class="mt-2 flex items-center space-x-3" id ="product-block">
+        <div class="flex-grow">
+            <label class="block text-sm text-gray-600" for="product-name">Product Name</label>
+            <input class="w-full px-5 py-2 text-gray-700 bg-gray-200 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                id="product-name"
+                name="product_name[]"
+                type="text"
+                required
+                placeholder="Enter product name"
+                aria-label="Product Name">
+        </div>
+
+        <button type="button" class="mt-6 text-red-500 hover:text-red-700" onclick="removeProduct(this)">
+            <i class="fa-solid fa-trash"></i>
+        </button>
+        </div>
+    `;
+
+        container.appendChild(newProductBlock);
+    }
+    function removeProduct(button) {
+            const productBlock = button.closest('.product-block'); // Lấy khối sản phẩm chứa nút bấm
+            productBlock.remove(); // Xóa khối sản phẩm
     }
 </script>
 

@@ -6,22 +6,23 @@
         <div class="text-center text-6xl font-black rounded-3xl my-5" style="background-color: #FFCCCC">
             PRODUCT DESCRIPTION
         </div>
-        <div class="d-flex justify-around">
-            <div class="col-md-4 d-flex flex-column align-items-center">
-                <img src="{{ asset('public/frontend/client/page/image/bestsell.png') }}" width="299" alt="Whipping Cream Anchor" />
+        <div class="flex justify-around">
+            <div class="w-full md:w-1/3 flex flex-col items-center">
+                <img src="{{ asset('public/frontend/client/page/image/bestsell.png') }}" width="299"
+                    alt="Whipping Cream Anchor" />
                 <div class="item-name text-3xl text-center font-extrabold">
                     Whipping cream Anchor
                 </div>
                 <div class="price relative text-center pt-2">
                     <span class="text-3xl font-normal">148,000</span>
                 </div>
-                <div class="row pt-6 flex justify-center">
-                    <button class="text-center h-24 bg-red-500 rounded-2xl text-white font-black"
-                        style="font-size: 50px; line-height: 61px;width:300px;">BUY
+                <div class="flex flex-wrap pt-6 justify-center">
+                    <button class="text-center h-auto bg-red-500 rounded-2xl text-white font-black w-1/2 md:w-[300px]"
+                        style="font-size: 50px; line-height: 61px;">BUY
                         NOW</button>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="w-full md:w-1/3">
                 <div class="text-left mt-4">
                     <p class="text-black font-inter text-2xl font-normal leading-[60px] tracking-[0.5px]">
                         <strong>Origin:</strong> New Zealand
@@ -45,7 +46,7 @@
         </div>
         {{-- 1 bài báo --}}
         <div class="products flex flex-col gap-y-10 items-center justify-center">
-            <div class="flex items-center bg-pink-200 rounded-xl shadow-lg relative" style="width: 900px; height: 200px;">
+            <div class="flex items-center bg-pink-200 rounded-xl shadow-lg relative w-3/4 md:w-2/3 h-[200px] my-3">
                 <!-- Image placeholder -->
                 <div class="bg-gray-300 rounded-lg mr-4" style="width: 200px; height: 200px;"></div>
 
