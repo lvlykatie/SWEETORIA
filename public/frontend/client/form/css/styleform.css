@@ -50,9 +50,12 @@ nav ul li a {
     padding: 50px;
     border-radius: 15px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    width: 50%; /* Chiều rộng mặc định của container máy tính để bàn*/
+    width: 60%; /* Chiều rộng mặc định của container máy tính để bàn*/
     margin-top: 5%;
     margin-bottom: 2%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .form-box {
@@ -202,42 +205,6 @@ footer p {
     width: 100%;
     gap: 60px;
 }
-
-/* Media Queries cho màn hình tablet (dưới 768px) */
-@media (max-width: 768px) {
-    .form-container {
-        width: 80%; /* Chiều rộng cho màn hình tablet */
-        padding: 30px;
-    }
-
-    .form-box {
-        width: 100%; /* Chiều rộng của form-box sẽ chiếm toàn bộ chiều rộng container */
-        padding: 20px;
-    }
-
-    nav ul {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    input[type="email"],
-    input[type="text"],
-    input[type="password"] {
-        width: 100%; /* Đảm bảo input chiếm hết chiều rộng container */
-        padding: 10px;
-    }
-
-    label {
-        width: auto; /* Đảm bảo label tự động điều chỉnh theo kích thước của form */
-        padding-left: 0;
-        margin-right: 10px;
-    }
-
-    button {
-        width: 100%; /* Nút sẽ chiếm toàn bộ chiều rộng */
-    }
-}
-
 /* Media Queries cho màn hình di động (dưới 480px) */
 @media (max-width: 480px) {
     .form-container {
@@ -283,5 +250,40 @@ footer p {
         flex-direction: column;
         text-align: center;
         gap: 15px;
+    }
+}
+
+/* Media Queries cho màn hình tablet (dưới 768px) */
+@media (max-width: 768px) {
+    .form-container {
+        width: 80%; /* Chiều rộng cho màn hình tablet */
+        padding: 30px;
+    }
+
+    .form-box {
+        width: 100%; /* Chiều rộng của form-box sẽ chiếm toàn bộ chiều rộng container */
+        padding: 20px;
+    }
+
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    input[type="email"],
+    input[type="text"],
+    input[type="password"] {
+        width: 100%; /* Đảm bảo input chiếm hết chiều rộng container */
+        padding: 10px;
+    }
+
+    label {
+        width: auto; /* Đảm bảo label tự động điều chỉnh theo kích thước của form */
+        padding-left: 0;
+        margin-right: 10px;
+    }
+
+    button {
+        width: 100%; /* Nút sẽ chiếm toàn bộ chiều rộng */
     }
 }
