@@ -143,7 +143,7 @@
                         <table class="min-w-full bg-white">
                             <thead class="bg-gray-800 text-white">
                                 <tr>
-                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Order_ID</th>
+                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Order ID</th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Mail</th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Total</th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Date</th>
