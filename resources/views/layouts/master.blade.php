@@ -42,7 +42,7 @@
         }
 
         body {
-            padding: 20px 0;
+/*             padding: 20px 0; */
             /* background-color: #FFFDD0; */
         }
 
