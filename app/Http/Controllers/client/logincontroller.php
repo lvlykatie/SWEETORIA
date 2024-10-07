@@ -27,8 +27,8 @@ class loginController extends Controller
                 // Chuyển hướng tới trang admin
                 return redirect('/admin/dashboard');
             } elseif ($user->role == 'customer') {
-                // Chuyển hướng tới trang customer
-                return redirect('/signup');
+                // Chuyển hướng tới trang homepage
+                return redirect('/');
             }
         } else {
             // Nếu không khớp, quay lại trang đăng nhập với thông báo lỗi

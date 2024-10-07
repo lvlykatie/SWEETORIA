@@ -34,8 +34,6 @@ Route::get('/signin', function () {
     return view('signIn_form');
 });
 
-// Route xử lý đăng nhập (POST)
-// Route::post('/signin', 'App\Http\Controllers\client\UserAuthController@login');
 
 // Route xử lý yêu cầu đăng nhập (POST)
 Route::post('/signin', 'App\Http\Controllers\client\loginController@signIn');
