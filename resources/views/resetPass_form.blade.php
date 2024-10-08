@@ -50,7 +50,10 @@
         <div class="form-box">
           <h1>Reset Pass</h1>
           <img src="{{ asset('public/frontend/client/form/img_form/nen_form.jpg') }}" alt="Logo sweetoria form" width="50%" />
+
+
           <form action="#" method="POST" autocomplete="on" id="resetpassForm" validate required>
+          @csrf
           <div class="form-group">
               <label for="new password" style="text-align: left"
                 >Password</label

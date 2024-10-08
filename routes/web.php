@@ -41,6 +41,9 @@ Route::post('/signin', 'App\Http\Controllers\client\loginController@signIn');
 // Route xử lý yêu cầu đăng kí (POST)
 Route::post('/signup', 'App\Http\Controllers\client\registerController@register');
 
+// Route xử lý yêu cầu send OTP (POST)
+Route::post('/forgetpass', 'App\Http\Controllers\client\ForgetPassController@checkEmail');
+
 
 Route::get('/forgetpass', function () {
     return view('forgetPass_form');
