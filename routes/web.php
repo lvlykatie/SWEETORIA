@@ -43,11 +43,18 @@ Route::post('/signup', 'App\Http\Controllers\client\registerController@register'
 
 // Route xử lý yêu cầu send OTP (POST)
 Route::post('/forgetpass', 'App\Http\Controllers\client\ForgetPassController@checkEmail');
+// Route xử lý xác thực OTP (POST)
+Route::post('/verifyOTP', 'App\Http\Controllers\client\ForgetPassController@verifyOTP');
 
 
 Route::get('/forgetpass', function () {
     return view('forgetPass_form');
 });
+Route::get('/verifyOTP', function () {
+    return view('otp');
+});
+
+
 //Route::post('/check-email', 'App\Http\Controllers\client\UserAuthController@checkEmail');
 
 Route::get('/resetpass', function () {
