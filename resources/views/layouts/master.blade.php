@@ -42,7 +42,7 @@
         }
 
         body {
-            padding: 20px 0;
+/*             padding: 20px 0; */
             /* background-color: #FFFDD0; */
         }
 
@@ -176,7 +176,7 @@
     @include('layouts.header')
 
     <!-- Nội dung chính -->
-    <div class="content contain-content container-fluid">
+    <div class="content contain-content container-fluid ">
         @yield('content')
     </div>
 
