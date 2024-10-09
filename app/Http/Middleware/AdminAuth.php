@@ -11,7 +11,7 @@ class AdminAuth
     {
         // Kiểm tra xem người dùng đã đăng nhập chưa
         if (!Session::has('user_id')) {
-            return redirect('/login')->with('err_msg', 'Bạn cần đăng nhập để truy cập trang này!');
+            return redirect('/signin')->with('err_msg', 'Bạn cần đăng nhập để truy cập trang này!');
         }
 
         return $next($request);

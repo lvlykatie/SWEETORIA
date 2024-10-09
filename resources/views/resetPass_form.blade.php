@@ -50,12 +50,31 @@
         <div class="form-box">
           <h1>Reset Pass</h1>
           <img src="{{ asset('public/frontend/client/form/img_form/nen_form.jpg') }}" alt="Logo sweetoria form" width="50%" />
-          <form action="#" method="POST" autocomplete="on" id="resetpassForm" validate required>
+
+                   <!-- Hiển thị thông báo lỗi nếu có -->
+         @if ($errors->any())
+              <div class="alert alert-danger">
+                 <ul>
+                  @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                 @endforeach
+                </ul>
+              </div>
+         @endif
+
+         <br>
+
+
+          <form action="{{ url('/resetpass') }}" method="POST" autocomplete="on" id="resetpassForm" validate required>
+          @csrf
+
+          <input type="hidden" name="userEmail" value="{{ session('email') }}" /> <!-- Sử dụng email từ session -->
+
           <div class="form-group">
               <label for="new password" style="text-align: left"
                 >Password</label
               >
-              <input type="password" id="new password" placeholder="********" />
+              <input type="password" id="newPassword" name="newPassword"  placeholder="********" />
             </div>
 
             <div class="form-group">
@@ -64,7 +83,8 @@
               >
               <input
                 type="password"
-                id="confirm new pass"
+                id="confirmPassword"
+                name="confirmPassword"
                 placeholder="Confirm your new password"
               />
             </div>
