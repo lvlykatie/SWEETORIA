@@ -180,9 +180,9 @@ document.addEventListener("DOMContentLoaded", function () {
     function validateResetPasswordForm(resetPasswordForm) {
         let isValid = true;
         const newPassword =
-            resetPasswordForm.querySelector("#new password").value;
+            resetPasswordForm.querySelector("#newPassword").value;
         const confirmPassword =
-            resetPasswordForm.querySelector("#confirm new pass").value;
+            resetPasswordForm.querySelector("#confirmPassword").value;
         const errorMessages = [];
 
         // Kiểm tra mật khẩu có đủ độ dài hay không

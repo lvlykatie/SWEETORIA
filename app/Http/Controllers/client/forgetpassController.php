@@ -74,6 +74,8 @@ class ForgetPassController extends Controller
         $newPassword = $request->input('newPassword');
         $confirmPassword = $request->input('confirmPassword');
 
+
+
         // Kiểm tra mật khẩu mới và mật khẩu confirm khớp nhau
         if ($newPassword !== $confirmPassword) {
             return back()->withErrors(['password_mismatch' => 'Mật khẩu mới và xác nhận mật khẩu không khớp.']);

@@ -74,7 +74,7 @@
               <label for="new password" style="text-align: left"
                 >Password</label
               >
-              <input type="password" id="new password" name="new password"  placeholder="********" />
+              <input type="password" id="newPassword" name="newPassword"  placeholder="********" />
             </div>
 
             <div class="form-group">
@@ -83,8 +83,8 @@
               >
               <input
                 type="password"
-                id="confirm new pass"
-                name="confirm new pass"
+                id="confirmPassword"
+                name="confirmPassword"
                 placeholder="Confirm your new password"
               />
             </div>

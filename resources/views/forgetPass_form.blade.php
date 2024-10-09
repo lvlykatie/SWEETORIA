@@ -69,7 +69,6 @@
           
             <div class="form-group">
               <label for="userEmail" style="text-align: left">Email</label>
-              <!-- name="user_email" them dong nay vaof input email neu dc-->
               <input
                 type="email"
                 id="userEmail"
