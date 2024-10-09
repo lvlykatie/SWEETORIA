@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 // use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
 
 use App\Mail\ContactEmail;
@@ -64,6 +65,34 @@ class ForgetPassController extends Controller
             // Xác thực thất bại
             return back()->withErrors(['otp_invalid' => 'Mã OTP không hợp lệ hoặc đã hết hạn.']);
         }
+    }
+
+
+    public function resetPassword(Request $request)
+    {
+        $email = $request->input('userEmail');
+        $newPassword = $request->input('newPassword');
+        $confirmPassword = $request->input('confirmPassword');
+
+        // Kiểm tra mật khẩu mới và mật khẩu confirm khớp nhau
+        if ($newPassword !== $confirmPassword) {
+            return back()->withErrors(['password_mismatch' => 'Mật khẩu mới và xác nhận mật khẩu không khớp.']);
+        }
+
+        // Mã hóa mật khẩu mới bằng Hash::make
+        $hashedPassword = Hash::make($newPassword);
+
+        // Cập nhật mật khẩu mới vào cơ sở dữ liệu
+        DB::table('tb_user')
+            ->where('user_email', $email)
+            ->update([
+                'user_password' => $hashedPassword, // Sử dụng Hash::make để băm mật khẩu mới
+                'updated_at' => Carbon::now(),
+            ]);
+
+
+        // Chuyển hướng về trang chủ hoặc thông báo reset mật khẩu thành công
+        return redirect('/signin')->with('success', 'Mật khẩu của bạn đã được đặt lại thành công.');
     }
     
 

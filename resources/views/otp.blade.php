@@ -42,7 +42,7 @@
     
              <br>
     
-              <form action="{{ url('/verifyOTP') }}" method="POST" autocomplete="on" id="forgetpassForm" validate required>
+              <form action="{{ url('/otp') }}" method="POST" autocomplete="on" id="verifyOTP" validate required>
               @csrf
               <input type="hidden" name="userEmail" value="{{ session('email') }}">
                 <div class="form-group">

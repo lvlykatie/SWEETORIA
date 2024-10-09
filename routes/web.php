@@ -53,11 +53,15 @@ Route::get('/cart', [PageController::class, 'cart'])->name('cart');
     // Route xử lý yêu cầu send OTP (POST)
     Route::post('/forgetpass', 'App\Http\Controllers\client\ForgetPassController@checkEmail');
     // Route xử lý xác thực OTP (POST)
-    Route::post('/verifyOTP', 'App\Http\Controllers\client\ForgetPassController@verifyOTP');
+    Route::post('/otp', 'App\Http\Controllers\client\ForgetPassController@verifyOTP');
+ 
     
     Route::get('/resetpass', function () {
         return view('resetPass_form');
     });
+    // Route xử lý tạo lại mật khẩu (POST)
+    Route::post('/resetpass', 'App\Http\Controllers\client\ForgetPassController@resetPassword');
+    
 
 
 
