@@ -26,40 +26,52 @@ Route::prefix('account')->group(function () {
 Route::get('/cart', [PageController::class, 'cart'])->name('cart');
 
 
-Route::get('/signup', function () {
-    return view('signUp_form');
-});
+// User account route
 
-Route::get('/signin', function () {
-    return view('signIn_form');
-});
+    Route::get('/signup', function () {
+        return view('signUp_form');
+    });
+    // Route xử lý yêu cầu đăng kí (POST)
+    Route::post('/signup', 'App\Http\Controllers\client\registerController@register');
+
+    Route::get('/signin', function () {
+        return view('signIn_form');
+    });
+    // Route xử lý yêu cầu đăng nhập (POST)
+    Route::post('/signin', 'App\Http\Controllers\client\loginController@signIn');
+
+    Route::get('/forgetpass', function () {
+        return view('forgetPass_form');
+    });
+    Route::get('/otp', function () {
+        return view('otp');
+    });
+    Route::get('/otpcode', function () {
+        return view('otpcode');
+    });
+
+    // Route xử lý yêu cầu send OTP (POST)
+    Route::post('/forgetpass', 'App\Http\Controllers\client\ForgetPassController@checkEmail');
+    // Route xử lý xác thực OTP (POST)
+    Route::post('/verifyOTP', 'App\Http\Controllers\client\ForgetPassController@verifyOTP');
+    
+    Route::get('/resetpass', function () {
+        return view('resetPass_form');
+    });
 
 
-// Route xử lý yêu cầu đăng nhập (POST)
-Route::post('/signin', 'App\Http\Controllers\client\loginController@signIn');
-
-// Route xử lý yêu cầu đăng kí (POST)
-Route::post('/signup', 'App\Http\Controllers\client\registerController@register');
-
-// Route xử lý yêu cầu send OTP (POST)
-Route::post('/forgetpass', 'App\Http\Controllers\client\ForgetPassController@checkEmail');
-// Route xử lý xác thực OTP (POST)
-Route::post('/verifyOTP', 'App\Http\Controllers\client\ForgetPassController@verifyOTP');
 
 
-Route::get('/forgetpass', function () {
-    return view('forgetPass_form');
-});
-Route::get('/verifyOTP', function () {
-    return view('otp');
-});
 
 
-//Route::post('/check-email', 'App\Http\Controllers\client\UserAuthController@checkEmail');
 
-Route::get('/resetpass', function () {
-    return view('resetPass_form');
-});
+
+
+
+
+
+
+
 
 
 

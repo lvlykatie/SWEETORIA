@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('user_address')->nullable();
             $table->string('user_phone');
             $table->enum('role', ['customer', 'admin']);
+            $table->string('otp')->nullable(); // Thêm cột otp
+            $table->timestamp('otp_expiry')->nullable(); // Thêm cột otp_expiry
             $table->timestamps();
         });
 
@@ -29,6 +31,13 @@ return new class extends Migration
             ['user_email' => 'thu@gmail.com', 'user_password' => '12345', 'user_name' => 'Thu ne', 'user_phone' => '2222', 'role' => 'customer'],
             ['user_email' => 'thanh@gmail.com', 'user_password' => '12345', 'user_name' => 'Thanh ne', 'user_phone' => '3333', 'role' => 'admin']
         ]);
+
+        Schema::create('password_reset_tokens', function (Blueprint $table) {
+            $table->string('email')->primary();
+            $table->string('token');
+            $table->timestamp('created_at')->nullable();
+        });
+
     }
 
     /**

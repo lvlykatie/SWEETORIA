@@ -5,8 +5,11 @@ namespace App\Http\Controllers\client;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
+// use Illuminate\Support\Facades\Mail;
 use Carbon\Carbon;
+
+use App\Mail\ContactEmail;
+use Mail;
 
 class ForgetPassController extends Controller
 {
@@ -33,15 +36,13 @@ class ForgetPassController extends Controller
                 ->where('user_email', $email)
                 ->update(['otp' => $otp, 'otp_expiry' => $expiry]);
 
-            // Gửi email chứa mã OTP
-            Mail::raw("Mã OTP của bạn là: $otp", function ($message) use ($email) {
-                $message->to($email)
-                        ->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'))
-                        ->subject('Mã OTP Reset Mật Khẩu');
-            });
+
+            Mail::to($email)->send(new ContactEmail($otp));
+
+
 
             // Chuyển hướng sang trang nhập OTP
-            return redirect('/verifyOTP')->with('email', $email);
+            return redirect('/otp')->with('email', $email);
         }
     }
 
