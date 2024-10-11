@@ -50,14 +50,32 @@
         <div class="form-box">
           <h1>Forget Pass</h1>
           <img src="{{ asset('public/frontend/client/form/img_form/nen_form.jpg') }}" alt="Logo sweetoria form" width="50%" />
-          <form action="#" method="POST" autocomplete="on" id="forgetpassForm" validate required>
+
+                    <!-- Hiển thị thông báo lỗi nếu có -->
+         @if ($errors->any())
+              <div class="alert alert-danger">
+                 <ul>
+                  @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                 @endforeach
+                </ul>
+              </div>
+         @endif
+
+         <br>
+
+          <form action="{{ url('/forgetpass') }}" method="POST" autocomplete="on" id="forgetpassForm" validate required>
+          @csrf
+          
             <div class="form-group">
               <label for="userEmail" style="text-align: left">Email</label>
-              <!-- name="user_email" them dong nay vaof input email neu dc-->
               <input
                 type="email"
                 id="userEmail"
+                name="userEmail" 
                 placeholder="Enter your Email"
+                required
+
               />
             </div>
 
