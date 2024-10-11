@@ -71,7 +71,7 @@
                                 <select id="product-name" name="product_name[]" required aria-label="Product Name" class="w-full px-5 py-2 text-gray-700 bg-gray-200 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
                                     <option value="" disabled selected>Select product</option>
                                     @foreach($products as $product)
-                                        <option value="<?= htmlspecialchars($product->product_id); ?>"><?= htmlspecialchars($product->product_name); ?></option>
+                                        <option value="<?= htmlspecialchars($product->product_name); ?>"><?= htmlspecialchars($product->product_name); ?></option>
                                     @endforeach
                                 </select>
                             </div>
