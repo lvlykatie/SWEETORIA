@@ -14,6 +14,28 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 </head>
+<style>
+th {
+    display: flex-col;
+    justify-content: space-between; /* Space between text and icon */
+    align-items: center; /* Align text and icon vertically */
+    padding: 0 10px; /* Add padding for proper spacing */
+    position: relative; 
+    cursor: default; /* Default cursor for the header */
+}
+
+.sort-icon {
+    cursor: pointer;
+    color: white; /* Match the icon color to header text */
+    font-size: 0.8rem; /* Adjust the icon size */
+    margin-left: auto; /* Ensure the icon is pushed to the far right */
+}
+
+/* Optional hover effect for icon */
+.sort-icon:hover {
+    color: #ccc; /* Change color on hover */
+}
+</style>
 
 <body class="bg-gray-100 font-family-karla flex">
 
@@ -147,15 +169,29 @@
                         <table class="min-w-full bg-white">
                             <thead class="bg-gray-800 text-white">
                                 <tr>
-                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Deal ID</th>
-                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Deal</th>
-                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Title</th>
-                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Price</th>
-                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Describe</th>
+                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">
+                                        Deal ID
+                                        <i class="fa-solid fa-sort sort-icon" onclick="sortTable(0, this)"></i>
+                                    </th>
+                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">
+                                        Deal
+                                    </th>
+                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">
+                                        Title
+                                        <i class="fa-solid fa-sort sort-icon" onclick="sortTable(1, this)"></i>
+                                    </th>
+                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">
+                                        Price
+                                        <i class="fa-solid fa-sort sort-icon" onclick="sortTable(2, this)"></i>
+                                    </th>
+                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">
+                                        Describe
+                                        <i class="fa-solid fa-sort sort-icon" onclick="sortTable(3, this)"></i>
+                                    </th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Manage</th>
                                 </tr>
                             </thead>
-                            <tbody class="text-gray-700">
+                            <tbody class="text-gray-700" id="dealTable">
                                 @foreach($all_deals as $deal)
                                 <td class="text-center py-3">{{ $deal->deal_id }}</td>
                                 <td class="text-center py-3 mx-auto">
@@ -195,81 +231,44 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI=" crossorigin="anonymous"></script>
 
     <script>
-        var chartOne = document.getElementById('chartOne');
-        var myChart = new Chart(chartOne, {
-            type: 'bar',
-            data: {
-                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                datasets: [{
-                    label: '# of Votes',
-                    data: [12, 19, 3, 5, 2, 3],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-                }
-            }
-        });
+        let sortDirection = true; // true for ascending, false for descending
 
-        var chartTwo = document.getElementById('chartTwo');
-        var myLineChart = new Chart(chartTwo, {
-            type: 'line',
-            data: {
-                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                datasets: [{
-                    label: '# of Votes',
-                    data: [12, 19, 3, 5, 2, 3],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
+        function sortTable(columnIndex, icon) {
+            const table = document.getElementById('dealTable');
+            const rows = Array.from(table.rows);
+            const isNumberColumn = columnIndex === 0 || columnIndex === 3; // Identify number columns
+
+            rows.sort((a, b) => {
+                const aText = a.cells[columnIndex].innerText;
+                const bText = b.cells[columnIndex].innerText;
+
+                if (isNumberColumn) {
+                    return sortDirection ? aText - bText : bText - aText; // Numerical sort
                 }
+                return sortDirection ? aText.localeCompare(bText) : bText.localeCompare(aText); // String sort
+            });
+
+            // Clear the existing rows and append the sorted rows
+            while (table.firstChild) {
+                table.removeChild(table.firstChild);
             }
-        });
+
+            // Append sorted rows back to the table body
+            rows.forEach(row => table.appendChild(row));
+
+            // Toggle sort direction for next click
+            sortDirection = !sortDirection;
+
+            // Update the sort icon visibility
+            const icons = icon.parentElement.querySelectorAll('.asc, .desc');
+            icons.forEach(i => i.style.display = 'none'); // Hide all icons
+            if (sortDirection) {
+                icons[0].style.display = 'inline'; // Show ascending icon
+            } else {
+                icons[1].style.display = 'inline'; // Show descending icon
+            }
+        }
+    </script>
     </script>
 </body>
 

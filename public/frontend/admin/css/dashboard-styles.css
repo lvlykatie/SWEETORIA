@@ -1,11 +1,30 @@
 @import url('https://fonts.googleapis.com/css?family=Karla:400,700&display=swap');
-        .font-family-karla { font-family: karla; }
-        .bg-sidebar { background: #FFFDD0; }
-        .cta-btn { color: black; }
-        .active-nav-link { background: #D5A759; }
-        .nav-item:hover { background: #D5A759; }
-        .account-link:hover { background: #FFFDD0; }
 
-.loginbox{
+.font-family-karla {
+        font-family: karla;
+}
+
+.bg-sidebar {
+        background: #FFFDD0;
+}
+
+.cta-btn {
+        color: black;
+}
+
+.active-nav-link {
+        background: #D5A759;
+}
+
+.nav-item:hover {
+        background: #D5A759;
+}
+
+.account-link:hover {
+        background: #FFFDD0;
+}
+
+.loginbox {
         z-index: 9999;
 }
+
