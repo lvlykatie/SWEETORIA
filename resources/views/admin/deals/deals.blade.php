@@ -15,26 +15,34 @@
 
 </head>
 <style>
-th {
-    display: flex-col;
-    justify-content: space-between; /* Space between text and icon */
-    align-items: center; /* Align text and icon vertically */
-    padding: 0 10px; /* Add padding for proper spacing */
-    position: relative; 
-    cursor: default; /* Default cursor for the header */
-}
+    th {
+        display: flex-col;
+        justify-content: space-between;
+        /* Space between text and icon */
+        align-items: center;
+        /* Align text and icon vertically */
+        padding: 0 10px;
+        /* Add padding for proper spacing */
+        position: relative;
+        cursor: default;
+        /* Default cursor for the header */
+    }
 
-.sort-icon {
-    cursor: pointer;
-    color: white; /* Match the icon color to header text */
-    font-size: 0.8rem; /* Adjust the icon size */
-    margin-left: auto; /* Ensure the icon is pushed to the far right */
-}
+    .sort-icon {
+        cursor: pointer;
+        color: white;
+        /* Match the icon color to header text */
+        font-size: 0.8rem;
+        /* Adjust the icon size */
+        margin-left: auto;
+        /* Ensure the icon is pushed to the far right */
+    }
 
-/* Optional hover effect for icon */
-.sort-icon:hover {
-    color: #ccc; /* Change color on hover */
-}
+    /* Optional hover effect for icon */
+    .sort-icon:hover {
+        color: #ccc;
+        /* Change color on hover */
+    }
 </style>
 
 <body class="bg-gray-100 font-family-karla flex">
@@ -261,11 +269,11 @@ th {
 
             // Update the sort icon visibility
             const icons = icon.parentElement.querySelectorAll('.asc, .desc');
-            icons.forEach(i => i.style.display = 'none'); // Hide all icons
+            icons.forEach(i => i.style.display = 'none');
             if (sortDirection) {
-                icons[0].style.display = 'inline'; // Show ascending icon
+                icons[0].style.display = 'inline';
             } else {
-                icons[1].style.display = 'inline'; // Show descending icon
+                icons[1].style.display = 'inline';
             }
         }
     </script>
