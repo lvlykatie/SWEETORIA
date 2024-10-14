@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Product;
 
 class PageController extends Controller
 {
     public function homepage()
     {
-        return view('homepage');
+        $products = Product::all();
+        return view('homepage', ['products' => $products]);
     }
 
     public function cart()
