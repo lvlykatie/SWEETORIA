@@ -14,6 +14,36 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 </head>
+<style>
+    th {
+        display: flex-col;
+        justify-content: space-between;
+        /* Space between text and icon */
+        align-items: center;
+        /* Align text and icon vertically */
+        padding: 0 10px;
+        /* Add padding for proper spacing */
+        position: relative;
+        cursor: default;
+        /* Default cursor for the header */
+    }
+
+    .sort-icon {
+        cursor: pointer;
+        color: white;
+        /* Match the icon color to header text */
+        font-size: 0.8rem;
+        /* Adjust the icon size */
+        margin-left: auto;
+        /* Ensure the icon is pushed to the far right */
+    }
+
+    /* Optional hover effect for icon */
+    .sort-icon:hover {
+        color: #ccc;
+        /* Change color on hover */
+    }
+</style>
 
 <body class="bg-gray-100 font-family-karla flex">
 
@@ -108,7 +138,7 @@
                     <i class="fas fa-tablet-alt mr-3"></i>
                     Account
                 </a>
- 
+
             </nav>
             <!-- <button class="w-full bg-white cta-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
                 <i class="fas fa-plus mr-3"></i> New Report
@@ -143,16 +173,34 @@
                         <table class="min-w-full bg-white">
                             <thead class="bg-gray-800 text-white">
                                 <tr>
-                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Order ID</th>
-                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Mail</th>
-                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Total</th>
-                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Date</th>
-                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Payment</th>
-                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Status</th>
+                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">
+                                        Order ID
+                                        <i class="fa-solid fa-sort sort-icon" onclick="sortTable(0, this)"></i>
+                                    </th>
+                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">
+                                        Mail
+                                        <i class="fa-solid fa-sort sort-icon" onclick="sortTable(1, this)"></i>
+                                    </th>
+                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">
+                                        Total
+                                        <i class="fa-solid fa-sort sort-icon" onclick="sortTable(2, this)"></i>
+                                    </th>
+                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">
+                                        Date
+                                        <i class="fa-solid fa-sort sort-icon" onclick="sortTable(3, this)"></i>
+                                    </th>
+                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">
+                                        Payment
+                                        <i class="fa-solid fa-sort sort-icon" onclick="sortTable(4, this)"></i>
+                                    </th>
+                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">
+                                        Status
+                                        <i class="fa-solid fa-sort sort-icon" onclick="sortTable(5, this)"></i>
+                                    </th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Manage</th>
                                 </tr>
                             </thead>
-                            <tbody class="text-gray-700">
+                            <tbody class="text-gray-700" id="orderTable">
                                 <tr>
                                     <td class="text-left py-3 px-4">Lian</td>
                                     <td class="text-left py-3 px-4"><a class="hover:text-blue-500" href="mailto:jonsmith@mail.com">jonsmith@mail.com</a></td>
@@ -262,6 +310,45 @@
                 }
             }
         });
+    </script>
+    <script>
+        let sortDirection = true; // true for ascending, false for descending
+
+        function sortTable(columnIndex, icon) {
+            const table = document.getElementById('orderTable');
+            const rows = Array.from(table.rows);
+            const isNumberColumn = columnIndex === 0 || columnIndex === 3; // Identify number columns
+
+            rows.sort((a, b) => {
+                const aText = a.cells[columnIndex].innerText;
+                const bText = b.cells[columnIndex].innerText;
+
+                if (isNumberColumn) {
+                    return sortDirection ? aText - bText : bText - aText; // Numerical sort
+                }
+                return sortDirection ? aText.localeCompare(bText) : bText.localeCompare(aText); // String sort
+            });
+
+            // Clear the existing rows and append the sorted rows
+            while (table.firstChild) {
+                table.removeChild(table.firstChild);
+            }
+
+            // Append sorted rows back to the table body
+            rows.forEach(row => table.appendChild(row));
+
+            // Toggle sort direction for next click
+            sortDirection = !sortDirection;
+
+            // Update the sort icon visibility
+            const icons = icon.parentElement.querySelectorAll('.asc, .desc');
+            icons.forEach(i => i.style.display = 'none');
+            if (sortDirection) {
+                icons[0].style.display = 'inline';
+            } else {
+                icons[1].style.display = 'inline';
+            }
+        }
     </script>
 </body>
 
