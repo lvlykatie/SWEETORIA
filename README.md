@@ -1,4 +1,5 @@
 script sql tbl_product
+<br/>
 INSERT INTO tbl_product (product_name, original_price, product_price, product_desc, product_image, product_sku, category_name, product_quantity, product_fact, status, created_at, updated_at)
 VALUES
 ('Baking Flour', 20000, 18000, 'High-quality baking flour', 'flour.jpg', 10001, 'Flour', 50, 'Produced by ABC Mill', 'show', NOW(), NOW()),
