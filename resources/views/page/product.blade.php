@@ -4,20 +4,20 @@
 @section('content')
     <div id="product">
         <div class="search-bg relative flex items-center justify-center bg-cover bg-center h-72 md:h-[463px]"
-            style="background-image: url('{{ asset('public/frontend/client/page/image/homepagebg.png') }}');">
+            style="background-image: url('{{ asset('frontend/client/page/image/homepagebg.png') }}');">
         </div>
         <div class="filter w-full p-6 bg-white shadow-md rounded-md">
             <div class="flex flex-wrap">
-                <div class="w-1/2 pl-16">
+                <div class="w-1/2 flex flex-col items-center">
                     <div class="flex flex-wrap text-3xl font-black">
                         Filter
                     </div>
-                    <div class="flex flex-wrap gap-7 mt-4">
+                    <div class="flex flex-col flex-wrap gap-7 mt-4">
                         <div class="w-full text-3xl font-extrabold flex items-center">
                             <input type="checkbox" style="width: 30px; height: 30px;" name="" id="">
                             <label class="pl-8" for="">Baking ingredients </label>
                         </div>
-                        <div class="w-full text-3xl font-extrabold flex items-center">
+                        <div class="w-auto text-3xl font-extrabold flex items-center">
                             <input type="checkbox" style="width: 30px; height: 30px;" name="" id="">
                             <label class="pl-8" for="">Baking ingredients </label>
                         </div>
@@ -29,42 +29,48 @@
                     <div class="flex flex-wrap justify-center ">
                         <button class="w-2/3 md:w-1/6 text-3xl font-black rounded-xl bg-gray-500">Clear filter</button>
                     </div>
-                    <div class="flex flex-wrap pl-16 gap-7 mt-4">
-                        <div class="w-full text-3xl font-extrabold flex items-center">
+                    <div class="flex flex-col items-center flex-wrap gap-7 mt-4">
+                        <div class="w-auto text-3xl font-extrabold flex items-center">
                             <input type="checkbox" class="rounded-md" style="width: 30px; height: 30px; border-radius: 5px;"
                                 name="" id="">
                             <label class="pl-8" for="">Baking ingredients </label>
                         </div>
-                        <div class="w-full text-3xl font-extrabold flex items-center">
+                        <div class="w-auto text-3xl font-extrabold flex items-center">
                             <input type="checkbox" style="width: 30px; height: 30px;" name="" id="">
                             <label class="pl-8" for="">Baking ingredients </label>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="flex flex-wrap text-3xl font-black mt-4 " style="padding-left: 32px">
+            <div class="flex w-1/2 justify-center text-3xl font-black mt-4">
                 Price
             </div>
-            <div class="flex flex-wrap mt-4">
-                <div class="w-1/2 pl-16 text-3xl font-extrabold flex items-center">
-                    <input type="checkbox" style="width: 30px; height: 30px;" name="" id="">
-                    <label class="pl-8" for="">Low to high </label>
+            <div class="flex flex-wrap mt-4 justify-center">
+                <div class="w-1/2 text-3xl font-extrabold flex justify-center">
+                    <div class="w-auto text-3xl font-extrabold flex items-center">
+                        <input type="checkbox" class="rounded-md" style="width: 30px; height: 30px; border-radius: 5px;"
+                            name="" id="">
+                        <label class="pl-8" for="">Low to high</label>
+                    </div>
                 </div>
-                <div class="w-1/2 text-3xl font-extrabold flex items-center pl-16">
-                    <input type="checkbox" style="width: 30px; height: 30px;" name="" id="">
-                    <label class="pl-8" for="">High to low</label>
+                <div class="w-1/2 text-3xl font-extrabold flex justify-center">
+                    <div class="w-auto text-3xl font-extrabold flex items-center">
+                        <input type="checkbox" class="rounded-md" style="width: 30px; height: 30px; border-radius: 5px;"
+                            name="" id="">
+                        <label class="pl-8" for="">High to low</label>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="text-center text-6xl font-black rounded-3xl text" style="background-color: #FFFDD0">
-            Products
+        <div class="text-center text-6xl font-black rounded-3xl text py-6 mb-7" style="background-color: #FFFDD0">
+            PRODUCTS
         </div>
         <div class="product-list">
             <div class="flex flex-wrap">
                 @foreach ($products as $product)
                     <div class="md:w-1/3 w-full flex flex-col items-center">
                         <img class=" hover:cursor-pointer"
-                            src="{{ asset('public/frontend/client/page/image/' . $product->product_image) }}" width="299"
+                            src="{{ asset('public/backend/image/' . $product->product_image) }}" width="299"
                             alt="{{ $product->product_name }}" />
                         <div class="item-name text-3xl text-center font-extrabold">
                             {{ $product->product_name }}

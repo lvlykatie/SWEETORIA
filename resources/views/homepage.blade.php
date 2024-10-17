@@ -32,8 +32,8 @@
                 <!-- Search Form -->
                 <form class="relative justify-center mt-3 md:mt-0 flex items-center w-full md:w-auto" action=""
                     method="get">
-                    <input class="md-w-643" style="height: 52px; border-radius:20px; font-size:16px; line-height: 24px"
-                        type="text" class="text-center" placeholder="What you want to buy?" />
+                    <input class="w-full md:w-[643px] h-[52px] rounded-[20px] text-3xl text-center placeholder:text-3xl"
+                        type="text" placeholder="What you want to buy?" />
                     <button type="submit" class="absolute right-4 w-8 h-8">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </button>
@@ -107,15 +107,14 @@
 
         {{-- best seller    --}}
         <div class="best_seller my-16">
-            <div class="text-center text-6xl font-black rounded-3xl text" style="background-color: #FFFDD0">
-                Best Seller
+            <div class="text-center text-6xl font-black rounded-3xl text py-6" style="background-color: #FFFDD0">
+                BEST SELLER
             </div>
             <div class="best-seller_items my-16 rounded-3xl" style="background-color: #FCC">
                 <div class="flex flex-wrap py-16 justify-between">
                     @foreach ($products as $product)
                         <div class="w-full md:w-1/4 flex flex-col items-center">
-                            <img src="{{ asset('public/frontend/client/page/image/' . $product->product_image) }}"
-                                width="299" />
+                            <img src="{{ asset('public/backend/image/' . $product->product_image) }}" width="299" />
                             <div class="item-name text-3xl text-center font-extrabold">
                                 {{ $product->product_name }}
                             </div>
