@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Product;
 
 class ProductController extends Controller
 {
     public function index()
     {
-        return view('page.product');
+        $products = Product::all();
+        return view('page.product', ['products' => $products]);
     }
 
     public function detail($id)
@@ -20,4 +22,5 @@ class ProductController extends Controller
     {
         return view('page.hotdeal');
     }
+
 }
