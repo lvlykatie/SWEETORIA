@@ -11,7 +11,6 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Kiểm tra xem bảng đã tồn tại chưa
             Schema::create('tbl_product', function (Blueprint $table) {
                 $table->increments('product_id');
                 $table->string('product_name');
@@ -21,9 +20,9 @@ return new class extends Migration
                 $table->longText('product_image');
                 $table->integer('product_sku');
                 $table->string('category_name');
-                $table->integer('product_quantity')->default(0);
-                $table->string('product_fact')->default('N/A');
-                $table->enum('status', ['show', 'hide'])->default('show');
+                $table->float('product_rate', 2, 1)->default(0);
+                $table->integer('deal_id');
+                $table->integer('wh_id');
                 $table->timestamps();
             });
         }

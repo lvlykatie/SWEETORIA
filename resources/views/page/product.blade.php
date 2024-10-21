@@ -74,7 +74,7 @@
                             {{ $product->product_name }}
                         </div>
                         <div class="price relative text-center pt-2">
-                            <span class="text-3xl font-normal">{{ $product->product_price }}</span>
+                            <span class="text-3xl font-normal">{{ number_format($product->product_price, 0, ',', '.') . ' VND' }}</span>
                             <div class="absolute bottom-0" style="right: -110px">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="29" height="100%" viewBox="0 0 33 30"
                                     fill="none">

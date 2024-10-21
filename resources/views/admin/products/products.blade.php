@@ -208,6 +208,10 @@
                                         Describe
                                         <i class="fa-solid fa-sort sort-icon" onclick="sortTable(5, this)"></i>
                                     </th>
+                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">
+                                        Rate
+                                        <i class="fa-solid fa-sort sort-icon" onclick="sortTable(6, this)"></i>
+                                    </th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Manage</th>
                                 </tr>
                             </thead>
@@ -221,8 +225,9 @@
                                     </td>
                                     <td class="text-center py-3 px-4">{{ $product->product_name }}</td>
                                     <td class="text-center py-3 px-4">{{ $product->product_sku }}</td>
-                                    <td class="text-center py-3 px-4">{{ number_format($product->product_price, 0, ',', '.') }} VND</td>
+                                    <td class="text-center py-3 px-4">{{ number_format($product->product_price, 0, ',', '.') . ' VND' }}</td>
                                     <td class="text-center py-3 px-4">{{ Str::limit($product->product_desc, 50) }}</td>
+                                    <td class="text-center py-3 px-4">{{ number_format($product_rate, 1, ',', '.')}}</td>
                                     <td class="text-center py-3 px-1">
                                         <form action="{{ URL::to('admin/products/delete/'.$product->product_id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this product?');">
                                             @csrf <!-- This is important for CSRF protection in Laravel -->
