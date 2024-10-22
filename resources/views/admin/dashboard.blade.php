@@ -49,6 +49,10 @@
                 <i class="fas fa-calendar mr-3"></i>
                 Deals
             </a>
+            <a href="{{('./vouchers')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                <i class="fas fa-calendar mr-3"></i>
+                Vouchers
+            </a>
             <a href="{{('./accounts')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                 <i class="fas fa-tablet-alt mr-3"></i>
                 Account
@@ -104,6 +108,10 @@
                 <a href="{{('./deals')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                     <i class="fas fa-calendar mr-3"></i>
                     Deals
+                </a>
+                <a href="{{('./vouchers')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                    <i class="fas fa-calendar mr-3"></i>
+                    Vouchers
                 </a>
                 <a href="{{('./accounts')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                     <i class="fas fa-tablet-alt mr-3"></i>
