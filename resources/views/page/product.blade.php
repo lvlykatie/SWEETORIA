@@ -4,7 +4,7 @@
 @section('content')
     <div id="product">
         <div class="search-bg relative flex items-center justify-center bg-cover bg-center h-72 md:h-[463px]"
-            style="background-image: url('{{ asset('frontend/client/page/image/homepagebg.png') }}');">
+            style="background-image: url('{{ asset('public/frontend/client/page/image/homepagebg.png') }}');">
         </div>
         <div class="filter w-full p-6 bg-white shadow-md rounded-md">
             <div class="flex flex-wrap">
