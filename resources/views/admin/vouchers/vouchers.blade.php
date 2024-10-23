@@ -12,8 +12,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('public/frontend/admin/css/dashboard-styles.css')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
 
 </head>
 <style>
@@ -64,7 +62,7 @@
                 <i class="fas fa-tachometer-alt mr-3"></i>
                 Dashboard
             </a>
-            <a href="{{('./products')}}" class="flex items-center active-nav-link text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+            <a href="{{('./products')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                 <i class="fas fa-sticky-note mr-3"></i>
                 Products
             </a>
@@ -80,8 +78,8 @@
                 <i class="fas fa-calendar mr-3"></i>
                 Deals
             </a>
-            <a href="{{('./vouchers')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
-                <i class="fas fa-calendar mr-3"></i> 
+            <a href="{{('./vouchers')}}" class="flex items-center active-nav-link text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                <i class="fas fa-calendar mr-3"></i>
                 Vouchers
             </a>
             <a href="{{('./accounts')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
@@ -89,10 +87,9 @@
                 Account
             </a>
         </nav>
-
     </aside>
 
-    <div class="relative w-full flex flex-col h-screen overflow-y-hidden">
+    <div class="w-full flex flex-col h-screen overflow-y-hidden">
         <!-- Desktop Header -->
         <header class="w-full items-center bg-white py-2 px-6 hidden sm:flex">
             <div class="w-1/2"></div>
@@ -102,8 +99,8 @@
                 </button>
                 <button x-show="isOpen" @click="isOpen = false" class="h-full w-full fixed inset-0 cursor-default"></button>
                 <div x-show="isOpen" class="loginbox absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16">
-                    <a href="#" class="block px-4 py-2 account-link hover:text-white">Account</a>
-                    <a href="#" class="block px-4 py-2 account-link hover:text-white">Sign Out</a>
+                    <a href="#" class="block px-4 py-2 account-link hover:text-black">Account</a>
+                    <a href="#" class="block px-4 py-2 account-link hover:text-black">Sign Out</a>
                 </div>
             </div>
         </header>
@@ -111,8 +108,8 @@
         <!-- Mobile Header & Nav -->
         <header x-data="{ isOpen: false }" class="w-full bg-sidebar py-5 px-6 sm:hidden">
             <div class="flex items-center justify-between">
-                <a href="index.html" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">Admin</a>
-                <button @click="isOpen = !isOpen" class="text-white text-3xl focus:outline-none">
+                <a href="index.html" class="text-black text-3xl font-semibold uppercase hover:text-gray-300">Admin</a>
+                <button @click="isOpen = !isOpen" class="text-black text-3xl focus:outline-none">
                     <i x-show="!isOpen" class="fas fa-bars"></i>
                     <i x-show="isOpen" class="fas fa-times"></i>
                 </button>
@@ -124,7 +121,7 @@
                     <i class="fas fa-tachometer-alt mr-3"></i>
                     Dashboard
                 </a>
-                <a href="{{('./products')}}" class="flex items-center active-nav-link text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                <a href="{{('./products')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                     <i class="fas fa-sticky-note mr-3"></i>
                     Products
                 </a>
@@ -140,7 +137,7 @@
                     <i class="fas fa-calendar mr-3"></i>
                     Deals
                 </a>
-                <a href="{{('./vouchers')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                <a href="{{('./vouchers')}}" class="flex items-center active-nav-link text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                     <i class="fas fa-calendar mr-3"></i>
                     Vouchers
                 </a>
@@ -155,16 +152,15 @@
             </button> -->
         </header>
 
-        <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
+        <div class="w-full overflow-x-hidden border-t flex flex-col">
             <main class="w-full flex-grow p-6">
                 <div class="flex justify-between">
-                    <h1 class="text-3xl text-extrabold pb-6">Products</h1>
-
+                    <h1 class="text-3xl text-extrabold pb-6">Vouchers</h1>
 
                     <form class="max-w-md" style="width: 500px;">
                         <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                         <div class="relative">
-                            <input type="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search products" required />
+                            <input type="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search vouchers" required />
                             <button type="submit" class="text-white absolute top-2 right-2.5 bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-800">Search</button>
                         </div>
                     </form>
@@ -178,11 +174,11 @@
                             <svg class="svg-inline--fa fa-list fa-w-16 mr-3" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="list" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="">
                                 <path fill="currentColor" d="M80 368H16a16 16 0 0 0-16 16v64a16 16 0 0 0 16 16h64a16 16 0 0 0 16-16v-64a16 16 0 0 0-16-16zm0-320H16A16 16 0 0 0 0 64v64a16 16 0 0 0 16 16h64a16 16 0 0 0 16-16V64a16 16 0 0 0-16-16zm0 160H16a16 16 0 0 0-16 16v64a16 16 0 0 0 16 16h64a16 16 0 0 0 16-16v-64a16 16 0 0 0-16-16zm416 176H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0-320H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16V80a16 16 0 0 0-16-16zm0 160H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16z"></path>
                             </svg>
-                            <span>All products</span>
+                            <span>All vouchers</span>
                         </span>
                         <button class="bg-blue-500 text-white py-1 px-4 rounded ml-auto">
                             <i class="fa-solid fa-circle-plus mr-1"></i>
-                            <a href="{{URL::to('admin/products/create')}}">Product</a>
+                            <a href="{{URL::to('admin/vouchers/create')}}">Voucher</a>
                         </button>
                     </p>
                     <div class="bg-white overflow-auto">
@@ -190,63 +186,56 @@
                             <thead class="bg-gray-800 text-white">
                                 <tr>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">
-                                        Product ID
+                                        Voucher ID
                                         <i class="fa-solid fa-sort sort-icon" onclick="sortTable(0, this)"></i>
                                     </th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">
-                                        Category
+                                        Name
                                         <i class="fa-solid fa-sort sort-icon" onclick="sortTable(1, this)"></i>
                                     </th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">
-                                        Product
-                                    </th>
-                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">
-                                        Name
+                                        Discount
                                         <i class="fa-solid fa-sort sort-icon" onclick="sortTable(2, this)"></i>
                                     </th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">
-                                        SKU
+                                        Max usage
                                         <i class="fa-solid fa-sort sort-icon" onclick="sortTable(3, this)"></i>
                                     </th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">
-                                        Price
+                                        Current usage
                                         <i class="fa-solid fa-sort sort-icon" onclick="sortTable(4, this)"></i>
                                     </th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">
-                                        Describe
+                                        Start date
                                         <i class="fa-solid fa-sort sort-icon" onclick="sortTable(5, this)"></i>
                                     </th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">
-                                        Rate
+                                        End date
                                         <i class="fa-solid fa-sort sort-icon" onclick="sortTable(6, this)"></i>
                                     </th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Manage</th>
                                 </tr>
                             </thead>
-                            <tbody class="text-gray-700" id="productTable">
-                                @foreach($all_products as $product)
-                                <tr>
-                                    <td class="text-center py-3">{{ $product->product_id }}</td>
-                                    <td class="text-center py-3">{{ $product->category_name }}</td>
-                                    <td class="text-center py-3 mx-auto">
-                                        <img src="{{ asset('public/backend/image/'.$product->product_image) }}" class="mx-auto" width="100px" height="100px" alt="">
-                                    </td>
-                                    <td class="text-center py-3 px-4">{{ $product->product_name }}</td>
-                                    <td class="text-center py-3 px-4">{{ $product->product_sku }}</td>
-                                    <td class="text-center py-3 px-4">{{ number_format($product->product_price, 0, ',', '.') . ' VND' }}</td>
-                                    <td class="text-center py-3 px-4">{{ Str::limit($product->product_desc, 50) }}</td>
-                                    <td class="text-center py-3 px-4">{{ number_format($product_rate, 1, ',', '.')}}</td>
-                                    <td class="text-center py-3 px-1">
-                                        <form action="{{ URL::to('admin/products/delete/'.$product->product_id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this product?');">
-                                            @csrf <!-- This is important for CSRF protection in Laravel -->
-                                            <button class="bg-green-500 text-white py-1 px-4 rounded hover:bg-green-600">
-                                                <i class="fa-solid fa-pen"></i>
-                                            </button>
-                                            <button type="submit" class="bg-red-500 text-white py-1 px-4 rounded hover:bg-red-600">
-                                                <i class="fa-solid fa-trash"></i>
-                                            </button>
-                                        </form>
-                                    </td>
+                            <tbody class="text-gray-700" id="dealTable">
+                                @foreach($all_vouchers as $voucher)
+                                <td class="text-center py-3">{{ $voucher->voucher_id }}</td>
+                                <td class="text-center py-3 mx-auto">
+                                    <img src="{{ asset('public/backend/image/'.$voucher->deal_image) }}" class="mx-auto" width="100px" height="100px" alt="">
+                                </td>
+                                <td class="text-center py-3">{{ $voucher->voucher_name }}</td>
+                                <td class="text-center py-3">{{ $voucher->voucher_price }}</td>
+                                <td class="text-center py-3 px-4">{{ $voucher->voucher_desc }}</td>
+                                <td class="text-center py-3 px-1">
+                                    <form action="{{ URL::to('admin/vouchers/delete/'.$deal->vouchers_id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this voucher?');">
+                                        @csrf <!-- This is important for CSRF protection in Laravel -->
+                                        <button class="bg-green-500 text-white py-1 px-4 rounded hover:bg-green-600">
+                                            <i class="fa-solid fa-pen"></i>
+                                        </button>
+                                        <button type="submit" class="bg-red-500 text-white py-1 px-4 rounded hover:bg-red-600">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -263,11 +252,14 @@
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <!-- Font Awesome -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs=" crossorigin="anonymous"></script>
+    <!-- ChartJS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI=" crossorigin="anonymous"></script>
+
     <script>
         let sortDirection = true; // true for ascending, false for descending
 
         function sortTable(columnIndex, icon) {
-            const table = document.getElementById('productTable');
+            const table = document.getElementById('vouchersTable');
             const rows = Array.from(table.rows);
             const isNumberColumn = columnIndex === 0 || columnIndex === 3; // Identify number columns
 
@@ -301,6 +293,7 @@
                 icons[1].style.display = 'inline';
             }
         }
+    </script>
     </script>
 </body>
 

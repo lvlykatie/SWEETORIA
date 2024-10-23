@@ -42,7 +42,7 @@
         }
 
         body {
-/*             padding: 20px 0; */
+            /*             padding: 20px 0; */
             /* background-color: #FFFDD0; */
         }
 
@@ -192,6 +192,52 @@
     function toggleMenu() {
         var navDemo = document.getElementById('navDemo');
         navDemo.classList.toggle('hidden');
+    }
+
+    function toggleTab(tab) {
+        const describeTab = document.getElementById('describeTab');
+        const reviewTab = document.getElementById('reviewTab');
+        const describeBtn = document.querySelector('.describe');
+        const reviewBtn = document.querySelector('.review');
+
+        if (tab === 'describe') {
+            // Hiển thị tab Describe với hiệu ứng fade-in, ẩn tab Review với hiệu ứng fade-out
+            describeTab.classList.remove('hidden', 'opacity-0');
+            describeTab.classList.add('opacity-100', 'transition-opacity', 'duration-500');
+
+            reviewTab.classList.add('opacity-0', 'transition-opacity', 'duration-500');
+            setTimeout(() => {
+                reviewTab.classList.add('hidden');
+            }, 500); // Ẩn tab Review sau khi hiệu ứng hoàn tất
+
+            // Thêm màu cho nút Describe, bỏ màu cho nút Review
+            describeBtn.classList.add('bg-pink');
+            reviewBtn.classList.remove('bg-pink');
+        } else if (tab === 'review') {
+            // Hiển thị tab Review với hiệu ứng fade-in, ẩn tab Describe với hiệu ứng fade-out
+            reviewTab.classList.remove('hidden', 'opacity-0');
+            reviewTab.classList.add('opacity-100', 'transition-opacity', 'duration-500');
+
+            describeTab.classList.add('opacity-0', 'transition-opacity', 'duration-500');
+            setTimeout(() => {
+                describeTab.classList.add('hidden');
+            }, 500);
+
+            // Thêm màu cho nút Review, bỏ màu cho nút Describe
+            reviewBtn.classList.add('bg-pink');
+            describeBtn.classList.remove('bg-pink');
+        }
+    }
+
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    pink: '#FFDEDE',
+                    textgray: '#D9D9D9'
+                }
+            }
+        }
     }
 </script>
 
