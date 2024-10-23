@@ -69,14 +69,12 @@
             <div class="flex flex-wrap">
                 @foreach ($products as $product)
                     <div class="md:w-1/3 w-full flex flex-col items-center">
-                        <img class=" hover:cursor-pointer"
-                            src="{{ asset('public/backend/image/' . $product->product_image) }}" width="299"
-                            alt="{{ $product->product_name }}" />
+                    <img src="{{ asset('public/backend/image/' . $product->product_image) }}" width="299" height="299" style="width: 299px; height: 299px; object-fit: cover;" alt="Product Image">
                         <div class="item-name text-3xl text-center font-extrabold">
                             {{ $product->product_name }}
                         </div>
                         <div class="price relative text-center pt-2">
-                            <span class="text-3xl font-normal">{{ $product->product_price }}</span>
+                            <span class="text-3xl font-normal">{{ number_format($product->product_price, 0, ',', '.') . ' VND' }}</span>
                             <div class="absolute bottom-0" style="right: -110px">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="29" height="100%" viewBox="0 0 33 30"
                                     fill="none">
