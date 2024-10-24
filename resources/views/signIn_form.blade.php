@@ -143,6 +143,12 @@
 
     <!-- Kết nối file JS ở đây -->
     <script src="{{ asset('public/frontend/js/validation.js') }}"></script>
+    <script>
+    document.getElementById('bt_signin_gg').addEventListener('click', function() {
+        // Điều hướng đến trang Google Sign In
+        window.location.href = "{{ url('/auth/google/redirect') }}";
+    });
+</script>
 </body>
 
 </html>

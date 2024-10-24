@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('otp')->nullable(); // Thêm cột otp
             $table->timestamp('otp_expiry')->nullable(); // Thêm cột otp_expiry
             $table->timestamps();
+            $table->timestamp('google_id')->nullable(); // Thêm cột google_id
         });
 
         DB::table('tb_user')->insert([

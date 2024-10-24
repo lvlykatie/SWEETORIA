@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\loginGoogleController;
 
 // Homepage Route
 Route::get('/', [PageController::class, 'homepage'])->name('homepage');
@@ -55,13 +56,15 @@ Route::get('/cart', [PageController::class, 'cart'])->name('cart');
     // Route xử lý xác thực OTP (POST)
     Route::post('/otp', 'App\Http\Controllers\client\ForgetPassController@verifyOTP');
  
-    
     Route::get('/resetpass', function () {
         return view('resetPass_form');
     });
     // Route xử lý tạo lại mật khẩu (POST)
     Route::post('/resetpass', 'App\Http\Controllers\client\ForgetPassController@resetPassword');
     
+// Login Google Route
+    Route::get('/auth/google/redirect', [loginGoogleController::class, 'redirectToGoogle'])->name('auth.google');
+    Route::get('/auth/google/callback', [loginGoogleController::class, 'handleGoogleCallback']);
 
 
 

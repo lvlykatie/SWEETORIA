@@ -17,11 +17,26 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    // protected $fillable = [
+    //     'name',
+    //     'email',
+    //     'password',
+    //     'google_id',
+    // ];
+
+    // Chỉ định bảng mà mô hình này sẽ tương tác
+    protected $table = 'tb_user';
+    // Chỉ định các cột có thể được gán hàng loạt
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'user_email',
+        'user_password',
+        'user_name',
+        'user_address',
+        'user_phone',
+        'role',
+        'google_id',
     ];
+
 
     /**
      * The attributes that should be hidden for serialization.
