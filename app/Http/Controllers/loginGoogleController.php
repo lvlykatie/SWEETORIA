@@ -37,7 +37,7 @@ class loginGoogleController extends Controller
                 Log::info('Creating new user with email: ' . $googleUser->getEmail());
     
                 // Tạo người dùng mới và lưu vào cơ sở dữ liệu
-                $newUser = User::create ([
+                $newUser = User::create([
                     'user_email' => $googleUser->getEmail(),
                     'user_password' => Hash::make(uniqid()), // Đặt mật khẩu ngẫu nhiên
                     'user_name' => $googleUser->getName(),
@@ -47,16 +47,18 @@ class loginGoogleController extends Controller
                     'google_id' => $googleUser->getId(),
                 ]);
     
-    
-                // Đăng nhập người dùng sau khi tạo thành công
-                Auth::login($newUser);
-
-                // Chuyển hướng đến trang chủ
-                return redirect('/');
+                if ($newUser) {
+                    Log::info('New user created successfully with ID: ' . $newUser->id);
+                    // Đăng nhập người dùng sau khi tạo thành công
+                    Auth::login($newUser);
+                    return redirect('/');
+                } else {
+                    Log::error('Failed to create a new user in the database.');
+                    return redirect('/signin')->with('error', 'Lỗi khi tạo người dùng mới.');
+                }
             }
     
-
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             Log::error('Error in Google login: ' . $e->getMessage());
             return redirect('/signin')->with('error', 'Có lỗi xảy ra khi đăng nhập Google');
         }
