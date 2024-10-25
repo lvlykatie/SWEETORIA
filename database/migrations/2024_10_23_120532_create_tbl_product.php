@@ -21,8 +21,8 @@ return new class extends Migration
                 $table->integer('product_sku');
                 $table->string('category_name');
                 $table->float('product_rate', 2, 1)->default(0);
-                $table->integer('deal_id');
-                $table->integer('wh_id');
+                $table->integer('deal_id')->nullable();
+                $table->integer('wh_id')->nullable();
                 $table->timestamps();
             });
         }
