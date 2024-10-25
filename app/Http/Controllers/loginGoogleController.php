@@ -19,43 +19,48 @@ class loginGoogleController extends Controller
         return Socialite::driver('google')->redirect();
     }
 
-// Xử lý callback từ Google
-public function handleGoogleCallback()
-{
-    try {
-        // Lấy thông tin người dùng từ Google
-        $googleUser = Socialite::driver('google')->user();
+    public function handleGoogleCallback()
+    {
+        try {
+            // Lấy thông tin người dùng từ Google
+            $googleUser = Socialite::driver('google')->user();
+    
+            // Kiểm tra xem người dùng đã tồn tại trong hệ thống chưa
+            $user = User::where('user_email', $googleUser->getEmail())->first();
+    
+            if ($user) {
+                // Nếu người dùng đã tồn tại, đăng nhập
+                Auth::login($user);
+                return redirect('/');
+            } else {
+                // Nếu người dùng chưa tồn tại, tạo người dùng mới
+                Log::info('Creating new user with email: ' . $googleUser->getEmail());
+    
+                // Tạo người dùng mới và lưu vào cơ sở dữ liệu
+                $newUser = User::create ([
+                    'user_email' => $googleUser->getEmail(),
+                    'user_password' => Hash::make(uniqid()), // Đặt mật khẩu ngẫu nhiên
+                    'user_name' => $googleUser->getName(),
+                    'user_phone' => null,
+                    'user_address' => null,
+                    'role' => 'customer',
+                    'google_id' => $googleUser->getId(),
+                ]);
+    
+    
+                // Đăng nhập người dùng sau khi tạo thành công
+                Auth::login($newUser);
 
-        // Kiểm tra xem người dùng đã tồn tại trong hệ thống chưa
-        $user = User::where('user_email', $googleUser->getEmail())->first();
+                // Chuyển hướng đến trang chủ
+                return redirect('/');
+            }
+    
 
-        if ($user) {
-            // Nếu người dùng đã tồn tại, đăng nhập
-            Auth::login($user);
-            Log::info('User logged in:', ['user_id' => $user->id, 'email' => $user->user_email]);
-        } else {
-            // Nếu người dùng chưa tồn tại, tạo người dùng mới
-            $newUser = User::create([
-                'user_email' => $googleUser->getEmail(),
-                'user_password' => Hash::make(uniqid()), // Đặt mật khẩu ngẫu nhiên
-                'user_name' => $googleUser->getName(),
-                'user_phone' => null,
-                'user_address' => null,
-                'role' => 'customer',
-                'google_id' => $googleUser->getId(),
-            ]);
-
-            Auth::login($newUser);
-            Log::info('New user created and logged in:', ['user_id' => $newUser->id, 'email' => $newUser->user_email]);
+        } catch (\Exception $e) {
+            Log::error('Error in Google login: ' . $e->getMessage());
+            return redirect('/signin')->with('error', 'Có lỗi xảy ra khi đăng nhập Google');
         }
-
-        // Điều hướng đến trang chủ
-        return redirect('/'); 
-    } catch (\Exception $e) {
-        Log::error('Error during Google login:', ['error' => $e->getMessage()]);
-        return redirect('/signin')->with('error', 'Có lỗi xảy ra khi đăng nhập Google');
     }
-}
-
+    
 
 }
