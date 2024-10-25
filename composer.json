@@ -8,6 +8,7 @@
         "php": "^8.2",
         "guzzlehttp/guzzle": "^7.9",
         "laravel/framework": "^11.9",
+        "laravel/socialite": "^5.16",
         "laravel/tinker": "^2.9",
         "symfony/mailer": "^7.1"
     },
