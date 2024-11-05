@@ -20,8 +20,7 @@ class ProductController extends Controller
     }
     public function addProductPage()
     {
-        $products = DB::table('tbl_product')->get();
-        return view('admin.products.add-product')->with('products', $products);
+        return view('admin.products.add-product');
     }
     public function saveProduct(Request $request)
     {
@@ -38,12 +37,12 @@ class ProductController extends Controller
             $get_image->move('public/backend/image', $new_image);
             $data['product_image'] = ($new_image);
             DB::table('tbl_product')->insert($data);
-            Session::put('message', 'Create successfully.');
+            Session::put('message', 'Successfully.');
             return Redirect::to('admin/products/create');
         } else {
             $data['product_image'] = '';
             DB::table('tbl_product')->insert($data);
-            Session::put('message', 'Create successfully.');
+            Session::put('message', 'Successfully.');
             return Redirect::to('admin/products/create');
         }
     }
@@ -52,5 +51,10 @@ class ProductController extends Controller
         DB::table('tbl_product')->where('product_id', $product_id)->delete();
         Session::put('message', 'Delete successfully');
         return Redirect::to('admin/products');
+    }
+    public function editProduct($product_id)
+    {
+        $edit_product = DB::table('tbl_product')->get();
+        return view('admin.products.edit-product')->with('edit_product', $edit_product);
     }
 }

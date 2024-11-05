@@ -81,7 +81,7 @@
                 Deals
             </a>
             <a href="{{('./vouchers')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
-                <i class="fas fa-calendar mr-3"></i> 
+                <i class="fas fa-calendar mr-3"></i>
                 Vouchers
             </a>
             <a href="{{('./accounts')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
@@ -224,7 +224,7 @@
                                 </tr>
                             </thead>
                             <tbody class="text-gray-700" id="productTable">
-                                @foreach($all_products as $product)
+                                @foreach($all_products as $key => $product)
                                 <tr>
                                     <td class="text-center py-3">{{ $product->product_id }}</td>
                                     <td class="text-center py-3">{{ $product->category_name }}</td>
@@ -235,17 +235,14 @@
                                     <td class="text-center py-3 px-4">{{ $product->product_sku }}</td>
                                     <td class="text-center py-3 px-4">{{ number_format($product->product_price, 0, ',', '.') . ' VND' }}</td>
                                     <td class="text-center py-3 px-4">{{ Str::limit($product->product_desc, 50) }}</td>
-                                    <td class="text-center py-3 px-4">{{ number_format($product_rate, 1, ',', '.')}}</td>
+                                    <td class="text-center py-3 px-4">{{ number_format($product->product_rate, 1, ',', '.')}}</td>
                                     <td class="text-center py-3 px-1">
-                                        <form action="{{ URL::to('admin/products/delete/'.$product->product_id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this product?');">
-                                            @csrf <!-- This is important for CSRF protection in Laravel -->
-                                            <button class="bg-green-500 text-white py-1 px-4 rounded hover:bg-green-600">
-                                                <i class="fa-solid fa-pen"></i>
-                                            </button>
-                                            <button type="submit" class="bg-red-500 text-white py-1 px-4 rounded hover:bg-red-600">
-                                                <i class="fa-solid fa-trash"></i>
-                                            </button>
-                                        </form>
+                                        <button onclick="window.location.href='{{URL::to('/admin/products/edit/' . $product->product_id)}}'" class="bg-green-500 text-white py-1 px-4 rounded hover:bg-green-600">
+                                            <i class="fa-solid fa-pen"></i>
+                                        </button>
+                                        <button onclick="if(confirm('Are you sure you want to delete this product?')) { window.location.href='{{URL::to('/admin/products/delete/' . $product->product_id)}}' }" class="bg-red-500 text-white py-1 px-4 rounded hover:bg-red-600">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
                                     </td>
                                 </tr>
                                 @endforeach
