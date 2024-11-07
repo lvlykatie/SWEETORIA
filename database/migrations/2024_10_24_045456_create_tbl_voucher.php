@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('discount_type'); 
             $table->decimal('discount_value', 10, 2);
             $table->integer('max_usage');
-            $table->integer('current_usage');
+            $table->integer('current_usage')->default('0');
             $table->dateTime('startdate'); 
             $table->dateTime('enddate'); 
             $table->timestamps();

@@ -544,6 +544,7 @@ class ComposerStaticInit7e8c3c14ff33b199b4a0838993eb8423
         'App\\Http\\Controllers\\admin\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/admin/UserController.php',
         'App\\Http\\Controllers\\admin\\VoucherController' => __DIR__ . '/../..' . '/app/Http/Controllers/admin/VoucherController.php',
         'App\\Http\\Controllers\\client\\registerController' => __DIR__ . '/../..' . '/app/Http/Controllers/client/registerController.php',
+        'App\\Http\\Controllers\\loginGoogleController' => __DIR__ . '/../..' . '/app/Http/Controllers/loginGoogleController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\AdminAuth' => __DIR__ . '/../..' . '/app/Http/Middleware/AdminAuth.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',

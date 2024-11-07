@@ -124,6 +124,7 @@
             @yield('add-product')
             @yield('edit-product')
             @yield('edit-user')
+            @yield('add-voucher')
             @yield('add-deal')
         </div>
     </div>

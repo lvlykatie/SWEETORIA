@@ -18,6 +18,7 @@ return array(
     'App\\Http\\Controllers\\admin\\UserController' => $baseDir . '/app/Http/Controllers/admin/UserController.php',
     'App\\Http\\Controllers\\admin\\VoucherController' => $baseDir . '/app/Http/Controllers/admin/VoucherController.php',
     'App\\Http\\Controllers\\client\\registerController' => $baseDir . '/app/Http/Controllers/client/registerController.php',
+    'App\\Http\\Controllers\\loginGoogleController' => $baseDir . '/app/Http/Controllers/loginGoogleController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\AdminAuth' => $baseDir . '/app/Http/Middleware/AdminAuth.php',
     'App\\Http\\Middleware\\Authenticate' => $baseDir . '/app/Http/Middleware/Authenticate.php',

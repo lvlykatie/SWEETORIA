@@ -220,7 +220,7 @@
                                         <button onclick="window.location.href='{{URL::to('/admin/users/edit/' . $user->user_id)}}'" class="bg-green-500 text-white py-1 px-4 rounded hover:bg-green-600">
                                             <i class="fa-solid fa-pen"></i>
                                         </button>
-                                        <button onclick="if(confirm('Are you sure you want to delete this product?')) { window.location.href='{{URL::to('/admin/users/delete/' . $user->user_id)}}' }" class="bg-red-500 text-white py-1 px-4 rounded hover:bg-red-600">
+                                        <button onclick="if(confirm('Are you sure you want to delete this user?')) { window.location.href='{{URL::to('/admin/users/delete/' . $user->user_id)}}' }" class="bg-red-500 text-white py-1 px-4 rounded hover:bg-red-600">
                                             <i class="fa-solid fa-trash"></i>
                                         </button>
                                     </td>

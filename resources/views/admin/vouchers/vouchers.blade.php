@@ -194,24 +194,28 @@
                                         <i class="fa-solid fa-sort sort-icon" onclick="sortTable(1, this)"></i>
                                     </th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">
-                                        Discount
+                                        Discount type
                                         <i class="fa-solid fa-sort sort-icon" onclick="sortTable(2, this)"></i>
                                     </th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">
-                                        Max usage
+                                        Discount value
                                         <i class="fa-solid fa-sort sort-icon" onclick="sortTable(3, this)"></i>
                                     </th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">
-                                        Current usage
+                                        Max usage
                                         <i class="fa-solid fa-sort sort-icon" onclick="sortTable(4, this)"></i>
                                     </th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">
-                                        Start date
+                                        Current usage
                                         <i class="fa-solid fa-sort sort-icon" onclick="sortTable(5, this)"></i>
                                     </th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">
-                                        End date
+                                        Start date
                                         <i class="fa-solid fa-sort sort-icon" onclick="sortTable(6, this)"></i>
+                                    </th>
+                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">
+                                        End date
+                                        <i class="fa-solid fa-sort sort-icon" onclick="sortTable(7, this)"></i>
                                     </th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Manage</th>
                                 </tr>
@@ -219,22 +223,20 @@
                             <tbody class="text-gray-700" id="dealTable">
                                 @foreach($all_vouchers as $voucher)
                                 <td class="text-center py-3">{{ $voucher->voucher_id }}</td>
-                                <td class="text-center py-3 mx-auto">
-                                    <img src="{{ asset('public/backend/image/'.$voucher->deal_image) }}" class="mx-auto" width="100px" height="100px" alt="">
-                                </td>
                                 <td class="text-center py-3">{{ $voucher->voucher_name }}</td>
-                                <td class="text-center py-3">{{ $voucher->voucher_price }}</td>
-                                <td class="text-center py-3 px-4">{{ $voucher->voucher_desc }}</td>
+                                <td class="text-center py-3">{{ $voucher->discount_type }}</td>
+                                <td class="text-center py-3 px-4">{{ $voucher->discount_value }}</td>
+                                <td class="text-center py-3 px-4">{{ $voucher->max_usage }}</td>
+                                <td class="text-center py-3 px-4">{{ $voucher->current_usage }}</td>
+                                <td class="text-center py-3 px-4">{{ $voucher->startdate }}</td>
+                                <td class="text-center py-3 px-4">{{ $voucher->enddate }}</td>
                                 <td class="text-center py-3 px-1">
-                                    <form action="{{ URL::to('admin/vouchers/delete/'.$deal->vouchers_id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this voucher?');">
-                                        @csrf <!-- This is important for CSRF protection in Laravel -->
-                                        <button class="bg-green-500 text-white py-1 px-4 rounded hover:bg-green-600">
-                                            <i class="fa-solid fa-pen"></i>
-                                        </button>
-                                        <button type="submit" class="bg-red-500 text-white py-1 px-4 rounded hover:bg-red-600">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </button>
-                                    </form>
+                                    <button onclick="window.location.href='{{URL::to('/admin/vouchers/edit/' . $voucher->voucher_id)}}'" class="bg-green-500 text-white py-1 px-4 rounded hover:bg-green-600">
+                                        <i class="fa-solid fa-pen"></i>
+                                    </button>
+                                    <button onclick="if(confirm('Are you sure you want to delete this voucher?')) { window.location.href='{{URL::to('/admin/vouchers/delete/' . $voucher->voucher_id)}}' }" class="bg-red-500 text-white py-1 px-4 rounded hover:bg-red-600">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
                                 </td>
                                 </tr>
                                 @endforeach

@@ -106,5 +106,7 @@ Route::post('/admin/deals/save', 'App\Http\Controllers\admin\DealController@save
 Route::post('/admin/deals/delete/{deal_id}', 'App\Http\Controllers\admin\DealController@deleteDeal');
 
 Route::get('/admin/vouchers', 'App\Http\Controllers\admin\VoucherController@showVoucherPage');
+Route::get('/admin/vouchers/create', 'App\Http\Controllers\admin\VoucherController@addVoucherPage');
+Route::post('/admin/vouchers/save', 'App\Http\Controllers\admin\VoucherController@saveVoucher');
 
 Route::get('/admin/accounts', 'App\Http\Controllers\admin\AccountController@showAccountPage');
