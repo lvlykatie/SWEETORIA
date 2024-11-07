@@ -31,10 +31,10 @@
                     <div class="mt-2">
                         <label class="block text-xl text-gray-600" for="category">Category</label>
                         <select id="category" name="category" class="w-full px-5 py-4 text-gray-700 bg-gray-200 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" role="combobox" aria-label="Category" required>
-                            <option value="baking-ingredients">Baking ingredients</option>
-                            <option value="baking-tools">Baking tools</option>
-                            <option value="baking-trays-molds">Baking trays, molds</option>
-                            <option value="bags-boxes-cups-jars">Bags, boxes, cups, jars</option>
+                            <option value="Baking ingredients">Baking ingredients</option>
+                            <option value="Baking tools">Baking tools</option>
+                            <option value="Baking trays, molds">Baking trays, molds</option>
+                            <option value="Bags, boxes, cups, jars">Bags, boxes, cups, jars</option>
                         </select>
                     </div>
                     <div class="mt-2">

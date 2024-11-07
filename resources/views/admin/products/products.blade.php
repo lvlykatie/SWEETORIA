@@ -223,8 +223,8 @@
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Manage</th>
                                 </tr>
                             </thead>
+                            @foreach($all_products as $key => $product)
                             <tbody class="text-gray-700" id="productTable">
-                                @foreach($all_products as $key => $product)
                                 <tr>
                                     <td class="text-center py-3">{{ $product->product_id }}</td>
                                     <td class="text-center py-3">{{ $product->category_name }}</td>
@@ -245,8 +245,8 @@
                                         </button>
                                     </td>
                                 </tr>
-                                @endforeach
                             </tbody>
+                            @endforeach
                         </table>
                     </div>
                 </div>

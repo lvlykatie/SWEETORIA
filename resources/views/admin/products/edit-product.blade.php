@@ -23,19 +23,41 @@
             </p>
             <div class="leading-loose">
                 @foreach($edit_product as $key => $product)
-                <form class="p-10 bg-white rounded shadow-xl" role="form" action="{{URL::to('admin/products/save')}}" method="post" enctype="multipart/form-data">
+                <form class="p-10 bg-white rounded shadow-xl" role="form" action="{{URL::to('admin/products/update/'.$product->product_id)}}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="">
                         <label class="block text-xl text-gray-600" for="name">Product name</label>
-                        <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="name" name="product_name" type="text" required="" placeholder="Enter product's name" aria-label="Name">
+                        <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="name" value="{{$product->product_name }}" name="product_name" type="text" required="" placeholder="Enter product's name" aria-label="Name">
                     </div>
                     <div class="mt-2">
                         <label class="block text-xl text-gray-600" for="category">Category</label>
                         <select id="category" name="category" class="w-full px-5 py-4 text-gray-700 bg-gray-200 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" role="combobox" aria-label="Category" required>
-                            <option value="baking-ingredients">Baking ingredients</option>
-                            <option value="baking-tools">Baking tools</option>
-                            <option value="baking-trays-molds">Baking trays, molds</option>
-                            <option value="bags-boxes-cups-jars">Bags, boxes, cups, jars</option>
+
+                            @if ($product->category_name=='Baking ingredients')
+                            <option selected value="Baking ingredients">Baking ingredients</option>
+                            <option value="Baking tools">Baking tools</option>
+                            <option value="Baking trays, molds">Baking trays, molds</option>
+                            <option value="Bags, boxes, cups, jars">Bags, boxes, cups, jars</option>
+
+                            @elseif ($product->category_name=='Baking tools')
+                            <option value="Baking ingredients">Baking ingredients</option>
+                            <option selected value="Baking tools">Baking tools</option>
+                            <option value="Baking trays, molds">Baking trays, molds</option>
+                            <option value="Bags, boxes, cups, jars">Bags, boxes, cups, jars</option>
+
+                            @elseif ($product->category_name=='Baking trays, molds')
+                            <option value="Baking ingredients">Baking ingredients</option>
+                            <option value="Baking tools">Baking tools</option>
+                            <option selected value="Baking trays, molds">Baking trays, molds</option>
+                            <option value="Bags, boxes, cups, jars">Bags, boxes, cups, jars</option>
+
+                            @elseif ($product->category_name=='Bags, boxes, cups, jars')
+                            <option value="Baking ingredients">Baking ingredients</option>
+                            <option value="Baking tools">Baking tools</option>
+                            <option value="Baking trays, molds">Baking trays, molds</option>
+                            <option selected value="Bags, boxes, cups, jars">Bags, boxes, cups, jars</option>
+
+                            @endif
                         </select>
                     </div>
                     <div class="mt-2">
@@ -43,6 +65,7 @@
                         <input class="w-full px-5 py-2 text-gray-700 bg-gray-200 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             id="sku"
                             name="product_sku"
+                            value="{{$product->product_sku }}"
                             type="number"
                             required
                             placeholder="Enter SKU"
@@ -53,6 +76,7 @@
                         <input class="w-full pl-16 pr-5 py-2 text-gray-700 bg-gray-200 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             id="price"
                             name="product_price"
+                            value="{{$product->product_price }}"
                             type="number"
                             step="1000"
                             min="1000"
@@ -63,7 +87,7 @@
                     </div>
                     <div class="mt-2 relative">
                         <label class="block text-xl text-gray-600" for="name">Describe</label>
-                        <textarea class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="name" name="product_desc" type="text" required="" placeholder="Enter product's describe" aria-label="Name"></textarea>
+                        <textarea class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="name" name="product_desc" type="text" required="" placeholder="Enter product's describe" aria-label="Name">{{$product->product_desc }}</textarea>
                     </div>
                     <div class="mt-2 relative">
                         <label class="block text-xl text-gray-600">Image</label>
@@ -71,7 +95,7 @@
 
                             <!-- Image Preview -->
                             <div class="mb-4" id="imageContainer">
-                                <img style="display: none;" class="h-52" src="#" alt="img preview" id="imgPreview">
+                                <img class="h-52" src="{{ asset('public/backend/image/'.$product->product_image) }}" alt="img preview" id="imgPreview">
                             </div>
 
                             <!-- SVG and Upload Button -->
@@ -96,6 +120,7 @@
                         <button class="px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded" type="submit">Submit</button>
                     </div>
                 </form>
+                @endforeach
             </div>
         </div>
     </div>

@@ -89,6 +89,7 @@ Route::get('/admin/products/create', 'App\Http\Controllers\admin\ProductControll
 Route::post('/admin/products/save', 'App\Http\Controllers\admin\ProductController@saveProduct');
 Route::get('/admin/products/delete/{product_id}', 'App\Http\Controllers\admin\ProductController@deleteProduct');
 Route::get('/admin/products/edit/{product_id}', 'App\Http\Controllers\admin\ProductController@editProduct');
+Route::post('/admin/products/update/{product_id}', 'App\Http\Controllers\admin\ProductController@updateProduct');
 
 
 Route::get('/admin/orders', 'App\Http\Controllers\admin\OrderController@showOrderPage');

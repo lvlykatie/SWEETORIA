@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 
 session_start();
- 
+
 class ProductController extends Controller
 {
     public function showProductPage()
@@ -18,6 +18,7 @@ class ProductController extends Controller
         $all_products = DB::table('tbl_product')->get();
         return view('admin.products.products')->with('all_products', $all_products);
     }
+
     public function addProductPage()
     {
         return view('admin.products.add-product');
@@ -37,12 +38,12 @@ class ProductController extends Controller
             $get_image->move('public/backend/image', $new_image);
             $data['product_image'] = ($new_image);
             DB::table('tbl_product')->insert($data);
-            Session::put('message', 'Successfully.');
+            Session::put('message', 'Create successfully.');
             return Redirect::to('admin/products/create');
         } else {
             $data['product_image'] = '';
             DB::table('tbl_product')->insert($data);
-            Session::put('message', 'Successfully.');
+            Session::put('message', 'Create successfully.');
             return Redirect::to('admin/products/create');
         }
     }
@@ -54,7 +55,35 @@ class ProductController extends Controller
     }
     public function editProduct($product_id)
     {
-        $edit_product = DB::table('tbl_product')->get();
-        return view('admin.products.edit-product')->with('edit_product', $edit_product);
+        $edit_product = DB::table('tbl_product')->where('product_id', $product_id)->get();
+        $manager_product = view('admin.products.edit-product')->with('edit_product', $edit_product);
+        return view('admin.layout')->with('admin.products.edit-product', @$manager_product);
+    }
+    public function updateProduct(Request $request, $product_id)
+    {
+        $data = array();
+        $data['product_name'] = $request->product_name;
+        $data['product_price'] = $request->product_price;
+        $data['category_name'] = $request->category;
+        $data['product_sku'] = $request->product_sku;
+        $data['product_desc'] = $request->product_desc;
+
+        $get_image = $request->file('product_image');
+        if ($get_image) {
+            $new_image = $get_image->getClientOriginalName();
+            $get_image->move('public/backend/image', $new_image);
+            $data['product_image'] = ($new_image);
+            $check = DB::table('tbl_product')->where('product_id', $product_id)->update($data);
+            if (isset($check)) {
+                Session::put('message', 'Update successfully.');
+            } else Session::put('message', 'Failed to update.');
+            return Redirect::to("admin/products/edit/$product_id");
+        } else {
+            $check = DB::table('tbl_product')->where('product_id', $product_id)->update($data);
+            if (isset($check)) {
+                Session::put('message', 'Update successfully.');
+            } else Session::put('message', 'Failed to update.');
+            return Redirect::to("admin/products/edit/$product_id");
+        }
     }
 }
