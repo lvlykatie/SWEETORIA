@@ -123,6 +123,7 @@
         <div class="w-full overflow-x-hidden border-t flex flex-col">
             @yield('add-product')
             @yield('edit-product')
+            @yield('edit-user')
             @yield('add-deal')
         </div>
     </div>

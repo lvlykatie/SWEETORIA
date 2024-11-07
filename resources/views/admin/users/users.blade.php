@@ -197,6 +197,10 @@
                                         <i class="fa-solid fa-sort sort-icon" onclick="sortTable(3, this)"></i>
                                     </th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">
+                                        Role
+                                        <i class="fa-solid fa-sort sort-icon" onclick="sortTable(4, this)"></i>
+                                    </th>
+                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">
                                         Manage
                                     </th>
                                 </tr>
@@ -211,16 +215,14 @@
                                     <td class="text-center py-3">{{ $user->user_name }}</td>
                                     <td class="text-center py-3">
                                         <a class="hover:text-blue-500" href="tel:{{ $user->user_phone }}">{{ $user->user_phone }}</a>
+                                    <td class="text-center py-3">{{ $user->role }}</td>
                                     <td class="text-center py-3 px-4">
-                                        <form action="{{ URL::to('admin/users/delete/'.$user->user_id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this user?');">
-                                            @csrf <!-- This is important for CSRF protection in Laravel -->
-                                            <button class="bg-green-500 text-white py-1 px-4 rounded hover:bg-green-600">
-                                                <i class="fa-solid fa-pen"></i>
-                                            </button>
-                                            <button type="submit" class="bg-red-500 text-white py-1 px-4 rounded hover:bg-red-600">
-                                                <i class="fa-solid fa-trash"></i>
-                                            </button>
-                                        </form>
+                                        <button onclick="window.location.href='{{URL::to('/admin/users/edit/' . $user->user_id)}}'" class="bg-green-500 text-white py-1 px-4 rounded hover:bg-green-600">
+                                            <i class="fa-solid fa-pen"></i>
+                                        </button>
+                                        <button onclick="if(confirm('Are you sure you want to delete this product?')) { window.location.href='{{URL::to('/admin/users/delete/' . $user->user_id)}}' }" class="bg-red-500 text-white py-1 px-4 rounded hover:bg-red-600">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
                                     </td>
                                 </tr>
                                 @endforeach

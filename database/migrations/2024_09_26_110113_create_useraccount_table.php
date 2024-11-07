@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('user_name');
             $table->string('user_address')->nullable();
             $table->string('user_phone');
-            $table->enum('role', ['customer', 'admin']);
+            $table->string('role')->default('Client');
             $table->string('otp')->nullable(); // Thêm cột otp
             $table->timestamp('otp_expiry')->nullable(); // Thêm cột otp_expiry
             $table->timestamps();

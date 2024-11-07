@@ -95,7 +95,10 @@ Route::post('/admin/products/update/{product_id}', 'App\Http\Controllers\admin\P
 Route::get('/admin/orders', 'App\Http\Controllers\admin\OrderController@showOrderPage');
 
 Route::get('/admin/users', 'App\Http\Controllers\admin\UserController@showUserPage');
-Route::post('/admin/users/delete/{user_id}', 'App\Http\Controllers\admin\UserController@deleteUser');
+Route::get('/admin/users/delete/{user_id}', 'App\Http\Controllers\admin\UserController@deleteUser');
+Route::get('/admin/users/edit/{user_id}', 'App\Http\Controllers\admin\UserController@editUser');
+Route::post('/admin/users/update/{user_id}', 'App\Http\Controllers\admin\UserController@updateUser');
+
 
 Route::get('/admin/deals', 'App\Http\Controllers\admin\DealController@showDealPage');
 Route::get('/admin/deals/create', 'App\Http\Controllers\admin\DealController@addDealPage');
