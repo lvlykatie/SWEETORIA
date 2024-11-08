@@ -217,15 +217,12 @@
                                 <td class="text-center py-3">{{ $deal->deal_discount }}</td>
                                 <td class="text-center py-3 px-4">{{ $deal->deal_desc }}</td>
                                 <td class="text-center py-3 px-1">
-                                    <form action="{{ URL::to('admin/deals/delete/'.$deal->deal_id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this deal?');">
-                                        @csrf <!-- This is important for CSRF protection in Laravel -->
-                                        <button class="bg-green-500 text-white py-1 px-4 rounded hover:bg-green-600">
-                                            <i class="fa-solid fa-pen"></i>
-                                        </button>
-                                        <button type="submit" class="bg-red-500 text-white py-1 px-4 rounded hover:bg-red-600">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </button>
-                                    </form>
+                                    <button onclick="window.location.href='{{URL::to('/admin/deals/edit/' . $deal->deal_id)}}'" class="bg-green-500 text-white py-1 px-4 rounded hover:bg-green-600">
+                                        <i class="fa-solid fa-pen"></i>
+                                    </button>
+                                    <button onclick="if(confirm('Are you sure you want to delete this product?')) { window.location.href='{{URL::to('/admin/deals/delete/' . $deal->deal_id)}}' }" class="bg-red-500 text-white py-1 px-4 rounded hover:bg-red-600">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
                                 </td>
                                 </tr>
                                 @endforeach

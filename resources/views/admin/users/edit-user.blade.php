@@ -23,7 +23,7 @@
             </p>
             <div class="leading-loose">
                 @foreach($edit_user as $key => $user)
-                <form class="p-10 bg-white rounded shadow-xl" role="form" action="{{URL::to('Admin/users/update/'.$user->user_id)}}" method="post" enctype="multipart/form-data">
+                <form class="p-10 bg-white rounded shadow-xl" role="form" action="{{URL::to('admin/users/update/'.$user->user_id)}}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="">
                         <label class="block text-xl text-gray-600" for="name">User name</label>

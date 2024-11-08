@@ -104,6 +104,8 @@ Route::get('/admin/deals', 'App\Http\Controllers\admin\DealController@showDealPa
 Route::get('/admin/deals/create', 'App\Http\Controllers\admin\DealController@addDealPage');
 Route::post('/admin/deals/save', 'App\Http\Controllers\admin\DealController@saveDeal');
 Route::post('/admin/deals/delete/{deal_id}', 'App\Http\Controllers\admin\DealController@deleteDeal');
+Route::get('/admin/deals/edit/{deal_id}', 'App\Http\Controllers\admin\DealController@editDeal');
+Route::post('/admin/deals/update/{deal_id}', 'App\Http\Controllers\admin\DealController@updateDeal');
 
 Route::get('/admin/vouchers', 'App\Http\Controllers\admin\VoucherController@showVoucherPage');
 Route::get('/admin/vouchers/create', 'App\Http\Controllers\admin\VoucherController@addVoucherPage');
