@@ -17,7 +17,7 @@ return new class extends Migration
             $table->float('deal_discount');
             $table->longText('deal_desc');
             $table->longText('deal_image');
-            $table->integer('wh_id');
+            $table->integer('wh_id')->nullable();
             $table->timestamps();
         });
     }

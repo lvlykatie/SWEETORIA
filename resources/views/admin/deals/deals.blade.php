@@ -214,7 +214,7 @@
                                     <img src="{{ asset('public/backend/image/'.$deal->deal_image) }}" class="mx-auto" width="100px" height="100px" alt="">
                                 </td>
                                 <td class="text-center py-3">{{ $deal->deal_name }}</td>
-                                <td class="text-center py-3">{{ $deal->deal_price }}</td>
+                                <td class="text-center py-3">{{ $deal->deal_discount }}</td>
                                 <td class="text-center py-3 px-4">{{ $deal->deal_desc }}</td>
                                 <td class="text-center py-3 px-1">
                                     <form action="{{ URL::to('admin/deals/delete/'.$deal->deal_id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this deal?');">

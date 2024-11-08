@@ -27,86 +27,76 @@ class DealController extends Controller
     {
         $product_names = $request->input('product_name', []);
         $get_image = $request->file('deal_image');
+
         if ($get_image) {
             $new_image = $get_image->getClientOriginalName();
             $get_image->move('public/backend/image', $new_image);
         } else {
-            $new_image = ''; // If no image is uploaded
+            $new_image = '';
         }
 
+        $data = array();
+        $data['deal_name'] = $request->deal_name;
+        $data['deal_discount'] = $request->deal_discount;
+        $data['deal_desc'] = $request->deal_desc;
+        $data['deal_image'] = $new_image;
+
+        $deal_id = DB::table('tbl_deal')->insertGetId($data);
 
         foreach ($product_names as $product_name) {
-            $data = array();
-            $data['deal_name'] = $request->deal_name;
-            $data['deal_desc'] = $request->deal_desc;
-            $data['deal_price'] = $request->deal_price;
-            $data['product_name'] = $product_name;
-            $data['deal_image'] = $new_image;
-            // Insert the deal into the database
-            $deal_id = DB::table('tbl_deal')->insert($data);
-            if ($deal_id) {
-                // Check if the product exists before updating
-                $product = DB::table('tbl_product')
-                    ->where('product_name', $product_name)
-                    ->first();
+            $product = DB::table('tbl_product')
+                ->where('product_name', $product_name)
+                ->first();
 
-                if ($product) {
-                    // Store the original price if not already stored
-                    if (!$product->original_price) {
-                        DB::table('tbl_product')
-                            ->where('product_name', $product_name)
-                            ->update(['original_price' => $product->product_price]);
-                    }
-
-                    // Update the product price based on the discount logic (1 - deal_price)
+            if ($product) {
+                if (!$product->original_price) {
                     DB::table('tbl_product')
                         ->where('product_name', $product_name)
-                        ->update(['product_price' => DB::raw('product_price * (1 - ' . $request->deal_price . ')')]);
-
-                    Session::put('message', 'Deal created and product price updated successfully.');
-                } else {
-                    Session::put('message', 'Product not found. Deal created but price update failed.');
+                        ->update(['original_price' => $product->product_price]);
                 }
-            } else {
-                Session::put('message', 'Deal creation failed.');
+
+                DB::table('tbl_product')
+                    ->where('product_name', $product_name)
+                    ->update([
+                        'deal_id' => $deal_id,
+                        'product_price' => DB::raw('original_price * (1 - ' . $request->deal_discount . ')'),
+                    ]);
             }
         }
-
-
-
+        Session::put('message', 'Create successfully.');
         return Redirect::to('admin/deals/create');
     }
     public function deleteDeal($deal_id)
     {
-        // Find the deal to be deleted
-        $deal = DB::table('tbl_deal')->where('deal_id', $deal_id)->first();
+        try {
+            $deal = DB::table('tbl_deal')->where('deal_id', $deal_id)->first();
 
-        if ($deal) {
-            // Find the associated product
-            $product = DB::table('tbl_product')
-                ->where('product_name', $deal->product_name)
-                ->first();
+            if ($deal) {
+                $products = DB::table('tbl_product')->where('deal_id', $deal_id)->get();
 
-            if ($product && $product->original_price) {
-                // Restore the original price of the product
-                DB::table('tbl_product')
-                    ->where('product_name', $deal->product_name)
-                    ->update(['product_price' => $product->original_price]);
+                foreach ($products as $product) {
+                    if ($product && $product->original_price) {
+                        DB::table('tbl_product')
+                            ->where('product_name', $product->product_name)
+                            ->update(['product_price' => $product->original_price]);
 
-                // Optionally, set original_price to NULL again
-                DB::table('tbl_product')
-                    ->where('product_name', $deal->product_name)
-                    ->update(['original_price' => null]);
+                        DB::table('tbl_product')
+                            ->where('product_name', $product->product_name)
+                            ->update(['original_price' => null]);
+                    }
+                }
+
+                DB::table('tbl_deal')->where('deal_id', $deal_id)->delete();
+
+                session()->flash('success', 'Deal deleted and product prices restored successfully.');
+            } else {
+                session()->flash('error', 'Deal not found.');
             }
 
-            // Delete the deal
-            DB::table('tbl_deal')->where('deal_id', $deal_id)->delete();
-
-            Session::put('message', 'Deal deleted and product price restored successfully.');
-        } else {
-            Session::put('message', 'Deal not found.');
+            return Redirect::to('admin/deals');
+        } catch (\Exception $e) {
+            session()->flash('error', 'Failed to delete the deal: ' . $e->getMessage());
+            return Redirect::to('admin/deals');
         }
-
-        return Redirect::to('admin/deals');
     }
 }

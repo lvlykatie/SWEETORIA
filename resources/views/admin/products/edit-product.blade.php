@@ -32,7 +32,6 @@
                     <div class="mt-2">
                         <label class="block text-xl text-gray-600" for="category">Category</label>
                         <select id="category" name="category" class="w-full px-5 py-4 text-gray-700 bg-gray-200 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" role="combobox" aria-label="Category" required>
-
                             @if ($product->category_name=='Baking ingredients')
                             <option selected value="Baking ingredients">Baking ingredients</option>
                             <option value="Baking tools">Baking tools</option>

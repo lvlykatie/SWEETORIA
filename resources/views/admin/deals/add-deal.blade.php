@@ -33,8 +33,8 @@
                         <textarea class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="name" name="deal_desc" type="text" required="" placeholder="Enter deal's describe" aria-label="Name"></textarea>
                     </div>
                     <div class="">
-                        <label class="block text-xl text-gray-600" for="name">Deal price</label>
-                        <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" type="number" step="0.01" min="0.1" id="name" name="deal_price" type="text" required="" placeholder="Enter deal's price" aria-label="Name">
+                        <label class="block text-xl text-gray-600" for="name">Deal discount</label>
+                        <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" type="number" step="0.01" min="0.1" id="name" name="deal_discount" type="text" required="" placeholder="Enter deal's discount" aria-label="Name">
                     </div>
                     <div class="mt-2 relative">
                         <label class="block text-xl text-gray-600">Image</label>
