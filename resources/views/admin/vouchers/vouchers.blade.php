@@ -169,7 +169,7 @@
 
                 <div class="w-full mt-6">
                     <p class="text-xl pb-3 flex items-center justify-between">
-                        <!-- Left section: All products -->
+                        <!-- Left section: All vouchers -->
                         <span class="flex items-center">
                             <svg class="svg-inline--fa fa-list fa-w-16 mr-3" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="list" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="">
                                 <path fill="currentColor" d="M80 368H16a16 16 0 0 0-16 16v64a16 16 0 0 0 16 16h64a16 16 0 0 0 16-16v-64a16 16 0 0 0-16-16zm0-320H16A16 16 0 0 0 0 64v64a16 16 0 0 0 16 16h64a16 16 0 0 0 16-16V64a16 16 0 0 0-16-16zm0 160H16a16 16 0 0 0-16 16v64a16 16 0 0 0 16 16h64a16 16 0 0 0 16-16v-64a16 16 0 0 0-16-16zm416 176H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0-320H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16V80a16 16 0 0 0-16-16zm0 160H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16z"></path>
@@ -222,22 +222,23 @@
                             </thead>
                             <tbody class="text-gray-700" id="dealTable">
                                 @foreach($all_vouchers as $voucher)
-                                <td class="text-center py-3">{{ $voucher->voucher_id }}</td>
-                                <td class="text-center py-3">{{ $voucher->voucher_name }}</td>
-                                <td class="text-center py-3">{{ $voucher->discount_type }}</td>
-                                <td class="text-center py-3 px-4">{{ $voucher->discount_value }}</td>
-                                <td class="text-center py-3 px-4">{{ $voucher->max_usage }}</td>
-                                <td class="text-center py-3 px-4">{{ $voucher->current_usage }}</td>
-                                <td class="text-center py-3 px-4">{{ $voucher->startdate }}</td>
-                                <td class="text-center py-3 px-4">{{ $voucher->enddate }}</td>
-                                <td class="text-center py-3 px-1">
-                                    <button onclick="window.location.href='{{URL::to('/admin/vouchers/edit/' . $voucher->voucher_id)}}'" class="bg-green-500 text-white py-1 px-4 rounded hover:bg-green-600">
-                                        <i class="fa-solid fa-pen"></i>
-                                    </button>
-                                    <button onclick="if(confirm('Are you sure you want to delete this voucher?')) { window.location.href='{{URL::to('/admin/vouchers/delete/' . $voucher->voucher_id)}}' }" class="bg-red-500 text-white py-1 px-4 rounded hover:bg-red-600">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </button>
-                                </td>
+                                <tr>
+                                    <td class="text-center py-3">{{ $voucher->voucher_id }}</td>
+                                    <td class="text-center py-3">{{ $voucher->voucher_name }}</td>
+                                    <td class="text-center py-3">{{ $voucher->discount_type }}</td>
+                                    <td class="text-center py-3 px-4">{{ $voucher->discount_value }}</td>
+                                    <td class="text-center py-3 px-4">{{ $voucher->max_usage }}</td>
+                                    <td class="text-center py-3 px-4">{{ $voucher->current_usage }}</td>
+                                    <td class="text-center py-3 px-4">{{ $voucher->startdate }}</td>
+                                    <td class="text-center py-3 px-4">{{ $voucher->enddate }}</td>
+                                    <td class="text-center py-3 px-1">
+                                        <button onclick="window.location.href='{{URL::to('/admin/vouchers/edit/' . $voucher->voucher_id)}}'" class="bg-green-500 text-white py-1 px-4 rounded hover:bg-green-600">
+                                            <i class="fa-solid fa-pen"></i>
+                                        </button>
+                                        <button onclick="if(confirm('Are you sure you want to delete this voucher?')) { window.location.href='{{URL::to('/admin/vouchers/delete/' . $voucher->voucher_id)}}' }" class="bg-red-500 text-white py-1 px-4 rounded hover:bg-red-600">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>

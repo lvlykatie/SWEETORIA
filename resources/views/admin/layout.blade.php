@@ -54,6 +54,10 @@
                 <i class="fas fa-calendar mr-3"></i>
                 Deals
             </a>
+            <a href="{{URL::to('admin/vouchers')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                <i class="fas fa-calendar mr-3"></i>
+                Vouchers
+            </a>
             <a href="{{URL::to('admin/accounts')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                 <i class="fas fa-tablet-alt mr-3"></i>
                 Account
@@ -109,6 +113,10 @@
                     <i class="fas fa-calendar mr-3"></i>
                     Deals
                 </a>
+                <a href="{{('./vouchers')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                    <i class="fas fa-calendar mr-3"></i>
+                    Vouchers
+                </a>
                 <a href="{{('./accounts')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                     <i class="fas fa-tablet-alt mr-3"></i>
                     Account
@@ -125,6 +133,7 @@
             @yield('edit-product')
             @yield('edit-user')
             @yield('add-voucher')
+            @yield('edit-voucher')
             @yield('add-deal')
         </div>
     </div>
@@ -150,6 +159,22 @@
             searchPlaceholderValue: 'Search products...',
         });
     });
+    function validateDateRange() {
+    const startDate = document.getElementById('startdate').value;
+    const endDate = document.getElementById('enddate').value;
+    const errorMessage = document.getElementById('date-error');
+    const submitButton = document.getElementById('submit-button');
+
+    // Check if both dates are selected and if enddate is after startdate
+    if (startDate && endDate && new Date(endDate) > new Date(startDate)) {
+        errorMessage.classList.add('hidden'); // Hide error message
+        submitButton.disabled = false; // Enable submit button
+    } else {
+        errorMessage.classList.remove('hidden'); // Show error message
+        submitButton.disabled = true; // Disable submit button
+    }
+}
+}
 </script>
 
 </html>

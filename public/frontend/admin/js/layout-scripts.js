@@ -37,3 +37,18 @@ function removeProduct(button) {
     const productBlock = button.closest('.product-block'); // Lấy khối sản phẩm chứa nút bấm
     productBlock.remove(); // Xóa khối sản phẩm
 }
+function validateDateRange() {
+    const startDate = document.getElementById('startdate').value;
+    const endDate = document.getElementById('enddate').value;
+    const errorMessage = document.getElementById('date-error');
+    const submitButton = document.getElementById('submit-button');
+
+    // Check if both dates are selected and if enddate is after startdate
+    if (startDate && endDate && new Date(endDate) > new Date(startDate)) {
+        errorMessage.classList.add('hidden'); // Hide error message
+        submitButton.disabled = false; // Enable submit button
+    } else {
+        errorMessage.classList.remove('hidden'); // Show error message
+        submitButton.disabled = true; // Disable submit button
+    }
+}

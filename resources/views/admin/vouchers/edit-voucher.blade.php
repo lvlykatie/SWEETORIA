@@ -1,7 +1,7 @@
 @extends('admin.layout')
-@section('add-voucher')
+@section('edit-voucher')
 <main class="w-full flex-grow p-6">
-    <h1 class="w-full text-3xl text-black pb-6">Create new voucher</h1>
+    <h1 class="w-full text-3xl text-black pb-6">Edit voucher</h1>
 
     <div class='panel-body'>
         <?php
@@ -13,7 +13,6 @@
         ?>
     </div>
 
-
     <div class="flex flex-wrap">
         <div class="w-full my-6 pr-0 lg:pr-2">
             <p class="text-xl pb-6 flex items-center">
@@ -22,11 +21,12 @@
                 </svg><!-- <i class="fas fa-list mr-3"></i> --> Information
             </p>
             <div class="leading-loose">
-                <form class="p-10 bg-white rounded shadow-xl" role="form" action="{{URL::to('admin/vouchers/save')}}" method="post" enctype="multipart/form-data">
+            @foreach($edit_voucher as $key => $voucher)
+                <form class="p-10 bg-white rounded shadow-xl" role="form" action="{{URL::to('admin/vouchers/update/'.$voucher->voucher_id)}}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="">
                         <label class="block text-xl text-gray-600" for="name">Voucher name</label>
-                        <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="name" name="voucher_name" type="text" required="" placeholder="Enter voucher's name" aria-label="Name">
+                        <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="name" value="{{$voucher->voucher_name }}" name="voucher_name" type="text" required="" placeholder="Enter voucher's name" aria-label="Name">
                     </div>
                     <div class="mt-2 relative">
                         <label class="block text-xl text-gray-600" for="price">Discount type</label>
@@ -35,7 +35,7 @@
                             name="discount_type"
                             type="number"
                             step="1000"
-                            value="0"
+                            value="{{$voucher->discount_type }}"
                             required
                             placeholder="1000"
                             aria-label="Discount type">
@@ -48,28 +48,29 @@
                             name="discount_value"
                             type="number"
                             step="0.01" 
-                            value="0"
+                            value="{{$voucher->discount_value }}"
                             required
                             placeholder="Enter discount value"
                             aria-label="Discount value">
                     </div>
                     <div class="mt-2 relative">
                         <label class="block text-xl text-gray-600" for="name">Max usage</label>
-                        <input type="number" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="max_usage" name="max_usage" required="" placeholder="Enter voucher's max usage" aria-label="Max usage"></input>
+                        <input type="number" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="max_usage" value="{{$voucher->max_usage }}" name="max_usage" required="" placeholder="Enter voucher's max usage" aria-label="Max usage"></input>
                     </div>
                     <div class="">
                         <label class="block text-xl text-gray-600" for="name">Start date</label>
-                        <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="startdate" name="startdate" type="date" required="" placeholder="Choose start date" aria-label="Start date" oninput="validateDateRange()">
+                        <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="startdate" value="{{$voucher->startdate }}" name="startdate" type="date" required="" placeholder="Choose start date" aria-label="Start date" oninput="validateDateRange()">
                     </div>
                     <div class="">
                         <label class="block text-xl text-gray-600" for="name">End date</label>
-                        <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="enddate" name="enddate" type="date" required="" placeholder="Choose end date" aria-label="End date" oninput="validateDateRange()">
+                        <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="enddate" value="{{$voucher->enddate }}" name="enddate" type="date" required="" placeholder="Choose end date" aria-label="End date" oninput="validateDateRange()">
                     </div>
                     <p id="date-error" class="text-red-500 mt-2 hidden">End date must be later than start date.</p>
                     <div class="mt-6 flex justify-center">
                         <button id="submit-button" class="px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded" type="submit">Submit</button>
                     </div>
                 </form>
+                @endforeach
             </div>
         </div>
     </div>

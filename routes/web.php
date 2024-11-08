@@ -108,5 +108,8 @@ Route::post('/admin/deals/delete/{deal_id}', 'App\Http\Controllers\admin\DealCon
 Route::get('/admin/vouchers', 'App\Http\Controllers\admin\VoucherController@showVoucherPage');
 Route::get('/admin/vouchers/create', 'App\Http\Controllers\admin\VoucherController@addVoucherPage');
 Route::post('/admin/vouchers/save', 'App\Http\Controllers\admin\VoucherController@saveVoucher');
+Route::get('/admin/vouchers/edit/{voucher_id}', 'App\Http\Controllers\admin\VoucherController@editVoucher');
+Route::post('/admin/vouchers/update/{voucher_id}', 'App\Http\Controllers\admin\VoucherController@updateVoucher');
+Route::get('/admin/vouchers/delete/{voucher_id}', 'App\Http\Controllers\admin\VoucherController@deleteVoucher');
 
 Route::get('/admin/accounts', 'App\Http\Controllers\admin\AccountController@showAccountPage');

@@ -12,7 +12,8 @@ session_start();
 
 class VoucherController extends Controller
 {
-    public function showVoucherPage(){
+    public function showVoucherPage()
+    {
         $all_vouchers = DB::table('tbl_voucher')->get();
         return view('admin.vouchers.vouchers')->with('all_vouchers', $all_vouchers);
     }
@@ -39,5 +40,27 @@ class VoucherController extends Controller
         DB::table('tbl_voucher')->insert($data);
         Session::put('message', 'Create successfully.');
         return Redirect::to('admin/vouchers/create');
+    }
+    public function editVoucher($voucher_id)
+    {
+        $edit_voucher = DB::table('tbl_voucher')->where('voucher_id', $voucher_id)->get();
+        $manager_voucher = view('admin.vouchers.edit-voucher')->with('edit_voucher', $edit_voucher);
+        return view('admin.layout')->with('admin.vouchers.edit-voucher', @$manager_voucher);
+    }
+    public function updateVoucher(Request $request, $voucher_id)
+    {
+        $data = array();
+        $data['voucher_name'] = $request->voucher_name;
+        $data['discount_type'] = $request->discount_type;
+        $data['discount_value'] = $request->discount_value;
+        $data['max_usage'] = $request->max_usage;
+        $data['startdate'] = $request->startdate;
+        $data['enddate'] = $request->enddate;
+
+        $check = DB::table('tbl_voucher')->where('voucher_id', $voucher_id)->update($data);
+        if (isset($check)) {
+            Session::put('message', 'Update successfully.');
+        } else Session::put('message', 'Failed to update.');
+        return Redirect::to("admin/vouchers/edit/$voucher_id");
     }
 }
