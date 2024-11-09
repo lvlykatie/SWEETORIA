@@ -204,6 +204,9 @@
                                         Describe
                                         <i class="fa-solid fa-sort sort-icon" onclick="sortTable(3, this)"></i>
                                     </th>
+                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">
+                                        Applied product
+                                    </th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Manage</th>
                                 </tr>
                             </thead>
@@ -216,6 +219,19 @@
                                 <td class="text-center py-3">{{ $deal->deal_name }}</td>
                                 <td class="text-center py-3">{{ $deal->deal_discount }}</td>
                                 <td class="text-center py-3 px-4">{{ $deal->deal_desc }}</td>
+                                <td>
+                                    <div class="ml-4">
+                                        <ul class="list-disc list-inside">
+                                            @if(isset($products_by_deal[$deal->deal_id]) && $products_by_deal[$deal->deal_id]->isNotEmpty())
+                                            @foreach($products_by_deal[$deal->deal_id] as $product)
+                                            <li>{{ $product->product_name }} - {{ $product->product_price }}</li>
+                                            @endforeach
+                                            @else
+                                            <li>No products associated with this deal</li>
+                                            @endif
+                                        </ul>
+                                    </div>
+                                </td>
                                 <td class="text-center py-3 px-1">
                                     <button onclick="window.location.href='{{URL::to('/admin/deals/edit/' . $deal->deal_id)}}'" class="bg-green-500 text-white py-1 px-4 rounded hover:bg-green-600">
                                         <i class="fa-solid fa-pen"></i>
