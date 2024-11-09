@@ -138,6 +138,8 @@
 
             @yield('add-deal')
             @yield('edit-deal')
+
+            @yield('edit-order')
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>

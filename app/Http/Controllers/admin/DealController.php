@@ -15,10 +15,8 @@ class DealController extends Controller
 {
     public function showDealPage()
     {
-        // Retrieve all deals
         $all_deals = DB::table('tbl_deal')->get();
 
-        // Retrieve all products grouped by deal_id
         $products_by_deal = DB::table('tbl_product')
             ->select('product_name', 'product_price', 'deal_id')
             ->whereNotNull('deal_id') // Only get products that are associated with deals

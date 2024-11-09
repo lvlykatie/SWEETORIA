@@ -22,8 +22,8 @@ return new class extends Migration
             $table->float('actual_price');
             $table->string('iv_receiver');
             $table->string('iv_address');
-            $table->string('iv_phone'); // Changed to string to accommodate phone numbers
-            $table->string('iv_status');
+            $table->string('iv_phone'); 
+            $table->string('iv_status')->default('Pending');
             $table->timestamps();
         });
     }

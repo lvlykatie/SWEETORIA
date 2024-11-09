@@ -202,6 +202,15 @@
                                         <i class="fa-solid fa-sort sort-icon" onclick="sortTable(4, this)"></i>
                                     </th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">
+                                        Receiver
+                                    </th>
+                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">
+                                        Phone
+                                    </th>
+                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">
+                                        Address
+                                    </th>
+                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">
                                         Status
                                         <i class="fa-solid fa-sort sort-icon" onclick="sortTable(5, this)"></i>
                                     </th>
@@ -209,22 +218,28 @@
                                 </tr>
                             </thead>
                             <tbody class="text-gray-700" id="orderTable">
+                                @foreach($all_orders as $order)
                                 <tr>
-                                    <td class="text-left py-3 px-4">Lian</td>
-                                    <td class="text-left py-3 px-4"><a class="hover:text-blue-500" href="mailto:jonsmith@mail.com">jonsmith@mail.com</a></td>
-                                    <td class="text-left py-3 px-4"><a class="hover:text-blue-500" href="tel:622322662">622322662</a>
-                                    <td class="text-center py-3 px-4">Lian</td>
-                                    <td class="text-center py-3 px-4">Lian</td>
-                                    <td class="text-center py-3 px-4">Lian</td>
+                                    <td class="text-center py-3">{{ $order->iv_id }}</td>
+                                    <td class="text-left py-3"><a class="hover:text-blue-500" href="mailto:{{ $order->user_email }}">{{ $order->user_email }}</a></td>
+                                    <td class="text-center py-3">{{ $order->total_price }}</td>
+                                    <td class="text-center py-3">{{ $order->orderdate }}</td>
+                                    <td class="text-center py-3">{{ $order->method }}</td>
+                                    <td class="text-center py-3">{{ $order->iv_receiver }}</td>
+                                    <td class="text-center py-3">
+                                        <a class="hover:text-blue-500" href="tel:{{ $order->iv_phone }}">{{ $order->iv_phone }}</a>
+                                    <td class="text-center py-3">{{ $order->iv_address }}</td>
+                                    <td class="text-center py-3">{{ $order->iv_status }}</td>
                                     <td class="text-center py-3 px-4">
-                                        <button class="bg-green-500 text-white py-1 px-4 rounded">
+                                        <button onclick="window.location.href='{{URL::to('/admin/orders/edit/' . $order->iv_id)}}'" class="bg-green-500 text-white py-1 px-4 rounded hover:bg-green-600">
                                             <i class="fa-solid fa-pen"></i>
                                         </button>
-                                        <button class="bg-red-500 text-white py-1 px-4 rounded">
+                                        <button onclick="if(confirm('Are you sure you want to delete this order?')) { window.location.href='{{URL::to('/admin/orders/delete/' . $order->iv_id)}}' }" class="bg-red-500 text-white py-1 px-4 rounded hover:bg-red-600">
                                             <i class="fa-solid fa-trash"></i>
                                         </button>
                                     </td>
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

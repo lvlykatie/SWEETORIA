@@ -205,7 +205,7 @@
                                         <i class="fa-solid fa-sort sort-icon" onclick="sortTable(3, this)"></i>
                                     </th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">
-                                        Applied product
+                                        Applied products
                                     </th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Manage</th>
                                 </tr>
@@ -224,7 +224,7 @@
                                         <ul class="list-disc list-inside">
                                             @if(isset($products_by_deal[$deal->deal_id]) && $products_by_deal[$deal->deal_id]->isNotEmpty())
                                             @foreach($products_by_deal[$deal->deal_id] as $product)
-                                            <li>{{ $product->product_name }} - {{ $product->product_price }}</li>
+                                            <li>{{ $product->product_name }} - {{ number_format($product->product_price, 0, ',', '.') . ' VND' }}                                            </li>
                                             @endforeach
                                             @else
                                             <li>No products associated with this deal</li>

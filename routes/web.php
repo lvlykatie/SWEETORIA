@@ -93,6 +93,9 @@ Route::post('/admin/products/update/{product_id}', 'App\Http\Controllers\admin\P
 
 
 Route::get('/admin/orders', 'App\Http\Controllers\admin\OrderController@showOrderPage');
+Route::get('/admin/orders/delete/{iv_id}', 'App\Http\Controllers\admin\OrderController@deleteOrder');
+Route::get('/admin/orders/edit/{iv_id}', 'App\Http\Controllers\admin\OrderController@editOrder');
+Route::post('/admin/orders/update/{iv_id}', 'App\Http\Controllers\admin\OrderController@updateOrder');
 
 Route::get('/admin/users', 'App\Http\Controllers\admin\UserController@showUserPage');
 Route::get('/admin/users/delete/{user_id}', 'App\Http\Controllers\admin\UserController@deleteUser');
@@ -103,7 +106,7 @@ Route::post('/admin/users/update/{user_id}', 'App\Http\Controllers\admin\UserCon
 Route::get('/admin/deals', 'App\Http\Controllers\admin\DealController@showDealPage');
 Route::get('/admin/deals/create', 'App\Http\Controllers\admin\DealController@addDealPage');
 Route::post('/admin/deals/save', 'App\Http\Controllers\admin\DealController@saveDeal');
-Route::post('/admin/deals/delete/{deal_id}', 'App\Http\Controllers\admin\DealController@deleteDeal');
+Route::get('/admin/deals/delete/{deal_id}', 'App\Http\Controllers\admin\DealController@deleteDeal');
 Route::get('/admin/deals/edit/{deal_id}', 'App\Http\Controllers\admin\DealController@editDeal');
 Route::post('/admin/deals/update/{deal_id}', 'App\Http\Controllers\admin\DealController@updateDeal');
 
