@@ -229,7 +229,7 @@
                                     <td class="text-center py-3">{{ $product->product_id }}</td>
                                     <td class="text-center py-3">{{ $product->category_name }}</td>
                                     <td class="text-center py-3 mx-auto">
-                                        <img src="{{ asset('public/backend/image/'.$product->product_image) }}" class="mx-auto" width="100px" height="100px" alt="">
+                                        <img src="{{ filter_var($product->product_image, FILTER_VALIDATE_URL) ? $product->product_image : asset('public/backend/image/' . $product->product_image) }}" class="mx-auto" width="100px" height="100px" alt="">
                                     </td>
                                     <td class="text-center py-3 px-4">{{ $product->product_name }}</td>
                                     <td class="text-center py-3 px-4">{{ $product->product_sku }}</td>
