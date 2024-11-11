@@ -11,7 +11,8 @@
                 <!-- Checkbox -->
                 <input type="checkbox" class="mr-4 ml-2 h-6 w-6">
                 <!-- Image placeholder -->
-                <div class="bg-gray-300 rounded-lg mr-4 h-full w-[110px] md:w-[200px]"></div>
+                <img class=" rounded-lg mr-4 h-full w-[110px] md:w-[200px]"
+                    src="{{ asset('public/backend/image/chocolate.png') }}">
 
                 <!-- Product details -->
                 <div class="flex-grow">
@@ -38,7 +39,7 @@
                 </div>
 
                 <!-- Price -->
-                <div class="text-red-500 text-3xl md:text-5xl font-bold absolute right-2 bottom-0">
+                <div class="text-red-800 text-5xl font-light font-['Inter'] md:text-5xl  absolute right-2 bottom-0">
                     50000
                 </div>
             </div>

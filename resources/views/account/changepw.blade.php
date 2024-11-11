@@ -15,6 +15,9 @@
             <div class="bg-yellow-100 text-center border-b hover:bg-gray-200 cursor-pointer">
                 <a href="{{ route('changepw') }}" class=" text-2xl md:text-4xl font-bold p-8 block">Change password</a>
             </div>
+            <div class="bg-yellow-100 text-center border-b hover:bg-gray-200 cursor-pointer">
+                <a href="{{ route('policy') }}" class=" text-2xl md:text-4xl font-bold p-8 block">Policy</a>
+            </div>
         </div>
         <div class="md:w-auto w-0">
             <img src="{{ asset('public/frontend/client/page/image/ava.png') }}" alt="">

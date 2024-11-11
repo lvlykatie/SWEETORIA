@@ -28,7 +28,7 @@
             </li>
             <li
                 class="nav-item h-full text-2xl font-black relative group hover:bg-slate-400 transition duration-300 ease-in-out">
-                <a href=""
+                <a href="{{ route('contact') }}"
                     class="flex items-center h-full py-3 px-6 w-full transition duration-300 ease-in-out transform group-hover:scale-110">
                     CONTACT
                 </a>

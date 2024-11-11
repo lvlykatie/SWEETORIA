@@ -235,6 +235,7 @@
                 colors: {
                     pink: '#FFDEDE',
                     textgray: '#D9D9D9'
+
                 }
             }
         }

@@ -17,4 +17,16 @@ class PageController extends Controller
     {
         return view('page.cart');
     }
+    public function contact()
+    {
+        return view('page.contact');
+    }
+    public function blog()
+    {
+        return view('page.blog');
+    }
+    public function delivery()
+    {
+        return view('page.delivery');
+    }
 }

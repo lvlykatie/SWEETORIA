@@ -15,16 +15,26 @@ Route::prefix('product')->group(function () {
     Route::get('/{id}/detail', [ProductController::class, 'detail'])->name('detail');
     Route::get('/hotdeals', [ProductController::class, 'hotdeals'])->name('hotdeals');
 });
+// Contact Route
+Route::get('/contact', [PageController::class, 'contact'])->name('contact');
+
+// Blog Route
+Route::get('/blog', [PageController::class, 'blog'])->name('blog');
+
+// Delivery Route
+Route::get('/delivery', [PageController::class, 'delivery'])->name('delivery');
 
 // Account Routes
 Route::prefix('account')->group(function () {
     Route::get('/', [AccountController::class, 'index'])->name('account');
     Route::get('/orders', [AccountController::class, 'orders'])->name('orders');
     Route::get('/changepw', [AccountController::class, 'changePassword'])->name('changepw');
+    Route::get('/policy', [AccountController::class, 'policy'])->name('policy');
 });
 
 // Cart Route
 Route::get('/cart', [PageController::class, 'cart'])->name('cart');
+
 
 
 // User account route
@@ -55,13 +65,13 @@ Route::get('/cart', [PageController::class, 'cart'])->name('cart');
     Route::post('/forgetpass', 'App\Http\Controllers\client\ForgetPassController@checkEmail');
     // Route xử lý xác thực OTP (POST)
     Route::post('/otp', 'App\Http\Controllers\client\ForgetPassController@verifyOTP');
- 
+
     Route::get('/resetpass', function () {
         return view('resetPass_form');
     });
     // Route xử lý tạo lại mật khẩu (POST)
     Route::post('/resetpass', 'App\Http\Controllers\client\ForgetPassController@resetPassword');
-    
+
 // Login Google Route
     Route::get('/auth/google/redirect', [loginGoogleController::class, 'redirectToGoogle'])->name('auth.google');
     Route::get('/auth/google/callback', [loginGoogleController::class, 'handleGoogleCallback']);

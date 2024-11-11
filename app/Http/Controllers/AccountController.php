@@ -20,4 +20,8 @@ class AccountController extends Controller
     {
         return view('account.changepw');
     }
+    public function policy()
+    {
+        return view('account.policy');
+    }
 }
