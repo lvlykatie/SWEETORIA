@@ -4,14 +4,52 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use Illuminate\Container\Attributes\Log;
 
 class ProductController extends Controller
 {
-    public function index()
-    {
-        $products = Product::all();
-        return view('page.product', ['products' => $products]);
+
+    public function index(Request $request)
+{
+    // Lấy tham số 'filter' và 'sort' từ query string
+    $filter = $request->input('filter'); // 'baking-ingredients,baking-tools'
+    $sort = $request->input('sort'); // 'low-to-high'
+
+    // Truy vấn tất cả sản phẩm từ cơ sở dữ liệu
+    $query = Product::query();
+
+    // Lọc theo danh mục nếu có
+    if ($filter) {
+        // Tách chuỗi các danh mục từ tham số filter thành mảng
+        $filters = explode('.', $filter);
+
+        // Loại bỏ dấu gạch nối và chuyển thành chữ thường để so sánh
+        $filters = array_map(function ($filter) {
+            return strtolower(str_replace('-', ' ', $filter)); // Thay dấu gạch nối thành khoảng trắng và chuyển thành chữ thường
+        }, $filters);
+
+        // Lọc các sản phẩm theo danh mục
+        $query->whereIn('category_name', $filters);
     }
+
+    // Sắp xếp theo giá
+    if ($sort === 'low-to-high') {
+        $query->orderBy('product_price', 'asc');
+    } elseif ($sort === 'high-to-low') {
+        $query->orderBy('product_price', 'desc');
+    }
+
+    // Phân trang sản phẩm (10 sản phẩm mỗi trang)
+    $products = $query->paginate(10);
+
+    // Trả về view với các sản phẩm đã được lọc và sắp xếp
+    return view('page.product', compact('products'));
+}
+
+
+
+
+
 
     public function detail($id)
     {

@@ -240,7 +240,62 @@
             }
         }
     }
+    // Hàm xử lý khi người dùng bấm nút lọc
+    document.addEventListener('DOMContentLoaded', () => {
+        const params = new URLSearchParams(window.location.search);
+        const filterParam = params.get('filter');
+        if (filterParam) {
+            const filters = filterParam.split(/[.]/).map(f => f.trim());
+            filters.forEach(value => {
+                const checkbox = document.querySelector(`input[name="filter[]"][value="${value}"]`);
+                if (checkbox) {
+                    checkbox.checked = true;
+                }
+            });
+        }
+
+        const sortParam = params.get('sort');
+        if (sortParam) {
+            const radio = document.querySelector(`input[name="sort"][value="${sortParam}"]`);
+            if (radio) {
+                radio.checked = true;
+            }
+        }
+    });
+
+    function handleSubmitFilter() {
+        // Lấy các giá trị filter và sort
+        const filters = Array.from(document.querySelectorAll('input[name="filter[]"]:checked'))
+            .map(input => input.value)
+            .join('.');
+
+        const sort = document.querySelector('input[name="sort"]:checked')?.value;
+
+        // Xây dựng URL mới với các tham số filter và sort
+        let url = new URL(window.location.href);
+        if (filters) {
+            url.searchParams.set('filter', filters);
+        } else {
+            url.searchParams.delete('filter');
+        }
+        if (sort) {
+            url.searchParams.set('sort', sort);
+        } else {
+            url.searchParams.delete('sort');
+        }
+
+        // Cập nhật lại URL mà không reload trang
+        window.history.pushState({}, '', url);
+
+        // Gửi yêu cầu lọc lại sản phẩm
+        window.location.href = url;
+    }
 </script>
+
+
+
+
+
 
 
 </html>
