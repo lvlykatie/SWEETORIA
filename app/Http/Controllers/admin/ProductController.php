@@ -86,4 +86,25 @@ class ProductController extends Controller
             return Redirect::to("admin/products/edit/$product_id");
         }
     }
+
+       public function search(Request $request)
+{
+    // Kiểm tra nếu không có query search
+    if (!$request->has('query')) {
+        $all_products = DB::table('tbl_product')->get();
+        return view('admin.products.products')->with('all_products', $all_products);
+    }
+
+    // Nếu có từ khóa tìm kiếm, thực hiện tìm kiếm
+    $query = $request->query('query');
+    $all_products = DB::table('tbl_product')
+        ->where('product_name', 'LIKE', "%$query%")
+        ->orWhere('category_name', 'LIKE', "%$query%")
+        ->orWhere('product_sku', 'LIKE', "%$query%")
+        ->get();
+
+    return view('admin.products.products')->with('all_products', $all_products);
+}
+
+
 }

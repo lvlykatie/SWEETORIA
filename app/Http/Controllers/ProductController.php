@@ -47,6 +47,40 @@ class ProductController extends Controller
 }
 
 
+public function search(Request $request)
+{
+    $query = $request->input('query');
+    $filter = $request->input('filter');
+    $sort = $request->input('sort');
+
+    // Khởi tạo query
+    $productQuery = Product::query();
+
+    // Tìm kiếm sản phẩm
+    if ($query) {
+        $productQuery->where('product_name', 'like', '%' . $query . '%')
+                     ->orWhere('product_desc', 'like', '%' . $query . '%');
+    }
+
+    // Lọc danh mục (nếu có)
+    if ($filter) {
+        $filters = explode('.', $filter);
+        $productQuery->whereIn('category_name', $filters);
+    }
+
+    // Sắp xếp (nếu có)
+    if ($sort === 'low-to-high') {
+        $productQuery->orderBy('product_price', 'asc');
+    } elseif ($sort === 'high-to-low') {
+        $productQuery->orderBy('product_price', 'desc');
+    }
+
+    // Lấy kết quả
+    $products = $productQuery->paginate(10);
+
+    // Trả về view
+    return view('page.product', compact('products', 'query', 'filter', 'sort'));
+}
 
 
 

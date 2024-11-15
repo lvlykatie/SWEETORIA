@@ -42,5 +42,27 @@ class UserController extends Controller
             Session::put('message', 'Update successfully.');
         } else Session::put('message', 'Failed to update.');
         return Redirect::to("admin/users/edit/$user_id");
+    }
+
+    public function search(Request $request)
+    {
+        
+        // Kiểm tra nếu không có query search
+        if (!$request->has('query')) {
+            $all_users = DB::table('tb_user')->get();
+            return view('admin.users.users')->with('all_users', $all_users);
         }
+
+        // Nếu có từ khóa tìm kiếm, thực hiện tìm kiếm
+        $query = $request->query('query');
+        $all_users = DB::table('tb_user')
+            ->where('user_email', 'LIKE', "%$query%")
+            ->orWhere('user_phone', 'LIKE', "%$query%")
+            ->get();
+
+            return view('admin.users.users')->with('all_users', $all_users);
+    }
+    
+
+
 }

@@ -63,4 +63,22 @@ class VoucherController extends Controller
         } else Session::put('message', 'Failed to update.');
         return Redirect::to("admin/vouchers/edit/$voucher_id");
     }
+
+    public function search(Request $request)
+    {
+        
+        // Kiểm tra nếu không có query search
+        if (!$request->has('query')) {
+            $all_vouchers = DB::table('tbl_voucher')->get();
+            return view('admin.vouchers.vouchers')->with('all_vouchers', $all_vouchers);
+        }
+
+        // Nếu có từ khóa tìm kiếm, thực hiện tìm kiếm
+        $query = $request->query('query');
+        $all_vouchers= DB::table('tbl_voucher')
+            ->where('voucher_name', 'LIKE', "%$query%")
+            ->get();
+
+            return view('admin.vouchers.vouchers')->with('all_vouchers', $all_vouchers);
+    }
 }
