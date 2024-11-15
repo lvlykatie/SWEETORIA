@@ -14,6 +14,7 @@ Route::prefix('product')->group(function () {
     Route::get('/', [ProductController::class, 'index'])->name('product');
     Route::get('/{id}/detail', [ProductController::class, 'detail'])->name('detail');
     Route::get('/hotdeals', [ProductController::class, 'hotdeals'])->name('hotdeals');
+    Route::get('/search', [ProductController::class, 'search'])->name('product.search');
 });
 // Contact Route
 Route::get('/contact', [PageController::class, 'contact'])->name('contact');
@@ -100,6 +101,13 @@ Route::post('/admin/products/save', 'App\Http\Controllers\admin\ProductControlle
 Route::get('/admin/products/delete/{product_id}', 'App\Http\Controllers\admin\ProductController@deleteProduct');
 Route::get('/admin/products/edit/{product_id}', 'App\Http\Controllers\admin\ProductController@editProduct');
 Route::post('/admin/products/update/{product_id}', 'App\Http\Controllers\admin\ProductController@updateProduct');
+//route tìm kiếm product admin
+Route::get('/admin/products', 'App\Http\Controllers\admin\ProductController@search')->name('products.search');
+// tìm kiếm orders
+Route::get('/admin/orders/search', 'App\Http\Controllers\OrderController@search')->name('admin.orders.search');
+
+
+
 
 
 Route::get('/admin/orders', 'App\Http\Controllers\admin\OrderController@showOrderPage');
@@ -111,6 +119,7 @@ Route::get('/admin/users', 'App\Http\Controllers\admin\UserController@showUserPa
 Route::get('/admin/users/delete/{user_id}', 'App\Http\Controllers\admin\UserController@deleteUser');
 Route::get('/admin/users/edit/{user_id}', 'App\Http\Controllers\admin\UserController@editUser');
 Route::post('/admin/users/update/{user_id}', 'App\Http\Controllers\admin\UserController@updateUser');
+Route::get('/admin/users', 'App\Http\Controllers\admin\UserController@search')->name('users.search');
 
 
 Route::get('/admin/deals', 'App\Http\Controllers\admin\DealController@showDealPage');
@@ -119,6 +128,8 @@ Route::post('/admin/deals/save', 'App\Http\Controllers\admin\DealController@save
 Route::get('/admin/deals/delete/{deal_id}', 'App\Http\Controllers\admin\DealController@deleteDeal');
 Route::get('/admin/deals/edit/{deal_id}', 'App\Http\Controllers\admin\DealController@editDeal');
 Route::post('/admin/deals/update/{deal_id}', 'App\Http\Controllers\admin\DealController@updateDeal');
+Route::get('/admin/deals', 'App\Http\Controllers\admin\DealController@search')->name('deals.search');
+
 
 Route::get('/admin/vouchers', 'App\Http\Controllers\admin\VoucherController@showVoucherPage');
 Route::get('/admin/vouchers/create', 'App\Http\Controllers\admin\VoucherController@addVoucherPage');
@@ -126,5 +137,6 @@ Route::post('/admin/vouchers/save', 'App\Http\Controllers\admin\VoucherControlle
 Route::get('/admin/vouchers/edit/{voucher_id}', 'App\Http\Controllers\admin\VoucherController@editVoucher');
 Route::post('/admin/vouchers/update/{voucher_id}', 'App\Http\Controllers\admin\VoucherController@updateVoucher');
 Route::get('/admin/vouchers/delete/{voucher_id}', 'App\Http\Controllers\admin\VoucherController@deleteVoucher');
+Route::get('/admin/vouchers', 'App\Http\Controllers\admin\VoucherController@search')->name('vouchers.search');
 
 Route::get('/admin/accounts', 'App\Http\Controllers\admin\AccountController@showAccountPage');

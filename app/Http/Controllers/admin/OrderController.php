@@ -48,4 +48,31 @@ class OrderController extends Controller
         Session::put('message', 'Delete successfully');
         return Redirect::to('admin/orders');
     }
+
+        public function search(Request $request)
+    {
+        // Lấy từ khóa tìm kiếm từ input
+        $search = $request->input('search');
+        
+        // Kiểm tra nếu từ khóa tìm kiếm không rỗng
+        if ($search) {
+            // Tìm kiếm trong bảng tbl_invoice và tb_user với điều kiện là email hoặc số điện thoại
+            $all_orders = DB::table('tbl_invoice')
+                ->join('tb_user', 'tbl_invoice.user_id', '=', 'tb_user.user_id')
+                ->where('tb_user.user_email', 'like', '%' . $search . '%')
+                ->orWhere('tbl_invoice.iv_phone', 'like', '%' . $search . '%')
+                ->select('tbl_invoice.*', 'tb_user.user_email', 'tb_user.user_id')
+                ->get();
+        } else {
+            // Nếu không có từ khóa tìm kiếm, lấy tất cả đơn hàng
+            $all_orders = DB::table('tbl_invoice')
+                ->join('tb_user', 'tbl_invoice.user_id', '=', 'tb_user.user_id')
+                ->select('tbl_invoice.*', 'tb_user.user_email', 'tb_user.user_id')
+                ->get();
+        }
+
+        // Trả về view với các đơn hàng tìm được
+        return view('admin.orders.orders', compact('all_orders'));
+    }
+
 }

@@ -33,7 +33,7 @@
                 <form class="relative justify-center mt-3 md:mt-0 flex items-center w-full md:w-auto" action=""
                     method="get">
                     <input class="w-full md:w-[643px] h-[52px] rounded-[20px] text-3xl text-center placeholder:text-3xl"
-                        type="text" placeholder="What you want to buy?" />
+                        type="text" placeholder="What do you want to buy?" />
                     <button type="submit" class="absolute right-4 w-8 h-8">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </button>
