@@ -82,7 +82,7 @@
                     <div class="md:w-1/3 w-full flex flex-col items-center">
                         <img src="{{ filter_var($product->product_image, FILTER_VALIDATE_URL) ? $product->product_image : asset('public/backend/image/' . $product->product_image) }}"
                             width="299" height="299" style="width: 299px; height: 299px; object-fit: cover;"
-                            alt="Product Image">
+                            class="hover:scale-90 cursor-pointer" alt="Product Image">
                         <div class="item-name text-3xl text-center font-extrabold">
                             {{ $product->product_name }}
                         </div>
