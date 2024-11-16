@@ -176,4 +176,22 @@ class DealController extends Controller
         Session::put('message', 'Update successfully.');
         return Redirect::to("admin/deals/edit/$deal_id");
     }
+
+    public function search(Request $request)
+    {
+        
+        // Kiểm tra nếu không có query search
+        if (!$request->has('query')) {
+            $all_deals = DB::table('tbl_deal')->get();
+            return view('admin.deals.deals')->with('all_deals', $all_deals);
+        }
+
+        // Nếu có từ khóa tìm kiếm, thực hiện tìm kiếm
+        $query = $request->query('query');
+        $all_deals = DB::table('tbl_deal')
+            ->where('deal_name', 'LIKE', "%$query%")
+            ->get();
+
+            return view('admin.deals.deals')->with('all_deals', $all_deals);
+    }
 }

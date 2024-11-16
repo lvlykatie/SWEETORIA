@@ -5,6 +5,39 @@
     <div id="product">
         <div class="search-bg relative flex items-center justify-center bg-cover bg-center h-72 md:h-[463px]"
             style="background-image: url('{{ asset('public/frontend/client/page/image/homepagebg.png') }}');">
+            <div class="flex flex-col md:flex-row justify-center items-center absolute bottom-20 w-full">
+                <!-- Dropdown Location -->
+                <div class="location bg-white w-32 rounded-lg md:mb-0 md:mr-10">
+                    <div class="inline-block relative w-full">
+                        <label for="location" class="block text-xl text-center text-gray-500 mb-1 pb-1 pt-2">Location</label>
+                        <select id="location"
+                            class="appearance-none text-center w-full pr-9 bg-white font-medium rounded-md py-2 text-xl text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-gray-400">
+                            <option value="TPHCM">TP.HCM</option>
+                            <option value="HN">Hà Nội</option>
+                            <option value="DN">Đà Nẵng</option>
+                        </select>
+                        <div class="pointer-events-none absolute flex items-center px-2 text-gray-700"
+                            style="bottom: 7px; right: -3px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="11" viewBox="0 0 17 11"
+                                fill="none">
+                                <path
+                                    d="M16 2.11417L8.46976 10L1 2.15751L2.0625 1.0444L8.47077 7.77378L14.9395 1L16 2.11417Z"
+                                    fill="#001A37" stroke="black" stroke-opacity="0.5" stroke-width="0.5" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Search Form -->
+                <form class="relative justify-center mt-3 md:mt-0 flex items-center w-full md:w-auto" action="{{ route('product.search') }}"
+                    method="get">
+                    <input class="w-full md:w-[643px] h-[52px] rounded-[20px] text-3xl text-center placeholder:text-3xl"
+                        type="text" name="query" placeholder="What do you want to buy?" value="{{ request('query') }}"/>
+                    <button type="submit" class="absolute right-4 w-8 h-8">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </form>
+            </div>
         </div>
         <div class="filter w-full p-6 bg-white shadow-md rounded-md">
             <div class="flex flex-wrap">
