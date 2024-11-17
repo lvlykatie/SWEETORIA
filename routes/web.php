@@ -12,7 +12,7 @@ Route::get('/', [PageController::class, 'homepage'])->name('homepage');
 // Product Routes
 Route::prefix('product')->group(function () {
     Route::get('/', [ProductController::class, 'index'])->name('product');
-    Route::get('/{id}/detail', [ProductController::class, 'detail'])->name('detail');
+    Route::get('/{id}', [ProductController::class, 'detail'])->name('detail');
     Route::get('/hotdeals', [ProductController::class, 'hotdeals'])->name('hotdeals');
     Route::get('/search', [ProductController::class, 'search'])->name('product.search');
 });

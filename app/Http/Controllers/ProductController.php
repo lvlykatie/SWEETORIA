@@ -87,7 +87,8 @@ public function search(Request $request)
 
     public function detail($id)
     {
-        return view('page.detail', compact('id')); // Pass $id to the view if needed
+        $product = Product::findOrFail($id);
+        return view('page.detail', compact('product')); // Pass $id to the view if needed
     }
 
     public function hotdeals()

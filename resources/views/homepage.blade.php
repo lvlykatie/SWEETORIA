@@ -5,7 +5,7 @@
 @section('content')
     <div class="">
         <div class="search-bg relative flex items-center justify-center bg-cover bg-center h-72 md:h-[463px]"
-            style="background-image: url('{{ asset('public/frontend/client/page/image/homepagebg.png') }}');">
+            style="background-image: url('{{ asset('frontend/client/page/image/homepagebg.png') }}');">
             <div class="flex flex-col md:flex-row justify-center items-center absolute bottom-20 w-full">
                 <!-- Dropdown Location -->
                 <div class="location bg-white w-32 rounded-lg md:mb-0 md:mr-10">
@@ -114,15 +114,15 @@
                 <div class="flex flex-wrap py-16 justify-between">
                     @foreach ($products as $product)
                         <div class="w-full md:w-1/4 flex flex-col items-center">
-                        <img src="{{ filter_var($product->product_image, FILTER_VALIDATE_URL) ? $product->product_image : asset('public/backend/image/' . $product->product_image) }}"
-                    width="299" height="299"
-                    style="width: 299px; height: 299px; object-fit: cover;"
-                    alt="Product Image">
+                            <img src="{{ filter_var($product->product_image, FILTER_VALIDATE_URL) ? $product->product_image : asset('public/backend/image/' . $product->product_image) }}"
+                                width="299" height="299" style="width: 299px; height: 299px; object-fit: cover;"
+                                alt="Product Image">
                             <div class="item-name text-3xl text-center font-extrabold">
                                 {{ $product->product_name }}
                             </div>
                             <div class="price relative text-center pt-2">
-                                <span class="text-3xl font-normal">{{ number_format($product->product_price, 0, ',', '.') . ' VND' }}</span>
+                                <span
+                                    class="text-3xl font-normal">{{ number_format($product->product_price, 0, ',', '.') . ' VND' }}</span>
                                 <div class="absolute bottom-0" style="right: -110px">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="29" height="100%"
                                         viewBox="0 0 33 30" fill="none">
@@ -138,6 +138,61 @@
 
             </div>
         </div>
+        <div class="text-center text-6xl font-black rounded-3xl text py-6 mb-7 bg-pink">
+            BLOG
+        </div>
+        {{-- see more in left --}}
+        <div class="flex w-full justify-center mb-7">
+            <div class="w-[1352px] text-right">
+                <a href="{{ route('blog') }}"
+                    class="text-black text-3xl font-bold font-['Inter'] leading-normal cursor-pointe hover:text-yellow-200">See
+                    more >></a>
+            </div>
+        </div>
+
+        <div class="w-full flex justify-center">
+            <div class="md:w-[795px] flex flex-wrap items-center justify-center shadow-xl mr-3">
+                <img src="{{ asset('frontend/client/page/image/post_img.jpg') }}" class="w-[742px] m-6" alt="post">
+                <div class="title text-2xl text-center font-normal">MAKE GREEN TEA FLAN WITHOUT OVEN</div>
+            </div>
+            <div class="w-[530px] space-y-14">
+                {{-- 1 post --}}
+                <div class="w-[526px] h-[124px] bg-white rounded-lg shadow-xl flex items-center">
+                    <img src="{{ asset('frontend/client/page/image/post_img.jpg') }}"
+                        class="w-[150px] h-[104px] ml-3 rounded-lg" alt="post">
+                    <div class="info flex flex-col justify-between ml-4 h-full">
+                        <div class="title text-2xl font-medium mt-3">MAKE GREEN TEA FLAN WITHOUT OVEN</div>
+                        <div class="date text-lg text-[#898989] font-normal mb-3">2021-10-10</div>
+                    </div>
+                </div>
+                <div class="w-[526px] h-[124px] bg-white rounded-lg shadow-xl flex items-center">
+                    <img src="{{ asset('frontend/client/page/image/post_img.jpg') }}"
+                        class="w-[150px] h-[104px] ml-3 rounded-lg" alt="post">
+                    <div class="info flex flex-col justify-between ml-4 h-full">
+                        <div class="title text-2xl font-medium mt-3">MAKE GREEN TEA FLAN WITHOUT OVEN</div>
+                        <div class="date text-lg text-[#898989] font-normal mb-3">2021-10-10</div>
+                    </div>
+                </div>
+                <div class="w-[526px] h-[124px] bg-white rounded-lg shadow-xl flex items-center">
+                    <img src="{{ asset('frontend/client/page/image/post_img.jpg') }}"
+                        class="w-[150px] h-[104px] ml-3 rounded-lg" alt="post">
+                    <div class="info flex flex-col justify-between ml-4 h-full">
+                        <div class="title text-2xl font-medium mt-3">MAKE GREEN TEA FLAN WITHOUT OVEN</div>
+                        <div class="date text-lg text-[#898989] font-normal mb-3">2021-10-10</div>
+                    </div>
+                </div>
+                <div class="w-[526px] h-[124px] bg-white rounded-lg shadow-xl flex items-center">
+                    <img src="{{ asset('frontend/client/page/image/post_img.jpg') }}"
+                        class="w-[150px] h-[104px] ml-3 rounded-lg" alt="post">
+                    <div class="info flex flex-col justify-between ml-4 h-full">
+                        <div class="title text-2xl font-medium mt-3">MAKE GREEN TEA FLAN WITHOUT OVEN</div>
+                        <div class="date text-lg text-[#898989] font-normal mb-3">2021-10-10</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
     </div>
 
 @endsection

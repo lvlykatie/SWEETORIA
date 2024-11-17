@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Product')
+@section('title', 'Product detail')
 @section('content')
     <div class="mt-32 mb-14">
         <div class="text-center text-6xl font-black rounded-3xl my-5" style="background-color: #FFCCCC">
@@ -8,13 +8,12 @@
         </div>
         <div class="flex justify-around">
             <div class="w-full md:w-1/3 flex flex-col items-center">
-                <img src="{{ asset('public/frontend/client/page/image/bestsell.png') }}" width="299"
-                    alt="Whipping Cream Anchor" />
+                <img src="{{ $product->product_image }}" width="299" alt="Whipping Cream Anchor" />
                 <div class="item-name text-3xl text-center font-extrabold">
-                    Whipping cream Anchor
+                    {{ $product->product_name }}
                 </div>
                 <div class="price relative text-center pt-2">
-                    <span class="text-3xl font-normal">148,000</span>
+                    <span class="text-3xl font-normal">{{ $product->product_price }}</span>
                 </div>
                 {{-- <div class="flex flex-wrap pt-6 justify-center">
                     <button class="text-center w-1/2 h-auto bg-red-500 rounded-2xl text-white font-black w-1/2 md:w-[300px]"
@@ -26,17 +25,16 @@
             <div class="w-full md:w-1/3">
                 <div class="text-left mt-4">
                     <p class="text-black font-inter text-2xl font-normal leading-[60px] tracking-[0.5px]">
-                        <strong>Origin:</strong> New Zealand
+                        <strong>Origin:</strong> {{ $product->origin }}
                     </p>
                     <p class="text-black font-inter text-2xl font-normal leading-[60px] tracking-[0.5px]">
-                        <strong>Weight:</strong> 1000g
+                        <strong>Weight:</strong> {{ $product->weight }}
                     </p>
                     <p class="text-black font-inter text-2xl font-normal leading-[60px] tracking-[0.5px]">
-                        <strong>Storage:</strong> Refrigerate
+                        <strong>Storage:</strong> {{ $product->storage }}
                     </p>
                     <p class="text-black font-inter text-2xl font-normal leading-[60px] tracking-[0.5px]">
-                        <strong>Expiration:</strong> 12 months from the date of production. After opening, Anchor cream
-                        cheese should be used within 7 days.
+                        <strong>Expiration:</strong> {{ $product->expiration }}
                     </p>
 
                 </div>
@@ -73,28 +71,7 @@
             <div class="w-5/6">
                 <div class="bg-textgray text-description text-2xl font-bold p-3 border-t-4 border-yellow-200 transition-opacity duration-500 opacity-100"
                     id="describeTab">
-                    Product Description:
-                    <br>
-                    Whipping Cream Anchor 1L is a premium-quality fresh cream imported from New Zealand, offering superior
-                    quality and a perfect richness. With a high fat content, this cream whips quickly, holds its shape well,
-                    and delivers a naturally rich and creamy flavor. It’s an ideal ingredient for a variety of baked goods,
-                    mousses, cake decorations, and high-end desserts.
-                    <br>
-                    Ingredients: Pure fresh cream with a high fat content.
-                    <br>
-                    Uses: Suitable for whipping, cake decoration, beverage mixing, or preparing desserts like mousse and
-                    tiramisu. <br>
-                    Benefits: Easy to whip, retains shape for extended periods, and provides a smooth, beautiful texture.
-                    Its naturally rich and creamy flavor is perfect for many different recipes.
-                    <br>
-                    Storage Instructions: <br>
-                    Storage: Keep refrigerated, do not freeze. <br>
-                    Shelf Life: 12 months from the production date. Once opened, it should be used within 7 days to maintain
-                    freshness <br>
-                    Overall Review: <br>
-                    Anchor Whipping Cream 1L is trusted by many professional chefs and bakers worldwide. With its smooth
-                    whipping consistency and rich, creamy flavor, this product helps create perfect desserts and baked
-                    goods.
+                    {{ $product->product_desc }}
                 </div>
                 {{-- reviews --}}
                 <div class="border-t-4 border-yellow-200 hidden opacity-0 transition-opacity duration-500" id="reviewTab">
