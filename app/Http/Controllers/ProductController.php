@@ -76,7 +76,7 @@ public function search(Request $request)
     }
 
     // Lấy kết quả
-    $products = $productQuery->paginate(10);
+    $products = $productQuery->paginate(10)->appends($request->only(['filter', 'sort']));
 
     // Trả về view
     return view('page.product', compact('products', 'query', 'filter', 'sort'));

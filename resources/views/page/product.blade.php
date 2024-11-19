@@ -146,37 +146,67 @@
             <div class="flex flex-1 justify-center sm:justify-center">
                 <nav class="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
                     <!-- Previous Page Link -->
-                    <a href="{{ $products->previousPageUrl() . (request()->has('filter') ? '&filter=' . request('filter') : '') . (request()->has('sort') ? '&sort=' . request('sort') : '') }}"
-                        class="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-blue-100">
-                        <span class="sr-only">Previous</span>
-                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd"
-                                d="M11.78 5.22a.75.75 0 0 1 0 1.06L8.06 10l3.72 3.72a.75.75 0 1 1-1.06 1.06l-4.25-4.25a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0Z"
-                                clip-rule="evenodd" />
-                        </svg>
-                    </a>
+                    @if ($products->currentPage() == 1)
+                        <span
+                            class="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 cursor-not-allowed">
+                            <span class="sr-only">Previous</span>
+                            <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M11.78 5.22a.75.75 0 0 1 0 1.06L8.06 10l3.72 3.72a.75.75 0 1 1-1.06 1.06l-4.25-4.25a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0Z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </span>
+                    @else
+                        <a href="{{ $products->previousPageUrl() }}"
+                            class="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-blue-100">
+                            <span class="sr-only">Previous</span>
+                            <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M11.78 5.22a.75.75 0 0 1 0 1.06L8.06 10l3.72 3.72a.75.75 0 1 1-1.06 1.06l-4.25-4.25a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0Z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </a>
+                    @endif
 
                     <!-- Pagination Links -->
                     @foreach ($products->getUrlRange(1, $products->lastPage()) as $page => $url)
-                        <a href="{{ $url . (request()->has('filter') ? '&filter=' . request('filter') : '') . (request()->has('sort') ? '&sort=' . request('sort') : '') }}"
-                            class="{{ $page == $products->currentPage() ? 'bg-yellow-300' : '' }} relative inline-flex items-center px-4 py-2 text-2xl font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-blue-100">
-                            {{ $page }}
-                        </a>
+                        @if ($page == $products->currentPage())
+                            <span
+                                class="relative inline-flex items-center px-4 py-2 text-2xl font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 bg-yellow-300">
+                                {{ $page }}
+                            </span>
+                        @else
+                            <a href="{{ $url }}"
+                                class="relative inline-flex items-center px-4 py-2 text-2xl font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-blue-100">
+                                {{ $page }}
+                            </a>
+                        @endif
                     @endforeach
 
                     <!-- Next Page Link -->
-                    <a href="{{ $products->nextPageUrl() . (request()->has('filter') ? '&filter=' . request('filter') : '') . (request()->has('sort') ? '&sort=' . request('sort') : '') }}"
-                        class="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-blue-100">
-                        <span class="sr-only">Next</span>
-                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd"
-                                d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z"
-                                clip-rule="evenodd" />
-                        </svg>
-                    </a>
+                    @if ($products->currentPage() == $products->lastPage())
+                        <span
+                            class="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 cursor-not-allowed">
+                            <span class="sr-only">Next</span>
+                            <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </span>
+                    @else
+                        <a href="{{ $products->nextPageUrl() }}"
+                            class="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-blue-100">
+                            <span class="sr-only">Next</span>
+                            <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </a>
+                    @endif
                 </nav>
             </div>
         </div>
-
-
-    @endsection
+    </div>
+@endsection

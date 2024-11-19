@@ -273,6 +273,7 @@
 
         // Xây dựng URL mới với các tham số filter và sort
         let url = new URL(window.location.href);
+        url.searchParams.set('page', 1)
         if (filters) {
             url.searchParams.set('filter', filters);
         } else {
