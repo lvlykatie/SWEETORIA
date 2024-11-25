@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use Illuminate\Container\Attributes\Log;
 
+
 class ProductController extends Controller
 {
 
@@ -75,25 +76,26 @@ public function search(Request $request)
         $productQuery->orderBy('product_price', 'desc');
     }
 
+
     // Lấy kết quả
-    $products = $productQuery->paginate(10)->appends($request->only(['filter', 'sort']));
+    $products = $productQuery->paginate(10);
 
     // Trả về view
     return view('page.product', compact('products', 'query', 'filter', 'sort'));
+
 }
 
 
 
+public function detail($id)
+{
+    $product = Product::findOrFail($id);
+    return view('page.detail', compact('product')); // Pass $id to the view if needed
+}
 
-    public function detail($id)
-    {
-        $product = Product::findOrFail($id);
-        return view('page.detail', compact('product')); // Pass $id to the view if needed
-    }
-
-    public function hotdeals()
-    {
-        return view('page.hotdeal');
-    }
+public function hotdeals()
+{
+    return view('page.hotdeal');
+}
 
 }
