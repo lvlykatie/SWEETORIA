@@ -8,34 +8,43 @@
             <img src="{{ asset('public/frontend/client/page/image/ava.png') }}" alt="">
         </div>
         <form class="flex flex-col ml-6" method="POST" action="">
+            <!-- Name -->
             <div class="flex items-center justify-between my-7">
-                <label class="text-2xl md:text-5xl p-0 md:pr-12" for="name">Name</label>
+                <label class="text-[50px] md:text-5xl font-normal font-[Jomhuria] p-0 md:pr-12" for="name">Name</label>
                 <input
-                    class="acc-input md-acc-input md:placeholder:text-7xl font-jomhuria h-12 md:font-normal flex items-center md:w-[490px] w-5/6"
-                    style="background-color: #D9D9D9;color: #D5A759;" type="text" id="name" name="name"
+                    class="md:placeholder:text-[50px] md:placeholder:flex md:placeholder:items-center md:placeholder:leading-[50px] font-[Jomhuria] text-black md:font-normal md:w-[490px] leading-[50px] h-[50px] rounded-[20px] md:h-[50px] border text-center text-[50px] font-normal"
+                    style="background-color: #D9D9D9;" type="text" id="name" name="name"
                     placeholder="Enter your name">
-
             </div>
+
+            <!-- Email -->
             <div class="flex items-center justify-between my-7">
-                <label class=" text-2xl md:text-5xl p-0 md:pr-12" for="email">Email</label>
+                <label class="text-[50px] md:text-5xl font-normal font-[Jomhuria] p-0 md:pr-12" for="email">Email</label>
                 <input
-                    class="acc-input md-acc-input md:placeholder:text-7xl font-jomhuria h-12 p-1 md:font-normal flex items-center md:w-[490px] w-5/6"
-                    style="background-color: #D9D9D9;color: #D5A759" type="email" id="email" name="email"
+                    class="md:placeholder:text-[50px] md:placeholder:flex md:placeholder:items-center md:placeholder:leading-[50px] font-[Jomhuria] text-black md:font-normal md:w-[490px] leading-[50px] h-[50px] rounded-[20px] md:h-[50px] border text-center text-[50px] font-normal"
+                    style="background-color: #D9D9D9;" type="email" id="email" name="email"
                     placeholder="Enter your email">
             </div>
+
+            <!-- Phone -->
             <div class="flex items-center justify-between my-7">
-                <label class=" text-2xl md:text-5xl p-0 md:pr-12" for="phone">Phone</label>
+                <label class="text-[50px] md:text-5xl font-normal font-[Jomhuria] p-0 md:pr-12" for="phone">Phone</label>
                 <input
-                    class="acc-input md-acc-input md:placeholder:text-7xl font-jomhuria h-12 md:font-normal flex items-center md:w-[490px] w-5/6"
-                    style="background-color: #D9D9D9; color: #D5A759" type="tel" id="phone" name="phone"
-                    placeholder="Enter your phone number">
-            </div>
-            <div class="flex items-center justify-center my-7">
-                <button class="text-white font-jomhuria p-6 w-28"
-                    style="background-color: #3e2b25; border-radius: 20px; font-size: 35px; line-height: 35px;
-                ">Save</button>
+                    class="md:placeholder:text-[50px] md:placeholder:flex md:placeholder:items-center md:placeholder:leading-[50px] font-[Jomhuria] text-black md:font-normal md:w-[490px] leading-[50px] h-[50px] rounded-[20px] md:h-[50px] border text-center text-[50px] font-normal"
+                    style="background-color: #D9D9D9;" type="tel" id="phone" name="phone"
+                    placeholder="Enter your phone">
             </div>
 
+            <!-- Address -->
+            <div class="flex items-center justify-between my-7">
+                <label class="text-[50px] md:text-5xl font-normal font-[Jomhuria] p-0 md:pr-12"
+                    for="address">Address</label>
+                <input
+                    class="md:placeholder:text-[50px] md:placeholder:flex md:placeholder:items-center md:placeholder:leading-[50px] font-[Jomhuria] text-black md:font-normal md:w-[490px] leading-[50px] h-[50px] rounded-[20px] md:h-[50px] border text-center text-[50px] font-normal"
+                    style="background-color: #D9D9D9;" type="text" id="address" name="address"
+                    placeholder="Enter your address">
+            </div>
         </form>
+
     </div>
 @endsection

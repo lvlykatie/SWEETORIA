@@ -24,24 +24,27 @@
         </div>
         <form class="flex flex-col ml-6" method="POST" action="">
             <div class="flex flex-col flex-wrap items-center justify-center my-7">
-                <label class="text-2xl w-auto md:text-5xl p-0 mb-5" for="current">Current password</label>
+                <label class="text-[50px] font-normal font-[Jomhuria] w-auto  md:text-5xl p-0 mb-5" for="current">Current
+                    password</label>
                 <input
-                    class="acc-input md-acc-input md:placeholder:text-7xl font-jomhuria h-12 md:font-normal flex items-center md:w-[490px] w-5/6"
-                    style="background-color: #D9D9D9;color: #D5A759;" type="password" id="current" name="current">
+                    class="rounded-[20px] text-[50px] text-center md:placeholder:text-7xl font-jomhuria h-[50px] md:font-normal flex items-center md:w-[490px] w-5/6"
+                    style="background-color: #D9D9D9;" type="password" id="current" name="current">
 
             </div>
             <div class="flex flex-col flex-wrap items-center justify-center my-7">
-                <label class="text-2xl w-auto md:text-5xl p-0 mb-5" for="newpw">New password</label>
+                <label class="text-[50px] font-normal font-[Jomhuria] w-auto  md:text-5xl p-0 mb-5" for="newpw">New
+                    password</label>
                 <input
-                    class="acc-input md-acc-input md:placeholder:text-7xl font-jomhuria h-12 md:font-normal flex items-center md:w-[490px] w-5/6"
-                    style="background-color: #D9D9D9;color: #D5A759;" type="password" id="newpw" name="newpw">
+                    class="rounded-[20px] text-[50px] text-center md:placeholder:text-7xl font-jomhuria h-[50px] md:font-normal flex items-center md:w-[490px] w-5/6"
+                    style="background-color: #D9D9D9;" type="password" id="newpw" name="newpw">
 
             </div>
             <div class="flex flex-col flex-wrap items-center justify-center my-7">
-                <label class="text-2xl w-auto md:text-5xl p-0 mb-5" for="confirm">Confirm</label>
+                <label class="text-[50px] font-normal font-[Jomhuria] w-auto  md:text-5xl p-0 mb-5"
+                    for="confirm">Confirm</label>
                 <input
-                    class="acc-input md-acc-input md:placeholder:text-7xl font-jomhuria h-12 md:font-normal flex items-center md:w-[490px] w-5/6"
-                    style="background-color: #D9D9D9;color: #D5A759;" type="password" id="confirm" name="confirm">
+                    class="rounded-[20px] text-[50px] text-center md:placeholder:text-7xl font-jomhuria h-[50px] md:font-normal flex items-center md:w-[490px] w-5/6"
+                    style="background-color: #D9D9D9;" type="password" id="confirm" name="confirm">
             </div>
             <div class="flex items-center justify-center my-7">
                 <button class="text-white font-jomhuria p-6 w-28"
