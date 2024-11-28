@@ -39,7 +39,6 @@ Route::get('/cart', [PageController::class, 'cart'])->name('cart');
 Route::prefix('cart')->group(function () {
     Route::post('/add', [CartController::class, 'add'])->name('cart.add');
     Route::post('/update', [CartController::class, 'updateQuantity'])->name('cart.updateQuantity');
-
 });
 
 

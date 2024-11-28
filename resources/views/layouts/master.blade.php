@@ -187,6 +187,19 @@
 
 
 <script>
+    const dropdownButton = document.getElementById("dropdownDefaultButton");
+    const dropdown = document.getElementById("dropdown");
+
+    dropdownButton.addEventListener("click", () => {
+        dropdown.classList.toggle("hidden");
+    });
+
+    document.addEventListener("click", (event) => {
+        if (!dropdownButton.contains(event.target) && !dropdown.contains(event.target)) {
+            dropdown.classList.add("hidden");
+        }
+    });
+
     function toggleDropdown() {
         var dropdown = document.getElementById('dropdown');
         dropdown.classList.toggle('hidden');
@@ -292,6 +305,12 @@
         window.history.pushState({}, '', url);
 
         // Gửi yêu cầu lọc lại sản phẩm
+        window.location.href = url;
+    }
+    const handleClearFilter = () => {
+        const url = new URL(window.location.href);
+        url.searchParams.delete('filter');
+        url.searchParams.delete('sort');
         window.location.href = url;
     }
 </script>
