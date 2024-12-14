@@ -5,6 +5,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\loginGoogleController;
+use App\Http\Controllers\CartController;
 
 // Homepage Route
 Route::get('/', [PageController::class, 'homepage'])->name('homepage');
@@ -35,6 +36,10 @@ Route::prefix('account')->group(function () {
 
 // Cart Route
 Route::get('/cart', [PageController::class, 'cart'])->name('cart');
+Route::prefix('cart')->group(function () {
+    Route::post('/add', [CartController::class, 'add'])->name('cart.add');
+    Route::post('/update', [CartController::class, 'updateQuantity'])->name('cart.updateQuantity');
+});
 
 
 

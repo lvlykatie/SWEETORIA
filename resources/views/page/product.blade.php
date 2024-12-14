@@ -63,7 +63,8 @@
                 </div>
                 <div class="w-1/2 text-3xl">
                     <div class="flex flex-wrap justify-center ">
-                        <button class="w-2/3 md:w-1/6 text-3xl font-black rounded-xl bg-gray-500">Clear filter</button>
+                        <button class="w-2/3 md:w-1/6 text-3xl font-black rounded-xl bg-gray-500"
+                            onclick="handleClearFilter()">Clear filter</button>
                     </div>
                     <div class="flex flex-col items-center flex-wrap gap-7 mt-4">
                         <div class="w-auto text-3xl font-extrabold flex items-center">
@@ -110,33 +111,63 @@
         <div class="text-center text-6xl font-black rounded-3xl text py-6 mb-7" style="background-color: #FFFDD0">
             PRODUCTS
         </div>
-        <div class="product-list">
-            <div class="flex flex-wrap">
+        <div class="product-list mx-24">
+            <div class="flex flex-wrap justify-center gap-x-[45px] gap-y-9">
                 @foreach ($products as $product)
-                    <div class="md:w-1/3 w-full flex flex-col items-center">
+                    <div
+                        class="md:w-[356px] h-[507px] w-full flex flex-col items-center bg-[#FFDEDE80] rounded-[28px] relative ">
+                        {{-- sale --}}
+                        <div
+                            class="bg-[#004FA8] w-[128px] h-[36px] rounded-tr-[20px] rounded-br-[20px] flex justify-center items-center absolute left-0 top-4">
+                            <i class="fa-solid fa-bolt text-yellow-300 mr-5"></i>
+                            <span class="text-white text-2xl font-bold">SALE <span>-35%</span></span>
+                        </div>
+                        {{-- best seller --}}
+                        <div
+                            class="md:w-[148px] md:h-[30px] bg-[#FFCB06] flex justify-center items-center rounded-xl absolute bottom-[185px] right-0">
+                            <span class="text-2xl text-center font-bold text-black">BEST SELLER
+                                <i class="fa-solid fa-circle-check text-[#004FA8]"></i>
+                            </span>
+
+                        </div>
                         <a href="{{ route('detail', ['id' => $product->product_id]) }}" class="cursor-pointer">
                             <img src="{{ filter_var($product->product_image, FILTER_VALIDATE_URL) ? $product->product_image : asset('public/backend/image/' . $product->product_image) }}"
-                                width="299" height="299" style="width: 299px; height: 299px; object-fit: cover;"
-                                class="hover:scale-90" alt="Product Image">
+                                class="hover:scale-90 w-[305px] h-auto mt-6 ml-6 mr-6  object-cover rounded-[20px]"
+                                alt="Product Image">
                         </a>
-                        <div class="item-name text-3xl text-center font-extrabold">
+                        <div class="item-name text-3xl text-center font-bold mt-8">
                             <a href="{{ route('detail', ['id' => $product->product_id]) }}"
                                 class="text-black hover:underline">
                                 {{ $product->product_name }}
                             </a>
                         </div>
-                        <div class="price relative text-center pt-2">
+                        <div class="price relative w-full pt-2 ml-6 flex justify-between mt-6">
                             <span
-                                class="text-3xl font-normal">{{ number_format($product->product_price, 0, ',', '.') . ' VND' }}</span>
-                            <div class="absolute bottom-0" style="right: -110px">
+                                class="text-3xl ml-[20px] font-medium">{{ number_format($product->product_price, 0, ',', '.') . ' VND' }}
+                            </span>
+                            <span class="text-3xl font-normal">
+                                <i class="fa-solid fa-star text-yellow-300"></i>
+                                <span>4.9</span>
+                            </span>
+
+                            <!-- icon thêm giỏ hàng -->
+                            <div class="mr-[35px]">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="29" height="100%"
-                                    viewBox="0 0 33 30" fill="none">
+                                    viewBox="0 0 33 30" fill="none" id="addToCartIcon" class="add-to-cart-icon"
+                                    data-product-id="{{ $product->product_id }}"
+                                    data-product-name="{{ $product->product_name }}"
+                                    data-product-price="{{ $product->product_price }}">
                                     <path
                                         d="M28.5398 18.75H12.254L12.6176 20.625H27.5297C28.3853 20.625 29.0195 21.4629 28.8299 22.3429L28.5234 23.7653C29.5618 24.2969 30.2778 25.4196 30.2778 26.7187C30.2778 28.547 28.8601 30.026 27.1209 29.9996C25.4641 29.9745 24.1014 28.5564 24.0567 26.8094C24.0323 25.8551 24.3948 24.9901 24.9902 24.3749H13.3431C13.9196 24.9706 14.2778 25.8003 14.2778 26.7187C14.2778 28.5828 12.804 30.0838 11.0183 29.9964C9.43278 29.9187 8.14328 28.5676 8.05995 26.8958C7.99561 25.6047 8.63972 24.4668 9.61834 23.8731L5.71572 3.75H1.83333C1.09694 3.75 0.5 3.12041 0.5 2.34375V1.40625C0.5 0.62959 1.09694 0 1.83333 0H7.52939C8.16278 0 8.70872 0.46998 8.83567 1.12441L9.34489 3.75H31.1661C32.0217 3.75 32.6559 4.58795 32.4663 5.46791L29.84 17.6554C29.7021 18.2957 29.1624 18.75 28.5398 18.75ZM23.1667 9.84375H20.5V7.5C20.5 6.98221 20.1021 6.5625 19.6111 6.5625H18.7222C18.2313 6.5625 17.8333 6.98221 17.8333 7.5V9.84375H15.1667C14.6757 9.84375 14.2778 10.2635 14.2778 10.7812V11.7187C14.2778 12.2365 14.6757 12.6562 15.1667 12.6562H17.8333V15C17.8333 15.5178 18.2313 15.9375 18.7222 15.9375H19.6111C20.1021 15.9375 20.5 15.5178 20.5 15V12.6562H23.1667C23.6576 12.6562 24.0556 12.2365 24.0556 11.7187V10.7812C24.0556 10.2635 23.6576 9.84375 23.1667 9.84375Z"
                                         fill="black" />
                                 </svg>
                             </div>
+                            <!-- icon thêm giỏ hàng -->
                         </div>
+                        <button
+                            class="md:w-[330px] font-semibold mt-4 md:h-[60px] text-2xl text-white bg-[#D65050] rounded-[60px]">
+                            <span class="px-4 py-8">BUY NOW</span>
+                        </button>
                     </div>
                 @endforeach
             </div>
@@ -209,4 +240,49 @@
             </div>
         </div>
     </div>
+
+    <script>
+        window.add = function(element) {
+            const productId = element.dataset.productId;
+            const productName = element.dataset.productName;
+            const productPrice = element.dataset.productPrice;
+
+            // Gửi yêu cầu Ajax để thêm vào giỏ hàng
+            fetch('{{ url('/cart/add') }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({
+                        product_id: productId,
+                        quantity: 1 // Số lượng mặc định là 1
+                    })
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Server error: ' + response.status);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.success) {
+                        alert('Sản phẩm đã được thêm vào giỏ hàng!');
+                    } else {
+                        alert(data.message || 'Có lỗi xảy ra!');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Không thể thêm sản phẩm vào giỏ hàng. Vui lòng thử lại!');
+                });
+        }
+
+        document.querySelectorAll('.add-to-cart-icon').forEach(icon => {
+            icon.addEventListener('click', function() {
+                window.add(this);
+            });
+        });
+    </script>
+
 @endsection

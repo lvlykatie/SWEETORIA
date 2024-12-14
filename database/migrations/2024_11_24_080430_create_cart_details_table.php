@@ -11,17 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tbl_cart_details', function (Blueprint $table) {
-            $table->increments('cart_details_id'); 
-            $table->integer('user_id')->nullable();
-            $table->integer('product_id')->nullable(); 
-            $table->integer('quantity')->nullable(); 
+        Schema::create('cart_details', function (Blueprint $table) {
+            $table->id();
             $table->timestamps();
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
-        Schema::dropIfExists('tbl_cart_details');
+        Schema::dropIfExists('cart_details');
     }
 };

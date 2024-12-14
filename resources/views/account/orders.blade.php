@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="flex md:flex-row flex-col md:items-start px-7 md:mt-32 mt-16 mb-14 items-center justify-around ">
-        {{-- navbar --}}
+        {{-- navbar
         <div class="flex-row flex md:flex-col">
             <div class="bg-yellow-100 text-center border-b hover:bg-gray-200 cursor-pointer">
                 <a href="{{ route('account') }}" class=" text-2xl md:text-4xl font-bold p-8 block">Account</a>
@@ -18,7 +18,7 @@
             <div class="bg-yellow-100 text-center border-b hover:bg-gray-200 cursor-pointer">
                 <a href="{{ route('policy') }}" class=" text-2xl md:text-4xl font-bold p-8 block">Policy</a>
             </div>
-        </div>
+        </div> --}}
 
 
         <div class="products flex flex-col w-full md:items-center gap-y-10">
