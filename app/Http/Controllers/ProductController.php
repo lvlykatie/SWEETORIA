@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use Illuminate\Container\Attributes\Log;
-
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -89,9 +89,26 @@ public function search(Request $request)
 
 public function detail($id)
 {
-    $product = Product::findOrFail($id);
-    return view('page.detail', compact('product')); // Pass $id to the view if needed
+    // Fetch a single product
+    $product = DB::table('tbl_product')
+        ->where('product_id', $id)
+        ->first(); // Fetch the first record as a single object, not a collection
+
+    if (!$product) {
+        return redirect()->back()->with('error', 'Sản phẩm không tồn tại.');
+    }
+
+    // Get related products (up to 3) based on category_name
+    $related_product = DB::table('tbl_product')
+        ->where('category_name', $product->category_name) // Using the category from the single product
+        ->where('product_id', '!=', $id)
+        ->take(3) // Limit to 3 related products
+        ->get(); // Return a collection of related products
+
+    return view('page.detail', compact('product', 'related_product'));
 }
+
+
 
 public function hotdeals()
 {
