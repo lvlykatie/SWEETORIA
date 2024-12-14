@@ -197,7 +197,7 @@
 
             </div>
             <a href="{{ route('detail', ['id' => $item->product_id]) }}" class="cursor-pointer">
-                <img src="{{ filter_var($item->product_image, FILTER_VALIDATE_URL) ? $item->product_image : asset('public/backend/image/' . $itemitem->product_image) }}"
+                <img src="{{ filter_var($item->product_image, FILTER_VALIDATE_URL) ? $item->product_image : asset('public/backend/image/' . $item->product_image) }}"
                     class="hover:scale-90 w-[305px] h-auto mt-6 ml-6 mr-6  object-cover rounded-[20px]"
                     alt="Product Image">
             </a>
