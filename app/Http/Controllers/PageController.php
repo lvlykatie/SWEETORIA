@@ -17,6 +17,10 @@ class PageController extends Controller
     {
         return view('page.cart');
     }
+    public function hotdeal()
+    {
+        return view('page.hotdeals');
+    }
     public function contact()
     {
         return view('page.contact');
