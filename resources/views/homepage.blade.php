@@ -203,13 +203,13 @@
 
         <div class="w-full flex justify-center">
             <div class="md:w-[795px] flex flex-wrap items-center justify-center shadow-xl mr-3">
-                <img src="{{ asset('frontend/client/page/image/post_img.jpg') }}" class="w-[742px] m-6" alt="post">
+                <img src="{{ asset('public/frontend/client/page/image/post_img.jpg') }}" class="w-[742px] m-6" alt="post">
                 <div class="title text-2xl text-center font-normal">MAKE GREEN TEA FLAN WITHOUT OVEN</div>
             </div>
             <div class="w-[530px] space-y-14">
                 {{-- 1 post --}}
                 <div class="w-[526px] h-[124px] bg-white rounded-lg shadow-xl flex items-center">
-                    <img src="{{ asset('frontend/client/page/image/post_img.jpg') }}"
+                    <img src="{{ asset('public/frontend/client/page/image/post_img.jpg') }}"
                         class="w-[150px] h-[104px] ml-3 rounded-lg" alt="post">
                     <div class="info flex flex-col justify-between ml-4 h-full">
                         <div class="title text-2xl font-medium mt-3">MAKE GREEN TEA FLAN WITHOUT OVEN</div>
@@ -217,7 +217,7 @@
                     </div>
                 </div>
                 <div class="w-[526px] h-[124px] bg-white rounded-lg shadow-xl flex items-center">
-                    <img src="{{ asset('frontend/client/page/image/post_img.jpg') }}"
+                    <img src="{{ asset('public/frontend/client/page/image/post_img.jpg') }}"
                         class="w-[150px] h-[104px] ml-3 rounded-lg" alt="post">
                     <div class="info flex flex-col justify-between ml-4 h-full">
                         <div class="title text-2xl font-medium mt-3">MAKE GREEN TEA FLAN WITHOUT OVEN</div>
@@ -225,7 +225,7 @@
                     </div>
                 </div>
                 <div class="w-[526px] h-[124px] bg-white rounded-lg shadow-xl flex items-center">
-                    <img src="{{ asset('frontend/client/page/image/post_img.jpg') }}"
+                    <img src="{{ asset('public/frontend/client/page/image/post_img.jpg') }}"
                         class="w-[150px] h-[104px] ml-3 rounded-lg" alt="post">
                     <div class="info flex flex-col justify-between ml-4 h-full">
                         <div class="title text-2xl font-medium mt-3">MAKE GREEN TEA FLAN WITHOUT OVEN</div>
@@ -233,7 +233,7 @@
                     </div>
                 </div>
                 <div class="w-[526px] h-[124px] bg-white rounded-lg shadow-xl flex items-center">
-                    <img src="{{ asset('frontend/client/page/image/post_img.jpg') }}"
+                    <img src="{{ asset('public/frontend/client/page/image/post_img.jpg') }}"
                         class="w-[150px] h-[104px] ml-3 rounded-lg" alt="post">
                     <div class="info flex flex-col justify-between ml-4 h-full">
                         <div class="title text-2xl font-medium mt-3">MAKE GREEN TEA FLAN WITHOUT OVEN</div>
