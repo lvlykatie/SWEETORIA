@@ -265,7 +265,39 @@
     <script>
         let sortDirection = true; // true for ascending, false for descending
 
-        
+        function sortTable(columnIndex, element) {
+            const table = document.getElementById("productTable").parentNode; // Get the table element
+            const rows = Array.from(table.querySelectorAll("tbody")); // Convert rows to array
+            const isNumericColumn = columnIndex === 0 || columnIndex === 4 || columnIndex === 6; // Define numeric columns
+            sortDirection = !sortDirection; // Toggle sort direction
+
+            rows.sort((a, b) => {
+                const aCell = a.querySelectorAll("td")[columnIndex].innerText.trim();
+                const bCell = b.querySelectorAll("td")[columnIndex].innerText.trim();
+
+                if (isNumericColumn) {
+                    return sortDirection ?
+                        parseFloat(aCell.replace(/,/g, '')) - parseFloat(bCell.replace(/,/g, '')) :
+                        parseFloat(bCell.replace(/,/g, '')) - parseFloat(aCell.replace(/,/g, ''));
+                } else {
+                    return sortDirection ?
+                        aCell.localeCompare(bCell) :
+                        bCell.localeCompare(aCell);
+                }
+            });
+
+            // Remove existing rows and append sorted rows
+            rows.forEach(row => table.appendChild(row));
+
+            // Update the icon in the clicked header
+            document.querySelectorAll(".sort-icon").forEach(icon => {
+                icon.classList.remove("fa-sort-up", "fa-sort-down");
+                icon.classList.add("fa-sort");
+            });
+
+            element.classList.remove("fa-sort");
+            element.classList.add(sortDirection ? "fa-sort-up" : "fa-sort-down");
+        }
     </script>
 </body>
 

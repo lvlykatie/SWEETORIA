@@ -212,7 +212,7 @@
                                 </tr>
                             </thead>
                             <tbody class="text-gray-700" id="dealTable">
-                                @foreach($all_deals as $key => $deal)
+                                @foreach($all_deals as $deal)
                                 <td class="text-center py-3">{{ $deal->deal_id }}</td>
                                 <td class="text-center py-3 mx-auto">
                                     <img src="{{ asset('public/backend/image/'.$deal->deal_image) }}" class="mx-auto" width="100px" height="100px" alt="">
@@ -224,9 +224,9 @@
                                     <div class="ml-4">
                                         <ul class="list-disc list-inside">
                                             @if(isset($products_by_deal[$deal->deal_id]) && $products_by_deal[$deal->deal_id]->isNotEmpty())
-                                            @foreach($products_by_deal[$deal->deal_id] as $product)
-                                            <li>{{ $product->product_name }} - {{ $product->product_price }}</li>
-                                            @endforeach
+                                                @foreach($products_by_deal[$deal->deal_id] as $product)
+                                                    <li>{{ $product->product_name }} - {{ number_format($product->product_price, 0, ',', '.') . ' VND' }}</li>
+                                                @endforeach
                                             @else
                                             <li>No products associated with this deal</li>
                                             @endif
@@ -263,42 +263,36 @@
     <script>
         let sortDirection = true; // true for ascending, false for descending
 
-        function sortTable(columnIndex, icon) {
-            const table = document.getElementById('dealTable');
-            const rows = Array.from(table.rows);
-            const isNumberColumn = columnIndex === 0 || columnIndex === 3; // Identify number columns
+        function sortTable(n, icon) {
+            var table = icon.closest("table"); // Lấy bảng chứa icon
+            var rows = Array.from(table.getElementsByTagName("tr")).slice(1); // Lấy các hàng trong bảng (loại bỏ hàng tiêu đề)
+            var isAscending = icon.classList.contains("fa-sort-up");
 
-            rows.sort((a, b) => {
-                const aText = a.cells[columnIndex].innerText;
-                const bText = b.cells[columnIndex].innerText;
+            // Đảo ngược thứ tự sắp xếp nếu cột đã được sắp xếp theo thứ tự tăng dần
+            rows.sort(function(rowA, rowB) {
+                var cellA = rowA.getElementsByTagName("td")[n].textContent.trim();
+                var cellB = rowB.getElementsByTagName("td")[n].textContent.trim();
 
-                if (isNumberColumn) {
-                    return sortDirection ? aText - bText : bText - aText; // Numerical sort
+                if (isNaN(cellA)) cellA = cellA.toLowerCase(); // Nếu là chuỗi
+                if (isNaN(cellB)) cellB = cellB.toLowerCase(); // Nếu là chuỗi
+
+                if (cellA < cellB) {
+                    return isAscending ? -1 : 1;
+                } else if (cellA > cellB) {
+                    return isAscending ? 1 : -1;
                 }
-                return sortDirection ? aText.localeCompare(bText) : bText.localeCompare(aText); // String sort
+                return 0;
             });
 
-            // Clear the existing rows and append the sorted rows
-            while (table.firstChild) {
-                table.removeChild(table.firstChild);
-            }
+            // Đưa các hàng đã sắp xếp lại vào bảng
+            rows.forEach(function(row) {
+                table.appendChild(row);
+            });
 
-            // Append sorted rows back to the table body
-            rows.forEach(row => table.appendChild(row));
-
-            // Toggle sort direction for next click
-            sortDirection = !sortDirection;
-
-            // Update the sort icon visibility
-            const icons = icon.parentElement.querySelectorAll('.asc, .desc');
-            icons.forEach(i => i.style.display = 'none');
-            if (sortDirection) {
-                icons[0].style.display = 'inline';
-            } else {
-                icons[1].style.display = 'inline';
-            }
+            // Toggle icon sort
+            icon.classList.toggle("fa-sort-up", !isAscending);
+            icon.classList.toggle("fa-sort-down", isAscending);
         }
-    </script>
     </script>
 </body>
 

@@ -8,7 +8,7 @@ use App\Http\Controllers\loginGoogleController;
 use App\Http\Controllers\CartController;
 
 // Homepage Route
-Route::get('/', [PageController::class, 'homepage'])->name('homepage');
+Route::get('/', [PageController::class, 'homepage'])->name('homepagepage')->middleware('auth');
 
 // Product Routes
 Route::prefix('product')->group(function () {

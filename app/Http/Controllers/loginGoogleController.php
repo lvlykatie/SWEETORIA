@@ -15,54 +15,58 @@ class loginGoogleController extends Controller
 {
     // Điều hướng người dùng đến trang đăng nhập Google
     public function redirectToGoogle()
-    {
-        return Socialite::driver('google')->redirect();
-    }
+{
+    return Socialite::driver('google')->redirect();
+}
 
-    public function handleGoogleCallback()
-    {
-        try {
-            // Lấy thông tin người dùng từ Google
-            $googleUser = Socialite::driver('google')->user();
-    
-            // Kiểm tra xem người dùng đã tồn tại trong hệ thống chưa
-            $user = User::where('user_email', $googleUser->getEmail())->first();
-    
-            if ($user) {
-                // Nếu người dùng đã tồn tại, đăng nhập
-                Auth::login($user);
+public function handleGoogleCallback()
+{
+    try {
+        // Lấy thông tin người dùng từ Google
+        $googleUser = Socialite::driver('google')->user();
+        Log::info('Google user info retrieved: ' . json_encode($googleUser));
+        
+        // Kiểm tra xem người dùng đã tồn tại trong hệ thống chưa
+        $user = User::where('user_email', $googleUser->getEmail())->first();
+        Log::info('User lookup result: ' . json_encode($user));
+        
+        if ($user) {
+            // Nếu người dùng đã tồn tại, đăng nhập
+            Auth::login($user);
+            return redirect('/');
+        } else {
+            // Nếu người dùng chưa tồn tại, tạo người dùng mới
+            Log::info('Creating new user with email: ' . $googleUser->getEmail());
+            
+            // Tạo người dùng mới và lưu vào cơ sở dữ liệu
+            $newUser = User::create([
+                'user_email' => $googleUser->getEmail(),
+                'user_password' => Hash::make(uniqid()), // Đặt mật khẩu ngẫu nhiên
+                'user_name' => $googleUser->getName(),
+                'user_phone' => null,
+                'user_address' => null,
+                'role' => 'customer',
+                'google_id' => $googleUser->getId(),
+            ]);
+            
+            Log::info('New user creation result: ' . json_encode($newUser));
+            
+            if ($newUser) {
+                Log::info('New user created successfully with ID: ' . $newUser->id);
+                // Đăng nhập người dùng sau khi tạo thành công
+                Auth::login($newUser);
                 return redirect('/');
             } else {
-                // Nếu người dùng chưa tồn tại, tạo người dùng mới
-                Log::info('Creating new user with email: ' . $googleUser->getEmail());
-    
-                // Tạo người dùng mới và lưu vào cơ sở dữ liệu
-                $newUser = User::create([
-                    'user_email' => $googleUser->getEmail(),
-                    'user_password' => Hash::make(uniqid()), // Đặt mật khẩu ngẫu nhiên
-                    'user_name' => $googleUser->getName(),
-                    'user_phone' => null,
-                    'user_address' => null,
-                    'role' => 'customer',
-                    'google_id' => $googleUser->getId(),
-                ]);
-    
-                if ($newUser) {
-                    Log::info('New user created successfully with ID: ' . $newUser->id);
-                    // Đăng nhập người dùng sau khi tạo thành công
-                    Auth::login($newUser);
-                    return redirect('/');
-                } else {
-                    Log::error('Failed to create a new user in the database.');
-                    return redirect('/signin')->with('error', 'Lỗi khi tạo người dùng mới.');
-                }
+                Log::error('Failed to create a new user in the database.');
+                return redirect('/signin')->with('error', 'Lỗi khi tạo người dùng mới.');
             }
-    
-        } catch (Exception $e) {
-            Log::error('Error in Google login: ' . $e->getMessage());
-            return redirect('/signin')->with('error', 'Có lỗi xảy ra khi đăng nhập Google');
         }
+        
+    } catch (Exception $e) {
+        Log::error('Error in Google login: ' . $e->getMessage());
+        return redirect('/signin')->with('error', 'Có lỗi xảy ra khi đăng nhập Google');
     }
+}
     
 
 }
