@@ -157,11 +157,11 @@
 
         <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
             <main class="w-full flex-grow p-6">
-               
+
                 <div class="flex justify-between">
                     <h1 class="text-3xl text-extrabold pb-6">Products</h1>
 
-                     <!-- Search form-->
+                    <!-- Search form-->
                     <form class="max-w-md" style="width: 500px;" action="{{ route('products.search') }}" method="GET">
                         <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                         <div class="relative">
@@ -265,41 +265,7 @@
     <script>
         let sortDirection = true; // true for ascending, false for descending
 
-        function sortTable(columnIndex, icon) {
-            const table = document.getElementById('productTable');
-            const rows = Array.from(table.rows);
-            const isNumberColumn = columnIndex === 0 || columnIndex === 3; // Identify number columns
-
-            rows.sort((a, b) => {
-                const aText = a.cells[columnIndex].innerText;
-                const bText = b.cells[columnIndex].innerText;
-
-                if (isNumberColumn) {
-                    return sortDirection ? aText - bText : bText - aText; // Numerical sort
-                }
-                return sortDirection ? aText.localeCompare(bText) : bText.localeCompare(aText); // String sort
-            });
-
-            // Clear the existing rows and append the sorted rows
-            while (table.firstChild) {
-                table.removeChild(table.firstChild);
-            }
-
-            // Append sorted rows back to the table body
-            rows.forEach(row => table.appendChild(row));
-
-            // Toggle sort direction for next click
-            sortDirection = !sortDirection;
-
-            // Update the sort icon visibility
-            const icons = icon.parentElement.querySelectorAll('.asc, .desc');
-            icons.forEach(i => i.style.display = 'none');
-            if (sortDirection) {
-                icons[0].style.display = 'inline';
-            } else {
-                icons[1].style.display = 'inline';
-            }
-        }
+        
     </script>
 </body>
 

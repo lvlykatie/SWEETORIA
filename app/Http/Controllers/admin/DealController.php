@@ -16,13 +16,9 @@ class DealController extends Controller
     public function showDealPage()
     {
         $all_deals = DB::table('tbl_deal')->get();
-
-        $products_by_deal = DB::table('tbl_product')
-            ->select('product_name', 'product_price', 'deal_id')
-            ->whereNotNull('deal_id') // Only get products that are associated with deals
-            ->get()
-            ->groupBy('deal_id');
-
+        foreach ($all_deals as $deal) {
+            $products_by_deal[$deal->deal_id] = DB::where('deal_id', $deal->deal_id)->get();  // Lấy sản phẩm liên quan đến deal_id
+        }
         return view('admin.deals.deals', compact('all_deals', 'products_by_deal'));
     }
 
@@ -77,23 +73,30 @@ class DealController extends Controller
     public function deleteDeal($deal_id)
     {
         try {
+            // Tìm kiếm deal theo deal_id
             $deal = DB::table('tbl_deal')->where('deal_id', $deal_id)->first();
 
             if ($deal) {
+                // Lấy tất cả sản phẩm liên quan đến deal này
                 $products = DB::table('tbl_product')->where('deal_id', $deal_id)->get();
 
+                // Khôi phục giá sản phẩm và xóa deal_id
                 foreach ($products as $product) {
-                    if ($product && $product->original_price) {
+                    // Nếu sản phẩm có giá gốc
+                    if ($product->original_price !== null) {
+                        // Khôi phục lại giá sản phẩm về giá gốc
                         DB::table('tbl_product')
-                            ->where('product_name', $product->product_name)
+                            ->where('product_id', $product->product_id)
                             ->update(['product_price' => $product->original_price]);
 
+                        // Xóa deal_id và original_price sau khi khôi phục giá
                         DB::table('tbl_product')
-                            ->where('product_name', $product->product_name)
-                            ->update(['original_price' => null]);
+                            ->where('product_id', $product->product_id)
+                            ->update(['deal_id' => null, 'original_price' => null]);
                     }
                 }
 
+                // Xóa deal khỏi bảng tbl_deal
                 DB::table('tbl_deal')->where('deal_id', $deal_id)->delete();
 
                 session()->flash('success', 'Deal deleted and product prices restored successfully.');
@@ -107,6 +110,7 @@ class DealController extends Controller
             return Redirect::to('admin/deals');
         }
     }
+
     public function editDeal($deal_id)
     {
         $products = DB::table('tbl_product')->get();
@@ -179,7 +183,7 @@ class DealController extends Controller
 
     public function search(Request $request)
     {
-        
+
         // Kiểm tra nếu không có query search
         if (!$request->has('query')) {
             $all_deals = DB::table('tbl_deal')->get();
@@ -192,6 +196,6 @@ class DealController extends Controller
             ->where('deal_name', 'LIKE', "%$query%")
             ->get();
 
-            return view('admin.deals.deals')->with('all_deals', $all_deals);
+        return view('admin.deals.deals')->with('all_deals', $all_deals);
     }
 }

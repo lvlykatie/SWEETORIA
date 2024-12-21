@@ -212,7 +212,7 @@
                                 </tr>
                             </thead>
                             <tbody class="text-gray-700" id="dealTable">
-                                @foreach($all_deals as $deal)
+                                @foreach($all_deals as $key => $deal)
                                 <td class="text-center py-3">{{ $deal->deal_id }}</td>
                                 <td class="text-center py-3 mx-auto">
                                     <img src="{{ asset('public/backend/image/'.$deal->deal_image) }}" class="mx-auto" width="100px" height="100px" alt="">
@@ -225,7 +225,7 @@
                                         <ul class="list-disc list-inside">
                                             @if(isset($products_by_deal[$deal->deal_id]) && $products_by_deal[$deal->deal_id]->isNotEmpty())
                                             @foreach($products_by_deal[$deal->deal_id] as $product)
-                                            <li>{{ $product->product_name }} - {{ number_format($product->product_price, 0, ',', '.') . ' VND' }}                                            </li>
+                                            <li>{{ $product->product_name }} - {{ $product->product_price }}</li>
                                             @endforeach
                                             @else
                                             <li>No products associated with this deal</li>
