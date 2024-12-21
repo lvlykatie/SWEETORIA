@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth; 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Container\Attributes\Log;
-use App\Models\Cart;                
-use App\Models\CartDetails;          
-use App\Models\Product; 
+use App\Models\Cart;
+use App\Models\CartDetails;
+use App\Models\Product;
 
 class PageController extends Controller
 {
@@ -27,10 +27,10 @@ class PageController extends Controller
         try {
            // Lấy thông tin người dùng hiện tại
            $userId = Auth::id();
-    
+
            // Kiểm tra giỏ hàng của người dùng
            $cart = Cart::where('user_id', $userId)->with('details.product')->first();
-   
+
            if (!$cart) {
                // Nếu giỏ hàng không tồn tại, trả về giỏ hàng rỗng
                $products = [];
@@ -47,7 +47,7 @@ class PageController extends Controller
                        'total' => $detail->product->product_price * $detail->quantity,
                    ];
                })->toArray();
-   
+
                $totalPrice = $cart->total_price;
            }
 
@@ -74,5 +74,9 @@ class PageController extends Controller
     public function delivery()
     {
         return view('page.delivery');
+    }
+    public function payment()
+    {
+        return view('page.payment');
     }
 }
