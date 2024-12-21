@@ -10,72 +10,66 @@
         <div class="text-center text-6xl font-black rounded-3xl text my-5 py-6" style="background-color: #FFFDD0">
             HOT DEALS !!
         </div>
-        <div class="px-40">
+        <div class="px-14 mt-14 space-y-20">
             {{-- hot 1 --}}
-            <div class="text-left font-normal text-4xl">Mid Autumn Festive Sale!</div>
-            <div class="flex flex-wrap gap-x-96 justify-around py-6">
-                <div class="w-full md:w-1/3">
-                    <div class="bg-yellow-100 text-center p-8 rounded-full w-full h-full flex justify-center items-center">
-                        <p class="text-4xl text-gray-800 font-medium">
-                            Enjoy maximum discounts on our exclusive Mid Autumn collection! Limited time offer from
-                            31.08 to 18.09. Don't miss out on these fantastic deals!
-                        </p>
-                    </div>
-                </div>
-                <div class="w-full md:w-1/3">
-                    <img src="{{ asset('public/frontend/client/page/image/Deal_1.png') }}" alt="Mid Autumn Festive Sale"
-                        class="img-fluid">
+            <div class="flex flex-wrap justify-around">
+                <div class="w-full md:w-[745px] md:h-[559px]">
+                    <img src="{{ asset('public/frontend/client/page/image/Deal_4.png') }}" alt="Mid Autumn Festive Sale"
+                        width="100%" height="100%">
 
                 </div>
-                <div class="flex flex-wrap pt-6 justify-end pr-[76px]">
+                <div class="flex flex-col items-center">
+                    <div class="md:w-[510px] md:h-[478px] font-[Inter] font-normal text-5xl leading-[50px] text-gray-800">
+                        Get 20% off on our Donut Making Combo! All the ingredients you need to make delicious donuts at
+                        home.
+                        Hurry, limited time offer!
+                    </div>
+
                     <button class="text-center h-24 bg-red-500 rounded-2xl text-white font-black w-[320px]"
                         style="font-size: 50px; line-height: 61px;">BUY
                         NOW</button>
+
                 </div>
             </div>
             {{-- hot deal2 --}}
-            <div class="text-left font-normal text-4xl">Mid Autumn Festive Sale!</div>
-            <div class="flex-wrap gap-x-96 flex justify-around py-6">
-
-                <div class="w-full md:w-1/3">
-                    <img src="{{ asset('public/frontend/client/page/image/Deal_1.png') }}" alt="Mid Autumn Festive Sale"
-                        class="img-fluid">
-
-                </div>
-                <div class="w-full md:w-1/3">
-                    <div class="bg-yellow-100 text-center  p-8 rounded-full w-full h-full flex justify-center items-center">
-                        <p class="text-4xl text-gray-800 font-medium">
-                            Enjoy maximum discounts on our exclusive Mid Autumn collection! Limited time offer from
-                            31.08 to 18.09. Don't miss out on these fantastic deals!
-                        </p>
+            <div class="flex flex-wrap justify-around">
+                <div class="flex flex-col items-center">
+                    <div class="md:w-[510px] md:h-[478px] font-[Inter] font-normal text-5xl leading-[50px] text-gray-800">
+                        Get 20% off on our Donut Making Combo! All the ingredients you need to make delicious donuts at
+                        home.
+                        Hurry, limited time offer!
                     </div>
-                </div>
-                <div class="flex-wrap pt-6 flex justify-start" style="padding-left: 58px">
+
                     <button class="text-center h-24 bg-red-500 rounded-2xl text-white font-black w-[320px]"
                         style="font-size: 50px; line-height: 61px;">BUY
                         NOW</button>
-                </div>
-            </div>
-            {{-- hot 3 --}}
-            <div class="text-left font-normal text-4xl">Mid Autumn Festive Sale!</div>
-            <div class="flex-wrap gap-x-96 flex justify-around py-6">
-                <div class="w-full md:w-1/3">
-                    <div class="bg-yellow-100 text-center  p-8 rounded-full w-full h-full flex justify-center items-center">
-                        <p class="text-4xl text-gray-800 font-medium">
-                            Enjoy maximum discounts on our exclusive Mid Autumn collection! Limited time offer from
-                            31.08 to 18.09. Don't miss out on these fantastic deals!
-                        </p>
-                    </div>
-                </div>
-                <div class="w-full md:w-1/3">
-                    <img src="{{ asset('public/frontend/client/page/image/Deal_1.png') }}" alt="Mid Autumn Festive Sale"
-                        class="img-fluid">
 
                 </div>
-                <div class="flex-wrap pt-6 flex justify-end" style="padding-right: 76px">
-                    <button class="text-center h-24 bg-red-500 rounded-2xl text-white font-black"
-                        style="font-size: 50px; line-height: 61px;width: 320px;">BUY
+                <div class="w-full md:w-[745px] md:h-[559px]">
+                    <img src="{{ asset('public/frontend/client/page/image/Deal_4.png') }}" alt="Mid Autumn Festive Sale"
+                        width="100%" height="100%">
+
+                </div>
+
+            </div>
+            {{-- hot 3 --}}
+            <div class="flex flex-wrap justify-around">
+                <div class="w-full md:w-[745px] md:h-[559px]">
+                    <img src="{{ asset('public/frontend/client/page/image/Deal_4.png') }}" alt="Mid Autumn Festive Sale"
+                        width="100%" height="100%">
+
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="md:w-[510px] md:h-[478px] font-[Inter] font-normal text-5xl leading-[50px] text-gray-800">
+                        Get 20% off on our Donut Making Combo! All the ingredients you need to make delicious donuts at
+                        home.
+                        Hurry, limited time offer!
+                    </div>
+
+                    <button class="text-center h-24 bg-red-500 rounded-2xl text-white font-black w-[320px]"
+                        style="font-size: 50px; line-height: 61px;">BUY
                         NOW</button>
+
                 </div>
             </div>
         </div>

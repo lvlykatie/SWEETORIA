@@ -26,6 +26,9 @@ Route::get('/blog', [PageController::class, 'blog'])->name('blog');
 // Delivery Route
 Route::get('/delivery', [PageController::class, 'delivery'])->name('delivery');
 
+// Payment Route (test)
+Route::get('/payment', [PageController::class, 'payment'])->name('payment');
+
 // Account Routes
 Route::prefix('account')->group(function () {
     Route::get('/', [AccountController::class, 'index'])->name('account');
