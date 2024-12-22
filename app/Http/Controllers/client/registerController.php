@@ -29,7 +29,7 @@ class registerController extends Controller
     $data['user_name'] = $request->username; 
     $data['user_phone'] = $request->phonenum; 
     $data['user_address'] = null; 
-    $data['role'] = 'customer'; // Gán vai trò mặc định cho người dùng
+    $data['role'] = 'Client'; // Gán vai trò mặc định cho người dùng
 
     // Thêm người dùng vào cơ sở dữ liệu
     DB::table('tb_user')->insert($data);

@@ -23,16 +23,22 @@ class loginController extends Controller
 
         if ($user && Hash::check($password, $user->user_password)) {
             // Kiểm tra vai trò (role) của người dùng
-            if ($user->role == 'admin') {
+            if ($user->role == 'Admin') {
                 // Chuyển hướng tới trang admin
                 return redirect('/admin/dashboard');
-            } elseif ($user->role == 'customer') {
+            } elseif ($user->role == 'Client') {
                 // Chuyển hướng tới trang homepage
                 return redirect('/');
-            }
+            } elseif ($user->role == 'Manager') {
+                // Chuyển hướng tới trang manager
+                return redirect('/manager/dashboard');
+            } elseif ($user->role == 'Seller') {
+                // Chuyển hướng tới trang seller
+                return redirect('/seller/dashboard');
         } else {
             // Nếu không khớp, quay lại trang đăng nhập với thông báo lỗi
             return back()->withErrors(['login_failed' => 'Email hoặc mật khẩu không đúng']);
         }
     }
+}
 }
