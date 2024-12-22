@@ -6,6 +6,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\loginGoogleController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\client\LogoutController;
 
 // Homepage Route
 Route::get('/', [PageController::class, 'homepage'])->name('homepage');
@@ -47,6 +48,8 @@ Route::prefix('cart')->group(function () {
 
 
 // User account route
+
+    Route::post('/logout', [AccountController::class, 'logout'])->name('logout');
 
     Route::get('/signup', function () {
         return view('signUp_form');

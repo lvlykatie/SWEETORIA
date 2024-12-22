@@ -62,24 +62,50 @@
         </button>
         <div id="dropdown"
             class="hidden absolute bg-white shadow-lg rounded-md flex flex-col w-48 top-[60px] right-[45px]">
-            <div class="bg-yellow-100 text-center border-b hover:bg-gray-200 cursor-pointer">
-                <a href="{{ route('account') }}" class="text-xl font-bold p-4 block">Account</a>
-            </div>
-            <div class="bg-yellow-100 text-center border-b hover:bg-gray-200 cursor-pointer">
-                <a href="{{ route('orders') }}" class="text-xl font-bold p-4 block">My orders</a>
-            </div>
-            <div class="bg-yellow-100 text-center border-b hover:bg-gray-200 cursor-pointer">
-                <a href="{{ route('changepw') }}" class="text-xl font-bold p-4 block">Change password</a>
-            </div>
-            <div class="bg-yellow-100 text-center border-b hover:bg-gray-200 cursor-pointer">
-                <a href="{{ route('policy') }}" class="text-xl font-bold p-4 block">Policy</a>
-            </div>
+            @if (Auth::check())
+                <div class="bg-yellow-100 text-center border-b hover:bg-gray-200 cursor-pointer">
+                    <a href="{{ route('account') }}" class="text-xl font-bold p-4 block">Account</a>
+                </div>
+                <div class="bg-yellow-100 text-center border-b hover:bg-gray-200 cursor-pointer">
+                    <a href="{{ route('orders') }}" class="text-xl font-bold p-4 block">My orders</a>
+                </div>
+                <div class="bg-yellow-100 text-center border-b hover:bg-gray-200 cursor-pointer">
+                    <a href="{{ route('changepw') }}" class="text-xl font-bold p-4 block">Change password</a>
+                </div>
+                <div class="bg-yellow-100 text-center border-b hover:bg-gray-200 cursor-pointer">
+                    <a href="{{ route('policy') }}" class="text-xl font-bold p-4 block">Policy</a>
+                </div>
+                <div class="bg-yellow-100 text-center border-b hover:bg-gray-200 cursor-pointer">
+
+                    <form action="{{ route('logout') }}" method="POST" class="text-xl font-bold p-4 block">
+                        @csrf
+                        <button type="submit">Logout</button>
+                    </form>
+
+
+                </div>
+            @else
+                <div class="bg-yellow-100 text-center border-b hover:bg-gray-200 cursor-pointer">
+                    <a href="{{ url('signin') }}" class="text-xl font-bold p-4 block">Sign In</a>
+                </div>
+            @endif
         </div>
         {{-- responsive nav button --}}
         <a class="block md:hidden text-6xl p-4 text-black nav-item float-right" onclick="toggleMenu()"
             title="Toggle Navigation Menu">
             <i class="fa fa-bars"></i>
         </a>
+        {{-- user name --}}
+        <div class="hidden md:block text-2xl font-bold text-black">
+            @if (Session::has('user_name'))
+                <p>Welcome, {{ Session::get('user_name') }}</p>
+            @else
+                <p>Welcome, Guest</p>
+                {{-- signin button --}}
+                <a href="{{ url('/signin') }}" class="text-2x font-bold text-blue-400 hover:underline">Sign
+                    In</a>
+            @endif
+        </div>
 
     </div>
     {{-- nav demo --}}

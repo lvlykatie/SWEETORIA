@@ -8,6 +8,7 @@ use Illuminate\Container\Attributes\Log;
 use App\Models\Cart;
 use App\Models\CartDetails;
 use App\Models\Product;
+use Illuminate\Contracts\Session\Session;
 
 class PageController extends Controller
 {

@@ -26,6 +26,7 @@ class User extends Authenticatable
 
     // Chỉ định bảng mà mô hình này sẽ tương tác
     protected $table = 'tb_user';
+    protected $primaryKey = 'user_id';
     // Chỉ định các cột có thể được gán hàng loạt
     protected $fillable = [
         'user_email',
