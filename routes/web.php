@@ -7,6 +7,7 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\loginGoogleController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\client\LogoutController;
+use App\Http\Controllers\PaymentController;
 
 // Homepage Route
 Route::get('/', [PageController::class, 'homepage'])->name('homepage');
@@ -28,7 +29,10 @@ Route::get('/blog', [PageController::class, 'blog'])->name('blog');
 Route::get('/delivery', [PageController::class, 'delivery'])->name('delivery');
 
 // Payment Route (test)
-Route::get('/payment', [PageController::class, 'payment'])->name('payment');
+Route::post('/cart/buy-now', [CartController::class, 'buyNow'])->name('cart.buyNow');
+Route::get('/payment', [PaymentController::class, 'showPaymentPage'])->name('payment.page');
+
+
 
 // Account Routes
 Route::prefix('account')->group(function () {

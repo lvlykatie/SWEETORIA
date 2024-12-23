@@ -177,9 +177,45 @@
             calculateSelectedTotal();
 
 
-
-
         });
+
+        document.querySelector('.bg-red-500').addEventListener('click', () => {
+            const selectedProducts = [];
+            document.querySelectorAll('.product-checkbox:checked').forEach((checkbox) => {
+                const productElement = checkbox.closest('[data-product-id]');
+                if (productElement) {
+                    const productId = productElement.dataset.productId;
+                    const quantity = parseInt(productElement.querySelector('.quantity').textContent);
+                    selectedProducts.push({ productId, quantity });
+                }
+            });
+
+            // Kiểm tra nếu không có sản phẩm nào được chọn
+            if (selectedProducts.length === 0) {
+                alert('Please select at least one product to proceed.');
+                return;
+            }
+
+            // Gửi dữ liệu đến backend
+            fetch('{{ route("cart.buyNow") }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                },
+                body: JSON.stringify({ selectedProducts }),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data.success) {
+                        window.location.href = data.redirectUrl;
+                    } else {
+                        alert(data.message);
+                    }
+                })
+                .catch((error) => console.error('Error:', error));
+        });
+
 
         
     </script>

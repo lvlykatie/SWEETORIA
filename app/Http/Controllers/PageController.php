@@ -83,8 +83,5 @@ class PageController extends Controller
     {
         return view('page.delivery');
     }
-    public function payment()
-    {
-        return view('page.payment');
-    }
+
 }
