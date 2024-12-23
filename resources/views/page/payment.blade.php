@@ -6,7 +6,7 @@
         <div class="text-center text-6xl font-black rounded-3xl" style="background-color: #FFCCCC">
             PAYMENT METHOD
         </div>
-        <div class="">
+        <div class="clientInfo">
             <div class="text-[40px] font-black text-center mt-5">
                 Client Information
             </div>
@@ -59,38 +59,33 @@
             <div class="w-[80%] h-0.5 bg-black"></div>
         </div>
         {{-- Payment method --}}
-        <div class="">
+        <div class="paymentDetail mt-5">
             <div class="text-[40px] font-black text-center mt-5">
                 Invoice Detail
             </div>
             <div class="text-[32px] font-black text-center mt-5">
-                Date: <span>23/11/2024</span>
+                Date: <span>{{ $date }}</span>
             </div>
             <div class="max-w-[564px] mx-auto bg-white rounded-md shadow-md p-4 text-2xl">
                 <!-- Item 1 -->
                 <div class="flex items-center justify-between py-2 border-b">
                     <div>
-                        <p class="font-bold">Whipping cream Anchor (1L)</p>
-                        <p class="text-gray-500">x 1</p>
+                        <p class="font-bold">Product Name</p>
+                        <p class="text-gray-500">x Quantity</p>
                     </div>
-                    <p class="font-bold">148,000</p>
+                    <p class="font-bold">Price</p>
                 </div>
-                <!-- Item 2 -->
+
+                @foreach ($products as $product)
                 <div class="flex items-center justify-between py-2 border-b">
-                    <div>
-                        <p class="font-bold">Butter Anchor (300g)</p>
-                        <p class="text-gray-500">x 1</p>
-                    </div>
-                    <p class="font-bold">100,000</p>
+                           <div>
+                                <p class="font-bold">{{ $product['name'] }}</p>
+                                <p class="text-gray-500">x {{ $product['quantity'] }}</p>
+                           </div>
+                            <p class="font-bold">{{ number_format($product['price'], 0, ',', '.') }} VND</p>
                 </div>
-                <!-- Item 3 -->
-                <div class="flex items-center justify-between py-2">
-                    <div>
-                        <p class="font-bold">Chocolate chip (100g)</p>
-                        <p class="text-gray-500">x 2</p>
-                    </div>
-                    <p class="font-bold">45,000</p>
-                </div>
+                    @endforeach
+
             </div>
 
         </div>
@@ -100,7 +95,7 @@
         </div>
         {{-- Total --}}
         <div class="text-[28px] font-black text-center mt-5">
-            Total: <span>338,000</span>
+            Total: <span>{{ number_format($total, 0, ',', '.') }} VND</span>
         </div>
         <div class="bg-[#FFCCCC] text-[32px] font-black rounded-[20px] max-w-[528px] text-center">
             Choose your payment method

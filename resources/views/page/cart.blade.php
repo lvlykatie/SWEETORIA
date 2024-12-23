@@ -11,7 +11,7 @@
                 <div class="flex items-center rounded-xl shadow-lg relative bg-product w-full md:w-2/3 h-44 md:h-[200px]"
                     data-product-id="{{ $product['id'] }}">
                     <!-- Checkbox -->
-                    <input type="checkbox" class="mr-4 ml-2 h-6 w-6">
+                    <input type="checkbox" class="product-checkbox mr-4 ml-2 h-6 w-6">
                     <!-- Product Image -->
                     <img class="rounded-lg mr-4 h-full w-[110px] md:w-[200px]"
                         src="{{ filter_var($product['image'], FILTER_VALIDATE_URL) ? $product['image'] : asset('public/backend/image/' . $product['image']) }}"
@@ -47,7 +47,7 @@
                         </div>
                     </div>
 
-                    <!-- Product Price -->
+                    <!-- Product total Price -->
                     <div
                         class="product-total-price text-red-800 text-5xl font-light font-['Inter'] md:text-5xl absolute right-2 bottom-0">
                         {{ number_format($product['total'], 0, ',', '.') }} VND
@@ -58,7 +58,8 @@
             <div class="flex-wrap pt-6 flex justify-end md:pr-[76px]">
                 <button
                     class="text-center  bg-red-500 rounded-2xl text-white font-black md:max-w-[400px] text-3xl md:text-5xl">
-                    <span>Total: 50000</span>
+                    <!-- tổng tiền giỏ hàng (Total) -->
+                    <span id="selected-total-price">Total: 0 VND</span>  
                     <br>
                     BUY
                     NOW</button>
@@ -136,6 +137,86 @@
                     updateQuantity(productId, quantity + 1);
                 });
             });
+
+            const productCheckboxes = document.querySelectorAll('.product-checkbox');
+            const totalElement = document.querySelector('#selected-total-price'); // Phần hiển thị tổng tiền
+
+            // Hàm tính tổng tiền
+            const calculateSelectedTotal = () => {
+                let total = 0;
+                productCheckboxes.forEach(checkbox => {
+                    if (checkbox.checked) {
+                        const productElement = checkbox.closest('[data-product-id]');
+                        if (productElement) {
+                            // Lấy giá trị product total price (đã được tính sẵn trong controller)
+                            const productTotalPriceText = productElement.querySelector('.product-total-price').textContent;
+                            
+                            // Loại bỏ các ký tự không phải số, chỉ giữ lại số và dấu thập phân
+                            const productTotalPrice = parseFloat(productTotalPriceText.replace(/[^0-9.-]+/g, ''));
+
+                            // Kiểm tra nếu giá trị hợp lệ
+                            if (!isNaN(productTotalPrice)) {
+                                total += productTotalPrice;
+                            }
+                        }
+                    }
+                });
+                total=total*1000;
+
+
+                // Cập nhật hiển thị tổng tiền với số định dạng và thêm "VND"
+                totalElement.textContent = 'Total: '+ total.toLocaleString() +' VND';
+            };
+
+            // Lắng nghe sự kiện thay đổi checkbox
+            productCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', calculateSelectedTotal);
+            });
+
+            // Gọi hàm tính tổng tiền một lần khi trang tải (nếu cần)
+            calculateSelectedTotal();
+
+
         });
+
+        document.querySelector('.bg-red-500').addEventListener('click', () => {
+            const selectedProducts = [];
+            document.querySelectorAll('.product-checkbox:checked').forEach((checkbox) => {
+                const productElement = checkbox.closest('[data-product-id]');
+                if (productElement) {
+                    const productId = productElement.dataset.productId;
+                    const quantity = parseInt(productElement.querySelector('.quantity').textContent);
+                    selectedProducts.push({ productId, quantity });
+                }
+            });
+
+            // Kiểm tra nếu không có sản phẩm nào được chọn
+            if (selectedProducts.length === 0) {
+                alert('Please select at least one product to proceed.');
+                return;
+            }
+
+            // Gửi dữ liệu đến backend
+            fetch('{{ route("cart.buyNow") }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                },
+                body: JSON.stringify({ selectedProducts }),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data.success) {
+                        window.location.href = data.redirectUrl;
+                    } else {
+                        alert(data.message);
+                    }
+                })
+                .catch((error) => console.error('Error:', error));
+        });
+
+
+        
     </script>
 @endsection

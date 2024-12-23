@@ -8,6 +8,8 @@ use Illuminate\Container\Attributes\Log;
 use App\Models\Cart;                
 use App\Models\CartDetails;          
 use App\Models\Product; 
+use Illuminate\Support\Facades\Session;
+
 
 class CartController extends Controller
 {
@@ -115,5 +117,22 @@ class CartController extends Controller
             return response()->json(['success' => false, 'message' => 'Error updating quantity']);
         }
     }
+
+    public function buyNow(Request $request)
+    {
+        $selectedProducts = $request->input('selectedProducts', []);
+        if (empty($selectedProducts)) {
+            return response()->json(['success' => false, 'message' => 'No products selected.']);
+        }
+
+        // Lưu thông tin sản phẩm vào session
+        session(['selectedProducts' => $selectedProducts]);
+
+        return response()->json([
+            'success' => true,
+            'redirectUrl' => route('payment.page'),
+        ]);
+    }
+
 
 }
