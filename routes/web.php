@@ -36,6 +36,9 @@ Route::prefix('account')->group(function () {
     Route::get('/orders', [AccountController::class, 'orders'])->name('orders');
     Route::get('/changepw', [AccountController::class, 'changePassword'])->name('changepw');
     Route::get('/policy', [AccountController::class, 'policy'])->name('policy');
+    Route::get('/edit', [AccountController::class, 'edit'])->name('account.edit');
+    Route::put('/update', [AccountController::class, 'update'])->name('account.update');
+
 });
 
 // Cart Route
