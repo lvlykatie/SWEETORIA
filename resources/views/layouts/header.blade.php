@@ -97,13 +97,12 @@
         </a>
         {{-- user name --}}
         <div class="hidden md:block text-2xl font-bold text-black">
-            @if (Session::has('user_name'))
-                <p>Welcome, {{ Session::get('user_name') }}</p>
+            @if (Auth::check())
+                <p>Welcome, {{ Auth::user()->user_name }}</p>
             @else
                 <p>Welcome, Guest</p>
                 {{-- signin button --}}
-                <a href="{{ url('/signin') }}" class="text-2x font-bold text-blue-400 hover:underline">Sign
-                    In</a>
+                <a href="{{ url('/signin') }}" class="text-2x font-bold text-blue-400 hover:underline">Sign In</a>
             @endif
         </div>
 
