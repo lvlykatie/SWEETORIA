@@ -23,6 +23,7 @@ class PaymentController extends Controller
     {
         $selectedProducts = Session::get('selectedProducts', []);
         $productDetails = [];
+        $user = Auth::user();
 
         foreach ($selectedProducts as $item) {
             $product = Product::find($item['productId']);
@@ -42,6 +43,7 @@ class PaymentController extends Controller
             'products' => $productDetails,
             'total' => $total,
             'date' => now()->format('Y-m-d'),
+            'user' => $user
         ]);
     }
 }
