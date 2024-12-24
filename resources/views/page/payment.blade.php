@@ -11,7 +11,9 @@
                 Client Information
             </div>
             <div class="flex justify-center">
-                <form class="flex flex-col ml-6 md:w-[645px] items-center" method="POST" action="">
+                <form class="flex flex-col ml-6 md:w-[645px] items-center" method="POST" action="{{ route('account.update') }}">
+                @csrf
+                @method('PUT') <!-- Sử dụng PUT để khớp với route -->
                     <!-- Name -->
                     <div class="flex items-center justify-between my-7">
                         <label class="text-[50px] md:text-5xl font-normal font-[Jomhuria] p-0 md:pr-12"
@@ -19,6 +21,7 @@
                         <input
                             class="md:placeholder:text-[50px] md:placeholder:flex md:placeholder:items-center md:placeholder:leading-[50px] font-[Jomhuria] text-black md:font-normal md:w-[490px] leading-[50px] h-[50px] rounded-[20px] md:h-[50px] border text-center text-[50px] font-normal"
                             style="background-color: #D9D9D9;" type="text" id="name" name="name"
+                            value="{{ old('name', $user ? $user->user_name : '') }}"
                             placeholder="Enter your name">
                     </div>
 
@@ -29,6 +32,7 @@
                         <input
                             class="md:placeholder:text-[50px] md:placeholder:flex md:placeholder:items-center md:placeholder:leading-[50px] font-[Jomhuria] text-black md:font-normal md:w-[490px] leading-[50px] h-[50px] rounded-[20px] md:h-[50px] border text-center text-[50px] font-normal"
                             style="background-color: #D9D9D9;" type="email" id="email" name="email"
+                            value="{{ old('email', $user ? $user->user_email : '') }}"
                             placeholder="Enter your email">
                     </div>
 
@@ -39,6 +43,7 @@
                         <input
                             class="md:placeholder:text-[50px] md:placeholder:flex md:placeholder:items-center md:placeholder:leading-[50px] font-[Jomhuria] text-black md:font-normal md:w-[490px] leading-[50px] h-[50px] rounded-[20px] md:h-[50px] border text-center text-[50px] font-normal"
                             style="background-color: #D9D9D9;" type="tel" id="phone" name="phone"
+                            value="{{ old('phone', $user ? $user->user_phone : '') }}"
                             placeholder="Enter your phone">
                     </div>
 
@@ -49,6 +54,7 @@
                         <input
                             class="md:placeholder:text-[50px] md:placeholder:flex md:placeholder:items-center md:placeholder:leading-[50px] font-[Jomhuria] text-black md:font-normal md:w-[490px] leading-[50px] h-[50px] rounded-[20px] md:h-[50px] border text-center text-[50px] font-normal"
                             style="background-color: #D9D9D9;" type="text" id="address" name="address"
+                            value="{{ old('address', $user ? $user->user_address : '') }}"
                             placeholder="Enter your address">
                     </div>
                 </form>
@@ -82,7 +88,7 @@
                                 <p class="font-bold">{{ $product['name'] }}</p>
                                 <p class="text-gray-500">x {{ $product['quantity'] }}</p>
                            </div>
-                            <p class="font-bold">{{ number_format($product['price'], 0, ',', '.') }} VND</p>
+                            <p class="font-bold">{{ number_format($product['total'], 0, ',', '.') }} VND</p>
                 </div>
                     @endforeach
 
