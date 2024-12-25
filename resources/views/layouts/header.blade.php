@@ -73,8 +73,12 @@
                     <a href="{{ route('changepw') }}" class="text-xl font-bold p-4 block">Change password</a>
                 </div>
                 <div class="bg-yellow-100 text-center border-b hover:bg-gray-200 cursor-pointer">
+                    <a href="{{ route('wishlist') }}" class="text-xl font-bold p-4 block">Wishlist</a>
+                </div>
+                <div class="bg-yellow-100 text-center border-b hover:bg-gray-200 cursor-pointer">
                     <a href="{{ route('policy') }}" class="text-xl font-bold p-4 block">Policy</a>
                 </div>
+
                 <div class="bg-yellow-100 text-center border-b hover:bg-gray-200 cursor-pointer">
 
                     <form action="{{ route('logout') }}" method="POST" class="text-xl font-bold p-4 block">

@@ -42,6 +42,7 @@ Route::prefix('account')->group(function () {
     Route::get('/policy', [AccountController::class, 'policy'])->name('policy');
     Route::get('/edit', [AccountController::class, 'edit'])->name('account.edit');
     Route::put('/update', [AccountController::class, 'update'])->name('account.update');
+    Route::get('/wishlist', [AccountController::class, 'wishlist'])->name('wishlist');
 
 });
 
@@ -55,7 +56,6 @@ Route::prefix('cart')->group(function () {
 
 
 // User account route
-
     Route::post('/logout', [AccountController::class, 'logout'])->name('logout');
 
     Route::get('/signup', function () {
