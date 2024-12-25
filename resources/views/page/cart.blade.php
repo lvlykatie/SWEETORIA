@@ -58,7 +58,7 @@
                 </div>
             @endforeach
 
-            <div class="flex-wrap pt-6 flex justify-end md:pr-[76px]">
+            <div class="flex-wrap pt-6 flex justify-between md:pr-[76px] md:w-[990px]">
                 <div class="">
                     <input type="checkbox" class="product-checkbox mr-4 ml-2 h-6 w-6">
                     <label for="" class="text-[45px] font-medium">All</label>
@@ -67,7 +67,7 @@
                 <button
                     class="text-center  bg-red-500 rounded-2xl text-white font-black md:max-w-[400px] text-3xl md:text-5xl">
                     <!-- tổng tiền giỏ hàng (Total) -->
-                    <span id="selected-total-price">Total: 0 VND</span>  
+                    <span id="selected-total-price">Total: 0 VND</span>
                     <br>
                     BUY
                     NOW</button>
@@ -124,7 +124,7 @@
 
                     const productId = productElement.dataset.productId;
                     const quantity = parseInt(productElement.querySelector('.quantity')
-                    .textContent);
+                        .textContent);
                     if (quantity > 1) {
                         updateQuantity(productId, quantity - 1);
                     }
@@ -141,7 +141,7 @@
 
                     const productId = productElement.dataset.productId;
                     const quantity = parseInt(productElement.querySelector('.quantity')
-                    .textContent);
+                        .textContent);
                     updateQuantity(productId, quantity + 1);
                 });
             });
@@ -157,10 +157,12 @@
                         const productElement = checkbox.closest('[data-product-id]');
                         if (productElement) {
                             // Lấy giá trị product total price (đã được tính sẵn trong controller)
-                            const productTotalPriceText = productElement.querySelector('.product-total-price').textContent;
-                            
+                            const productTotalPriceText = productElement.querySelector(
+                                '.product-total-price').textContent;
+
                             // Loại bỏ các ký tự không phải số, chỉ giữ lại số và dấu thập phân
-                            const productTotalPrice = parseFloat(productTotalPriceText.replace(/[^0-9.-]+/g, ''));
+                            const productTotalPrice = parseFloat(productTotalPriceText.replace(
+                                /[^0-9.-]+/g, ''));
 
                             // Kiểm tra nếu giá trị hợp lệ
                             if (!isNaN(productTotalPrice)) {
@@ -169,11 +171,11 @@
                         }
                     }
                 });
-                total=total*1000;
+                total = total * 1000;
 
 
                 // Cập nhật hiển thị tổng tiền với số định dạng và thêm "VND"
-                totalElement.textContent = 'Total: '+ total.toLocaleString() +' VND';
+                totalElement.textContent = 'Total: ' + total.toLocaleString() + ' VND';
             };
 
             // Lắng nghe sự kiện thay đổi checkbox
@@ -194,7 +196,10 @@
                 if (productElement) {
                     const productId = productElement.dataset.productId;
                     const quantity = parseInt(productElement.querySelector('.quantity').textContent);
-                    selectedProducts.push({ productId, quantity });
+                    selectedProducts.push({
+                        productId,
+                        quantity
+                    });
                 }
             });
 
@@ -205,14 +210,17 @@
             }
 
             // Gửi dữ liệu đến backend
-            fetch('{{ route("cart.buyNow") }}', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                },
-                body: JSON.stringify({ selectedProducts }),
-            })
+            fetch('{{ route('cart.buyNow') }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                            'content'),
+                    },
+                    body: JSON.stringify({
+                        selectedProducts
+                    }),
+                })
                 .then((response) => response.json())
                 .then((data) => {
                     if (data.success) {
@@ -223,8 +231,5 @@
                 })
                 .catch((error) => console.error('Error:', error));
         });
-
-
-        
     </script>
 @endsection
