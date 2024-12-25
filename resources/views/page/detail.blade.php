@@ -35,7 +35,9 @@
                     {{ $product->product_price }}
                 </div>
                 <div class="flex items-center justify-around">
-                    <i class="fa-regular fa-heart text-[40px]"></i>
+                    <!-- icon trái tim thêm sản phẩm vào wishlist -->
+                    <i class="fa-regular fa-heart text-[40px] cursor-pointer wishlist-icon" 
+                         data-product-id="{{ $product->product_id }}"></i>
                     <div class="flex border-y border-x border-[#979797] text-2xl font-bold md:h-14 ">
                         <div class="flex items-center w-[56px] justify-center border-r border-[#979797] bg-[#FFDEDE]">
                             -
@@ -314,5 +316,45 @@
     </div>
 
     </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const wishlistIcons = document.querySelectorAll('.wishlist-icon');
+
+        wishlistIcons.forEach(icon => {
+            icon.addEventListener('click', function () {
+                const productId = this.getAttribute('data-product-id');
+
+                fetch('{{ route("wishlist.toggle") }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                    },
+                    body: JSON.stringify({ product_id: productId }),
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`Server error: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.success) {
+                            this.classList.toggle('text-red-500');
+                            alert(data.message);
+                        } else {
+                            alert(data.message || 'An error occurred.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('An error occurred. Please try again.');
+                    });
+            });
+        });
+    });
+
+</script>
 
 @endsection

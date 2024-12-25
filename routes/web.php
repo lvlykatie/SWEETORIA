@@ -8,6 +8,7 @@ use App\Http\Controllers\loginGoogleController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\client\LogoutController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\WishlistController;
 
 // Homepage Route
 Route::get('/', [PageController::class, 'homepage'])->name('homepage');
@@ -42,7 +43,9 @@ Route::prefix('account')->group(function () {
     Route::get('/policy', [AccountController::class, 'policy'])->name('policy');
     Route::get('/edit', [AccountController::class, 'edit'])->name('account.edit');
     Route::put('/update', [AccountController::class, 'update'])->name('account.update');
-    Route::get('/wishlist', [AccountController::class, 'wishlist'])->name('wishlist');
+    Route::get('/wishlist', [WishlistController::class, 'wishlist'])->name('wishlist');
+    Route::post('/wishlist/toggle', [WishlistController::class, 'toggle'])->name('wishlist.toggle');
+
 
 });
 
