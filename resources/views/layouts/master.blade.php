@@ -113,6 +113,10 @@
             .content {
                 margin-top: 40px;
             }
+            .wishlist-icon.active {
+                color: red;
+            }
+
         </style>
     </head>
 

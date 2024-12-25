@@ -48,10 +48,7 @@ class AccountController extends Controller
     {
         return view('account.policy');
     }
-    public function wishlist()
-    {
-        return view('account.wishlist');
-    }
+
     public function logout()
     {
         Auth::logout();  // Đăng xuất người dùng hiện tại

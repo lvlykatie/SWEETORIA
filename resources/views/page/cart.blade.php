@@ -52,6 +52,7 @@
                         class="product-total-price text-red-800 text-5xl font-light font-['Inter'] md:text-5xl absolute right-2 bottom-0">
                         {{ number_format($product['total'], 0, ',', '.') }} VND
                     </div>
+                    <!-- Icon trash delete this product -->
                     <div class="absolute right-2 top-2 cursor-pointer hover:text-[#D65050]">
                         <i class="fa-solid fa-trash text-[36px]"></i>
                     </div>
@@ -59,11 +60,12 @@
             @endforeach
 
             <div class="flex-wrap pt-6 flex justify-between md:pr-[76px] md:w-[990px]">
+                <!-- Checkbox chọn mua tất cả sản phẩm -->
                 <div class="">
                     <input type="checkbox" class="product-checkbox mr-4 ml-2 h-6 w-6">
                     <label for="" class="text-[45px] font-medium">All</label>
                 </div>
-                <p class="text-[45px] font-medium ">Product quantity: <span></span></p>
+                <!-- <p class="text-[45px] font-medium ">Product quantity: <span></span></p> -->
                 <button
                     class="text-center  bg-red-500 rounded-2xl text-white font-black md:max-w-[400px] text-3xl md:text-5xl">
                     <!-- tổng tiền giỏ hàng (Total) -->
