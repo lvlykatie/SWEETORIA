@@ -42,6 +42,7 @@
         </div>
 
     </div>
+    
 <script>
     // Xử lý sự kiện xóa sản phẩm khỏi wishlist
     document.addEventListener('DOMContentLoaded', function () {
