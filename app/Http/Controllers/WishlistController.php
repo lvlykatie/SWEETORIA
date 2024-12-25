@@ -48,4 +48,31 @@ class WishlistController extends Controller
         return view('account.wishlist', compact('wishlistItems'));
     }
 
+    public function remove(Request $request)
+    {
+        try {
+            $userId = Auth::id();
+            $productId = $request->input('product_id');
+
+            if (!$userId || !$productId) {
+                return response()->json(['success' => false, 'message' => 'Invalid input data.'], 400);
+            }
+
+            $wishlistItem = Wishlist::where('user_id', $userId)
+                ->where('product_id', $productId)
+                ->first();
+
+            if ($wishlistItem) {
+                $wishlistItem->delete();
+                return response()->json(['success' => true, 'message' => 'Product removed from wishlist.']);
+            } else {
+                return response()->json(['success' => false, 'message' => 'Product not found in wishlist.'], 404);
+            }
+        } catch (\Exception $e) {
+            \Log::error('Error removing wishlist item: ' . $e->getMessage());
+            return response()->json(['success' => false, 'message' => 'An error occurred. Please try again.'], 500);
+        }
+    }
+
+
 }

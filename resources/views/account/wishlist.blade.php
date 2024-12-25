@@ -42,4 +42,48 @@
         </div>
 
     </div>
+<script>
+    // Xử lý sự kiện xóa sản phẩm khỏi wishlist
+    document.addEventListener('DOMContentLoaded', function () {
+        const removeButtons = document.querySelectorAll('.remove-wishlist-item');
+
+        removeButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const productId = this.getAttribute('data-product-id');
+                const parentElement = this.closest('[data-product-id]'); // Tìm phần tử cha chứa sản phẩm
+
+                if (confirm('Are you sure you want to remove this product from your wishlist?')) {
+                    fetch('{{ route("wishlist.remove") }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        },
+                        body: JSON.stringify({ product_id: productId })
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error(`Server error: ${response.status}`);
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            if (data.success) {
+                                // Xóa sản phẩm khỏi giao diện
+                                parentElement.remove();
+                                alert(data.message);
+                            } else {
+                                alert(data.message || 'An error occurred.');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('An error occurred. Please try again.');
+                        });
+                }
+            });
+        });
+    });
+
+</script>
 @endsection

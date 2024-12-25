@@ -45,6 +45,8 @@ Route::prefix('account')->group(function () {
     Route::put('/update', [AccountController::class, 'update'])->name('account.update');
     Route::get('/wishlist', [WishlistController::class, 'wishlist'])->name('wishlist');
     Route::post('/wishlist/toggle', [WishlistController::class, 'toggle'])->name('wishlist.toggle');
+    Route::post('/wishlist/remove', [WishlistController::class, 'remove'])->name('wishlist.remove');
+
 
 
 });
