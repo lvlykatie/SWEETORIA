@@ -54,7 +54,8 @@
                     </div>
                     <!-- Icon trash delete this product -->
                     <div class="absolute right-2 top-2 cursor-pointer hover:text-[#D65050]">
-                        <i class="fa-solid fa-trash text-[36px]"></i>
+                        <i class="fa-solid fa-trash text-[36px] remove-wishlist-item"
+                        data-product-id="{{ $product['id'] }}"></i>
                     </div>
                 </div>
             @endforeach
@@ -233,5 +234,55 @@
                 })
                 .catch((error) => console.error('Error:', error));
         });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const removeButtons = document.querySelectorAll('.fa-trash');
+
+            removeButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const productId = this.closest('[data-product-id]').getAttribute('data-product-id');
+                    const productElement = this.closest('[data-product-id]'); // Tìm phần tử chứa sản phẩm
+
+                    if (confirm('Are you sure you want to remove this product from the cart?')) {
+                        fetch('{{ route("cart.remove") }}', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                            },
+                            body: JSON.stringify({ product_id: productId }),
+                        })
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error(`Server error: ${response.status}`);
+                                }
+                                return response.json();
+                            })
+                            .then(data => {
+                                if (data.success) {
+                                    // Xóa sản phẩm khỏi giao diện
+                                    productElement.remove();
+
+                                    // Cập nhật tổng giá giỏ hàng
+                                    const totalPriceElement = document.getElementById('total-price');
+                                    if (totalPriceElement) {
+                                        totalPriceElement.textContent = `${new Intl.NumberFormat().format(data.newTotalPrice)} VND`;
+                                    }
+
+                                    alert(data.message);
+                                } else {
+                                    alert(data.message || 'An error occurred.');
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                                alert('An error occurred. Please try again.');
+                            });
+                    }
+                });
+            });
+        });
+
+
     </script>
 @endsection

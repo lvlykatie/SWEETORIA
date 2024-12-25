@@ -134,5 +134,50 @@ class CartController extends Controller
         ]);
     }
 
+    public function remove(Request $request)
+    {
+        try {
+            $userId = Auth::id();
+            $productId = $request->input('product_id');
+    
+            if (!$userId || !$productId) {
+                return response()->json(['success' => false, 'message' => 'Invalid input data.'], 400);
+            }
+    
+            $cart = Cart::where('user_id', $userId)->first();
+            if (!$cart) {
+                return response()->json(['success' => false, 'message' => 'Cart not found.'], 404);
+            }
+    
+            $cartDetail = CartDetails::where('cart_id', $cart->cart_id)
+                ->where('product_id', $productId)
+                ->first();
+    
+            if ($cartDetail) {
+                // Xóa sản phẩm khỏi giỏ hàng
+                $cartDetail->delete();
+    
+                // Cập nhật tổng giá giỏ hàng
+                $cart->total_price = $cart->details->sum(function ($detail) {
+                    return $detail->quantity * $detail->product->product_price;
+                });
+                $cart->save();
+    
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Product removed from cart.',
+                    'newTotalPrice' => $cart->total_price,
+                ]);
+            } else {
+                return response()->json(['success' => false, 'message' => 'Product not found in cart.'], 404);
+            }
+        } catch (\Exception $e) {
+            \Log::error('Error removing item from cart: ' . $e->getMessage());
+            return response()->json(['success' => false, 'message' => 'An error occurred. Please try again.'], 500);
+        }
+    }
+    
+
+
 
 }
