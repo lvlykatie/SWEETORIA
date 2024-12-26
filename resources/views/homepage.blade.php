@@ -162,7 +162,7 @@
                             </div>
                             <!-- icon thêm giỏ hàng -->
                         </div>
-                        <button class="md:w-[330px] font-semibold mt-4 md:h-[60px] text-2xl text-white bg-[#D65050] rounded-[60px]">
+                        <button class="md:w-[330px] font-semibold mt-4 md:h-[60px] text-2xl text-white bg-[#D65050] rounded-[60px] absolute bottom-4 left-1/2 transform -translate-x-1/2">
                             <span class="px-4 py-8">BUY NOW</span>
                         </button>
                     </div>

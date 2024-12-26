@@ -163,7 +163,7 @@
                             <!-- Avatar -->
                             <div class="flex flex-col items-center">
                                 <div class="h-32 w-32 rounded-full overflow-hidden">
-                                    <img src="{{ asset('frontend/client/page/image/avatartest.png') }}" alt="Avatar">
+                                    <img src="{{ asset('public/frontend/client/page/image/avatartest.png') }}" alt="Avatar">
                                 </div>
                                 <p class="text-gray-600 mt-2 text-4xl">{{ $feedback->user_name }}</p>
                             </div>
@@ -177,7 +177,7 @@
                                 </div>
                                 <p class="text-3xl mt-6">{{ $feedback->comment }}</p>
                                 @if ($feedback->image)
-                                    <img src="{{ asset('storage/' . $feedback->image) }}"
+                                    <img src="{{ asset('public/storage/' . $feedback->image) }}"
                                         class="w-32 h-auto rounded-md mt-4" alt="Feedback Image">
                                 @endif
 
@@ -215,7 +215,7 @@
                                 </div>
                                 {{-- Hiển thị avatar mặc định --}}
                                 <div class="h-32 w-32 rounded-full overflow-hidden ml-10">
-                                    <img src="{{ asset('frontend/client/page/image/avatartest.png') }}" alt="Avatar">
+                                    <img src="{{ asset('public/frontend/client/page/image/avatartest.png') }}" alt="Avatar">
                                 </div>
                                 <div class="flex items-center">
                                     <p class="text-gray-600 mt-2 text-4xl ml-8">{{ Auth::user()->user_name }}</p>
