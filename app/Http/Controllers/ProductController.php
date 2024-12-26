@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Feedback;
 use Illuminate\Http\Request;
 use App\Models\Product;
-use Illuminate\Container\Attributes\Log;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
@@ -104,8 +106,12 @@ public function detail($id)
         ->where('product_id', '!=', $id)
         ->take(3) // Limit to 3 related products
         ->get(); // Return a collection of related products
-
-    return view('page.detail', compact('product', 'related_product'));
+    $feedbacks = DB::table('tbl_feedback')
+        ->join('tb_user', 'tbl_feedback.user_id', '=', 'tb_user.user_id') // Join với bảng tbl_user
+        ->select('tbl_feedback.*', 'tb_user.user_name as user_name') // Chọn thông tin cần thiết
+        ->where('tbl_feedback.product_id', $id)
+        ->get();
+    return view('page.detail', compact('product', 'related_product', 'feedbacks'));
 }
 
 
@@ -114,5 +120,39 @@ public function hotdeals()
 {
     return view('page.hotdeal');
 }
+public function sendFeedBack(Request $request)
+{
+    try {
+        // Kiểm tra dữ liệu form
+        $request->validate([
+            'feedback_content' => 'required|string|max:1000',
+            'rating' => 'required|integer|min:1|max:5',
+            'product_id' => 'required|exists:tbl_product,product_id', // Kiểm tra sản phẩm có tồn tại
+            'feedback_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg', // Kiểm tra file ảnh
+        ]);
+
+        // Xử lý ảnh upload (nếu có)
+        $imagePath = null;
+        if ($request->hasFile('feedback_image')) {
+            $image = $request->file('feedback_image');
+            $imagePath = $image->store('feedback_images', 'public'); // Lưu ảnh vào thư mục feedback_images trong storage/app/public
+        }
+
+        // Lưu feedback vào cơ sở dữ liệu
+        Feedback::create([
+            'user_id' => Auth::id(),
+            'product_id' => $request->product_id,
+            'comment' => $request->feedback_content,
+            'rate' => $request->rating,
+            'image' => $imagePath, // Lưu đường dẫn ảnh vào cơ sở dữ liệu
+            'created_at' => now(),
+        ]);
+
+        return back()->with('success', 'Feedback đã được gửi thành công!');
+    } catch (\Exception $e) {
+        dd($e); // In ra toàn bộ thông tin lỗi để debug
+        }
+}
+
 
 }
