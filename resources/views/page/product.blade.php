@@ -147,7 +147,7 @@
                             </span>
                             <span class="text-3xl font-normal">
                                 <i class="fa-solid fa-star text-yellow-300"></i>
-                                <span>4.9</span>
+                                <span>{{ $product->product_rate }}</span>
                             </span>
 
                             <!-- icon thêm giỏ hàng -->
