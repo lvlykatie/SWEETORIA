@@ -15,31 +15,39 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         // Lấy tham số 'filter', 'sort', và 'search' từ query string
-        $filter = $request->input('filter'); // 'baking-ingredients.baking-tools'
+        $filters = $request->input('filters'); // 'dealnow' hoặc các giá trị khác
         $sort = $request->input('sort'); // 'low-to-high'
         $search = $request->input('search'); // Tên sản phẩm muốn tìm kiếm
 
         // Truy vấn tất cả sản phẩm từ cơ sở dữ liệu
         $query = Product::query();
 
-        // Lọc theo danh mục nếu có
-        if ($filter) {
-            // Tách chuỗi các danh mục từ tham số filter thành mảng
-            $filters = explode('.', $filter);
+        // Lọc theo các filter nếu có
+        if ($filters) {
+            // Tách chuỗi các filters từ tham số filters thành mảng
+            $filters = explode('.', $filters);
 
             // Loại bỏ dấu gạch nối và chuyển thành chữ thường để so sánh
             $filters = array_map(function ($filter) {
                 return strtolower(str_replace('-', ' ', $filter)); // Thay dấu gạch nối thành khoảng trắng và chuyển thành chữ thường
             }, $filters);
 
-            // Lọc các sản phẩm theo danh mục
-            $query->whereIn('category_name', $filters);
+            // Nếu filters chứa 'dealnow', lọc các sản phẩm có deal_id khác null
+            if (in_array('dealnow', $filters)) {
+                $query->whereNotNull('tbl_product.deal_id');
+            } else {
+                // Lọc theo các category nếu filters không phải là 'dealnow'
+                $query->whereIn('category_name', $filters);
+            }
         }
 
         // Thêm điều kiện tìm kiếm
         if ($search) {
             $query->where('product_name', 'like', '%' . $search . '%'); // Tìm kiếm theo tên sản phẩm
         }
+
+        // Lọc sản phẩm hotdeal
+
 
         // Sắp xếp theo giá
         if ($sort === 'low-to-high') {

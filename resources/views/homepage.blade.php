@@ -41,7 +41,10 @@
     </div>
     {{-- hot deal --}}
     <div class="hot-deal my-16 mx-16 rounded-3xl bg-yellow-100">
-        <div class="text-center font-black text-6xl py-12">Hot Deals</div>
+        <a href="{{ route('hotdeals') }}">
+            <div class="text-center font-black text-6xl py-12">Hot Deals</div>
+        </a>
+
         <div class="hotdeal-images flex flex-col md:flex-row gap-8 px-6 py-16">
             <div class="w-full md:w-1/3">
                 <img class="w-full" src="{{ asset('public/frontend/client/page/image/Deal_1.png') }}" alt="Hot Deal 1">

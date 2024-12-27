@@ -144,6 +144,7 @@ Route::prefix('product')->group(function () {
     Route::get('/hotdeals', [ProductController::class, 'hotdeals'])->name('hotdeals');
     Route::get('/{id}', [ProductController::class, 'detail'])->name('detail');
     Route::get('/search', [ProductController::class, 'search'])->name('product.search');
+    // Route::get('/dealnow', [ProductController::class, 'hotdeal'])->name('product.hotdeal');
 });
 // Contact Route
 Route::get('/contact', [PageController::class, 'contact'])->name('contact');
