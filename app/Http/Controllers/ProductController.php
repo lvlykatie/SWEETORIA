@@ -108,13 +108,12 @@ class ProductController extends Controller
 
     public function detail($id)
     {
-        // Fetch a single product
+        // Fetch a single product with deal_discount
         $product = DB::table('tbl_product')
             ->leftJoin('tbl_deal', 'tbl_product.deal_id', '=', 'tbl_deal.deal_id')
-            ->select('tbl_product.*', 'tbl_deal.deal_discount', 'tbl_deal.deal_id')
-            ->where('tbl_product.product_id', $id) // Use the table name explicitly to avoid ambiguity
-            ->first(); // Fetch a single record as an object
-
+            ->select('tbl_product.*', 'tbl_deal.deal_discount')
+            ->where('tbl_product.product_id', $id)
+            ->first(); // Fetch the first record as a single object, not a collection
 
         if (!$product) {
             return redirect()->back()->with('error', 'Sản phẩm không tồn tại.');
@@ -122,15 +121,20 @@ class ProductController extends Controller
 
         // Get related products (up to 3) based on category_name
         $related_product = DB::table('tbl_product')
-            ->where('category_name', $product->category_name) // Using the category from the single product
-            ->where('product_id', '!=', $id)
+            ->leftJoin('tbl_deal', 'tbl_product.deal_id', '=', 'tbl_deal.deal_id')
+            ->select('tbl_product.*', 'tbl_deal.deal_discount')
+            ->where('tbl_product.category_name', $product->category_name) // Using the category from the single product
+            ->where('tbl_product.product_id', '!=', $id)
             ->take(3) // Limit to 3 related products
             ->get(); // Return a collection of related products
+
+        // Get feedbacks for the product
         $feedbacks = DB::table('tbl_feedback')
-            ->join('tb_user', 'tbl_feedback.user_id', '=', 'tb_user.user_id') // Join với bảng tbl_user
-            ->select('tbl_feedback.*', 'tb_user.user_name as user_name') // Chọn thông tin cần thiết
+            ->join('tb_user', 'tbl_feedback.user_id', '=', 'tb_user.user_id') // Join with tbl_user
+            ->select('tbl_feedback.*', 'tb_user.user_name as user_name') // Select necessary information
             ->where('tbl_feedback.product_id', $id)
             ->get();
+
         return view('page.detail', compact('product', 'related_product', 'feedbacks'));
     }
 
