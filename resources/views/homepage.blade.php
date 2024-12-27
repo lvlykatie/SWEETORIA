@@ -123,17 +123,17 @@
                     <div class="md:w-[356px] h-[507px] w-full flex flex-col items-center bg-[#FFDEDE80] rounded-[28px] relative">
                         {{-- sale --}}
                         @if ($product->deal_id)
-                        <div class="bg-[#004FA8] w-[128px] h-[36px] rounded-tr-[20px] rounded-br-[20px] flex justify-center items-center absolute left-0 top-4">
+                        <div class="bg-[#004FA8] w-[128px] h-[36px] rounded-tr-[20px] rounded-br-[20px] flex justify-center items-center absolute left-0 top-4" style="z-index: 1000;">
                             <i class="fa-solid fa-bolt text-yellow-300 mr-5"></i>
                             <span class="text-white text-2xl font-bold">SALE <span>{{ $product->deal_discount * 100 }}%</span></span>
                         </div>
                         @endif
-                        {{-- best seller --}}
+                        <!-- {{-- best seller --}}
                         <div class="md:w-[148px] md:h-[30px] bg-[#FFCB06] flex justify-center items-center rounded-xl absolute bottom-[185px] right-0">
                             <span class="text-2xl text-center font-bold text-black">BEST SELLER
                                 <i class="fa-solid fa-circle-check text-[#004FA8]"></i>
                             </span>
-                        </div>
+                        </div> -->
                         <a href="{{ route('detail', ['id' => $product->product_id]) }}" class="cursor-pointer">
                             <img src="{{ filter_var($product->product_image, FILTER_VALIDATE_URL) ? $product->product_image : asset('public/backend/image/' . $product->product_image) }}"
                                 class="hover:scale-90 w-[305px] h-[305px] mt-6 ml-6 mr-6 object-cover rounded-[20px]" alt="Product Image">

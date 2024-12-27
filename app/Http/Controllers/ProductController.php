@@ -49,7 +49,13 @@ class ProductController extends Controller
         }
 
         // Phân trang sản phẩm (10 sản phẩm mỗi trang)
-        $products = $query->paginate(12)->appends($request->only(['filter', 'sort', 'search']));
+        // $products = $query->paginate(12)->appends($request->only(['filter', 'sort', 'search']));
+        $products = $query
+            ->leftJoin('tbl_deal', 'tbl_product.deal_id', '=', 'tbl_deal.deal_id')
+            ->select('tbl_product.*', 'tbl_deal.deal_discount', 'tbl_deal.deal_id')
+            ->paginate(12)
+            ->appends($request->only(['filter', 'sort', 'search']));
+
 
         // Trả về view với các sản phẩm đã được lọc, sắp xếp và tìm kiếm
         return view('page.product', compact('products'));
@@ -96,8 +102,11 @@ class ProductController extends Controller
     {
         // Fetch a single product
         $product = DB::table('tbl_product')
-            ->where('product_id', $id)
-            ->first(); // Fetch the first record as a single object, not a collection
+            ->leftJoin('tbl_deal', 'tbl_product.deal_id', '=', 'tbl_deal.deal_id')
+            ->select('tbl_product.*', 'tbl_deal.deal_discount', 'tbl_deal.deal_id')
+            ->where('tbl_product.product_id', $id) // Use the table name explicitly to avoid ambiguity
+            ->first(); // Fetch a single record as an object
+
 
         if (!$product) {
             return redirect()->back()->with('error', 'Sản phẩm không tồn tại.');
