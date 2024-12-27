@@ -1,7 +1,10 @@
 @extends('layouts.master')
-
+<?php
+session(['total' => $total]);
+?>
 @section('title', 'Payment method')
 @section('content')
+
     <div class="mt-9">
         <div class="text-center text-6xl font-black rounded-3xl" style="background-color: #FFCCCC">
             PAYMENT METHOD
@@ -111,10 +114,11 @@
                 class="w-[438px] h-[100px] text-[40px] font-black bg-black text-white rounded-[20px] flex items-center justify-center">
                 Cash on delivery
             </div>
-            <div
-                class="w-[438px] h-[100px] text-[40px] font-black bg-black text-white rounded-[20px] flex items-center justify-center">
-                Momo
-            </div>
+            <a href="{{ url('/payment_momo') }}">
+                <div class="w-[438px] h-[100px] text-[40px] font-black bg-black text-white rounded-[20px] flex items-center justify-center">
+                    Momo
+                </div>
+            </a>
         </div>
     </div>
 @endsection

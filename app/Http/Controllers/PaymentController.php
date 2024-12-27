@@ -46,4 +46,10 @@ class PaymentController extends Controller
             'user' => $user
         ]);
     }
+
+    public function showPaymentMomo()
+    {
+        $total = session('total');
+        return view('page.payment_momo', compact('total'));
+    }
 }

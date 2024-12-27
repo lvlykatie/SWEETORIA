@@ -9,6 +9,8 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\client\LogoutController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\WishlistController;
+use App\Http\Controllers\MomoController;
+use Illuminate\Http\Request;
 
 // Homepage Route
 Route::get('/', [PageController::class, 'homepage'])->name('homepage');
@@ -32,7 +34,16 @@ Route::get('/delivery', [PageController::class, 'delivery'])->name('delivery');
 // Payment Route (test)
 Route::post('/cart/buy-now', [CartController::class, 'buyNow'])->name('cart.buyNow');
 Route::get('/payment', [PaymentController::class, 'showPaymentPage'])->name('payment.page');
-
+Route::get('/payment/momo', [MomoController::class, 'createPayment']);
+// Route::get('/payment-success', function () {
+//     return "Thanh toán thành công!";
+// });
+// Route::post('/payment-notify', function () {
+//     return "IPN nhận thành công!";
+// });
+Route::get('/payment_momo', [PaymentController::class, 'showPaymentMomo']);
+Route::post('/payment-notify', [MomoController::class, 'paymentNotify']);
+Route::get('/payment-success', [MomoController::class, 'paymentSuccess']);
 
 
 // Account Routes
