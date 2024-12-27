@@ -18,6 +18,7 @@ class AccountController extends Controller
         $user = Auth::user();
         return view('account.edituser' , compact('user'));
     }
+    
     public function update(Request $request)
     {
         $request->validate([
@@ -35,15 +36,14 @@ class AccountController extends Controller
         return redirect()->route('account')->with('success', 'Cập nhật thông tin thành công');
     }
 
-    public function orders()
-    {
-        return view('account.orders');
-    }
+
 
     public function changePassword()
     {
         return view('account.changepw');
     }
+
+
     public function policy()
     {
         return view('account.policy');

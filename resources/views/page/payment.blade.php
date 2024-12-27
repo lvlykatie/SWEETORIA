@@ -4,6 +4,23 @@ session(['total' => $total]);
 ?>
 @section('title', 'Payment method')
 @section('content')
+        <div id="message"></div>
+        @if ($errors->any())
+            <div class="bg-red-500 text-white text-center p-4 rounded-md mb-5">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        <!-- Thông báo thành công khi lưu thông tin -->
+        @if (session('success'))
+            <div class="bg-green-500 text-white text-center p-4 rounded-md mb-5">
+                {{ session('success') }}
+            </div>
+        @endif
 
     <div class="mt-9">
         <div class="text-center text-6xl font-black rounded-3xl" style="background-color: #FFCCCC">
@@ -14,9 +31,10 @@ session(['total' => $total]);
                 Client Information
             </div>
             <div class="flex justify-center">
-                <form class="flex flex-col ml-6 md:w-[645px] items-center" method="POST" action="{{ route('account.update') }}">
+                <!-- {{ route('account.update') }} -->
+                <form id="client-info-form" class="flex flex-col ml-6 md:w-[645px] items-center" method="POST" action="{{ url('/save-client-info') }}"> 
                 @csrf
-                @method('PUT') <!-- Sử dụng PUT để khớp với route -->
+                <!-- @method('PUT') Sử dụng PUT để khớp với route -->
                     <!-- Name -->
                     <div class="flex items-center justify-between my-7">
                         <label class="text-[50px] md:text-5xl font-normal font-[Jomhuria] p-0 md:pr-12"
@@ -24,7 +42,7 @@ session(['total' => $total]);
                         <input
                             class="md:placeholder:text-[50px] md:placeholder:flex md:placeholder:items-center md:placeholder:leading-[50px] font-[Jomhuria] text-black md:font-normal md:w-[490px] leading-[50px] h-[50px] rounded-[20px] md:h-[50px] border text-center text-[50px] font-normal"
                             style="background-color: #D9D9D9;" type="text" id="name" name="name"
-                            value="{{ old('name', $user ? $user->user_name : '') }}"
+                            value="{{ old('name', session('name', $user->user_name ?? '')) }}"
                             placeholder="Enter your name">
                     </div>
 
@@ -35,7 +53,7 @@ session(['total' => $total]);
                         <input
                             class="md:placeholder:text-[50px] md:placeholder:flex md:placeholder:items-center md:placeholder:leading-[50px] font-[Jomhuria] text-black md:font-normal md:w-[490px] leading-[50px] h-[50px] rounded-[20px] md:h-[50px] border text-center text-[50px] font-normal"
                             style="background-color: #D9D9D9;" type="email" id="email" name="email"
-                            value="{{ old('email', $user ? $user->user_email : '') }}"
+                            value="{{ old('email', session('email', $user->user_email ?? '')) }}"
                             placeholder="Enter your email">
                     </div>
 
@@ -46,7 +64,7 @@ session(['total' => $total]);
                         <input
                             class="md:placeholder:text-[50px] md:placeholder:flex md:placeholder:items-center md:placeholder:leading-[50px] font-[Jomhuria] text-black md:font-normal md:w-[490px] leading-[50px] h-[50px] rounded-[20px] md:h-[50px] border text-center text-[50px] font-normal"
                             style="background-color: #D9D9D9;" type="tel" id="phone" name="phone"
-                            value="{{ old('phone', $user ? $user->user_phone : '') }}"
+                            value="{{ old('phone', session('phone', $user->user_phone ?? '')) }}"
                             placeholder="Enter your phone">
                     </div>
 
@@ -57,9 +75,12 @@ session(['total' => $total]);
                         <input
                             class="md:placeholder:text-[50px] md:placeholder:flex md:placeholder:items-center md:placeholder:leading-[50px] font-[Jomhuria] text-black md:font-normal md:w-[490px] leading-[50px] h-[50px] rounded-[20px] md:h-[50px] border text-center text-[50px] font-normal"
                             style="background-color: #D9D9D9;" type="text" id="address" name="address"
-                            value="{{ old('address', $user ? $user->user_address : '') }}"
+                            value="{{ old('address', session('address', $user->user_address ?? '')) }}"
                             placeholder="Enter your address">
                     </div>
+                    <button type="submit" class="w-[438px] h-[100px] text-[40px] font-black bg-black text-white rounded-[20px] flex items-center justify-center">
+                        Save Information
+                    </button>
                 </form>
             </div>
         </div>
@@ -121,4 +142,29 @@ session(['total' => $total]);
             </a>
         </div>
     </div>
+
+<!-- Thêm jQuery và AJAX script -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $('#client-info-form').on('submit', function(e) {
+        e.preventDefault(); // Ngừng reload trang khi submit form
+
+        var formData = $(this).serialize(); // Lấy dữ liệu form
+
+        $.ajax({
+            type: 'POST',
+            url: $(this).attr('action'), // Đường dẫn tới controller saveClientInfo
+            data: formData,
+            success: function(response) {
+                // Hiển thị thông báo thành công
+                $('#message').html('<div class="bg-green-500 text-white text-center p-4 rounded-md mb-5">' + response.success + '</div>');
+            },
+            error: function(xhr, status, error) {
+                // Hiển thị lỗi nếu có
+                $('#message').html('<div class="bg-red-500 text-white text-center p-4 rounded-md mb-5">Có lỗi xảy ra. Vui lòng thử lại!</div>');
+            }
+        });
+
+    });
+</script>
 @endsection

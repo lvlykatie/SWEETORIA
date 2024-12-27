@@ -4,15 +4,64 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use App\Models\InvoiceDetails;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Invoice;
 
 class MomoController extends Controller
 {
     //
     public function createPayment(Request $request)
     {
-        $orderId = time(); // Mã đơn hàng duy nhất
+        $orderId = rand(0, 9999); // Mã đơn hàng duy nhất
+        $userId = Auth::id(); // Lấy ID người dùng hiện tại
+        $sessionProducts = session('products', []); // Lấy danh sách sản phẩm từ session
+        $total = session('total', 0); // Tổng tiền từ session
+    
+        if (empty($sessionProducts) || $total <= 0) {
+            return back()->withErrors(['message' => 'Không có sản phẩm nào để thanh toán.']);
+        }
+
+        $name = session('name');
+        $phone = session('phone');
+        $address = session('address');
+
+        if (!$name || !$phone || !$address) {
+            return redirect()->back()->withErrors(['message' => 'Vui lòng cung cấp đầy đủ thông tin!']);
+        }
+    
+        // Tạo hóa đơn
+        $invoice = Invoice::create([
+            'user_id' => $userId,
+            'voucher_id' => null, // Nếu có mã giảm giá, cập nhật ở đây
+            'orderdate' => now(),
+            'method' => 'Momo', // Phương thức thanh toán
+            'note' => $request->input('note', ''), // Ghi chú từ form (nếu có)
+            'total_price' => $total,
+            'actual_price' => $total, // Nếu có giảm giá, cập nhật giá thực tế
+            'iv_receiver' => $name, // Lấy tên từ session
+            'iv_address' => $address, // Địa chỉ từ session
+            'iv_phone' => $phone, // Số điện thoại từ session
+            'iv_status' => 'Pending', // Trạng thái mặc định
+        ]);
+    
+        foreach ($sessionProducts as $product) {
+            // Kiểm tra xem 'product_id' có tồn tại trong mảng không
+            if (isset($product['product_id']) && isset($product['quantity']) && isset($product['price'])) {
+                InvoiceDetails::create([
+                    'invoice_id' => $invoice->iv_id,
+                    'product_id' => $product['product_id'],
+                    'quantity' => $product['quantity'],
+                    'price' => $product['price'],
+                ]);
+            } else {
+                // Log hoặc xử lý lỗi nếu không có 'product_id', 'quantity' hoặc 'price'
+                \Log::warning("Sản phẩm không đầy đủ thông tin: ", $product);
+                
+            }
+        }
+        // Gọi API Momo
         $orderInfo = "Thanh toán đơn hàng #" . $orderId;
-        $total = session('total', 10000); // Tổng số tiền thanh toán, mặc định là 10,000 nếu không có
         $amount = $total;
     
         $endpoint = env('MOMO_ENDPOINT');
@@ -47,6 +96,8 @@ class MomoController extends Controller
         ]);
     
         $result = $response->json();
+
+        \Log::info("Momo API Response:", $response->json()); // Log phản hồi
     
         if (isset($result['payUrl'])) {
             return redirect()->to($result['payUrl']); // Điều hướng đến URL thanh toán của Momo

@@ -29,6 +29,7 @@ class PaymentController extends Controller
             $product = Product::find($item['productId']);
             if ($product) {
                 $productDetails[] = [
+                    'product_id' => $product->product_id, // Lưu lại product_id
                     'name' => $product->product_name,
                     'quantity' => $item['quantity'],
                     'price' => $product->product_price,
@@ -38,6 +39,15 @@ class PaymentController extends Controller
         }
 
         $total = array_sum(array_column($productDetails, 'total'));
+
+            // Lưu thông tin vào session
+        session([
+            'name' => $user->user_name ?? null,
+            'address' => $user->user_address ?? null,
+            'phone' => $user->user_phone ?? null,
+            'products' => $productDetails, // Danh sách sản phẩm
+            'total' => $total, // Tổng tiền
+        ]);
 
         return view('page.payment', [
             'products' => $productDetails,
@@ -52,4 +62,28 @@ class PaymentController extends Controller
         $total = session('total');
         return view('page.payment_momo', compact('total'));
     }
+
+    public function saveClientInfo(Request $request)
+    {
+        // Lấy dữ liệu từ form
+        $name = $request->input('name');
+        $phone = $request->input('phone');
+        $address = $request->input('address');
+        
+        // Lưu vào session
+        session(['name' => $name]);
+        session(['phone' => $phone]);
+        session(['address' => $address]);
+
+        \Log::info('Client Information Saved:', [
+            'name' => session('name'),
+            'phone' => session('phone'),
+            'address' => session('address'),
+        ]);
+    
+            // Trả về JSON response với thông báo thành công
+         return response()->json(['success' => 'Save Infomation success! ']);
+    }
+    
+
 }
