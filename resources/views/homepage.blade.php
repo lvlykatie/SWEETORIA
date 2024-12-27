@@ -30,14 +30,13 @@
             </div>
 
             <!-- Search Form -->
-            <form class="relative justify-center mt-3 md:mt-0 flex items-center w-full md:w-auto" action=""
-                method="get">
+            <div class="relative justify-center mt-3 md:mt-0 flex items-center w-full md:w-auto">
                 <input class="w-full md:w-[643px] h-[52px] rounded-[20px] text-3xl text-center placeholder:text-3xl"
-                    type="text" placeholder="What do you want to buy?" />
-                <button type="submit" class="absolute right-4 w-8 h-8">
+                    type="text" placeholder="What do you want to buy?" id="search" />
+                <button class="absolute right-4 w-8 h-8">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
-            </form>
+            </div>
         </div>
 
         I
@@ -268,5 +267,55 @@
 
         updateVisibility();
     });
+
+    const searchInput = document.getElementById('search');
+
+    searchInput.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault(); // Prevents form submission if that's unintended
+            search();
+        }
+    });
+
+    function search() {
+        // Lấy các giá trị filter và sort
+        const filters = Array.from(document.querySelectorAll('input[name="filter[]"]:checked'))
+            .map(input => input.value)
+            .join('.');
+
+        const sort = document.querySelector('input[name="sort"]:checked')?.value;
+
+        // Lấy giá trị tìm kiếm
+        const search = document.getElementById('search').value;
+
+
+        // Xây dựng URL mới với các tham số filter, sort và search
+        let url = new URL('sweetoria/product', window.location.origin);
+        url.searchParams.set('page', 1);
+
+        if (filters) {
+            url.searchParams.set('filter', filters);
+        } else {
+            url.searchParams.delete('filter');
+        }
+
+        if (sort) {
+            url.searchParams.set('sort', sort);
+        } else {
+            url.searchParams.delete('sort');
+        }
+
+        if (search) {
+            url.searchParams.set('search', search);
+        } else {
+            url.searchParams.delete('search');
+        }
+
+        // Cập nhật lại URL mà không reload trang
+        window.history.pushState({}, '', url);
+
+        // Gửi yêu cầu lọc lại sản phẩm
+        window.location.href = url;
+    }
 </script>
 @endsection

@@ -14,9 +14,10 @@ class ProductController extends Controller
 
     public function index(Request $request)
     {
-        // Lấy tham số 'filter' và 'sort' từ query string
-        $filter = $request->input('filter'); // 'baking-ingredients,baking-tools'
+        // Lấy tham số 'filter', 'sort', và 'search' từ query string
+        $filter = $request->input('filter'); // 'baking-ingredients.baking-tools'
         $sort = $request->input('sort'); // 'low-to-high'
+        $search = $request->input('search'); // Tên sản phẩm muốn tìm kiếm
 
         // Truy vấn tất cả sản phẩm từ cơ sở dữ liệu
         $query = Product::query();
@@ -35,6 +36,11 @@ class ProductController extends Controller
             $query->whereIn('category_name', $filters);
         }
 
+        // Thêm điều kiện tìm kiếm
+        if ($search) {
+            $query->where('product_name', 'like', '%' . $search . '%'); // Tìm kiếm theo tên sản phẩm
+        }
+
         // Sắp xếp theo giá
         if ($sort === 'low-to-high') {
             $query->orderBy('product_price', 'asc');
@@ -42,53 +48,47 @@ class ProductController extends Controller
             $query->orderBy('product_price', 'desc');
         }
 
-        // Thêm join với bảng deal để lấy thông tin giảm giá
-        $query->leftJoin('tbl_deal', 'tbl_product.deal_id', '=', 'tbl_deal.deal_id')
-            ->select('tbl_product.*', 'tbl_deal.deal_discount', 'tbl_deal.deal_id');
-
         // Phân trang sản phẩm (10 sản phẩm mỗi trang)
-        $products = $query->paginate(10)->appends($request->only(['filter', 'sort']));
+        $products = $query->paginate(10)->appends($request->only(['filter', 'sort', 'search']));
 
-        // Trả về view với các sản phẩm đã được lọc và sắp xếp
+        // Trả về view với các sản phẩm đã được lọc, sắp xếp và tìm kiếm
         return view('page.product', compact('products'));
     }
+    // public function search(Request $request)
+    // {
+    //     $query = $request->input('query');
+    //     $filter = $request->input('filter');
+    //     $sort = $request->input('sort');
+
+    //     // Khởi tạo query
+    //     $productQuery = Product::query();
+
+    //     // Tìm kiếm sản phẩm
+    //     if ($query) {
+    //         $productQuery->where('product_name', 'like', '%' . $query . '%')
+    //             ->orWhere('product_desc', 'like', '%' . $query . '%');
+    //     }
+
+    //     // Lọc danh mục (nếu có)
+    //     if ($filter) {
+    //         $filters = explode('.', $filter);
+    //         $productQuery->whereIn('category_name', $filters);
+    //     }
+
+    //     // Sắp xếp (nếu có)
+    //     if ($sort === 'low-to-high') {
+    //         $productQuery->orderBy('product_price', 'asc');
+    //     } elseif ($sort === 'high-to-low') {
+    //         $productQuery->orderBy('product_price', 'desc');
+    //     }
 
 
-    public function search(Request $request)
-    {
-        $query = $request->input('query');
-        $filter = $request->input('filter');
-        $sort = $request->input('sort');
+    //     // Lấy kết quả
+    //     $products = $productQuery->paginate(10);
 
-        // Khởi tạo query
-        $productQuery = Product::query();
-
-        // Tìm kiếm sản phẩm
-        if ($query) {
-            $productQuery->where('product_name', 'like', '%' . $query . '%')
-                ->orWhere('product_desc', 'like', '%' . $query . '%');
-        }
-
-        // Lọc danh mục (nếu có)
-        if ($filter) {
-            $filters = explode('.', $filter);
-            $productQuery->whereIn('category_name', $filters);
-        }
-
-        // Sắp xếp (nếu có)
-        if ($sort === 'low-to-high') {
-            $productQuery->orderBy('product_price', 'asc');
-        } elseif ($sort === 'high-to-low') {
-            $productQuery->orderBy('product_price', 'desc');
-        }
-
-
-        // Lấy kết quả
-        $products = $productQuery->paginate(10);
-
-        // Trả về view
-        return view('page.product', compact('products', 'query', 'filter', 'sort'));
-    }
+    //     // Trả về view
+    //     return view('page.product', compact('products', 'query', 'filter', 'sort'));
+    // }
 
 
 
@@ -138,7 +138,7 @@ class ProductController extends Controller
             $imagePath = null;
             if ($request->hasFile('feedback_image')) {
                 $image = $request->file('feedback_image');
-                $imagePath = $image->store('feedback_images', 'public'); // Lưu ảnh vào thư mục feedback_images trong storage/app/public
+                $imagePath = $image->store('storage', 'public'); // Lưu ảnh vào thư mục feedback_images trong storage/app/public
             }
 
             // Lưu feedback vào cơ sở dữ liệu
