@@ -12,12 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tbl_feedback', function (Blueprint $table) {
-            $table->increments('fb_id');
-            $table->integer('user_id');
-            $table->integer('product_id');
-            $table->longText('comment');
-            $table->integer('rate');
-            $table->timestamps();
+            $table->id('fb_id'); // Tạo khóa chính là fb_id
+            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Tham chiếu đến bảng users
+            $table->foreignId('product_id')->constrained("tbl_product", "product_id")->onDelete('cascade'); // Tham chiếu đến bảng products
+            $table->text('comment'); // Cột bình luận
+            $table->integer('rate'); // Cột đánh giá (rating)
+            $table->timestamps(); // Tạo các cột created_at và updated_at
         });
     }
 

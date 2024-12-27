@@ -36,8 +36,8 @@
                 </div>
                 <div class="flex items-center justify-around">
                     <!-- icon trái tim thêm sản phẩm vào wishlist -->
-                    <i class="fa-regular fa-heart text-[40px] cursor-pointer wishlist-icon" 
-                         data-product-id="{{ $product->product_id }}"></i>
+                    <i class="fa-regular fa-heart text-[40px] cursor-pointer wishlist-icon"
+                        data-product-id="{{ $product->product_id }}"></i>
                     <div class="flex border-y border-x border-[#979797] text-2xl font-bold md:h-14 ">
                         <div class="flex items-center w-[56px] justify-center border-r border-[#979797] bg-[#FFDEDE]">
                             -
@@ -155,62 +155,94 @@
                     </div>
                 </div>
                 {{-- 1 review --}}
-                <div class="flex items-start justify-center w-2/3 space-x-4 mt-8">
-                    <!-- Avatar -->
-                    <div class="flex flex-col items-center">
-                        <div class="h-32 w-32 rounded-full overflow-hidden">
-                            <img src="{{ asset('frontend/client/page/image/avatartest.png') }}" alt="Avatar">
-                        </div>
-                        <p class="text-gray-600 mt-2 text-4xl">Thư</p>
-                    </div>
+                @if ($feedbacks->isEmpty())
+                    <p class="text-center text-3xl text-gray-500">Chưa có đánh giá nào cho sản phẩm này.</p>
+                @else
+                    @foreach ($feedbacks as $feedback)
+                        <div class="flex items-start justify-center w-2/3 space-x-4 mt-8">
+                            <!-- Avatar -->
+                            <div class="flex flex-col items-center">
+                                <div class="h-32 w-32 rounded-full overflow-hidden">
+                                    <img src="{{ asset('public/frontend/client/page/image/avatartest.png') }}" alt="Avatar">
+                                </div>
+                                <p class="text-gray-600 mt-2 text-4xl">{{ $feedback->user_name }}</p>
+                            </div>
 
-                    <!-- Nội dung đánh giá -->
-                    <div>
-                        <div class="flex items-center space-x-2 text-3xl">
-                            <!-- Icon ngôi sao và điểm số -->
-                            <i class="fa-solid fa-star text-yellow-400"></i>
-                            <span class="font-semibold">5.0</span>
-                        </div>
-                        <p class="text-3xl mt-6">Nguyên liệu ngon đến mức mình còn muốn ăn sống luôn!</p>
+                            <!-- Nội dung đánh giá -->
+                            <div>
+                                <div class="flex items-center space-x-2 text-3xl">
+                                    <!-- Icon ngôi sao và điểm số -->
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                    <span class="font-semibold">{{ $feedback->rate }}</span>
+                                </div>
+                                <p class="text-3xl mt-6">{{ $feedback->comment }}</p>
+                                @if ($feedback->image)
+                                    <img src="{{ asset('public/storage/' . $feedback->image) }}"
+                                        class="w-32 h-auto rounded-md mt-4" alt="Feedback Image">
+                                @endif
 
-                    </div>
-                </div>
+                                <p class="text-gray-500 mt-4 text-2xl">
+                                    {{ \Carbon\Carbon::parse($feedback->created_at)->format('d/m/Y H:i') }}
+                                </p>
+                            </div>
+                        </div>
+                    @endforeach
+                @endif
                 <!-- send review -->
-                <div class="w-full mx-auto p-4 border rounded-md shadow-sm mt-10">
-                    <textarea
-                        class="w-full p-2 border border-gray-300 rounded-md resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 text-2xl font-normal"
-                        rows="4" placeholder="Type your topic here"></textarea>
+                @if (Auth::check())
+                    <form action="{{ route('feedback') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="w-full mx-auto p-4 border rounded-md shadow-sm mt-10">
+                            <input
+                                class="w-full p-2 border border-gray-300 rounded-md resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 text-2xl font-normal"
+                                rows="4" name="feedback_content" placeholder="Type your feedback here">
 
-                    <div class="flex items-center justify-between mt-4">
-                        <div class="flex items-center">
-                            <button
-                                class="w-[116px] h-[80px] border border-gray-300 flex items-center justify-center focus:outline-none hover:bg-gray-100"
-                                aria-label="Upload image">
-                                <i class="fa-solid fa-camera text-[40px]"></i>
-                            </button>
-
-                            <div class="h-32 w-32 rounded-full overflow-hidden ml-10">
-                                <img src="{{ asset('frontend/client/page/image/avatartest.png') }}" alt="Avatar">
+                            {{-- image uploaded --}}
+                            <div class="image-upload-container">
+                                <img id="uploaded-image" src="" alt="Uploaded Image"
+                                    class="hidden w-32 h-auto rounded-md">
                             </div>
-                            <p class="text-gray-600 mt-2 text-4xl ml-8">Thanh</p>
 
-                        </div>
-                        {{-- star --}}
-                        <div class="flex items-center">
-                            <div class="flex items-center space-x-1 text-yellow-400 text-4xl">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
+                            <div class="flex items-center justify-between mt-4">
+                                {{-- nút upload --}}
+                                <div id="image-upload-container"
+                                    class="w-[116px] h-[80px] border border-gray-300 flex items-center justify-center rounded-md overflow-hidden cursor-pointer hover:bg-gray-100">
+                                    <label for="image-upload" class="flex items-center justify-center w-full h-full">
+                                        <i class="fa-solid fa-camera text-[40px]" id="camera-icon"></i>
+                                        <input type="file" id="image-upload" name="feedback_image" accept="image/*"
+                                            class="hidden">
+                                    </label>
+                                </div>
+                                {{-- Hiển thị avatar mặc định --}}
+                                <div class="h-32 w-32 rounded-full overflow-hidden ml-10">
+                                    <img src="{{ asset('public/frontend/client/page/image/avatartest.png') }}" alt="Avatar">
+                                </div>
+                                <div class="flex items-center">
+                                    <p class="text-gray-600 mt-2 text-4xl ml-8">{{ Auth::user()->user_name }}</p>
+                                </div>
+                                {{-- Star rating --}}
+                                <div class="flex items-center">
+                                    <div class="flex items-center space-x-1 text-4xl" id="star-rating">
+                                        @for ($i = 1; $i <= 5; $i++)
+                                            <i class="fa-solid fa-star cursor-pointer"
+                                                data-rating="{{ $i }}"></i>
+                                        @endfor
+                                    </div>
+                                    <input type="hidden" name="rating" id="rating" value="0">
+                                </div>
+
+                                {{-- Thêm product_id --}}
+                                <input type="hidden" name="product_id" value="{{ $product->product_id }}">
+
+                                {{-- Nút gửi đánh giá --}}
+                                <button type="submit"
+                                    class="w-[192px] h-[82px] text-3xl font-normal bg-[#ffcccc] text-black rounded-md hover:opacity-80">
+                                    Send
+                                </button>
                             </div>
                         </div>
-                        <button
-                            class="w-[192px] h-[82px] text-3xl font-normal bg-[#ffcccc] text-black rounded-md hover:opacity-80">
-                            Send
-                        </button>
-                    </div>
-
-                </div>
+                    </form>
+                @endif
             </div>
         </div>
     </div>
@@ -255,6 +287,9 @@
     <div class="flex justify-center mt-10">
         <div class="w-96 h-16 text-center text-black text-3xl font-black font-['Inter']">See more >></div>
     </div>
+    <div class="flex justify-center mt-10">
+        <div class="w-96 h-16 text-center text-black text-3xl font-black font-['Inter']">See more >></div>
+    </div>
     <div class="w-96 h-20 text-center text-black text-4xl font-bold font-['Inter'] leading-normal tracking-wide">
         Similar products
     </div>
@@ -273,7 +308,6 @@
                     <span class="text-2xl text-center font-bold text-black">BEST SELLER
                         <i class="fa-solid fa-circle-check text-[#004FA8]"></i>
                     </span>
-
                 </div>
                 <a href="{{ route('detail', ['id' => $item->product_id]) }}" class="cursor-pointer">
                     <img src="{{ filter_var($item->product_image, FILTER_VALIDATE_URL) ? $item->product_image : asset('public/backend/image/' . $item->product_image) }}"
@@ -315,46 +349,85 @@
         @endforeach
     </div>
 
-    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const wishlistIcons = document.querySelectorAll('.wishlist-icon');
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const wishlistIcons = document.querySelectorAll('.wishlist-icon');
+            wishlistIcons.forEach(icon => {
+                icon.addEventListener('click', function() {
+                    const productId = this.getAttribute('data-product-id');
 
-        wishlistIcons.forEach(icon => {
-            icon.addEventListener('click', function () {
-                const productId = this.getAttribute('data-product-id');
-
-                fetch('{{ route("wishlist.toggle") }}', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                    },
-                    body: JSON.stringify({ product_id: productId }),
-                })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error(`Server error: ${response.status}`);
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        if (data.success) {
-                            this.classList.toggle('text-red-500');
-                            alert(data.message);
-                        } else {
-                            alert(data.message || 'An error occurred.');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert('An error occurred. Please try again.');
-                    });
+                    fetch('{{ route('wishlist.toggle') }}', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector(
+                                    'meta[name="csrf-token"]').getAttribute('content'),
+                            },
+                            body: JSON.stringify({
+                                product_id: productId
+                            }),
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error(`Server error: ${response.status}`);
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            if (data.success) {
+                                this.classList.toggle('text-red-500');
+                                alert(data.message);
+                            } else {
+                                alert(data.message || 'An error occurred.');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('An error occurred. Please try again.');
+                        });
+                });
             });
         });
-    });
+    </script>
 
-</script>
+    <script>
+        document.getElementById('image-upload').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.getElementById('uploaded-image');
+                    img.src = e.target.result;
+                    img.classList.remove('hidden');
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const stars = document.querySelectorAll("#star-rating .fa-star");
+            const ratingInput = document.getElementById("rating");
+
+            stars.forEach(star => {
+                star.addEventListener("click", function() {
+                    const rating = this.getAttribute("data-rating");
+
+                    // Cập nhật giá trị của input hidden
+                    ratingInput.value = rating;
+                    console.log(rating);
+                    // Cập nhật màu sắc của các sao
+                    stars.forEach(star => {
+                        if (parseInt(star.getAttribute("data-rating")) <= rating) {
+                            star.classList.add("text-yellow-400");
+                        } else {
+                            star.classList.remove("text-yellow-400");
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 
 @endsection

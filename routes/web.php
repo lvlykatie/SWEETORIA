@@ -234,3 +234,8 @@ Route::get('/seller/orders/search', 'App\Http\Controllers\seller\OrderController
 //products
 Route::get('/seller/products', 'App\Http\Controllers\seller\ProductController@showProductPage');
 Route::get('/seller/products', 'App\Http\Controllers\seller\ProductController@search')->name('products.search');
+
+
+
+
+Route::post('/feedback', [ProductController::class, 'sendFeedBack'])->name('feedback');
