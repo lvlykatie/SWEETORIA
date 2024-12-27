@@ -11,6 +11,8 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\MomoController;
 use App\Http\Middleware\AdminAuth;
+use App\Http\Middleware\ManagerAuth;
+use App\Http\Middleware\SellerAuth;
 use Illuminate\Http\Request;
 
 // admin routes
@@ -64,7 +66,70 @@ Route::group(['middleware' => AdminAuth::class], function () {
 
     // logout
     Route::post('admin/logout', [AccountController::class, 'logout'])->name('logout');
+});
 
+Route::group(['middleware' => ManagerAuth::class], function () {
+    //manager
+    Route::get('/manager/dashboard', 'App\Http\Controllers\manager\DashboardController@showDashboard');
+
+    //products
+    Route::get('/manager/products', 'App\Http\Controllers\manager\ProductController@showProductPage');
+    Route::get('/manager/products/create', 'App\Http\Controllers\manager\ProductController@addProductPage');
+    Route::post('/manager/products/save', 'App\Http\Controllers\manager\ProductController@saveProduct');
+    Route::get('/manager/products/delete/{product_id}', 'App\Http\Controllers\manager\ProductController@deleteProduct');
+    Route::get('/manager/products/edit/{product_id}', 'App\Http\Controllers\manager\ProductController@editProduct');
+    Route::post('/manager/products/update/{product_id}', 'App\Http\Controllers\manager\ProductController@updateProduct');
+    Route::get('/manager/products', 'App\Http\Controllers\manager\ProductController@search')->name('products.search');
+
+    //orders
+    Route::get('/manager/orders', 'App\Http\Controllers\manager\OrderController@showOrderPage');
+    Route::get('/manager/orders/delete/{iv_id}', 'App\Http\Controllers\manager\OrderController@deleteOrder');
+    Route::get('/manager/orders/edit/{iv_id}', 'App\Http\Controllers\manager\OrderController@editOrder');
+    Route::post('/manager/orders/update/{iv_id}', 'App\Http\Controllers\manager\OrderController@updateOrder');
+    Route::get('/manager/orders/search', 'App\Http\Controllers\manager\OrderController@search')->name('manager.orders.search');
+
+    //deals
+    Route::get('/manager/deals', 'App\Http\Controllers\manager\DealController@showDealPage');
+    Route::get('/manager/deals/create', 'App\Http\Controllers\manager\DealController@addDealPage');
+    Route::post('/manager/deals/save', 'App\Http\Controllers\manager\DealController@saveDeal');
+    Route::get('/manager/deals/delete/{deal_id}', 'App\Http\Controllers\manager\DealController@deleteDeal');
+    Route::get('/manager/deals/edit/{deal_id}', 'App\Http\Controllers\manager\DealController@editDeal');
+    Route::post('/manager/deals/update/{deal_id}', 'App\Http\Controllers\manager\DealController@updateDeal');
+    Route::get('/manager/deals', 'App\Http\Controllers\manager\DealController@search')->name('deals.search');
+
+    //vouchers
+    Route::get('/manager/vouchers', 'App\Http\Controllers\manager\VoucherController@showVoucherPage');
+    Route::get('/manager/vouchers/create', 'App\Http\Controllers\manager\VoucherController@addVoucherPage');
+    Route::post('/manager/vouchers/save', 'App\Http\Controllers\manager\VoucherController@saveVoucher');
+    Route::get('/manager/vouchers/edit/{voucher_id}', 'App\Http\Controllers\manager\VoucherController@editVoucher');
+    Route::post('/manager/vouchers/update/{voucher_id}', 'App\Http\Controllers\manager\VoucherController@updateVoucher');
+    Route::get('/manager/vouchers/delete/{voucher_id}', 'App\Http\Controllers\manager\VoucherController@deleteVoucher');
+    Route::get('/manager/vouchers', 'App\Http\Controllers\manager\VoucherController@search')->name('vouchers.search');
+
+    //accounts
+    Route::get('/manager/accounts', 'App\Http\Controllers\manager\AccountController@showAccountPage');
+
+    // logout
+    Route::post('manager/logout', [AccountController::class, 'logout'])->name('logout');
+});
+
+Route::group(['middleware' => SellerAuth::class], function () {
+    //seller
+    Route::get('/seller/dashboard', 'App\Http\Controllers\seller\DashboardController@showDashboard');
+
+    //orders
+    Route::get('/seller/orders', 'App\Http\Controllers\seller\OrderController@showOrderPage');
+    Route::get('/seller/orders/delete/{iv_id}', 'App\Http\Controllers\seller\OrderController@deleteOrder');
+    Route::get('/seller/orders/edit/{iv_id}', 'App\Http\Controllers\seller\OrderController@editOrder');
+    Route::post('/seller/orders/update/{iv_id}', 'App\Http\Controllers\seller\OrderController@updateOrder');
+    Route::get('/seller/orders/search', 'App\Http\Controllers\seller\OrderController@search')->name('seller.orders.search');
+
+    //products
+    Route::get('/seller/products', 'App\Http\Controllers\seller\ProductController@showProductPage');
+    Route::get('/seller/products', 'App\Http\Controllers\seller\ProductController@search')->name('products.search');
+
+    // logout
+    Route::post('seller/logout', [AccountController::class, 'logout'])->name('logout');
 });
 
 
@@ -187,62 +252,10 @@ Route::get('/auth/google/callback', [loginGoogleController::class, 'handleGoogle
 
 
 
-//manager
-Route::get('/manager/dashboard', 'App\Http\Controllers\manager\DashboardController@showDashboard');
-
-//products
-Route::get('/manager/products', 'App\Http\Controllers\manager\ProductController@showProductPage');
-Route::get('/manager/products/create', 'App\Http\Controllers\manager\ProductController@addProductPage');
-Route::post('/manager/products/save', 'App\Http\Controllers\manager\ProductController@saveProduct');
-Route::get('/manager/products/delete/{product_id}', 'App\Http\Controllers\manager\ProductController@deleteProduct');
-Route::get('/manager/products/edit/{product_id}', 'App\Http\Controllers\manager\ProductController@editProduct');
-Route::post('/manager/products/update/{product_id}', 'App\Http\Controllers\manager\ProductController@updateProduct');
-Route::get('/manager/products', 'App\Http\Controllers\manager\ProductController@search')->name('products.search');
-
-//orders
-Route::get('/manager/orders', 'App\Http\Controllers\manager\OrderController@showOrderPage');
-Route::get('/manager/orders/delete/{iv_id}', 'App\Http\Controllers\manager\OrderController@deleteOrder');
-Route::get('/manager/orders/edit/{iv_id}', 'App\Http\Controllers\manager\OrderController@editOrder');
-Route::post('/manager/orders/update/{iv_id}', 'App\Http\Controllers\manager\OrderController@updateOrder');
-Route::get('/manager/orders/search', 'App\Http\Controllers\manager\OrderController@search')->name('manager.orders.search');
-
-//deals
-Route::get('/manager/deals', 'App\Http\Controllers\manager\DealController@showDealPage');
-Route::get('/manager/deals/create', 'App\Http\Controllers\manager\DealController@addDealPage');
-Route::post('/manager/deals/save', 'App\Http\Controllers\manager\DealController@saveDeal');
-Route::get('/manager/deals/delete/{deal_id}', 'App\Http\Controllers\manager\DealController@deleteDeal');
-Route::get('/manager/deals/edit/{deal_id}', 'App\Http\Controllers\manager\DealController@editDeal');
-Route::post('/manager/deals/update/{deal_id}', 'App\Http\Controllers\manager\DealController@updateDeal');
-Route::get('/manager/deals', 'App\Http\Controllers\manager\DealController@search')->name('deals.search');
-
-//vouchers
-Route::get('/manager/vouchers', 'App\Http\Controllers\manager\VoucherController@showVoucherPage');
-Route::get('/manager/vouchers/create', 'App\Http\Controllers\manager\VoucherController@addVoucherPage');
-Route::post('/manager/vouchers/save', 'App\Http\Controllers\manager\VoucherController@saveVoucher');
-Route::get('/manager/vouchers/edit/{voucher_id}', 'App\Http\Controllers\manager\VoucherController@editVoucher');
-Route::post('/manager/vouchers/update/{voucher_id}', 'App\Http\Controllers\manager\VoucherController@updateVoucher');
-Route::get('/manager/vouchers/delete/{voucher_id}', 'App\Http\Controllers\manager\VoucherController@deleteVoucher');
-Route::get('/manager/vouchers', 'App\Http\Controllers\manager\VoucherController@search')->name('vouchers.search');
-
-//accounts
-Route::get('/manager/accounts', 'App\Http\Controllers\manager\AccountController@showAccountPage');
 
 
 
 
-//seller
-Route::get('/seller/dashboard', 'App\Http\Controllers\seller\DashboardController@showDashboard');
-
-//orders
-Route::get('/seller/orders', 'App\Http\Controllers\seller\OrderController@showOrderPage');
-Route::get('/seller/orders/delete/{iv_id}', 'App\Http\Controllers\seller\OrderController@deleteOrder');
-Route::get('/seller/orders/edit/{iv_id}', 'App\Http\Controllers\seller\OrderController@editOrder');
-Route::post('/seller/orders/update/{iv_id}', 'App\Http\Controllers\seller\OrderController@updateOrder');
-Route::get('/seller/orders/search', 'App\Http\Controllers\seller\OrderController@search')->name('seller.orders.search');
-
-//products
-Route::get('/seller/products', 'App\Http\Controllers\seller\ProductController@showProductPage');
-Route::get('/seller/products', 'App\Http\Controllers\seller\ProductController@search')->name('products.search');
 
 
 

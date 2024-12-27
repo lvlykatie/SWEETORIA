@@ -37,10 +37,14 @@ class loginController extends Controller
                 // Chuyển hướng tới trang homepage
                 return redirect('/');
             } elseif ($user->role == 'Manager') {
+                Session::put('manager_name', $user->user_name);
+                Session::put('manager_id', $user->user_id);
                 // Chuyển hướng tới trang manager
                 return redirect('/manager/dashboard');
             } elseif ($user->role == 'Seller') {
                 // Chuyển hướng tới trang seller
+                Session::put('seller_name', $user->user_name);
+                Session::put('seller_id', $user->user_id);
                 return redirect('/seller/dashboard');
             } else {
                 // Nếu không khớp, quay lại trang đăng nhập với thông báo lỗi
