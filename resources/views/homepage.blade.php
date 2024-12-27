@@ -7,8 +7,7 @@
     <div class="search-bg relative flex items-center justify-center bg-cover bg-center h-72 md:h-[463px]"
         style="background-image: url('{{ asset('public/frontend/client/page/image/homepagebg.png') }}');">
         <div class="flex flex-col md:flex-row justify-center items-center absolute bottom-20 w-full">
-            <!-- Dropdown Location -->
-            <div class="location bg-white w-32 rounded-lg md:mb-0 md:mr-10">
+            <!-- <div class="location bg-white w-32 rounded-lg md:mb-0 md:mr-10">
                 <div class="inline-block relative w-full">
                     <label for="location" class="block text-xl text-center text-gray-500 mb-1 pb-1 pt-2">Location</label>
                     <select id="location"
@@ -27,9 +26,8 @@
                         </svg>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
-            <!-- Search Form -->
             <div class="relative justify-center mt-3 md:mt-0 flex items-center w-full md:w-auto">
                 <input class="w-full md:w-[643px] h-[52px] rounded-[20px] text-3xl text-center placeholder:text-3xl"
                     type="text" placeholder="What do you want to buy?" id="search" />
