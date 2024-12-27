@@ -7,8 +7,7 @@
     <div class="search-bg relative flex items-center justify-center bg-cover bg-center h-72 md:h-[463px]"
         style="background-image: url('{{ asset('public/frontend/client/page/image/homepagebg.png') }}');">
         <div class="flex flex-col md:flex-row justify-center items-center absolute bottom-20 w-full">
-            <!-- Dropdown Location -->
-            <div class="location bg-white w-32 rounded-lg md:mb-0 md:mr-10">
+            <!-- <div class="location bg-white w-32 rounded-lg md:mb-0 md:mr-10">
                 <div class="inline-block relative w-full">
                     <label for="location" class="block text-xl text-center text-gray-500 mb-1 pb-1 pt-2">Location</label>
                     <select id="location"
@@ -27,24 +26,25 @@
                         </svg>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
-            <!-- Search Form -->
-            <form class="relative justify-center mt-3 md:mt-0 flex items-center w-full md:w-auto" action=""
-                method="get">
+            <div class="relative justify-center mt-3 md:mt-0 flex items-center w-full md:w-auto">
                 <input class="w-full md:w-[643px] h-[52px] rounded-[20px] text-3xl text-center placeholder:text-3xl"
-                    type="text" placeholder="What do you want to buy?" />
-                <button type="submit" class="absolute right-4 w-8 h-8">
+                    type="text" placeholder="What do you want to buy?" id="search" />
+                <button class="absolute right-4 w-8 h-8">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
-            </form>
+            </div>
         </div>
 
         I
     </div>
     {{-- hot deal --}}
     <div class="hot-deal my-16 mx-16 rounded-3xl bg-yellow-100">
-        <div class="text-center font-black text-6xl py-12">Hot Deals</div>
+        <a href="{{ route('hotdeals') }}">
+            <div class="text-center font-black text-6xl py-12">Hot Deals</div>
+        </a>
+
         <div class="hotdeal-images flex flex-col md:flex-row gap-8 px-6 py-16">
             <div class="w-full md:w-1/3">
                 <img class="w-full" src="{{ asset('public/frontend/client/page/image/Deal_1.png') }}" alt="Hot Deal 1">
@@ -60,8 +60,8 @@
 
     {{-- categories --}}
     <div class="categories">
-        <div class="text-center text-6xl font-black rounded-3xl bg-red-200 py-6">
-            Categories
+        <div class="text-center text-6xl font-black text py-6 mb-7 bg-pink mx-auto" style="width: 30%; border-radius: 50px;">
+            CATEGORIES
         </div>
         <div class="categories-items">
             <!-- Row 1 -->
@@ -107,7 +107,10 @@
 
     {{-- best seller --}}
     <div class="best_seller my-16">
-        <div class="text-center text-6xl font-black rounded-3xl text py-6" style="background-color: #FFFDD0">
+        <!-- <div class="text-center text-6xl font-black text py-6" style="">
+
+        </div> -->
+        <div class="text-center text-6xl font-black text py-6 mb-7 mx-auto" style="width: 30%; border-radius: 50px;background-color: #FFFDD0">
             BEST SELLER
         </div>
         <div class="best-seller_items m-24 rounded-3xl">
@@ -124,17 +127,17 @@
                     <div class="md:w-[356px] h-[507px] w-full flex flex-col items-center bg-[#FFDEDE80] rounded-[28px] relative">
                         {{-- sale --}}
                         @if ($product->deal_id)
-                        <div class="bg-[#004FA8] w-[128px] h-[36px] rounded-tr-[20px] rounded-br-[20px] flex justify-center items-center absolute left-0 top-4">
+                        <div class="bg-[#004FA8] w-[128px] h-[36px] rounded-tr-[20px] rounded-br-[20px] flex justify-center items-center absolute left-0 top-4" style="z-index: 1000;">
                             <i class="fa-solid fa-bolt text-yellow-300 mr-5"></i>
                             <span class="text-white text-2xl font-bold">SALE <span>{{ $product->deal_discount * 100 }}%</span></span>
                         </div>
                         @endif
-                        {{-- best seller --}}
+                        <!-- {{-- best seller --}}
                         <div class="md:w-[148px] md:h-[30px] bg-[#FFCB06] flex justify-center items-center rounded-xl absolute bottom-[185px] right-0">
                             <span class="text-2xl text-center font-bold text-black">BEST SELLER
                                 <i class="fa-solid fa-circle-check text-[#004FA8]"></i>
                             </span>
-                        </div>
+                        </div> -->
                         <a href="{{ route('detail', ['id' => $product->product_id]) }}" class="cursor-pointer">
                             <img src="{{ filter_var($product->product_image, FILTER_VALIDATE_URL) ? $product->product_image : asset('public/backend/image/' . $product->product_image) }}"
                                 class="hover:scale-90 w-[305px] h-[305px] mt-6 ml-6 mr-6 object-cover rounded-[20px]" alt="Product Image">
@@ -179,7 +182,7 @@
     </div>
 
 
-    <div class="text-center text-6xl font-black rounded-3xl text py-6 mb-7 bg-pink">
+    <div class="text-center text-6xl font-black text py-6 mb-7 bg-pink mx-auto" style="width: 30%; border-radius: 50px;">
         BLOG
     </div>
     {{-- see more in left --}}
@@ -191,51 +194,99 @@
         </div>
     </div>
 
-    <div class="w-full flex justify-center">
-        <div class="md:w-[795px] flex flex-wrap items-center justify-center shadow-xl mr-3">
-            <img src="{{ asset('public/frontend/client/page/image/post_img.jpg') }}" class="w-[742px] m-6" alt="post">
-            <div class="title text-2xl text-center font-normal">MAKE GREEN TEA FLAN WITHOUT OVEN</div>
+    <div class="w-full flex flex-wrap justify-center p-6 bg-gray-100">
+        <!-- Video Section -->
+        <div id="video-section" class="md:w-[795px] flex flex-col items-center shadow-xl rounded-lg bg-white p-6 mr-6 mb-6">
+            <iframe
+                id="video-frame"
+                class="rounded-lg"
+                width="560"
+                height="315"
+                src="https://www.youtube.com/embed/MhbEaJUoy5M?autoplay=1&mute=1&si=fLPF4uIvF3nkxxMZ"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen>
+            </iframe>
+            <h2 id="video-title" class="title text-2xl text-center font-semibold mt-4 text-gray-800">
+                [Không Cần Lò Vi Sóng] Bánh Phô Mai Oreo Béo Ngậy ngất ngây cực dễ làm
+            </h2>
         </div>
-        <div class="w-[530px] space-y-14">
-            {{-- 1 post --}}
-            <div class="w-[526px] h-[124px] bg-white rounded-lg shadow-xl flex items-center">
-                <img src="{{ asset('public/frontend/client/page/image/post_img.jpg') }}"
-                    class="w-[150px] h-[104px] ml-3 rounded-lg" alt="post">
-                <div class="info flex flex-col justify-between ml-4 h-full">
-                    <div class="title text-2xl font-medium mt-3">MAKE GREEN TEA FLAN WITHOUT OVEN</div>
-                    <div class="date text-lg text-[#898989] font-normal mb-3">2021-10-10</div>
-                </div>
-            </div>
-            <div class="w-[526px] h-[124px] bg-white rounded-lg shadow-xl flex items-center">
-                <img src="{{ asset('public/frontend/client/page/image/post_img.jpg') }}"
-                    class="w-[150px] h-[104px] ml-3 rounded-lg" alt="post">
-                <div class="info flex flex-col justify-between ml-4 h-full">
-                    <div class="title text-2xl font-medium mt-3">MAKE GREEN TEA FLAN WITHOUT OVEN</div>
-                    <div class="date text-lg text-[#898989] font-normal mb-3">2021-10-10</div>
-                </div>
-            </div>
-            <div class="w-[526px] h-[124px] bg-white rounded-lg shadow-xl flex items-center">
-                <img src="{{ asset('public/frontend/client/page/image/post_img.jpg') }}"
-                    class="w-[150px] h-[104px] ml-3 rounded-lg" alt="post">
-                <div class="info flex flex-col justify-between ml-4 h-full">
-                    <div class="title text-2xl font-medium mt-3">MAKE GREEN TEA FLAN WITHOUT OVEN</div>
-                    <div class="date text-lg text-[#898989] font-normal mb-3">2021-10-10</div>
-                </div>
-            </div>
-            <div class="w-[526px] h-[124px] bg-white rounded-lg shadow-xl flex items-center">
-                <img src="{{ asset('public/frontend/client/page/image/post_img.jpg') }}"
-                    class="w-[150px] h-[104px] ml-3 rounded-lg" alt="post">
-                <div class="info flex flex-col justify-between ml-4 h-full">
-                    <div class="title text-2xl font-medium mt-3">MAKE GREEN TEA FLAN WITHOUT OVEN</div>
-                    <div class="date text-lg text-[#898989] font-normal mb-3">2021-10-10</div>
+
+        <!-- Post List Section -->
+        <div class="w-[530px] space-y-6">
+            <!-- Post Item 1 -->
+            <div class="post-item w-full h-[124px] bg-white rounded-lg shadow-md flex items-center hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+                data-video-url="https://www.youtube.com/embed/4_YBELE4LpM?autoplay=1&mute=1&si=gtFPJfPjxf2h3Zc7"
+                data-title="Truffle Sicula cho Valentine CỰC DỄ ai cũng làm được với 2 nguyên liệu">
+                <img
+                    src="{{ asset('public/frontend/client/page/image/post_img.jpg') }}"
+                    class="w-[150px] h-[104px] ml-4 rounded-lg object-cover"
+                    alt="post">
+                <div class="info flex flex-col justify-center ml-4">
+                    <h3 class="title text-lg font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-300">
+                        Truffle Sicula cho Valentine CỰC DỄ ai cũng làm được với 2 nguyên liệu
+                    </h3>
+                    <p class="date text-sm text-gray-500 font-normal">2021-10-10</p>
                 </div>
             </div>
 
+            <!-- Post Item 2 -->
+            <div class="post-item w-full h-[124px] bg-white rounded-lg shadow-md flex items-center hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+                data-video-url="https://www.youtube.com/embed/OrDB4jpA1g8?autoplay=1&mute=1&si=-YOm3CzSjaOmBUcA"
+                data-title="J97">
+                <img
+                    src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fdanviet.vn%2Flo-clip-jack-khoc-ben-gia-dinh-lan-dau-xuat-hien-sau-scandal-bi-chen-ep-77771047264.htm&psig=AOvVaw1qCqiRx93k_raSpOoahceH&ust=1735380094972000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCNDryJPZx4oDFQAAAAAdAAAAABAE"
+                    alt="post">
+                <div class="info flex flex-col justify-center ml-4">
+                    <h3 class="title text-lg font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-300">
+                        J97
+                    </h3>
+                    <p class="date text-sm text-gray-500 font-normal">2021-11-15</p>
+                </div>
+            </div>
+            <!-- Post Item 3 -->
+            <div class="post-item w-full h-[124px] bg-white rounded-lg shadow-md flex items-center hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+                data-video-url="https://www.youtube.com/embed/4_YBELE4LpM?autoplay=1&mute=1&si=gtFPJfPjxf2h3Zc7"
+                data-title="Truffle Sicula cho Valentine CỰC DỄ ai cũng làm được với 2 nguyên liệu">
+                <img
+                    src="{{ asset('public/frontend/client/page/image/post_img.jpg') }}"
+                    class="w-[150px] h-[104px] ml-4 rounded-lg object-cover"
+                    alt="post">
+                <div class="info flex flex-col justify-center ml-4">
+                    <h3 class="title text-lg font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-300">
+                        Truffle Sicula cho Valentine CỰC DỄ ai cũng làm được với 2 nguyên liệu
+                    </h3>
+                    <p class="date text-sm text-gray-500 font-normal">2021-10-10</p>
+                </div>
+            </div>
         </div>
     </div>
 
+
 </div>
 <script>
+    // Lấy tất cả các bài viết
+    const postItems = document.querySelectorAll('.post-item');
+
+    // Lấy phần tử video và tiêu đề
+    const videoFrame = document.getElementById('video-frame');
+    const videoTitle = document.getElementById('video-title');
+
+    // Thêm sự kiện click cho mỗi bài viết
+    postItems.forEach((post) => {
+        post.addEventListener('click', () => {
+            // Lấy URL video và tiêu đề từ thuộc tính data
+            const videoUrl = post.getAttribute('data-video-url');
+            const title = post.getAttribute('data-title');
+
+            // Cập nhật URL của iframe và tiêu đề
+            videoFrame.src = videoUrl;
+            videoTitle.textContent = title;
+        });
+    });
+
     document.addEventListener("DOMContentLoaded", () => {
         const container = document.getElementById("productContainer");
         const prevBtn = document.getElementById("prevBtn");
@@ -268,5 +319,55 @@
 
         updateVisibility();
     });
+
+    const searchInput = document.getElementById('search');
+
+    searchInput.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault(); // Prevents form submission if that's unintended
+            search();
+        }
+    });
+
+    function search() {
+        // Lấy các giá trị filter và sort
+        const filters = Array.from(document.querySelectorAll('input[name="filter[]"]:checked'))
+            .map(input => input.value)
+            .join('.');
+
+        const sort = document.querySelector('input[name="sort"]:checked')?.value;
+
+        // Lấy giá trị tìm kiếm
+        const search = document.getElementById('search').value;
+
+
+        // Xây dựng URL mới với các tham số filter, sort và search
+        let url = new URL('sweetoria/product', window.location.origin);
+        url.searchParams.set('page', 1);
+
+        if (filters) {
+            url.searchParams.set('filter', filters);
+        } else {
+            url.searchParams.delete('filter');
+        }
+
+        if (sort) {
+            url.searchParams.set('sort', sort);
+        } else {
+            url.searchParams.delete('sort');
+        }
+
+        if (search) {
+            url.searchParams.set('search', search);
+        } else {
+            url.searchParams.delete('search');
+        }
+
+        // Cập nhật lại URL mà không reload trang
+        window.history.pushState({}, '', url);
+
+        // Gửi yêu cầu lọc lại sản phẩm
+        window.location.href = url;
+    }
 </script>
 @endsection

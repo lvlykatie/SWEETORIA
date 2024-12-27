@@ -106,17 +106,18 @@
             }
 
             .nav-item:hover {
-                background-color: #ccb7b7;
                 cursor: pointer;
             }
+
+
 
             .content {
                 margin-top: 40px;
             }
+
             .wishlist-icon.active {
                 color: red;
             }
-
         </style>
     </head>
 
@@ -236,18 +237,30 @@
 
             const sort = document.querySelector('input[name="sort"]:checked')?.value;
 
-            // Xây dựng URL mới với các tham số filter và sort
+            // Lấy giá trị tìm kiếm
+            const search = document.getElementById('search').value;
+
+
+            // Xây dựng URL mới với các tham số filter, sort và search
             let url = new URL(window.location.href);
-            url.searchParams.set('page', 1)
+            url.searchParams.set('page', 1);
+
             if (filters) {
                 url.searchParams.set('filter', filters);
             } else {
                 url.searchParams.delete('filter');
             }
+
             if (sort) {
                 url.searchParams.set('sort', sort);
             } else {
                 url.searchParams.delete('sort');
+            }
+
+            if (search) {
+                url.searchParams.set('search', search);
+            } else {
+                url.searchParams.delete('search');
             }
 
             // Cập nhật lại URL mà không reload trang
@@ -256,10 +269,12 @@
             // Gửi yêu cầu lọc lại sản phẩm
             window.location.href = url;
         }
+
         const handleClearFilter = () => {
             const url = new URL(window.location.href);
             url.searchParams.delete('filter');
             url.searchParams.delete('sort');
+            url.searchParams.delete('search'); // Xóa tham số tìm kiếm
             window.location.href = url;
         }
     </script>

@@ -1,33 +1,35 @@
 <header class="flex justify-around">
     <div class="logo flex items-center cursor-pointer">
-        <img class="h-24 w-24 pr-4" src="{{ asset('public/frontend/admin/images/logo.png') }}" alt="Logo">
-        <div class="title font-medium italic">SWEETORIA</div>
+        <a href="/sweetoria" style="display: flex; align-items: center;">
+            <img class="h-24 w-24 pr-4" src="{{ asset('public/frontend/admin/images/logo.png') }}" alt="Logo">
+            <div class="title font-medium italic">SWEETORIA</div>
+        </a>
     </div>
     <nav class="md:px-40 md:flex hidden px-0">
         <ul class="flex justify-between items-center h-full w-full">
             <li
-                class="nav-item h-full text-2xl font-black relative group hover:bg-[#FFCCCC] transition duration-300 ease-in-out d-none d-md-block">
+                class="nav-item h-full text-2xl font-black relative group transition duration-300 ease-in-out {{ Request::routeIs('homepage') ? 'text-5xl' : 'hover:text-4xl' }}">
                 <a href="{{ route('homepage') }}"
                     class="flex items-center h-full py-3 px-6 w-full transition duration-300 ease-in-out transform group-hover:scale-110">
                     HOME
                 </a>
             </li>
             <li
-                class="nav-item h-full text-2xl font-black relative group hover:bg-[#FFCCCC] transition duration-300 ease-in-out d-none d-md-block">
+                class="nav-item h-full text-2xl font-black relative group transition duration-300 ease-in-out {{ Request::routeIs('product') ? 'text-5xl' : 'hover:text-4xl' }}">
                 <a href="{{ route('product') }}"
                     class="flex items-center h-full py-3 px-6 w-full transition duration-300 ease-in-out transform group-hover:scale-110">
                     PRODUCTS
                 </a>
             </li>
             <li
-                class="nav-item h-full text-2xl font-black relative group hover:bg-[#FFCCCC] transition duration-300 ease-in-out">
+                class="nav-item h-full text-2xl font-black relative group transition duration-300 ease-in-out {{ Request::routeIs('hotdeals') ? 'text-5xl' : 'hover:text-3xl' }}">
                 <a href="{{ route('hotdeals') }}"
                     class="flex items-center h-full py-3 px-6 w-full transition duration-300 ease-in-out transform group-hover:scale-110">
                     HOT DEALS
                 </a>
             </li>
             <li
-                class="nav-item h-full text-2xl font-black relative group hover:bg-[#FFCCCC] transition duration-300 ease-in-out">
+                class="nav-item h-full text-2xl font-black relative group transition duration-300 ease-in-out {{ Request::routeIs('contact') ? 'text-5xl' : 'hover:text-4xl' }}">
                 <a href="{{ route('contact') }}"
                     class="flex items-center h-full py-3 px-6 w-full transition duration-300 ease-in-out transform group-hover:scale-110">
                     CONTACT
@@ -35,6 +37,7 @@
             </li>
         </ul>
     </nav>
+
 
     <div class="flex items-center gap-4 sm:justify-center">
         <a href="{{ route('cart') }}">
@@ -63,35 +66,35 @@
         <div id="dropdown"
             class="hidden absolute bg-white shadow-lg rounded-md flex flex-col w-48 top-[60px] right-[45px]">
             @if (Auth::check())
-                <div class="bg-yellow-100 text-center border-b hover:bg-gray-200 cursor-pointer">
-                    <a href="{{ route('account') }}" class="text-xl font-bold p-4 block">Account</a>
-                </div>
-                <div class="bg-yellow-100 text-center border-b hover:bg-gray-200 cursor-pointer">
-                    <a href="{{ route('orders') }}" class="text-xl font-bold p-4 block">My orders</a>
-                </div>
-                <div class="bg-yellow-100 text-center border-b hover:bg-gray-200 cursor-pointer">
-                    <a href="{{ route('changepw') }}" class="text-xl font-bold p-4 block">Change password</a>
-                </div>
-                <div class="bg-yellow-100 text-center border-b hover:bg-gray-200 cursor-pointer">
-                    <a href="{{ route('wishlist') }}" class="text-xl font-bold p-4 block">Wishlist</a>
-                </div>
-                <div class="bg-yellow-100 text-center border-b hover:bg-gray-200 cursor-pointer">
-                    <a href="{{ route('policy') }}" class="text-xl font-bold p-4 block">Policy</a>
-                </div>
+            <div class="bg-yellow-100 text-center border-b hover:bg-gray-200 cursor-pointer">
+                <a href="{{ route('account') }}" class="text-xl font-bold p-4 block">Account</a>
+            </div>
+            <div class="bg-yellow-100 text-center border-b hover:bg-gray-200 cursor-pointer">
+                <a href="{{ route('orders') }}" class="text-xl font-bold p-4 block">My orders</a>
+            </div>
+            <div class="bg-yellow-100 text-center border-b hover:bg-gray-200 cursor-pointer">
+                <a href="{{ route('changepw') }}" class="text-xl font-bold p-4 block">Change password</a>
+            </div>
+            <div class="bg-yellow-100 text-center border-b hover:bg-gray-200 cursor-pointer">
+                <a href="{{ route('wishlist') }}" class="text-xl font-bold p-4 block">Wishlist</a>
+            </div>
+            <div class="bg-yellow-100 text-center border-b hover:bg-gray-200 cursor-pointer">
+                <a href="{{ route('policy') }}" class="text-xl font-bold p-4 block">Policy</a>
+            </div>
 
-                <div class="bg-yellow-100 text-center border-b hover:bg-gray-200 cursor-pointer">
+            <div class="bg-yellow-100 text-center border-b hover:bg-gray-200 cursor-pointer">
 
-                    <form action="{{ route('logout') }}" method="POST" class="text-xl font-bold p-4 block">
-                        @csrf
-                        <button type="submit">Logout</button>
-                    </form>
+                <form action="{{ route('logout') }}" method="POST" class="text-xl font-bold p-4 block">
+                    @csrf
+                    <button type="submit">Logout</button>
+                </form>
 
 
-                </div>
+            </div>
             @else
-                <div class="bg-yellow-100 text-center border-b hover:bg-gray-200 cursor-pointer">
-                    <a href="{{ url('signin') }}" class="text-xl font-bold p-4 block">Sign In</a>
-                </div>
+            <div class="bg-yellow-100 text-center border-b hover:bg-gray-200 cursor-pointer">
+                <a href="{{ url('signin') }}" class="text-xl font-bold p-4 block">Sign In</a>
+            </div>
             @endif
         </div>
         {{-- responsive nav button --}}
@@ -102,11 +105,11 @@
         {{-- user name --}}
         <div class="hidden md:block text-2xl font-bold text-black">
             @if (Auth::check())
-                <p>Welcome, {{ Auth::user()->user_name }}</p>
+            <p>Welcome, {{ Auth::user()->user_name }}</p>
             @else
-                <p>Welcome, Guest</p>
-                {{-- signin button --}}
-                <a href="{{ url('/signin') }}" class="text-2x font-bold text-blue-400 hover:underline">Sign In</a>
+            <p>Welcome, Guest</p>
+            {{-- signin button --}}
+            <a href="{{ url('/signin') }}" class="text-2x font-bold text-blue-400 hover:underline">Sign In</a>
             @endif
         </div>
 

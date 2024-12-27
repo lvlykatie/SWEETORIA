@@ -56,7 +56,10 @@
                 <button x-show="isOpen" @click="isOpen = false" class="h-full w-full fixed inset-0 cursor-default"></button>
                 <div x-show="isOpen" class="loginbox absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16">
                     <a href="#" class="block px-4 py-2 account-link hover:text-black">Account</a>
-                    <a href="#" class="block px-4 py-2 account-link hover:text-black">Sign Out</a>
+                    <form action="{{ URL::to('seller/logout') }}" method="post" class="block px-4 py-2 account-link hover:text-black">
+                        @csrf
+                        <button>Sign Out</button>
+                    </form>
                 </div>
             </div>
         </header>
@@ -102,7 +105,7 @@
                             <i class="fas fa-plus mr-3"></i> Monthly Reports
                         </p>
                         <div class="p-6 bg-white">
-                            <canvas id="chartOne" width="400" height="200"></canvas>
+                            <iframe src="https://lookerstudio.google.com/u/0/reporting/4c098350-8506-4ebe-b0bb-3de9f9f34b86/page/Ok6SE" frameborder="0"></iframe>
                         </div>
                     </div>
                     <div class="w-full lg:w-1/2 pl-0 lg:pl-2 mt-12 lg:mt-0">

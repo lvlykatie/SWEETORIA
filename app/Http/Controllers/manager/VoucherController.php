@@ -45,7 +45,7 @@ class VoucherController extends Controller
     {
         $edit_voucher = DB::table('tbl_voucher')->where('voucher_id', $voucher_id)->get();
         $manager_voucher = view('manager.vouchers.edit-voucher')->with('edit_voucher', $edit_voucher);
-        return view('manager.layout')->with('manager.vouchers.edit-voucher', @$manager_voucher);
+        return view('manager.manager-layout')->with('manager.vouchers.edit-voucher', @$manager_voucher);
     }
     public function updateVoucher(Request $request, $voucher_id)
     {

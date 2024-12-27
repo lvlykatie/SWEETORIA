@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sweetoria Manager Dashboard</title>
+    <title>Sweetoria Seller Dashboard</title>
     <meta name="author" content="David Grzyb">
     <meta name="description" content="">
 
@@ -33,26 +33,19 @@
             </button>
         </div>
         <nav class="text-black text-base font-semibold pt-3">
-            <a href="{{URL::to('manager/dashboard')}}" class="flex items-center text-black py-4 pl-6 nav-item">
+            <a href="{{URL::to('seller/dashboard')}}" class="flex items-center text-black py-4 pl-6 nav-item">
                 <i class="fas fa-tachometer-alt mr-3"></i>
                 Dashboard
             </a>
-            <a href="{{URL::to('manager/products')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+            <a href="{{URL::to('seller/products')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                 <i class="fas fa-sticky-note mr-3"></i>
                 Products
             </a>
-            <a href="{{URL::to('manager/orders')}}" class=" flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+            <a href="{{URL::to('seller/orders')}}" class=" flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                 <i class="fas fa-table mr-3"></i>
                 Orders
             </a>
-            <a href="{{URL::to('manager/deals')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
-                <i class="fas fa-calendar mr-3"></i>
-                Deals
-            </a>
-            <a href="{{URL::to('manager/vouchers')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
-                <i class="fas fa-calendar mr-3"></i>
-                Vouchers
-            </a>
+
         </nav>
     </aside>
 
@@ -96,14 +89,7 @@
                     <i class="fas fa-table mr-3"></i>
                     Orders
                 </a>
-                <a href="{{('./deals')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
-                    <i class="fas fa-calendar mr-3"></i>
-                    Deals
-                </a>
-                <a href="{{('./vouchers')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
-                    <i class="fas fa-calendar mr-3"></i>
-                    Vouchers
-                </a>
+
 
             </nav>
             <!-- <button class="w-full bg-white cta-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
@@ -138,21 +124,22 @@
             searchPlaceholderValue: 'Search products...',
         });
     });
-    function validateDateRange() {
-    const startDate = document.getElementById('startdate').value;
-    const endDate = document.getElementById('enddate').value;
-    const errorMessage = document.getElementById('date-error');
-    const submitButton = document.getElementById('submit-button');
 
-    // Check if both dates are selected and if enddate is after startdate
-    if (startDate && endDate && new Date(endDate) > new Date(startDate)) {
-        errorMessage.classList.add('hidden'); // Hide error message
-        submitButton.disabled = false; // Enable submit button
-    } else {
-        errorMessage.classList.remove('hidden'); // Show error message
-        submitButton.disabled = true; // Disable submit button
+    function validateDateRange() {
+        const startDate = document.getElementById('startdate').value;
+        const endDate = document.getElementById('enddate').value;
+        const errorMessage = document.getElementById('date-error');
+        const submitButton = document.getElementById('submit-button');
+
+        // Check if both dates are selected and if enddate is after startdate
+        if (startDate && endDate && new Date(endDate) > new Date(startDate)) {
+            errorMessage.classList.add('hidden'); // Hide error message
+            submitButton.disabled = false; // Enable submit button
+        } else {
+            errorMessage.classList.remove('hidden'); // Show error message
+            submitButton.disabled = true; // Disable submit button
+        }
     }
-}
 </script>
 
 </html>

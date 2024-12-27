@@ -7,7 +7,7 @@
         style="background-image: url('{{ asset('public/frontend/client/page/image/homepagebg.png') }}');">
         <div class="flex flex-col md:flex-row justify-center items-center absolute bottom-20 w-full">
             <!-- Dropdown Location -->
-            <div class="location bg-white w-32 rounded-lg md:mb-0 md:mr-10">
+            <!-- <div class="location bg-white w-32 rounded-lg md:mb-0 md:mr-10">
                 <div class="inline-block relative w-full">
                     <label for="location" class="block text-xl text-center text-gray-500 mb-1 pb-1 pt-2">Location</label>
                     <select id="location"
@@ -26,18 +26,16 @@
                         </svg>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
-            <!-- Search Form -->
-            <form class="relative justify-center mt-3 md:mt-0 flex items-center w-full md:w-auto"
-                action="{{ route('product.search') }}" method="get">
+            <div class="relative justify-center mt-3 md:mt-0 flex items-center w-full md:w-auto">
                 <input class="w-full md:w-[643px] h-[52px] rounded-[20px] text-3xl text-center placeholder:text-3xl"
                     type="text" name="query" placeholder="What do you want to buy?"
-                    value="{{ request('query') }}" />
-                <button type="submit" class="absolute right-4 w-8 h-8">
+                    id="search" />
+                <button class="absolute right-4 w-8 h-8">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
-            </form>
+            </div>
         </div>
     </div>
     <div class="filter w-full p-6 bg-white shadow-md rounded-md">
@@ -63,7 +61,7 @@
             </div>
             <div class="w-1/2 flex flex-col items-center">
                 <div class="flex flex-wrap justify-center mb-4">
-                    <button class="flex flex-wrap text-3xl font-black rounded-xl bg-gray-200 py-2" onclick="handleClearFilter()">Clear filter</button>
+                    <button class="bg-red-200 text-3xl hover:bg-blue-400 hover:text-white text-black font-bold py-3 px-5 rounded-xl" onclick="handleClearFilter()">Clear filter</button>
                 </div>
                 <div class="flex flex-col items-center flex-wrap gap-4 mt-4">
                     <div class="w-full text-3xl font-extrabold flex items-center">
@@ -114,17 +112,23 @@
             <div class="md:w-[356px] h-[507px] w-full flex flex-col items-center bg-[#FFDEDE80] rounded-[28px] relative">
                 {{-- sale --}}
                 @if ($product->deal_id)
-                <div class="bg-[#004FA8] w-[128px] h-[36px] rounded-tr-[20px] rounded-br-[20px] flex justify-center items-center absolute left-0 top-4">
+                <div class="bg-[#004FA8] w-[128px] h-[36px] rounded-tr-[20px] rounded-br-[20px] flex justify-center items-center absolute left-0 top-4" style="z-index: 1000;">
                     <i class="fa-solid fa-bolt text-yellow-300 mr-5"></i>
                     <span class="text-white text-2xl font-bold">SALE <span>{{ $product->deal_discount * 100 }}%</span></span>
                 </div>
                 @endif
-                {{-- best seller --}}
+                <!-- {{-- best seller --}}
                 <div class="md:w-[148px] md:h-[30px] bg-[#FFCB06] flex justify-center items-center rounded-xl absolute bottom-[185px] right-0">
                     <span class="text-2xl text-center font-bold text-black">BEST SELLER
                         <i class="fa-solid fa-circle-check text-[#004FA8]"></i>
                     </span>
+                </div> -->
+                <!-- @if ($product->deal_id)
+                <div class="bg-[#004FA8] w-[128px] h-[36px] rounded-tr-[20px] rounded-br-[20px] flex justify-center items-center absolute left-0 top-4">
+                    <i class="fa-solid fa-bolt text-yellow-300 mr-5"></i>
+                    <span class="text-white text-2xl font-bold">SALE <span>{{ $product->deal_discount * 100 }}%</span></span>
                 </div>
+                @endif -->
                 <a href="{{ route('detail', ['id' => $product->product_id]) }}" class="cursor-pointer">
                     <img src="{{ filter_var($product->product_image, FILTER_VALIDATE_URL) ? $product->product_image : asset('public/backend/image/' . $product->product_image) }}"
                         class="hover:scale-90 w-[305px] h-[305px] mt-6 ml-6 mr-6 object-cover rounded-[20px]" alt="Product Image">
@@ -270,6 +274,55 @@
             window.add(this);
         });
     });
+    const searchInput = document.getElementById('search');
+
+    searchInput.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault(); // Prevents form submission if that's unintended
+            search();
+        }
+    });
+
+    function search() {
+        // Lấy các giá trị filter và sort
+        const filters = Array.from(document.querySelectorAll('input[name="filter[]"]:checked'))
+            .map(input => input.value)
+            .join('.');
+
+        const sort = document.querySelector('input[name="sort"]:checked')?.value;
+
+        // Lấy giá trị tìm kiếm
+        const search = document.getElementById('search').value;
+
+
+        // Xây dựng URL mới với các tham số filter, sort và search
+        let url = new URL(window.location.href);
+        url.searchParams.set('page', 1);
+
+        if (filters) {
+            url.searchParams.set('filter', filters);
+        } else {
+            url.searchParams.delete('filter');
+        }
+
+        if (sort) {
+            url.searchParams.set('sort', sort);
+        } else {
+            url.searchParams.delete('sort');
+        }
+
+        if (search) {
+            url.searchParams.set('search', search);
+        } else {
+            url.searchParams.delete('search');
+        }
+
+        // Cập nhật lại URL mà không reload trang
+        window.history.pushState({}, '', url);
+
+        // Gửi yêu cầu lọc lại sản phẩm
+        window.location.href = url;
+    }
 </script>
 
 @endsection
