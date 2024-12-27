@@ -49,7 +49,7 @@ class ProductController extends Controller
         }
 
         // Phân trang sản phẩm (10 sản phẩm mỗi trang)
-        $products = $query->paginate(10)->appends($request->only(['filter', 'sort', 'search']));
+        $products = $query->paginate(12)->appends($request->only(['filter', 'sort', 'search']));
 
         // Trả về view với các sản phẩm đã được lọc, sắp xếp và tìm kiếm
         return view('page.product', compact('products'));

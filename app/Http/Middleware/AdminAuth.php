@@ -9,11 +9,12 @@ class AdminAuth
 {
     public function handle($request, Closure $next)
     {
-        // Kiểm tra xem người dùng đã đăng nhập chưa
-        if (!Session::has('user_id')) {
+        // Check if the admin session exists
+        if (!Session::has('admin_id')) {
             return redirect('/signin')->with('err_msg', 'Bạn cần đăng nhập để truy cập trang này!');
         }
 
+        // Optionally, check admin privileges further (if needed)
         return $next($request);
     }
 }
