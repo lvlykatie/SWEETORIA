@@ -106,9 +106,10 @@
             }
 
             .nav-item:hover {
-                background-color: #ccb7b7;
                 cursor: pointer;
             }
+
+
 
             .content {
                 margin-top: 40px;
@@ -235,7 +236,7 @@
                 .join('.');
 
             const sort = document.querySelector('input[name="sort"]:checked')?.value;
-            
+
             // Lấy giá trị tìm kiếm
             const search = document.getElementById('search').value;
 

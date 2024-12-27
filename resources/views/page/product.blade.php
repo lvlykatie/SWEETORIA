@@ -61,7 +61,7 @@
             </div>
             <div class="w-1/2 flex flex-col items-center">
                 <div class="flex flex-wrap justify-center mb-4">
-                    <button class="w-2/3 md:w-1/6 text-3xl font-black rounded-xl bg-gray-200 py-2" onclick="handleClearFilter()">Clear filter</button>
+                    <button class="bg-red-200 text-3xl hover:bg-blue-400 hover:text-white text-black font-bold py-3 px-5 rounded-xl" onclick="handleClearFilter()">Clear filter</button>
                 </div>
                 <div class="flex flex-col items-center flex-wrap gap-4 mt-4">
                     <div class="w-full text-3xl font-extrabold flex items-center">

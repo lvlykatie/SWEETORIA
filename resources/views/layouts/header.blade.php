@@ -8,28 +8,28 @@
     <nav class="md:px-40 md:flex hidden px-0">
         <ul class="flex justify-between items-center h-full w-full">
             <li
-                class="nav-item h-full text-2xl font-black relative group hover:bg-[#FFCCCC] transition duration-300 ease-in-out d-none d-md-block">
+                class="nav-item h-full text-2xl font-black relative group transition duration-300 ease-in-out {{ Request::routeIs('homepage') ? 'text-5xl' : 'hover:text-4xl' }}">
                 <a href="{{ route('homepage') }}"
                     class="flex items-center h-full py-3 px-6 w-full transition duration-300 ease-in-out transform group-hover:scale-110">
                     HOME
                 </a>
             </li>
             <li
-                class="nav-item h-full text-2xl font-black relative group hover:bg-[#FFCCCC] transition duration-300 ease-in-out d-none d-md-block">
+                class="nav-item h-full text-2xl font-black relative group transition duration-300 ease-in-out {{ Request::routeIs('product') ? 'text-5xl' : 'hover:text-4xl' }}">
                 <a href="{{ route('product') }}"
                     class="flex items-center h-full py-3 px-6 w-full transition duration-300 ease-in-out transform group-hover:scale-110">
                     PRODUCTS
                 </a>
             </li>
             <li
-                class="nav-item h-full text-2xl font-black relative group hover:bg-[#FFCCCC] transition duration-300 ease-in-out">
+                class="nav-item h-full text-2xl font-black relative group transition duration-300 ease-in-out {{ Request::routeIs('hotdeals') ? 'text-5xl' : 'hover:text-3xl' }}">
                 <a href="{{ route('hotdeals') }}"
                     class="flex items-center h-full py-3 px-6 w-full transition duration-300 ease-in-out transform group-hover:scale-110">
                     HOT DEALS
                 </a>
             </li>
             <li
-                class="nav-item h-full text-2xl font-black relative group hover:bg-[#FFCCCC] transition duration-300 ease-in-out">
+                class="nav-item h-full text-2xl font-black relative group transition duration-300 ease-in-out {{ Request::routeIs('contact') ? 'text-5xl' : 'hover:text-4xl' }}">
                 <a href="{{ route('contact') }}"
                     class="flex items-center h-full py-3 px-6 w-full transition duration-300 ease-in-out transform group-hover:scale-110">
                     CONTACT
@@ -37,6 +37,7 @@
             </li>
         </ul>
     </nav>
+
 
     <div class="flex items-center gap-4 sm:justify-center">
         <a href="{{ route('cart') }}">

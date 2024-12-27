@@ -60,8 +60,8 @@
 
     {{-- categories --}}
     <div class="categories">
-        <div class="text-center text-6xl font-black rounded-3xl bg-red-200 py-6">
-            Categories
+        <div class="text-center text-6xl font-black text py-6 mb-7 bg-pink mx-auto" style="width: 30%; border-radius: 50px;">
+            CATEGORIES
         </div>
         <div class="categories-items">
             <!-- Row 1 -->
@@ -107,7 +107,10 @@
 
     {{-- best seller --}}
     <div class="best_seller my-16">
-        <div class="text-center text-6xl font-black rounded-3xl text py-6" style="background-color: #FFFDD0">
+        <!-- <div class="text-center text-6xl font-black text py-6" style="">
+
+        </div> -->
+        <div class="text-center text-6xl font-black text py-6 mb-7 mx-auto" style="width: 30%; border-radius: 50px;background-color: #FFFDD0">
             BEST SELLER
         </div>
         <div class="best-seller_items m-24 rounded-3xl">
@@ -179,7 +182,7 @@
     </div>
 
 
-    <div class="text-center text-6xl font-black rounded-3xl text py-6 mb-7 bg-pink">
+    <div class="text-center text-6xl font-black text py-6 mb-7 bg-pink mx-auto" style="width: 30%; border-radius: 50px;">
         BLOG
     </div>
     {{-- see more in left --}}
@@ -191,51 +194,99 @@
         </div>
     </div>
 
-    <div class="w-full flex justify-center">
-        <div class="md:w-[795px] flex flex-wrap items-center justify-center shadow-xl mr-3">
-            <img src="{{ asset('public/frontend/client/page/image/post_img.jpg') }}" class="w-[742px] m-6" alt="post">
-            <div class="title text-2xl text-center font-normal">MAKE GREEN TEA FLAN WITHOUT OVEN</div>
+    <div class="w-full flex flex-wrap justify-center p-6 bg-gray-100">
+        <!-- Video Section -->
+        <div id="video-section" class="md:w-[795px] flex flex-col items-center shadow-xl rounded-lg bg-white p-6 mr-6 mb-6">
+            <iframe
+                id="video-frame"
+                class="rounded-lg"
+                width="560"
+                height="315"
+                src="https://www.youtube.com/embed/MhbEaJUoy5M?autoplay=1&mute=1&si=fLPF4uIvF3nkxxMZ"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen>
+            </iframe>
+            <h2 id="video-title" class="title text-2xl text-center font-semibold mt-4 text-gray-800">
+                [Không Cần Lò Vi Sóng] Bánh Phô Mai Oreo Béo Ngậy ngất ngây cực dễ làm
+            </h2>
         </div>
-        <div class="w-[530px] space-y-14">
-            {{-- 1 post --}}
-            <div class="w-[526px] h-[124px] bg-white rounded-lg shadow-xl flex items-center">
-                <img src="{{ asset('public/frontend/client/page/image/post_img.jpg') }}"
-                    class="w-[150px] h-[104px] ml-3 rounded-lg" alt="post">
-                <div class="info flex flex-col justify-between ml-4 h-full">
-                    <div class="title text-2xl font-medium mt-3">MAKE GREEN TEA FLAN WITHOUT OVEN</div>
-                    <div class="date text-lg text-[#898989] font-normal mb-3">2021-10-10</div>
-                </div>
-            </div>
-            <div class="w-[526px] h-[124px] bg-white rounded-lg shadow-xl flex items-center">
-                <img src="{{ asset('public/frontend/client/page/image/post_img.jpg') }}"
-                    class="w-[150px] h-[104px] ml-3 rounded-lg" alt="post">
-                <div class="info flex flex-col justify-between ml-4 h-full">
-                    <div class="title text-2xl font-medium mt-3">MAKE GREEN TEA FLAN WITHOUT OVEN</div>
-                    <div class="date text-lg text-[#898989] font-normal mb-3">2021-10-10</div>
-                </div>
-            </div>
-            <div class="w-[526px] h-[124px] bg-white rounded-lg shadow-xl flex items-center">
-                <img src="{{ asset('public/frontend/client/page/image/post_img.jpg') }}"
-                    class="w-[150px] h-[104px] ml-3 rounded-lg" alt="post">
-                <div class="info flex flex-col justify-between ml-4 h-full">
-                    <div class="title text-2xl font-medium mt-3">MAKE GREEN TEA FLAN WITHOUT OVEN</div>
-                    <div class="date text-lg text-[#898989] font-normal mb-3">2021-10-10</div>
-                </div>
-            </div>
-            <div class="w-[526px] h-[124px] bg-white rounded-lg shadow-xl flex items-center">
-                <img src="{{ asset('public/frontend/client/page/image/post_img.jpg') }}"
-                    class="w-[150px] h-[104px] ml-3 rounded-lg" alt="post">
-                <div class="info flex flex-col justify-between ml-4 h-full">
-                    <div class="title text-2xl font-medium mt-3">MAKE GREEN TEA FLAN WITHOUT OVEN</div>
-                    <div class="date text-lg text-[#898989] font-normal mb-3">2021-10-10</div>
+
+        <!-- Post List Section -->
+        <div class="w-[530px] space-y-6">
+            <!-- Post Item 1 -->
+            <div class="post-item w-full h-[124px] bg-white rounded-lg shadow-md flex items-center hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+                data-video-url="https://www.youtube.com/embed/4_YBELE4LpM?autoplay=1&mute=1&si=gtFPJfPjxf2h3Zc7"
+                data-title="Truffle Sicula cho Valentine CỰC DỄ ai cũng làm được với 2 nguyên liệu">
+                <img
+                    src="{{ asset('public/frontend/client/page/image/post_img.jpg') }}"
+                    class="w-[150px] h-[104px] ml-4 rounded-lg object-cover"
+                    alt="post">
+                <div class="info flex flex-col justify-center ml-4">
+                    <h3 class="title text-lg font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-300">
+                        Truffle Sicula cho Valentine CỰC DỄ ai cũng làm được với 2 nguyên liệu
+                    </h3>
+                    <p class="date text-sm text-gray-500 font-normal">2021-10-10</p>
                 </div>
             </div>
 
+            <!-- Post Item 2 -->
+            <div class="post-item w-full h-[124px] bg-white rounded-lg shadow-md flex items-center hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+                data-video-url="https://www.youtube.com/embed/OrDB4jpA1g8?autoplay=1&mute=1&si=-YOm3CzSjaOmBUcA"
+                data-title="J97">
+                <img
+                    src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fdanviet.vn%2Flo-clip-jack-khoc-ben-gia-dinh-lan-dau-xuat-hien-sau-scandal-bi-chen-ep-77771047264.htm&psig=AOvVaw1qCqiRx93k_raSpOoahceH&ust=1735380094972000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCNDryJPZx4oDFQAAAAAdAAAAABAE"
+                    alt="post">
+                <div class="info flex flex-col justify-center ml-4">
+                    <h3 class="title text-lg font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-300">
+                        J97
+                    </h3>
+                    <p class="date text-sm text-gray-500 font-normal">2021-11-15</p>
+                </div>
+            </div>
+            <!-- Post Item 3 -->
+            <div class="post-item w-full h-[124px] bg-white rounded-lg shadow-md flex items-center hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+                data-video-url="https://www.youtube.com/embed/4_YBELE4LpM?autoplay=1&mute=1&si=gtFPJfPjxf2h3Zc7"
+                data-title="Truffle Sicula cho Valentine CỰC DỄ ai cũng làm được với 2 nguyên liệu">
+                <img
+                    src="{{ asset('public/frontend/client/page/image/post_img.jpg') }}"
+                    class="w-[150px] h-[104px] ml-4 rounded-lg object-cover"
+                    alt="post">
+                <div class="info flex flex-col justify-center ml-4">
+                    <h3 class="title text-lg font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-300">
+                        Truffle Sicula cho Valentine CỰC DỄ ai cũng làm được với 2 nguyên liệu
+                    </h3>
+                    <p class="date text-sm text-gray-500 font-normal">2021-10-10</p>
+                </div>
+            </div>
         </div>
     </div>
 
+
 </div>
 <script>
+    // Lấy tất cả các bài viết
+    const postItems = document.querySelectorAll('.post-item');
+
+    // Lấy phần tử video và tiêu đề
+    const videoFrame = document.getElementById('video-frame');
+    const videoTitle = document.getElementById('video-title');
+
+    // Thêm sự kiện click cho mỗi bài viết
+    postItems.forEach((post) => {
+        post.addEventListener('click', () => {
+            // Lấy URL video và tiêu đề từ thuộc tính data
+            const videoUrl = post.getAttribute('data-video-url');
+            const title = post.getAttribute('data-title');
+
+            // Cập nhật URL của iframe và tiêu đề
+            videoFrame.src = videoUrl;
+            videoTitle.textContent = title;
+        });
+    });
+
     document.addEventListener("DOMContentLoaded", () => {
         const container = document.getElementById("productContainer");
         const prevBtn = document.getElementById("prevBtn");
