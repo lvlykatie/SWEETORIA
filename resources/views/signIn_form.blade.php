@@ -22,8 +22,9 @@
 </head>
 
 <body>
+
     <div class="container">
-        <header>
+        <!-- <header>
             <div class="logo">
                 <img src="{{ asset('public/frontend/client/form/img_form/logo2.png') }}" alt="Sweetoria Logo" />
             </div>
@@ -34,33 +35,33 @@
                     <li><a href="#">Hot Deals</a></li>
                     <li><a href="#">Contact</a></li>
                     <li>
-                        <!-- Sử dụng icon giỏ hàng của Font Awesome -->
+                        
                         <a href="#"><i class="fa-solid fa-cart-shopping fa-lg"></i></a>
                     </li>
                     <li>
-                        <!-- Sử dụng icon giỏ hàng của Font Awesome -->
+                        
                         <a href="#"><i class="fa-solid fa-user fa-lg"></i></a>
                     </li>
                 </ul>
             </nav>
-        </header>
+        </header> -->
 
         <div class="form-container">
             <div class="form-box">
 
                 <h1>Sign In</h1>
-                <img src="{{ asset('public/frontend/client/form/img_form/nen_form.jpg') }}" alt="Logo sweetoria form"
-                    width="50%" />
+                <a href="/sweetoria"><img src="{{ asset('public/frontend/client/form/img_form/nen_form.jpg') }}" alt="Logo sweetoria form"
+                        width="50%" /></a>
 
                 <!-- Thêm mã hiển thị thông báo lỗi -->
                 @if ($errors->any())
-                    <div class="alert">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
+                <div class="alert">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
                 @endif
                 <br>
 
@@ -104,7 +105,7 @@
             </div>
         </div>
 
-        <footer>
+        <!-- <footer>
             <div class="footer-info">
                 <div class="contact">
                     <p>
@@ -138,17 +139,17 @@
                 <img src="{{ asset('public/frontend/client/form/img_form/logo_footer.png') }}" alt="logo sweetoria"
                     width="10%" />
             </div>
-        </footer>
+        </footer> -->
     </div>
 
     <!-- Kết nối file JS ở đây -->
     <script src="{{ asset('public/frontend/js/validation.js') }}"></script>
     <script>
-    document.getElementById('bt_signin_gg').addEventListener('click', function() {
-        // Điều hướng đến trang Google Sign In
-        window.location.href = "{{ url('/auth/google/redirect') }}";
-    });
-</script>
+        document.getElementById('bt_signin_gg').addEventListener('click', function() {
+            // Điều hướng đến trang Google Sign In
+            window.location.href = "{{ url('/auth/google/redirect') }}";
+        });
+    </script>
 </body>
 
 </html>
