@@ -105,7 +105,7 @@
                             <i class="fas fa-plus mr-3"></i> Monthly Reports
                         </p>
                         <div class="p-6 bg-white">
-                            <canvas id="chartOne" width="400" height="200"></canvas>
+                            <iframe src="https://lookerstudio.google.com/u/0/reporting/4c098350-8506-4ebe-b0bb-3de9f9f34b86/page/Ok6SE" frameborder="0"></iframe>
                         </div>
                     </div>
                     <div class="w-full lg:w-1/2 pl-0 lg:pl-2 mt-12 lg:mt-0">

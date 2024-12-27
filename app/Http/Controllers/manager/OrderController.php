@@ -26,7 +26,7 @@ class OrderController extends Controller
     {
         $edit_order = DB::table('tbl_invoice')->where('iv_id', $iv_id)->get();
         $manager_order = view('manager.orders.edit-order')->with('edit_order', $edit_order);
-        return view('manager.layout')->with('manager.orders.edit-order', @$manager_order);
+        return view('manager.manager-layout')->with('manager.orders.edit-order', @$manager_order);
     }
     public function updateOrder(Request $request, $iv_id)
     {
@@ -49,11 +49,11 @@ class OrderController extends Controller
         return Redirect::to('manager/orders');
     }
 
-        public function search(Request $request)
+    public function search(Request $request)
     {
         // Lấy từ khóa tìm kiếm từ input
         $search = $request->input('search');
-        
+
         // Kiểm tra nếu từ khóa tìm kiếm không rỗng
         if ($search) {
             // Tìm kiếm trong bảng tbl_invoice và tb_user với điều kiện là email hoặc số điện thoại
@@ -74,5 +74,4 @@ class OrderController extends Controller
         // Trả về view với các đơn hàng tìm được
         return view('manager.orders.orders', compact('all_orders'));
     }
-
 }

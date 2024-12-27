@@ -133,6 +133,10 @@ Route::group(['middleware' => SellerAuth::class], function () {
 });
 
 
+// Route::get('/admin/products/search', 'App\Http\Controllers\admin\ProductController@search')->name('products.search');
+// Route::get('/manager/products', 'App\Http\Controllers\manager\ProductController@search')->name('products.search');
+// Route::get('/seller/products', 'App\Http\Controllers\seller\ProductController@search')->name('products.search');
+
 
 
 // Homepage Route
@@ -232,33 +236,6 @@ Route::post('/resetpass', 'App\Http\Controllers\client\ForgetPassController@rese
 // Login Google Route
 Route::get('/auth/google/redirect', [loginGoogleController::class, 'redirectToGoogle'])->name('auth.google');
 Route::get('/auth/google/callback', [loginGoogleController::class, 'handleGoogleCallback']);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 Route::post('/feedback', [ProductController::class, 'sendFeedBack'])->name('feedback');

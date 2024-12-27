@@ -163,7 +163,7 @@
                         </span>
                         <button class="bg-blue-500 text-white py-1 px-4 rounded ml-auto">
                             <i class="fa-solid fa-circle-plus mr-1"></i>
-                            <a href="{{URL::to('admin/vouchers/create')}}">Voucher</a>
+                            <a href="{{URL::to('manager/vouchers/create')}}">Voucher</a>
                         </button>
                     </p>
                     <div class="bg-white overflow-auto">
@@ -217,10 +217,10 @@
                                     <td class="text-center py-3 px-4">{{ $voucher->startdate }}</td>
                                     <td class="text-center py-3 px-4">{{ $voucher->enddate }}</td>
                                     <td class="text-center py-3 px-1">
-                                        <button onclick="window.location.href='{{URL::to('/admin/vouchers/edit/' . $voucher->voucher_id)}}'" class="bg-green-500 text-white py-1 px-4 rounded hover:bg-green-600">
+                                        <button onclick="window.location.href='{{URL::to('/manager/vouchers/edit/' . $voucher->voucher_id)}}'" class="bg-green-500 text-white py-1 px-4 rounded hover:bg-green-600">
                                             <i class="fa-solid fa-pen"></i>
                                         </button>
-                                        <button onclick="if(confirm('Are you sure you want to delete this voucher?')) { window.location.href='{{URL::to('/admin/vouchers/delete/' . $voucher->voucher_id)}}' }" class="bg-red-500 text-white py-1 px-4 rounded hover:bg-red-600">
+                                        <button onclick="if(confirm('Are you sure you want to delete this voucher?')) { window.location.href='{{URL::to('/manager/vouchers/delete/' . $voucher->voucher_id)}}' }" class="bg-red-500 text-white py-1 px-4 rounded hover:bg-red-600">
                                             <i class="fa-solid fa-trash"></i>
                                         </button>
                                     </td>

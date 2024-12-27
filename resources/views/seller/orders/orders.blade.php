@@ -129,7 +129,7 @@
                     <h1 class="text-3xl text-extrabold pb-6">Orders</h1>
 
                     <!-- Search form -->
-                    <form class="max-w-md" style="width: 500px;" action="{{ route('admin.orders.search') }}" method="GET">
+                    <form class="max-w-md" style="width: 500px;" action="{{ route('seller.orders.search') }}" method="GET">
                         <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                         <div class="relative">
                             <input type="search" name="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search orders" />
@@ -202,10 +202,10 @@
                                     <td class="text-center py-3">{{ $order->iv_address }}</td>
                                     <td class="text-center py-3">{{ $order->iv_status }}</td>
                                     <td class="text-center py-3 px-4">
-                                        <button onclick="window.location.href='{{URL::to('/admin/orders/edit/' . $order->iv_id)}}'" class="bg-green-500 text-white py-1 px-4 rounded hover:bg-green-600">
+                                        <button onclick="window.location.href='{{URL::to('/seller/orders/edit/' . $order->iv_id)}}'" class="bg-green-500 text-white py-1 px-4 rounded hover:bg-green-600">
                                             <i class="fa-solid fa-pen"></i>
                                         </button>
-                                        <button onclick="if(confirm('Are you sure you want to delete this order?')) { window.location.href='{{URL::to('/admin/orders/delete/' . $order->iv_id)}}' }" class="bg-red-500 text-white py-1 px-4 rounded hover:bg-red-600">
+                                        <button onclick="if(confirm('Are you sure you want to delete this order?')) { window.location.href='{{URL::to('/seller/orders/delete/' . $order->iv_id)}}' }" class="bg-red-500 text-white py-1 px-4 rounded hover:bg-red-600">
                                             <i class="fa-solid fa-trash"></i>
                                         </button>
                                     </td>

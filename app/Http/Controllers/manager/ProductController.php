@@ -57,7 +57,7 @@ class ProductController extends Controller
     {
         $edit_product = DB::table('tbl_product')->where('product_id', $product_id)->get();
         $manager_product = view('manager.products.edit-product')->with('edit_product', $edit_product);
-        return view('manager.layout')->with('manager.products.edit-product', @$manager_product);
+        return view('manager.manager-layout')->with('manager.products.edit-product', @$manager_product);
     }
     public function updateProduct(Request $request, $product_id)
     {
@@ -87,24 +87,22 @@ class ProductController extends Controller
         }
     }
 
-       public function search(Request $request)
-{
-    // Kiểm tra nếu không có query search
-    if (!$request->has('query')) {
-        $all_products = DB::table('tbl_product')->get();
+    public function search(Request $request)
+    {
+        // Kiểm tra nếu không có query search
+        if (!$request->has('query')) {
+            $all_products = DB::table('tbl_product')->get();
+            return view('manager.products.products')->with('all_products', $all_products);
+        }
+
+        // Nếu có từ khóa tìm kiếm, thực hiện tìm kiếm
+        $query = $request->query('query');
+        $all_products = DB::table('tbl_product')
+            ->where('product_name', 'LIKE', "%$query%")
+            ->orWhere('category_name', 'LIKE', "%$query%")
+            ->orWhere('product_sku', 'LIKE', "%$query%")
+            ->get();
+
         return view('manager.products.products')->with('all_products', $all_products);
     }
-
-    // Nếu có từ khóa tìm kiếm, thực hiện tìm kiếm
-    $query = $request->query('query');
-    $all_products = DB::table('tbl_product')
-        ->where('product_name', 'LIKE', "%$query%")
-        ->orWhere('category_name', 'LIKE', "%$query%")
-        ->orWhere('product_sku', 'LIKE', "%$query%")
-        ->get();
-
-    return view('manager.products.products')->with('all_products', $all_products);
-}
-
-
 }

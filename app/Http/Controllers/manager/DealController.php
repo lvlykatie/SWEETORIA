@@ -112,7 +112,7 @@ class DealController extends Controller
         $products = DB::table('tbl_product')->get();
         $edit_deal = DB::table('tbl_deal')->where('deal_id', $deal_id)->get();
         $manager_deal = view('manager.deals.edit-deal')->with(['edit_deal' => $edit_deal, 'products' => $products]);
-        return view('manager.layout')->with('manager.deals.edit-deal', @$manager_deal);
+        return view('manager.manager-layout')->with('manager.deals.edit-deal', @$manager_deal);
     }
     public function updateDeal(Request $request, $deal_id)
     {
