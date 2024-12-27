@@ -10,6 +10,7 @@ use App\Http\Controllers\client\LogoutController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\MomoController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Http\Request;
 
 // Homepage Route
@@ -34,22 +35,18 @@ Route::get('/delivery', [PageController::class, 'delivery'])->name('delivery');
 // Payment Route (test)
 Route::post('/cart/buy-now', [CartController::class, 'buyNow'])->name('cart.buyNow');
 Route::get('/payment', [PaymentController::class, 'showPaymentPage'])->name('payment.page');
-Route::get('/payment/momo', [MomoController::class, 'createPayment']);
-// Route::get('/payment-success', function () {
-//     return "Thanh toán thành công!";
-// });
-// Route::post('/payment-notify', function () {
-//     return "IPN nhận thành công!";
-// });
+Route::post('/payment/momo', [MomoController::class, 'createPayment']);
 Route::get('/payment_momo', [PaymentController::class, 'showPaymentMomo']);
 Route::post('/payment-notify', [MomoController::class, 'paymentNotify']);
 Route::get('/payment-success', [MomoController::class, 'paymentSuccess']);
+Route::post('/save-client-info', [PaymentController::class, 'saveClientInfo']);
 
 
 // Account Routes
 Route::prefix('account')->group(function () {
     Route::get('/', [AccountController::class, 'index'])->name('account');
-    Route::get('/orders', [AccountController::class, 'orders'])->name('orders');
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('/ordersview', [OrderController::class, 'orders'])->name('orders');
     Route::get('/changepw', [AccountController::class, 'changePassword'])->name('changepw');
     Route::get('/policy', [AccountController::class, 'policy'])->name('policy');
     Route::get('/edit', [AccountController::class, 'edit'])->name('account.edit');

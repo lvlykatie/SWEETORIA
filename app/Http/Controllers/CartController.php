@@ -9,6 +9,8 @@ use App\Models\Cart;
 use App\Models\CartDetails;          
 use App\Models\Product; 
 use Illuminate\Support\Facades\Session;
+use App\Models\Invoice;
+use App\Models\InvoiceDetails;
 
 
 class CartController extends Controller
@@ -133,6 +135,8 @@ class CartController extends Controller
             'redirectUrl' => route('payment.page'),
         ]);
     }
+
+
 
     public function remove(Request $request)
     {
