@@ -20,10 +20,10 @@ return new class extends Migration
             $table->longText('product_image');
             $table->integer('product_sku');
             $table->string('category_name');
-            $table->string('origin');
-            $table->string('weight');
-            $table->string('storage');
-            $table->string('expiration');
+            $table->string('origin')->nullable();
+            $table->string('weight')->nullable();
+            $table->string('storage')->nullable();
+            $table->string('expiration')->nullable();
             $table->float('product_rate', 2, 1)->default(0);
             $table->integer('deal_id')->nullable();
             $table->integer('wh_id')->nullable();

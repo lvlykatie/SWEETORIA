@@ -18,6 +18,7 @@ return new class extends Migration
             $table->decimal('discount_value', 10, 2);
             $table->integer('max_usage');
             $table->integer('current_usage')->default('0');
+            $table->decimal('minimum_order_value', 10, 2)->nullable();
             $table->date('startdate'); 
             $table->date('enddate'); 
             $table->timestamps();

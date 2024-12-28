@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('tbl_feedback', function (Blueprint $table) {
             $table->id('fb_id'); // Tạo khóa chính là fb_id
-            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Tham chiếu đến bảng users
-            $table->foreignId('product_id')->constrained("tbl_product", "product_id")->onDelete('cascade'); // Tham chiếu đến bảng products
+            $table->foreignId('user_id'); // Tham chiếu đến bảng users
+            $table->foreignId('product_id'); // Tham chiếu đến bảng products
             $table->text('comment'); // Cột bình luận
-            $table->integer('rate'); // Cột đánh giá (rating)
+            $table->integer('rate');
+            $table->string('image')->nullable(); // Cột đánh giá (rating)
             $table->timestamps(); // Tạo các cột created_at và updated_at
         });
     }

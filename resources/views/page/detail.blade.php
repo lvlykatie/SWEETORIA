@@ -178,10 +178,8 @@
                     </div>
                     <p class="text-3xl mt-6">{{ $feedback->comment }}</p>
                     @if ($feedback->image)
-                    <img src="{{ asset('public/storage/' . $feedback->image) }}"
-                        class="w-32 h-auto rounded-md mt-4" alt="Feedback Image">
+                    <img src="{{ asset('public/backend/image/feedback_images/' . $feedback->image) }}" class="w-32 h-auto rounded-md mt-4" alt="Feedback Image">
                     @endif
-
                     <p class="text-gray-500 mt-4 text-2xl">
                         {{ \Carbon\Carbon::parse($feedback->created_at)->format('d/m/Y H:i') }}
                     </p>
@@ -385,31 +383,29 @@
             });
         });
     });
+</script>
 
-
-
+<script>
     document.getElementById('image-upload').addEventListener('change', function(event) {
         const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
             reader.onload = function(e) {
                 const img = document.getElementById('uploaded-image');
-                img.src = e.target.result;
-                img.classList.remove('hidden');
+                img.src = e.target.result; // Hiển thị ảnh preview từ local
+                img.classList.remove('hidden'); // Hiển thị ảnh nếu đang ẩn
             };
             reader.readAsDataURL(file);
         }
     });
-
-
+</script>
+<script>
     document.addEventListener("DOMContentLoaded", function() {
         const stars = document.querySelectorAll("#star-rating .fa-star");
         const ratingInput = document.getElementById("rating");
-
         stars.forEach(star => {
             star.addEventListener("click", function() {
                 const rating = this.getAttribute("data-rating");
-
                 // Cập nhật giá trị của input hidden
                 ratingInput.value = rating;
                 console.log(rating);

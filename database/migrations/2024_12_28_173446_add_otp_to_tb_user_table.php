@@ -11,17 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tbl_cart', function (Blueprint $table) {
-            $table->increments('cart_id');
-            $table->integer('user_id')->nullable();
-            $table->integer('total_amount')->nullable();
-            $table->integer('total_price')->default(0);
+        Schema::create('add_otp_to_tb_user', function (Blueprint $table) {
+            $table->id();
             $table->timestamps();
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
-        Schema::dropIfExists('tbl_cart');
+        Schema::dropIfExists('add_otp_to_tb_user');
     }
 };
