@@ -3,7 +3,7 @@
 @section('title', 'Product detail')
 @section('content')
 <div class="mt-32 mb-14">
-    <div class="text-center text-6xl font-black rounded-3xl my-5" style="background-color: #FFCCCC">
+    <div class="text-center text-6xl font-black text py-6 mb-7 bg-pink mx-auto" style="width: 40%; border-radius: 50px;">
         PRODUCT DESCRIPTION
     </div>
     <div class="flex gap-x-28 justify-center">
@@ -17,17 +17,31 @@
                     <span class="text-white text-2xl font-bold">SALE <span>{{ $product->deal_discount * 100 }}%</span></span>
                 </div>
                 @endif
-                <!-- {{-- best seller --}}
-                    <div
-                        class="md:w-[148px] md:h-[30px] bg-[#FFCB06] flex justify-center items-center rounded-xl absolute bottom-0 right-0">
-                        <span class="text-2xl text-center font-bold text-black">BEST SELLER
-                            <i class="fa-solid fa-circle-check text-[#004FA8]"></i>
-                        </span>
-                    </div> -->
-                <div class="text-3xl font-normal absolute left-0 bottom-0">
+                <div class="md:w-[160px] md:h-[40px] bg-gray-200 flex justify-center items-center rounded-full absolute bottom-2 right-2 shadow-lg">
+                    <span class="text-lg font-semibold text-gray-800 flex items-center gap-1">
+                        {{-- Hiển thị sao vàng --}}
+                        @for ($i = 1; $i <= floor($product->product_rate); $i++)
+                            <i class="fa-solid fa-star text-yellow-500"></i>
+                            @endfor
+
+                            {{-- Hiển thị sao nửa nếu cần --}}
+                            @if ($product->product_rate - floor($product->product_rate) >= 0.5)
+                            <i class="fa-solid fa-star-half-alt text-yellow-500"></i>
+                            @endif
+
+                            {{-- Hiển thị sao trống nếu chưa đủ 5 sao --}}
+                            @for ($i = ceil($product->product_rate); $i < 5; $i++)
+                                <i class="fa-regular fa-star text-gray-400"></i>
+                                @endfor
+
+                                {{-- Hiển thị giá trị đánh giá --}}
+                                <span class="ml-2 text-sm font-medium text-gray-600">({{ number_format($product->product_rate, 1) }})</span>
+                    </span>
+                </div>
+                <!-- <div class="text-3xl font-normal absolute left-0 bottom-0">
                     <i class="fa-solid fa-star text-yellow-300"></i>
                     <span>4.9</span>
-                </div>
+                </div> -->
             </div>
             <div class="md:h-[85px] font-[Jomhuria] text-[64px] font-normal mt-4 text-center">
                 {{ $product->product_name }}
@@ -103,147 +117,125 @@
             id="describeTab">
             {{ $product->product_desc }}
         </div>
-        {{-- reviews --}}
         <div class="border-t-4 border-yellow-200 hidden opacity-0 transition-opacity duration-500" id="reviewTab">
             <div class="flex">
                 <div class="w-1/2 flex justify-center text-3xl">
                     <div class="w-1/2 flex flex-col">
-                        <div class="flex items-center mt-4 ">
+                        @foreach ($ratingPercentages as $rating => $percentage)
+                        <div class="flex items-center mt-4">
                             <i class="fa-solid fa-star" style="color: yellow"></i>
-                            <span class="mx-3">5</span>
-                            <div class="w-1/4 h-full rounded-lg" style="background-color: #FFCCCC"></div>
-                            <!-- thêm chiều cao cho thanh -->
-                            <span class="mx-3">25%</span>
+                            <span class="mx-3">{{ $rating }}</span>
+                            <div class="h-4 rounded-lg" style="background-color: #FFCCCC; width: {{ $percentage }}%;"></div>
+                            <span class="mx-3">{{ number_format($percentage, 1) }}%</span>
                         </div>
-                        <div class="flex items-center mt-4 ">
-                            <i class="fa-solid fa-star" style="color: yellow"></i>
-                            <span class="mx-3">4</span>
-                            <div class="w-1/2 h-full rounded-lg" style="background-color: #FFCCCC"></div>
-                            <span class="mx-3">50%</span>
-                        </div>
-                        <div class="flex items-center mt-4 ">
-                            <i class="fa-solid fa-star" style="color: yellow"></i>
-                            <span class="mx-3">3</span>
-                            <div class="w-1/6 h-full rounded-lg" style="background-color: #FFCCCC"></div>
-                            <span class="mx-3">16,7%</span>
-                        </div>
-                        <div class="flex items-center mt-4 ">
-                            <i class="fa-solid fa-star" style="color: yellow"></i>
-                            <span class="mx-3">2</span>
-                            <div class="w-1/12 h-full rounded-lg" style="background-color: #FFCCCC"></div>
-                            <span class="mx-3">10%</span>
-                        </div>
-                        <div class="flex items-center my-4 ">
-                            <i class="fa-solid fa-star" style="color: yellow"></i>
-                            <span class="mx-3">1</span>
-                            <div class="w-1/12 h-full rounded-lg" style="background-color: #FFCCCC"></div>
-                            <span class="mx-3">5%</span>
-                        </div>
+                        @endforeach
                     </div>
-
-                </div>
-                {{-- 4 sao --}}
-                <div class="w-1/2 flex flex-col items-center justify-center">
-
-                    <div class="flex">
-                        <i class="fa-solid fa-star text-7xl" style="color: yellow"></i>
-                        <span class="text-7xl font-black">4.0</span>
-                    </div>
-                    <div class="">
-                        <span class="px-2">4</span>Reviews
-                    </div>
-
                 </div>
             </div>
-            {{-- 1 review --}}
-            @if ($feedbacks->isEmpty())
-            <p class="text-center text-3xl text-gray-500">Chưa có đánh giá nào cho sản phẩm này.</p>
-            @else
-            @foreach ($feedbacks as $feedback)
-            <div class="flex items-start justify-center w-2/3 space-x-4 mt-8">
-                <!-- Avatar -->
-                <div class="flex flex-col items-center">
-                    <div class="h-32 w-32 rounded-full overflow-hidden">
-                        <img src="{{ asset('public/frontend/client/page/image/avatartest.png') }}" alt="Avatar">
-                    </div>
-                    <p class="text-gray-600 mt-2 text-4xl">{{ $feedback->user_name }}</p>
-                </div>
+        </div>
 
-                <!-- Nội dung đánh giá -->
-                <div>
-                    <div class="flex items-center space-x-2 text-3xl">
-                        <!-- Icon ngôi sao và điểm số -->
-                        <i class="fa-solid fa-star text-yellow-400"></i>
-                        <span class="font-semibold">{{ $feedback->rate }}</span>
-                    </div>
-                    <p class="text-3xl mt-6">{{ $feedback->comment }}</p>
-                    @if ($feedback->image)
-                    <img src="{{ asset('public/backend/image/feedback_images/' . $feedback->image) }}" class="w-32 h-auto rounded-md mt-4" alt="Feedback Image">
-                    @endif
-                    <p class="text-gray-500 mt-4 text-2xl">
-                        {{ \Carbon\Carbon::parse($feedback->created_at)->format('d/m/Y H:i') }}
-                    </p>
-                </div>
-            </div>
-            @endforeach
-            @endif
-            <!-- send review -->
-            @if (Auth::check())
-            <form action="{{ route('feedback') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                <div class="w-full mx-auto p-4 border rounded-md shadow-sm mt-10">
-                    <input
-                        class="w-full p-2 border border-gray-300 rounded-md resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 text-2xl font-normal"
-                        rows="4" name="feedback_content" placeholder="Type your feedback here">
+    </div>
+    {{-- số sao --}}
+    <div class="w-1/2 flex flex-col items-center justify-center">
 
-                    {{-- image uploaded --}}
-                    <div class="image-upload-container">
-                        <img id="uploaded-image" src="" alt="Uploaded Image"
-                            class="hidden w-32 h-auto rounded-md">
-                    </div>
-
-                    <div class="flex items-center justify-between mt-4">
-                        {{-- nút upload --}}
-                        <div id="image-upload-container"
-                            class="w-[116px] h-[80px] border border-gray-300 flex items-center justify-center rounded-md overflow-hidden cursor-pointer hover:bg-gray-100">
-                            <label for="image-upload" class="flex items-center justify-center w-full h-full">
-                                <i class="fa-solid fa-camera text-[40px]" id="camera-icon"></i>
-                                <input type="file" id="image-upload" name="feedback_image" accept="image/*"
-                                    class="hidden">
-                            </label>
-                        </div>
-                        {{-- Hiển thị avatar mặc định --}}
-                        <div class="h-32 w-32 rounded-full overflow-hidden ml-10">
-                            <img src="{{ asset('public/frontend/client/page/image/avatartest.png') }}" alt="Avatar">
-                        </div>
-                        <div class="flex items-center">
-                            <p class="text-gray-600 mt-2 text-4xl ml-8">{{ Auth::user()->user_name }}</p>
-                        </div>
-                        {{-- Star rating --}}
-                        <div class="flex items-center">
-                            <div class="flex items-center space-x-1 text-4xl" id="star-rating">
-                                @for ($i = 1; $i <= 5; $i++)
-                                    <i class="fa-solid fa-star cursor-pointer"
-                                    data-rating="{{ $i }}"></i>
-                                    @endfor
-                            </div>
-                            <input type="hidden" name="rating" id="rating" value="0">
-                        </div>
-
-                        {{-- Thêm product_id --}}
-                        <input type="hidden" name="product_id" value="{{ $product->product_id }}">
-
-                        {{-- Nút gửi đánh giá --}}
-                        <button type="submit"
-                            class="w-[192px] h-[82px] text-3xl font-normal bg-[#ffcccc] text-black rounded-md hover:opacity-80">
-                            Send
-                        </button>
-                    </div>
-                </div>
-            </form>
-            @endif
+        <div class="flex">
+            <i class="fa-solid fa-star text-7xl" style="color: yellow"></i>
+            <span class="text-7xl font-black">{{ $product->product_rate }}</span>
+        </div>
+        <div class="">
+            <span class="px-2">{{ $feedbackCount }}</span>Reviews
         </div>
     </div>
+</div>
+{{-- 1 review --}}
+@if ($feedbacks->isEmpty())
+<p class="text-center text-3xl text-gray-500">Chưa có đánh giá nào cho sản phẩm này.</p>
+@else
+@foreach ($feedbacks as $feedback)
+<div class="flex items-start justify-center w-2/3 space-x-4 mt-8">
+    <!-- Avatar -->
+    <div class="flex flex-col items-center">
+        <div class="h-32 w-32 rounded-full overflow-hidden">
+            <img src="{{ asset('public/frontend/client/page/image/avatartest.png') }}" alt="Avatar">
+        </div>
+        <p class="text-gray-600 mt-2 text-4xl">{{ $feedback->user_name }}</p>
+    </div>
+
+    <!-- Nội dung đánh giá -->
+    <div>
+        <div class="flex items-center space-x-2 text-3xl">
+            <!-- Icon ngôi sao và điểm số -->
+            <i class="fa-solid fa-star text-yellow-400"></i>
+            <span class="font-semibold">{{ $feedback->rate }}</span>
+        </div>
+        <p class="text-3xl mt-6">{{ $feedback->comment }}</p>
+        @if ($feedback->image)
+        <img src="{{ asset('public/backend/image/feedback_images/' . $feedback->image) }}" class="w-32 h-auto rounded-md mt-4" alt="Feedback Image">
+        @endif
+        <p class="text-gray-500 mt-4 text-2xl">
+            {{ \Carbon\Carbon::parse($feedback->created_at)->format('d/m/Y H:i') }}
+        </p>
+    </div>
+</div>
+@endforeach
+@endif
+<!-- send review -->
+@if (Auth::check())
+<form action="{{ route('feedback') }}" method="POST" enctype="multipart/form-data">
+    @csrf
+    <div class="w-full mx-auto p-4 border rounded-md shadow-sm mt-10">
+        <input
+            class="w-full p-2 border border-gray-300 rounded-md resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 text-2xl font-normal"
+            rows="4" name="feedback_content" placeholder="Type your feedback here">
+
+        {{-- image uploaded --}}
+        <div class="image-upload-container">
+            <img id="uploaded-image" src="" alt="Uploaded Image"
+                class="hidden w-32 h-auto rounded-md">
+        </div>
+
+        <div class="flex items-center justify-between mt-4">
+            {{-- nút upload --}}
+            <div id="image-upload-container"
+                class="w-[116px] h-[80px] border border-gray-300 flex items-center justify-center rounded-md overflow-hidden cursor-pointer hover:bg-gray-100">
+                <label for="image-upload" class="flex items-center justify-center w-full h-full">
+                    <i class="fa-solid fa-camera text-[40px]" id="camera-icon"></i>
+                    <input type="file" id="image-upload" name="feedback_image" accept="image/*"
+                        class="hidden">
+                </label>
+            </div>
+            {{-- Hiển thị avatar mặc định --}}
+            <div class="h-32 w-32 rounded-full overflow-hidden ml-10">
+                <img src="{{ asset('public/frontend/client/page/image/avatartest.png') }}" alt="Avatar">
+            </div>
+            <div class="flex items-center">
+                <p class="text-gray-600 mt-2 text-4xl ml-8">{{ Auth::user()->user_name }}</p>
+            </div>
+            {{-- Star rating --}}
+            <div class="flex items-center">
+                <div class="flex items-center space-x-1 text-4xl" id="star-rating">
+                    @for ($i = 1; $i <= 5; $i++)
+                        <i class="fa-solid fa-star cursor-pointer"
+                        data-rating="{{ $i }}"></i>
+                        @endfor
+                </div>
+                <input type="hidden" name="rating" id="rating" value="0">
+            </div>
+
+            {{-- Thêm product_id --}}
+            <input type="hidden" name="product_id" value="{{ $product->product_id }}">
+
+            {{-- Nút gửi đánh giá --}}
+            <button type="submit"
+                class="w-[192px] h-[82px] text-3xl font-normal bg-[#ffcccc] text-black rounded-md hover:opacity-80">
+                Send
+            </button>
+        </div>
+    </div>
+</form>
+@endif
+</div>
+</div>
 </div>
 <!-- các bài báo -->
 <div class="text-center text-6xl font-black rounded-3xl my-5 py-6 bg-[#FFFDD0]">

@@ -110,25 +110,35 @@
         <div class="flex flex-wrap justify-center gap-x-[45px] gap-y-9">
             @foreach ($products as $product)
             <div class="md:w-[356px] h-[507px] w-full flex flex-col items-center bg-[#FFDEDE80] rounded-[28px] relative">
-                {{-- sale --}}
+            <div class="md:w-[160px] md:h-[40px] bg-gray-200 flex justify-center items-center rounded-full absolute bottom-2 right-2 shadow-lg">
+                    <span class="text-lg font-semibold text-gray-800 flex items-center gap-1">
+                        {{-- Hiển thị sao vàng --}}
+                        @for ($i = 1; $i <= floor($product->product_rate); $i++)
+                            <i class="fa-solid fa-star text-yellow-500"></i>
+                            @endfor
+
+                            {{-- Hiển thị sao nửa nếu cần --}}
+                            @if ($product->product_rate - floor($product->product_rate) >= 0.5)
+                            <i class="fa-solid fa-star-half-alt text-yellow-500"></i>
+                            @endif
+
+                            {{-- Hiển thị sao trống nếu chưa đủ 5 sao --}}
+                            @for ($i = ceil($product->product_rate); $i < 5; $i++)
+                                <i class="fa-regular fa-star text-gray-400"></i>
+                                @endfor
+
+                                {{-- Hiển thị giá trị đánh giá --}}
+                                <span class="ml-2 text-sm font-medium text-gray-600">({{ number_format($product->product_rate, 1) }})</span>
+                    </span>
+                </div>
+            {{-- sale --}}
                 @if ($product->deal_id)
                 <div class="bg-[#004FA8] w-[128px] h-[36px] rounded-tr-[20px] rounded-br-[20px] flex justify-center items-center absolute left-0 top-4" style="z-index: 1000;">
                     <i class="fa-solid fa-bolt text-yellow-300 mr-5"></i>
                     <span class="text-white text-2xl font-bold">SALE <span>{{ $product->deal_discount * 100 }}%</span></span>
                 </div>
                 @endif
-                <!-- {{-- best seller --}}
-                <div class="md:w-[148px] md:h-[30px] bg-[#FFCB06] flex justify-center items-center rounded-xl absolute bottom-[185px] right-0">
-                    <span class="text-2xl text-center font-bold text-black">BEST SELLER
-                        <i class="fa-solid fa-circle-check text-[#004FA8]"></i>
-                    </span>
-                </div> -->
-                <!-- @if ($product->deal_id)
-                <div class="bg-[#004FA8] w-[128px] h-[36px] rounded-tr-[20px] rounded-br-[20px] flex justify-center items-center absolute left-0 top-4">
-                    <i class="fa-solid fa-bolt text-yellow-300 mr-5"></i>
-                    <span class="text-white text-2xl font-bold">SALE <span>{{ $product->deal_discount * 100 }}%</span></span>
-                </div>
-                @endif -->
+                
                 <a href="{{ route('detail', ['id' => $product->product_id]) }}" class="cursor-pointer">
                     <img src="{{ filter_var($product->product_image, FILTER_VALIDATE_URL) ? $product->product_image : asset('public/backend/image/' . $product->product_image) }}"
                         class="hover:scale-90 w-[305px] h-[305px] mt-6 ml-6 mr-6 object-cover rounded-[20px]" alt="Product Image">
@@ -140,10 +150,7 @@
                 </div>
                 <div class="price relative w-full pt-2 ml-6 flex justify-between mt-6">
                     <span class="text-3xl ml-[20px] font-medium">{{ number_format($product->product_price, 0, ',', '.') . ' VND' }}</span>
-                    <span class="text-3xl font-normal">
-                        <i class="fa-solid fa-star text-yellow-300"></i>
-                        <span>{{ $product->product_rate }}</span>
-                    </span>
+
 
                     <!-- icon thêm giỏ hàng -->
                     <div class="mr-[35px]">
@@ -239,7 +246,7 @@
         const productPrice = element.dataset.productPrice;
 
         // Gửi yêu cầu Ajax để thêm vào giỏ hàng
-        fetch('{{ url('/cart/add') }}', {
+        fetch('{{ url(' / cart / add ') }}', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

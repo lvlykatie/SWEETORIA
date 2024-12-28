@@ -133,7 +133,33 @@ class ProductController extends Controller
             ->select('tbl_feedback.*', 'tb_user.user_name as user_name') // Chọn thông tin cần thiết
             ->where('tbl_feedback.product_id', $id)
             ->get();
-        return view('page.detail', compact('product', 'related_product', 'feedbacks'));
+            // Count feedbacks for the product
+    $feedbackCount = $feedbacks->count();
+
+    // Calculate rating statistics
+    $ratingCounts = DB::table('tbl_feedback')
+        ->select(DB::raw('rate, COUNT(*) as count'))
+        ->where('product_id', $id)
+        ->groupBy('rate')
+        ->pluck('count', 'rate')->all();
+
+    $totalFeedbacks = array_sum($ratingCounts);
+    $ratingPercentages = [];
+    for ($i = 1; $i <= 5; $i++) {
+        $ratingPercentages[$i] = isset($ratingCounts[$i]) ? ($ratingCounts[$i] / $totalFeedbacks) * 100 : 0;
+    }
+
+    // Calculate average rating
+    $averageRating = DB::table('tbl_feedback')
+        ->where('product_id', $id)
+        ->avg('rate');
+
+    // Update product_rate in tbl_product
+    DB::table('tbl_product')
+        ->where('product_id', $id)
+        ->update(['product_rate' => $averageRating]);
+
+    return view('page.detail', compact('product', 'related_product', 'feedbacks', 'ratingPercentages', 'feedbackCount'));
     }
 
 
@@ -173,7 +199,15 @@ class ProductController extends Controller
 
             // Lưu feedback vào cơ sở dữ liệu
             Feedback::create($data);
+            // Tính toán và cập nhật product_rate
+            $averageRating = DB::table('tbl_feedback')
+                ->where('product_id', $request->product_id)
+                ->avg('rate');
 
+            // Cập nhật product_rate trong bảng tbl_product
+            DB::table('tbl_product')
+                ->where('product_id', $request->product_id)
+                ->update(['product_rate' => $averageRating]);
             return back()->with('success', 'Feedback đã được gửi thành công!');
         } catch (\Exception $e) {
             dd($e); // In ra toàn bộ thông tin lỗi để debug
