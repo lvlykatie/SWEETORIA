@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sweetoria Admin Dashboard</title>
+    <title>Sweetoria Manager Dashboard</title>
     <meta name="author" content="David Grzyb">
     <meta name="description" content="">
-
+    <link rel="icon" href="{{ asset('public/frontend/admin/images/logo.png') }}" type="image/x-icon">
     <!-- Tailwind -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('public/frontend/admin/css/dashboard-styles.css')}}">
-
+    <link rel="icon" href="{{ asset('public/frontend/admin/images/logo.png') }}" type="image/x-icon">
 </head>
 
 <body class="bg-gray-100 font-family-karla flex">
@@ -39,10 +39,6 @@
                 <i class="fas fa-table mr-3"></i>
                 Orders
             </a>
-            <a href="{{('./users')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
-                <i class="fas fa-align-left mr-3"></i>
-                Users
-            </a>
             <a href="{{('./deals')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                 <i class="fas fa-calendar mr-3"></i>
                 Deals
@@ -51,9 +47,9 @@
                 <i class="fas fa-calendar mr-3"></i>
                 Vouchers
             </a>
-            <a href="{{('./accounts')}}" class="flex items-center active-nav-link text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+            <a href="{{('./feedbacks')}}" class="flex items-center active-nav-link text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                 <i class="fas fa-tablet-alt mr-3"></i>
-                Account
+                Feedback
             </a>
         </nav>
     </aside>
@@ -98,10 +94,6 @@
                     <i class="fas fa-table mr-3"></i>
                     Orders
                 </a>
-                <a href="{{('./users')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
-                    <i class="fas fa-align-left mr-3"></i>
-                    Users
-                </a>
                 <a href="{{('./deals')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                     <i class="fas fa-calendar mr-3"></i>
                     Deals
@@ -110,9 +102,9 @@
                     <i class="fas fa-calendar mr-3"></i>
                     Vouchers
                 </a>
-                <a href="{{('./accounts')}}" class="flex items-center active-nav-link text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                <a href="{{('./feedbacks')}}" class="flex items-center active-nav-link text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                     <i class="fas fa-tablet-alt mr-3"></i>
-                    Account
+                    Feedback
                 </a>
 
             </nav>

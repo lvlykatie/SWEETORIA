@@ -63,7 +63,7 @@ Route::group(['middleware' => AdminAuth::class], function () {
     Route::get('/admin/vouchers/search', 'App\Http\Controllers\admin\VoucherController@search')->name('vouchers.search');
 
     // Accounts
-    Route::get('/admin/accounts', 'App\Http\Controllers\admin\AccountController@showAccountPage');
+    Route::get('/admin/feedbacks', 'App\Http\Controllers\admin\FeedbackController@showFeedbackPage');
 
     // logout
     Route::post('admin/logout', [AccountController::class, 'logout'])->name('logout');
@@ -108,7 +108,7 @@ Route::group(['middleware' => ManagerAuth::class], function () {
     Route::get('/manager/vouchers', 'App\Http\Controllers\manager\VoucherController@search')->name('vouchers.search');
 
     //accounts
-    Route::get('/manager/accounts', 'App\Http\Controllers\manager\AccountController@showAccountPage');
+    Route::get('/manager/feedbacks', 'App\Http\Controllers\manager\FeedbackController@showFeedbackPage');
 
     // logout
     Route::post('manager/logout', [AccountController::class, 'logout'])->name('logout');

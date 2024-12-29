@@ -38,10 +38,6 @@
                                 <span class="ml-2 text-sm font-medium text-gray-600">({{ number_format($product->product_rate, 1) }})</span>
                     </span>
                 </div>
-                <!-- <div class="text-3xl font-normal absolute left-0 bottom-0">
-                    <i class="fa-solid fa-star text-yellow-300"></i>
-                    <span>4.9</span>
-                </div> -->
             </div>
             <div class="md:h-[85px] font-[Jomhuria] text-[64px] font-normal mt-4 text-center">
                 {{ $product->product_name }}

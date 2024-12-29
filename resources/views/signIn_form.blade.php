@@ -7,7 +7,7 @@
     <title>Sweetoria Sign In</title>
     <link rel="stylesheet" href="{{ asset('public/frontend/client/form/css/styleform.css') }}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-
+    <link rel="icon" href="{{ asset('public/frontend/admin/images/logo.png') }}" type="image/x-icon">
     <style>
         body {
             background-image: url("{{ asset('public/frontend/client/form/img_form/column_green.png') }}");

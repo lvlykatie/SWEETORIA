@@ -47,11 +47,11 @@
                 <div class="flex flex-col flex-wrap gap-7 mt-4">
                     <div class="w-full text-3xl font-extrabold flex items-center">
                         <input type="checkbox" style="width: 30px; height: 30px;" id="baking-ingredients"
-                            name="filter[]" value="baking-ingredients">
+                            name="filters[]" value="baking-ingredients">
                         <label class="pl-8" for="">Baking ingredients </label>
                     </div>
                     <div class="w-auto text-3xl font-extrabold flex items-center">
-                        <input type="checkbox" style="width: 30px; height: 30px;" id="baking tools" name="filter[]"
+                        <input type="checkbox" style="width: 30px; height: 30px;" id="baking tools" name="filterss[]"
                             value="baking-tools">
                         <label class="pl-8" for="">Baking Tools </label>
                     </div>
@@ -65,11 +65,11 @@
                 </div>
                 <div class="flex flex-col items-center flex-wrap gap-4 mt-4">
                     <div class="w-full text-3xl font-extrabold flex items-center">
-                        <input type="checkbox" class="rounded-md" style="width: 30px; height: 30px; border-radius: 5px;" id="baking-trays" name="filter[]" value="Baking trays, molds">
+                        <input type="checkbox" class="rounded-md" style="width: 30px; height: 30px; border-radius: 5px;" id="baking-trays" name="filterss[]" value="Baking trays, molds">
                         <label class="pl-4" for="baking-trays">Baking trays, molds</label>
                     </div>
                     <div class="w-full text-3xl font-extrabold flex items-center">
-                        <input type="checkbox" style="width: 30px; height: 30px;" id="bags-boxes" name="filter[]" value="Bags, boxes, cups, jars">
+                        <input type="checkbox" style="width: 30px; height: 30px;" id="bags-boxes" name="filterss[]" value="Bags, boxes, cups, jars">
                         <label class="pl-4" for="bags-boxes">Bags, boxes, cups, jars</label>
                     </div>
                 </div>
@@ -110,7 +110,7 @@
         <div class="flex flex-wrap justify-center gap-x-[45px] gap-y-9">
             @foreach ($products as $product)
             <div class="md:w-[356px] h-[507px] w-full flex flex-col items-center bg-[#FFDEDE80] rounded-[28px] relative">
-            <div class="md:w-[160px] md:h-[40px] bg-gray-200 flex justify-center items-center rounded-full absolute bottom-2 right-2 shadow-lg">
+            <!-- <div class="md:w-[160px] md:h-[40px] bg-gray-200 flex justify-center items-center rounded-full absolute bottom-2 right-2 shadow-lg">
                     <span class="text-lg font-semibold text-gray-800 flex items-center gap-1">
                         {{-- Hiển thị sao vàng --}}
                         @for ($i = 1; $i <= floor($product->product_rate); $i++)
@@ -130,15 +130,15 @@
                                 {{-- Hiển thị giá trị đánh giá --}}
                                 <span class="ml-2 text-sm font-medium text-gray-600">({{ number_format($product->product_rate, 1) }})</span>
                     </span>
-                </div>
-            {{-- sale --}}
+                </div> -->
+            
+                {{-- sale --}}
                 @if ($product->deal_id)
                 <div class="bg-[#004FA8] w-[128px] h-[36px] rounded-tr-[20px] rounded-br-[20px] flex justify-center items-center absolute left-0 top-4" style="z-index: 1000;">
                     <i class="fa-solid fa-bolt text-yellow-300 mr-5"></i>
                     <span class="text-white text-2xl font-bold">SALE <span>{{ $product->deal_discount * 100 }}%</span></span>
                 </div>
                 @endif
-                
                 <a href="{{ route('detail', ['id' => $product->product_id]) }}" class="cursor-pointer">
                     <img src="{{ filter_var($product->product_image, FILTER_VALIDATE_URL) ? $product->product_image : asset('public/backend/image/' . $product->product_image) }}"
                         class="hover:scale-90 w-[305px] h-[305px] mt-6 ml-6 mr-6 object-cover rounded-[20px]" alt="Product Image">
@@ -246,7 +246,7 @@
         const productPrice = element.dataset.productPrice;
 
         // Gửi yêu cầu Ajax để thêm vào giỏ hàng
-        fetch('{{ url(' / cart / add ') }}', {
+        fetch('{{ url('/cart/add ') }}', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
