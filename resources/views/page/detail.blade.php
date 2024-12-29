@@ -60,7 +60,9 @@
                         +
                     </div>
                 </div>
-                <i class="fa-solid fa-cart-plus text-[40px]"></i>
+                <!-- icon thêm giỏ hàng -->
+                <i class="fa-solid fa-cart-plus text-[40px]" id="addToCartIcon" class="add-to-cart-icon" data-product-id="{{ $product->product_id }}" data-product-name="{{ $product->product_name }}"
+                data-product-price="{{ $product->product_price }}"></i>
             </div>
             <button
                 class="md:w-full font-semibold mt-4 md:h-[60px] text-[48px] text-white bg-[#D65050] rounded-[60px] flex items-center justify-center">
@@ -338,8 +340,7 @@
             icon.addEventListener('click', function() {
                 const productId = this.getAttribute('data-product-id');
 
-                fetch('@{{ route('
-                        wishlist.toggle ') }}', {
+                fetch('{{ route('wishlist.toggle') }}', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
@@ -408,6 +409,38 @@
             });
         });
     });
+
+    document.getElementById('addToCartIcon').addEventListener('click', function () {
+        const productId = this.getAttribute('data-product-id');
+        const productName = this.getAttribute('data-product-name');
+        const productPrice = this.getAttribute('data-product-price');
+
+        // Gửi yêu cầu thêm sản phẩm vào giỏ hàng
+        addToCart(productId, productName, productPrice);
+    });
+
+    function addToCart(productId, productName, productPrice) {
+        fetch('{{ url('/cart/add') }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({
+                product_id: productId,
+                product_name: productName,
+                product_price: productPrice
+            })
+        }).then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Sản phẩm đã được thêm vào giỏ hàng!');
+            } else {
+                alert('Không thể thêm sản phẩm vào giỏ hàng.');
+            }
+        }).catch(error => console.error('Error:', error));
+    }
+
 </script>
 
 @endsection

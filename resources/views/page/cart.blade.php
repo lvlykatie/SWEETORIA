@@ -62,8 +62,8 @@
 
             <div class="flex-wrap pt-6 flex justify-between md:pr-[76px] md:w-[990px]">
                 <!-- Checkbox chọn mua tất cả sản phẩm -->
-                <div class="">
-                    <input type="checkbox" class="product-checkbox mr-4 ml-2 h-6 w-6">
+                <div class="product-checkbox-all">
+                    <input type="checkbox" class="product-checkbox-all mr-4 ml-2 h-6 w-6">
                     <label for="" class="text-[45px] font-medium">All</label>
                 </div>
                 <!-- <p class="text-[45px] font-medium ">Product quantity: <span></span></p> -->
@@ -80,6 +80,31 @@
     </div>
 
     <script>
+
+        // Đặt hàm calculateSelectedTotal trong phạm vi toàn cục
+        const calculateSelectedTotal = () => {
+            let total = 0;
+            const productCheckboxes = document.querySelectorAll('.product-checkbox');
+            productCheckboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    const productElement = checkbox.closest('[data-product-id]');
+                    if (productElement) {
+                        const productTotalPriceText = productElement.querySelector('.product-total-price').textContent;
+                        const productTotalPrice = parseFloat(productTotalPriceText.replace(/[^0-9.-]+/g, ''));
+                        if (!isNaN(productTotalPrice)) {
+                            total += productTotalPrice;
+                        }
+                    }
+                }
+            });
+
+            total = total * 1000; // Nếu tổng tiền cần nhân thêm hệ số
+            const totalElement = document.querySelector('#selected-total-price');
+            if (totalElement) {
+                totalElement.textContent = 'Total: ' + total.toLocaleString() + ' VND';
+            }
+        };
+
         document.addEventListener('DOMContentLoaded', () => {
             const updateQuantity = (productId, quantity) => {
                 console.log(`Updating product ID: ${productId}, new quantity: ${quantity}`); // Log kiểm tra
@@ -149,37 +174,10 @@
                 });
             });
 
+            // Hàm tính tổng tiền của các sản phẩm được chọn
             const productCheckboxes = document.querySelectorAll('.product-checkbox');
             const totalElement = document.querySelector('#selected-total-price'); // Phần hiển thị tổng tiền
 
-            // Hàm tính tổng tiền
-            const calculateSelectedTotal = () => {
-                let total = 0;
-                productCheckboxes.forEach(checkbox => {
-                    if (checkbox.checked) {
-                        const productElement = checkbox.closest('[data-product-id]');
-                        if (productElement) {
-                            // Lấy giá trị product total price (đã được tính sẵn trong controller)
-                            const productTotalPriceText = productElement.querySelector(
-                                '.product-total-price').textContent;
-
-                            // Loại bỏ các ký tự không phải số, chỉ giữ lại số và dấu thập phân
-                            const productTotalPrice = parseFloat(productTotalPriceText.replace(
-                                /[^0-9.-]+/g, ''));
-
-                            // Kiểm tra nếu giá trị hợp lệ
-                            if (!isNaN(productTotalPrice)) {
-                                total += productTotalPrice;
-                            }
-                        }
-                    }
-                });
-                total = total * 1000;
-
-
-                // Cập nhật hiển thị tổng tiền với số định dạng và thêm "VND"
-                totalElement.textContent = 'Total: ' + total.toLocaleString() + ' VND';
-            };
 
             // Lắng nghe sự kiện thay đổi checkbox
             productCheckboxes.forEach(checkbox => {
@@ -191,6 +189,8 @@
 
 
         });
+
+        // Xử lý sự kiện khi click vào nút "BUY NOW"
 
         document.querySelector('.bg-red-500').addEventListener('click', () => {
             const selectedProducts = [];
@@ -234,6 +234,8 @@
                 })
                 .catch((error) => console.error('Error:', error));
         });
+
+        // Xử lý sự kiện xóa sản phẩm khỏi giỏ hàng
 
         document.addEventListener('DOMContentLoaded', function () {
             const removeButtons = document.querySelectorAll('.fa-trash');
@@ -282,6 +284,38 @@
                 });
             });
         });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const allCheckbox = document.querySelector('.product-checkbox-all');
+            const productCheckboxes = document.querySelectorAll('.product-checkbox');
+
+            if (allCheckbox) {
+                allCheckbox.addEventListener('change', () => {
+                    const isChecked = allCheckbox.checked;
+                    productCheckboxes.forEach(checkbox => {
+                        checkbox.checked = isChecked;
+                    });
+
+                    // Gọi lại hàm calculateSelectedTotal
+                    calculateSelectedTotal();
+                });
+            }
+
+            productCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', () => {
+                    if (!checkbox.checked) {
+                        allCheckbox.checked = false;
+                    }
+
+                    if (Array.from(productCheckboxes).every(cb => cb.checked)) {
+                        allCheckbox.checked = true;
+                    }
+
+                    calculateSelectedTotal();
+                });
+            });
+        });
+
 
 
     </script>
