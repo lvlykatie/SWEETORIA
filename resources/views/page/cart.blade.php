@@ -272,6 +272,7 @@
                                     }
 
                                     alert(data.message);
+                                    window.location.reload();
                                 } else {
                                     alert(data.message || 'An error occurred.');
                                 }
