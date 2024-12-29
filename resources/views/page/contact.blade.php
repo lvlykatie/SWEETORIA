@@ -17,7 +17,7 @@
                 $stores = [
                 [
                 'name' => 'Store 1',
-                'address' => 'Đường Hàn Thuyên, khu phố 6 P, Thủ Đức, Hồ Chí Minh',
+                'address' => '1 Đường Hàn Thuyên, khu phố 6 P, Thủ Đức, Hồ Chí Minh',
                 'phone' => '123456789',
                 'hours' => '8:00 - 22:00',
                 'map' => 'Đường Hàn Thuyên, khu phố 6 P, Thủ Đức, Hồ Chí Minh',

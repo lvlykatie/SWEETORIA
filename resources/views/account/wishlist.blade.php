@@ -76,6 +76,7 @@
                                     // Xóa sản phẩm khỏi giao diện
                                     parentElement.remove();
                                     alert(data.message);
+                                    window.location.reload();
                                 } else {
                                     alert(data.message || 'An error occurred.');
                                 }
