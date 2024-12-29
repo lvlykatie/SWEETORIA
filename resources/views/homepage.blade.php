@@ -384,5 +384,47 @@
         // Gửi yêu cầu lọc lại sản phẩm
         window.location.href = url;
     }
+
+    window.add = function(element) {
+        const productId = element.dataset.productId;
+        const productName = element.dataset.productName;
+        const productPrice = element.dataset.productPrice;
+
+        // Gửi yêu cầu Ajax để thêm vào giỏ hàng
+        fetch('{{ url('/cart/add') }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({
+                    product_id: productId,
+                    quantity: 1 // Số lượng mặc định là 1
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Server error: ' + response.status);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    alert('Sản phẩm đã được thêm vào giỏ hàng!');
+                } else {
+                    alert(data.message || 'Có lỗi xảy ra!');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Không thể thêm sản phẩm vào giỏ hàng. Vui lòng thử lại!');
+            });
+    }
+
+    document.querySelectorAll('.add-to-cart-icon').forEach(icon => {
+        icon.addEventListener('click', function() {
+            window.add(this);
+        });
+    });
 </script>
 @endsection

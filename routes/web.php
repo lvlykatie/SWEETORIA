@@ -66,7 +66,7 @@ Route::group(['middleware' => AdminAuth::class], function () {
     Route::get('/admin/feedbacks', 'App\Http\Controllers\admin\FeedbackController@showFeedbackPage');
 
     // logout
-    Route::post('admin/logout', [AccountController::class, 'logout'])->name('logout');
+    Route::post('admin/logout', [AccountController::class, 'logout'])->name('logout'); 
 });
 
 Route::group(['middleware' => ManagerAuth::class], function () {
