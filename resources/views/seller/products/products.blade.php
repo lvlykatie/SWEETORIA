@@ -7,7 +7,7 @@
     <title>Sweetoria Seller Dashboard</title>
     <meta name="author" content="David Grzyb">
     <meta name="description" content="">
-
+    <link rel="icon" href="{{ asset('public/frontend/admin/images/logo.png') }}" type="image/x-icon">
     <!-- Tailwind -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('public/frontend/admin/css/dashboard-styles.css')}}">

@@ -77,10 +77,10 @@
                 <!-- Column 2 -->
                 <div class="w-full md:w-1/2 flex flex-col justify-center items-center">
                     <div class="flex justify-center">
-                        <img src="{{ asset('public/frontend/client/page/image/category1.png') }}" class="w-auto"
-                            alt="Baking ingredients">
+                        <img src="{{ asset('public/frontend/client/page/image/category2.png') }}" class="w-auto"
+                            alt="Baking tools">
                     </div>
-                    <div class="text-center text-5xl py-6 font-extrabold">Baking ingredients</div>
+                    <div class="text-center text-5xl py-6 font-extrabold">Baking tools</div>
                 </div>
             </div>
             <!-- Row 2 -->
@@ -88,18 +88,18 @@
                 <!-- Column 1 -->
                 <div class="w-full md:w-1/2 flex flex-col justify-center items-center">
                     <div class="flex justify-center">
-                        <img src="{{ asset('public/frontend/client/page/image/category1.png') }}" class="w-auto"
-                            alt="Baking ingredients">
+                        <img src="{{ asset('public/frontend/client/page/image/category3.png') }}" class="w-auto"
+                            alt="Baking trays, molds">
                     </div>
-                    <div class="text-center text-5xl py-6 font-extrabold">Baking ingredients</div>
+                    <div class="text-center text-5xl py-6 font-extrabold">Baking trays, molds</div>
                 </div>
                 <!-- Column 2 -->
                 <div class="w-full md:w-1/2 flex flex-col justify-center items-center">
                     <div class="flex justify-center">
-                        <img src="{{ asset('public/frontend/client/page/image/category1.png') }}" class="w-auto"
-                            alt="Baking ingredients">
+                        <img src="{{ asset('public/frontend/client/page/image/category4.png') }}" class="w-auto"
+                            alt="Bags, boxes, cups, jars">
                     </div>
-                    <div class="text-center text-5xl py-6 font-extrabold">Baking ingredients</div>
+                    <div class="text-center text-5xl py-6 font-extrabold">Bags, boxes, cups, jars</div>
                 </div>
             </div>
         </div>
@@ -132,12 +132,27 @@
                             <span class="text-white text-2xl font-bold">SALE <span>{{ $product->deal_discount * 100 }}%</span></span>
                         </div>
                         @endif
-                        <!-- {{-- best seller --}}
-                        <div class="md:w-[148px] md:h-[30px] bg-[#FFCB06] flex justify-center items-center rounded-xl absolute bottom-[185px] right-0">
-                            <span class="text-2xl text-center font-bold text-black">BEST SELLER
-                                <i class="fa-solid fa-circle-check text-[#004FA8]"></i>
+                        <div class="md:w-[160px] md:h-[40px] bg-gray-200 flex justify-center items-center rounded-full absolute bottom-2 right-2 shadow-lg">
+                            <span class="text-lg font-semibold text-gray-800 flex items-center gap-1">
+                                {{-- Hiển thị sao vàng --}}
+                                @for ($i = 1; $i <= floor($product->product_rate); $i++)
+                                    <i class="fa-solid fa-star text-yellow-500"></i>
+                                    @endfor
+
+                                    {{-- Hiển thị sao nửa nếu cần --}}
+                                    @if ($product->product_rate - floor($product->product_rate) >= 0.5)
+                                    <i class="fa-solid fa-star-half-alt text-yellow-500"></i>
+                                    @endif
+
+                                    {{-- Hiển thị sao trống nếu chưa đủ 5 sao --}}
+                                    @for ($i = ceil($product->product_rate); $i < 5; $i++)
+                                        <i class="fa-regular fa-star text-gray-400"></i>
+                                        @endfor
+
+                                        {{-- Hiển thị giá trị đánh giá --}}
+                                        <span class="ml-2 text-sm font-medium text-gray-600">({{ number_format($product->product_rate, 1) }})</span>
                             </span>
-                        </div> -->
+                        </div>
                         <a href="{{ route('detail', ['id' => $product->product_id]) }}" class="cursor-pointer">
                             <img src="{{ filter_var($product->product_image, FILTER_VALIDATE_URL) ? $product->product_image : asset('public/backend/image/' . $product->product_image) }}"
                                 class="hover:scale-90 w-[305px] h-[305px] mt-6 ml-6 mr-6 object-cover rounded-[20px]" alt="Product Image">
@@ -221,44 +236,45 @@
                 data-video-url="https://www.youtube.com/embed/4_YBELE4LpM?autoplay=1&mute=1&si=gtFPJfPjxf2h3Zc7"
                 data-title="Truffle Sicula cho Valentine CỰC DỄ ai cũng làm được với 2 nguyên liệu">
                 <img
-                    src="{{ asset('public/frontend/client/page/image/post_img.jpg') }}"
+                    src="{{ asset('public/frontend/client/page/image/truffle.jpg') }}"
                     class="w-[150px] h-[104px] ml-4 rounded-lg object-cover"
                     alt="post">
                 <div class="info flex flex-col justify-center ml-4">
                     <h3 class="title text-lg font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-300">
                         Truffle Sicula cho Valentine CỰC DỄ ai cũng làm được với 2 nguyên liệu
                     </h3>
-                    <p class="date text-sm text-gray-500 font-normal">2021-10-10</p>
+                    <p class="date text-sm text-gray-500 font-normal">2021-03-10</p>
                 </div>
             </div>
 
             <!-- Post Item 2 -->
             <div class="post-item w-full h-[124px] bg-white rounded-lg shadow-md flex items-center hover:shadow-xl transition-shadow duration-300 cursor-pointer"
-                data-video-url="https://www.youtube.com/embed/OrDB4jpA1g8?autoplay=1&mute=1&si=-YOm3CzSjaOmBUcA"
-                data-title="J97">
+                data-video-url="https://www.youtube.com/embed/E9gvM522EqI?autoplay=1&mute=1&si=-YOm3CzSjaOmBUcA"
+                data-title="Bánh Phô Mai Xoài mát lạnh siêu béo ngậy siêu thơm ngonnn">
                 <img
-                    src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fdanviet.vn%2Flo-clip-jack-khoc-ben-gia-dinh-lan-dau-xuat-hien-sau-scandal-bi-chen-ep-77771047264.htm&psig=AOvVaw1qCqiRx93k_raSpOoahceH&ust=1735380094972000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCNDryJPZx4oDFQAAAAAdAAAAABAE"
-                    alt="post">
-                <div class="info flex flex-col justify-center ml-4">
-                    <h3 class="title text-lg font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-300">
-                        J97
-                    </h3>
-                    <p class="date text-sm text-gray-500 font-normal">2021-11-15</p>
-                </div>
-            </div>
-            <!-- Post Item 3 -->
-            <div class="post-item w-full h-[124px] bg-white rounded-lg shadow-md flex items-center hover:shadow-xl transition-shadow duration-300 cursor-pointer"
-                data-video-url="https://www.youtube.com/embed/4_YBELE4LpM?autoplay=1&mute=1&si=gtFPJfPjxf2h3Zc7"
-                data-title="Truffle Sicula cho Valentine CỰC DỄ ai cũng làm được với 2 nguyên liệu">
-                <img
-                    src="{{ asset('public/frontend/client/page/image/post_img.jpg') }}"
+                    src="{{ asset('public/frontend/client/page/image/phomaixoai.jpg') }}"
                     class="w-[150px] h-[104px] ml-4 rounded-lg object-cover"
                     alt="post">
                 <div class="info flex flex-col justify-center ml-4">
                     <h3 class="title text-lg font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-300">
-                        Truffle Sicula cho Valentine CỰC DỄ ai cũng làm được với 2 nguyên liệu
+                        Bánh Phô Mai Xoài mát lạnh siêu béo ngậy siêu thơm ngonnn
                     </h3>
-                    <p class="date text-sm text-gray-500 font-normal">2021-10-10</p>
+                    <p class="date text-sm text-gray-500 font-normal">2021-03-20</p>
+                </div>
+            </div>
+            <!-- Post Item 3 -->
+            <div class="post-item w-full h-[124px] bg-white rounded-lg shadow-md flex items-center hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+                data-video-url="https://www.youtube.com/embed/iQqnozpzElc?autoplay=1&mute=1&si=gtFPJfPjxf2h3Zc7"
+                data-title="Angry Bơ - Bánh bơ béo bồng bột [KO CẦN LÒ]">
+                <img
+                    src="{{ asset('public/frontend/client/page/image/angrybo.jpg') }}"
+                    class="w-[150px] h-[104px] ml-4 rounded-lg object-cover"
+                    alt="post">
+                <div class="info flex flex-col justify-center ml-4">
+                    <h3 class="title text-lg font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-300">
+                        Angry Bơ - Bánh bơ béo bồng bột [KO CẦN LÒ]
+                    </h3>
+                    <p class="date text-sm text-gray-500 font-normal">2021-07-09</p>
                 </div>
             </div>
         </div>

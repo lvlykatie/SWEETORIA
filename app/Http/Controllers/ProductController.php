@@ -64,7 +64,6 @@ class ProductController extends Controller
             ->paginate(12)
             ->appends($request->only(['filter', 'sort', 'search']));
 
-
         // Trả về view với các sản phẩm đã được lọc, sắp xếp và tìm kiếm
         return view('page.product', compact('products'));
     }
@@ -130,12 +129,37 @@ class ProductController extends Controller
 
         // Get feedbacks for the product
         $feedbacks = DB::table('tbl_feedback')
-            ->join('tb_user', 'tbl_feedback.user_id', '=', 'tb_user.user_id') // Join with tbl_user
-            ->select('tbl_feedback.*', 'tb_user.user_name as user_name') // Select necessary information
+            ->join('tb_user', 'tbl_feedback.user_id', '=', 'tb_user.user_id') // Join với bảng tbl_user
+            ->select('tbl_feedback.*', 'tb_user.user_name as user_name') // Chọn thông tin cần thiết
             ->where('tbl_feedback.product_id', $id)
             ->get();
+            // Count feedbacks for the product
+    $feedbackCount = $feedbacks->count();
 
-        return view('page.detail', compact('product', 'related_product', 'feedbacks'));
+    // Calculate rating statistics
+    $ratingCounts = DB::table('tbl_feedback')
+        ->select(DB::raw('rate, COUNT(*) as count'))
+        ->where('product_id', $id)
+        ->groupBy('rate')
+        ->pluck('count', 'rate')->all();
+
+    $totalFeedbacks = array_sum($ratingCounts);
+    $ratingPercentages = [];
+    for ($i = 1; $i <= 5; $i++) {
+        $ratingPercentages[$i] = isset($ratingCounts[$i]) ? ($ratingCounts[$i] / $totalFeedbacks) * 100 : 0;
+    }
+
+    // Calculate average rating
+    $averageRating = DB::table('tbl_feedback')
+        ->where('product_id', $id)
+        ->avg('rate');
+
+    // Update product_rate in tbl_product
+    DB::table('tbl_product')
+        ->where('product_id', $id)
+        ->update(['product_rate' => $averageRating]);
+
+    return view('page.detail', compact('product', 'related_product', 'feedbacks', 'ratingPercentages', 'feedbackCount'));
     }
 
 
@@ -155,23 +179,35 @@ class ProductController extends Controller
                 'feedback_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg', // Kiểm tra file ảnh
             ]);
 
-            // Xử lý ảnh upload (nếu có)
-            $imagePath = null;
-            if ($request->hasFile('feedback_image')) {
-                $image = $request->file('feedback_image');
-                $imagePath = $image->store('storage', 'public'); // Lưu ảnh vào thư mục feedback_images trong storage/app/public
-            }
-
-            // Lưu feedback vào cơ sở dữ liệu
-            Feedback::create([
+            // Chuẩn bị dữ liệu để lưu
+            $data = [
                 'user_id' => Auth::id(),
                 'product_id' => $request->product_id,
                 'comment' => $request->feedback_content,
                 'rate' => $request->rating,
-                'image' => $imagePath, // Lưu đường dẫn ảnh vào cơ sở dữ liệu
+                'image' => null, // Mặc định là null
                 'created_at' => now(),
-            ]);
+            ];
 
+            // Xử lý ảnh upload (nếu có)
+            $get_image = $request->file('feedback_image');
+            if ($get_image) {
+                $new_image_name = $get_image->getClientOriginalName();
+                $get_image->move(public_path('backend/image/feedback_images'), $new_image_name); // Lưu ảnh vào thư mục mong muốn
+                $data['image'] = $new_image_name; // Lưu đường dẫn vào cơ sở dữ liệu
+            }
+
+            // Lưu feedback vào cơ sở dữ liệu
+            Feedback::create($data);
+            // Tính toán và cập nhật product_rate
+            $averageRating = DB::table('tbl_feedback')
+                ->where('product_id', $request->product_id)
+                ->avg('rate');
+
+            // Cập nhật product_rate trong bảng tbl_product
+            DB::table('tbl_product')
+                ->where('product_id', $request->product_id)
+                ->update(['product_rate' => $averageRating]);
             return back()->with('success', 'Feedback đã được gửi thành công!');
         } catch (\Exception $e) {
             dd($e); // In ra toàn bộ thông tin lỗi để debug

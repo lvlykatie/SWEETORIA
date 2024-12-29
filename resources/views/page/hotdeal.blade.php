@@ -5,9 +5,9 @@
 @section('content')
 <div class="hot-deal">
     <div class="search-bg relative flex items-center justify-center bg-cover bg-center h-72 md:h-[463px]"
-        style="background-image: url('{{ asset('public/frontend/client/page/image/homepagebg.png') }}');">
+        style="background-image: url('{{ asset('public/frontend/client/page/image/hotdeal.png') }}');">
     </div>
-    <div class="text-center text-6xl font-black rounded-3xl text my-5 py-6" style="background-color: #FFFDD0">
+    <div class="text-center text-6xl font-black text py-6 mb-7 mx-auto mt-8" style="width: 30%; border-radius: 50px; background-color: #FFFDD0;">
         HOT DEALS !!
     </div>
     <div class="px-14 mt-14 space-y-20">

@@ -7,7 +7,7 @@
     <title>Sweetoria Manager Dashboard</title>
     <meta name="author" content="David Grzyb">
     <meta name="description" content="">
-
+    <link rel="icon" href="{{ asset('public/frontend/admin/images/logo.png') }}" type="image/x-icon">
     <!-- Tailwind -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('public/frontend/admin/css/dashboard-styles.css')}}">
@@ -48,6 +48,10 @@
             <a href="{{('./vouchers')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                 <i class="fas fa-calendar mr-3"></i>
                 Vouchers
+            </a>
+            <a href="{{('./feedbacks')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                <i class="fas fa-tablet-alt mr-3"></i>
+                Feedback
             </a>
         </nav>
     </aside>
@@ -95,10 +99,6 @@
                 <a href="{{('./orders')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                     <i class="fas fa-table mr-3"></i>
                     Orders
-                </a>
-                <a href="{{('./users')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
-                    <i class="fas fa-align-left mr-3"></i>
-                    Users
                 </a>
                 <a href="{{('./deals')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                     <i class="fas fa-calendar mr-3"></i>

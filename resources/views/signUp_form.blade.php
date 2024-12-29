@@ -20,7 +20,7 @@
       background-image: url("public/frontend/client/form/img_form/nenformkologo.jpg");
     }
   </style>
-
+<link rel="icon" href="{{ asset('public/frontend/admin/images/logo.png') }}" type="image/x-icon">
 </head>
 
 <body>
