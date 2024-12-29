@@ -246,7 +246,7 @@
         const productPrice = element.dataset.productPrice;
 
         // Gửi yêu cầu Ajax để thêm vào giỏ hàng
-        fetch('{{ url('/cart/add ') }}', {
+        fetch('{{ url('/cart/add') }}', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

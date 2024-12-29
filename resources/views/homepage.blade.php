@@ -37,7 +37,6 @@
             </div>
         </div>
 
-        I
     </div>
     {{-- hot deal --}}
     <div class="hot-deal my-16 mx-16 rounded-3xl bg-yellow-100">
