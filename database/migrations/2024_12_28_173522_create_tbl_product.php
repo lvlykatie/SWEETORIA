@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+       if (!Schema::hasTable('tbl_product')) { // Kiểm tra bảng có tồn tại hay không
         Schema::create('tbl_product', function (Blueprint $table) {
             $table->increments('product_id');
             $table->string('product_name');
@@ -29,6 +30,7 @@ return new class extends Migration
             $table->integer('wh_id')->nullable();
             $table->timestamps();
         });
+        }
     }
 
     public function down(): void

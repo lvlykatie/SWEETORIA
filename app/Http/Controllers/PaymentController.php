@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth; 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Container\Attributes\Log;
-use App\Models\Cart;                
-use App\Models\CartDetails;          
-use App\Models\Product; 
+use App\Models\Cart;
+use App\Models\CartDetails;
+use App\Models\Product;
+use App\Models\Voucher;
 use Illuminate\Support\Facades\Session;
 
 class PaymentController extends Controller
@@ -16,7 +17,7 @@ class PaymentController extends Controller
     // public function showPaymentPage()
     // {
     //     //return view('page.payment');
-        
+
     // }
 
     public function showPaymentPage()
@@ -48,12 +49,16 @@ class PaymentController extends Controller
             'products' => $productDetails, // Danh sách sản phẩm
             'total' => $total, // Tổng tiền
         ]);
-
+        $vouchers = Voucher::where('enddate', '>=', now()->format('Y-m-d'))  // Chỉ lấy voucher còn hạn
+        ->where('minimum_order_value', '<=', $total) // Lọc theo giá trị đơn hàng
+        ->get();
+        // dd($vouchers,  $total , now());
         return view('page.payment', [
             'products' => $productDetails,
             'total' => $total,
             'date' => now()->format('Y-m-d'),
-            'user' => $user
+            'user' => $user,
+            'vouchers' => $vouchers,
         ]);
     }
 
@@ -69,7 +74,7 @@ class PaymentController extends Controller
         $name = $request->input('name');
         $phone = $request->input('phone');
         $address = $request->input('address');
-        
+
         // Lưu vào session
         session(['name' => $name]);
         session(['phone' => $phone]);
@@ -80,10 +85,26 @@ class PaymentController extends Controller
             'phone' => session('phone'),
             'address' => session('address'),
         ]);
-    
+
             // Trả về JSON response với thông báo thành công
          return response()->json(['success' => 'Save Infomation success! ']);
     }
-    
+    public function applyVoucher(Request $request)
+    {
+        // Lấy giá trị total từ request
+        $total = $request->input('total');
+
+        // Debug giá trị total (có thể dùng dd để debug)
+        // dd($total);
+
+        // Cập nhật giá trị vào session
+        session(['total' => $total]);
+
+        // Trả về phản hồi JSON
+        return response()->json([
+            'message' => 'Total has been updated in session.',
+            'total' => $total
+        ]);
+    }
 
 }

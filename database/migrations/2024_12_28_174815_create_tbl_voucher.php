@@ -11,18 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if (!Schema::hasTable('tbl_voucher')) {
         Schema::create('tbl_voucher', function (Blueprint $table) {
             $table->increments('voucher_id');
-            $table->string('voucher_name'); 
-            $table->integer('discount_type'); 
+            $table->string('voucher_name');
+            $table->integer('discount_type');
             $table->decimal('discount_value', 10, 2);
             $table->integer('max_usage');
             $table->integer('current_usage')->default('0');
             $table->decimal('minimum_order_value', 10, 2)->nullable();
-            $table->date('startdate'); 
-            $table->date('enddate'); 
+            $table->date('startdate');
+            $table->date('enddate');
             $table->timestamps();
         });
+    }
     }
 
     public function down(): void
@@ -30,4 +32,3 @@ return new class extends Migration
         Schema::dropIfExists('tbl_voucher');
     }
 };
- 

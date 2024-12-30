@@ -11,12 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tbl_wishlist', function (Blueprint $table) {
-            $table->increments('wl_id');
-            $table->integer('user_id');
-            $table->integer('product_id');
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('tbl_wishlist')) {
+            Schema::create('tbl_wishlist', function (Blueprint $table) {
+                $table->increments('wl_id');
+                $table->integer('user_id');
+                $table->integer('product_id');
+                $table->timestamps();
+            });
+        }
     }
 
     /**

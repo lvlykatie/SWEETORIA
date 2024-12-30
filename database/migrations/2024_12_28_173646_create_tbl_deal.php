@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if (!Schema::hasTable('tbl_deal')) {
         Schema::create('tbl_deal', function (Blueprint $table) {
             $table->increments('deal_id');
             $table->string('deal_name');
@@ -20,6 +21,7 @@ return new class extends Migration
             $table->integer('wh_id')->nullable();
             $table->timestamps();
         });
+    }
     }
 
     /**

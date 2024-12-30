@@ -15,7 +15,7 @@ use App\Http\Middleware\ManagerAuth;
 use App\Http\Middleware\SellerAuth;
 use App\Http\Controllers\OrderController;
 use Illuminate\Http\Request;
-use App\Http\Controllers\FeedbackController;
+
 // admin routes
 Route::group(['middleware' => AdminAuth::class], function () {
     // Admin dashboard
@@ -62,12 +62,11 @@ Route::group(['middleware' => AdminAuth::class], function () {
     Route::get('/admin/vouchers/delete/{voucher_id}', 'App\Http\Controllers\admin\VoucherController@deleteVoucher');
     Route::get('/admin/vouchers/search', 'App\Http\Controllers\admin\VoucherController@search')->name('vouchers.search');
 
-    // Feedbacks
+    // Accounts
     Route::get('/admin/feedbacks', 'App\Http\Controllers\admin\FeedbackController@showFeedbackPage');
-    Route::get('/admin/feedbacks/accept/{fb_id}','App\Http\Controllers\admin\FeedbackController@acceptFeedback');
-    Route::get('/admin/feedbacks/delete/{fb_id}', 'App\Http\Controllers\admin\FeedbackController@deleteFeedback');
+
     // logout
-    Route::post('admin/logout', [AccountController::class, 'logout'])->name('logout'); 
+    Route::post('admin/logout', [AccountController::class, 'logout'])->name('logout');
 });
 
 Route::group(['middleware' => ManagerAuth::class], function () {
@@ -108,10 +107,8 @@ Route::group(['middleware' => ManagerAuth::class], function () {
     Route::get('/manager/vouchers/delete/{voucher_id}', 'App\Http\Controllers\manager\VoucherController@deleteVoucher');
     Route::get('/manager/vouchers', 'App\Http\Controllers\manager\VoucherController@search')->name('vouchers.search');
 
-     // Feedbacks
-     Route::get('/manager/feedbacks', 'App\Http\Controllers\manager\FeedbackController@showFeedbackPage');
-     Route::get('/manager/feedbacks/accept/{fb_id}','App\Http\Controllers\manager\FeedbackController@acceptFeedback');
-     Route::get('/manager/feedbacks/delete/{fb_id}', 'App\Http\Controllers\manager\FeedbackController@deleteFeedback');
+    //accounts
+    Route::get('/manager/feedbacks', 'App\Http\Controllers\manager\FeedbackController@showFeedbackPage');
 
     // logout
     Route::post('manager/logout', [AccountController::class, 'logout'])->name('logout');
@@ -239,3 +236,4 @@ Route::get('/auth/google/callback', [loginGoogleController::class, 'handleGoogle
 
 
 Route::post('/feedback', [ProductController::class, 'sendFeedBack'])->name('feedback');
+Route::post('/apply-voucher', [PaymentController::class, 'applyVoucher'])->name('apply-voucher');

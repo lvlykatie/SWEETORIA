@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if (!Schema::hasTable('tbl_feedback')) {
         Schema::create('tbl_feedback', function (Blueprint $table) {
             $table->id('fb_id'); // Tạo khóa chính là fb_id
             $table->foreignId('user_id'); // Tham chiếu đến bảng users
@@ -21,6 +22,7 @@ return new class extends Migration
             $table->string('status')->default('pending'); // Cột đánh giá (rating)
             $table->timestamps(); // Tạo các cột created_at và updated_at
         });
+    }
     }
 
     /**

@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if (!Schema::hasTable('tbl_cart')) {
         Schema::create('tbl_cart', function (Blueprint $table) {
             $table->increments('cart_id');
             $table->integer('user_id')->nullable();
@@ -18,6 +19,7 @@ return new class extends Migration
             $table->integer('total_price')->default(0);
             $table->timestamps();
         });
+    }
     }
 
     public function down(): void

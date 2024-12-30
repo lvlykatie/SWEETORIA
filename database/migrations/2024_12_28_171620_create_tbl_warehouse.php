@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tbl_warehouse', function (Blueprint $table) {
-            $table->increments('wh_id');
-            $table->string('wh_name');
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('tbl_warehouse')) { // Kiểm tra bảng có tồn tại hay không
+            Schema::create('tbl_warehouse', function (Blueprint $table) {
+                $table->increments('wh_id');
+                $table->string('wh_name');
+                $table->timestamps();
+            });
+        }
     }
 
     /**

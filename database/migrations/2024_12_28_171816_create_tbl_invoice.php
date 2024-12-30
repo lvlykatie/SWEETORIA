@@ -11,21 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tbl_invoice', function (Blueprint $table) {
-            $table->increments('iv_id');
-            $table->string('user_id');
-            $table->integer('voucher_id')->nullable();
-            $table->dateTime('orderdate');
-            $table->string('method');
-            $table->text('note')->nullable();
-            $table->float('total_price');
-            $table->float('actual_price');
-            $table->string('iv_receiver');
-            $table->string('iv_address');
-            $table->string('iv_phone'); 
-            $table->string('iv_status')->default('Pending');
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('tbl_invoice')) { // Kiểm tra bảng có tồn tại hay không
+            Schema::create('tbl_invoice', function (Blueprint $table) {
+                $table->increments('iv_id');
+                $table->string('user_id');
+                $table->integer('voucher_id')->nullable();
+                $table->dateTime('orderdate');
+                $table->string('method');
+                $table->text('note')->nullable();
+                $table->float('total_price');
+                $table->float('actual_price');
+                $table->string('iv_receiver');
+                $table->string('iv_address');
+                $table->string('iv_phone');
+                $table->string('iv_status')->default('Pending');
+                $table->timestamps();
+            });
+        }
     }
 
     /**

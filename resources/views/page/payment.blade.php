@@ -4,23 +4,23 @@ session(['total' => $total]);
 ?>
 @section('title', 'Payment method')
 @section('content')
-        <div id="message"></div>
-        @if ($errors->any())
-            <div class="bg-red-500 text-white text-center p-4 rounded-md mb-5">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+    <div id="message"></div>
+    @if ($errors->any())
+        <div class="bg-red-500 text-white text-center p-4 rounded-md mb-5">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
-        <!-- Thông báo thành công khi lưu thông tin -->
-        @if (session('success'))
-            <div class="bg-green-500 text-white text-center p-4 rounded-md mb-5">
-                {{ session('success') }}
-            </div>
-        @endif
+    <!-- Thông báo thành công khi lưu thông tin -->
+    @if (session('success'))
+        <div class="bg-green-500 text-white text-center p-4 rounded-md mb-5">
+            {{ session('success') }}
+        </div>
+    @endif
 
     <div class="mt-9">
         <div class="text-center text-6xl font-black rounded-3xl" style="background-color: #FFCCCC">
@@ -32,9 +32,10 @@ session(['total' => $total]);
             </div>
             <div class="flex justify-center">
                 <!-- {{ route('account.update') }} -->
-                <form id="client-info-form" class="flex flex-col ml-6 md:w-[645px] items-center" method="POST" action="{{ url('/save-client-info') }}"> 
-                @csrf
-                <!-- @method('PUT') Sử dụng PUT để khớp với route -->
+                <form id="client-info-form" class="flex flex-col ml-6 md:w-[645px] items-center" method="POST"
+                    action="{{ url('/save-client-info') }}">
+                    @csrf
+                    <!-- @method('PUT') Sử dụng PUT để khớp với route -->
                     <!-- Name -->
                     <div class="flex items-center justify-between my-7">
                         <label class="text-[50px] md:text-5xl font-normal font-[Jomhuria] p-0 md:pr-12"
@@ -78,7 +79,8 @@ session(['total' => $total]);
                             value="{{ old('address', session('address', $user->user_address ?? '')) }}"
                             placeholder="Enter your address">
                     </div>
-                    <button type="submit" class="w-[438px] h-[100px] text-[40px] font-black bg-black text-white rounded-[20px] flex items-center justify-center">
+                    <button type="submit"
+                        class="w-[438px] h-[100px] text-[40px] font-black bg-black text-white rounded-[20px] flex items-center justify-center">
                         Save Information
                     </button>
                 </form>
@@ -89,33 +91,77 @@ session(['total' => $total]);
             <div class="w-[80%] h-0.5 bg-black"></div>
         </div>
         {{-- Payment method --}}
-        <div class="paymentDetail mt-5">
-            <div class="text-[40px] font-black text-center mt-5">
-                Invoice Detail
-            </div>
-            <div class="text-[32px] font-black text-center mt-5">
-                Date: <span>{{ $date }}</span>
-            </div>
-            <div class="max-w-[564px] mx-auto bg-white rounded-md shadow-md p-4 text-2xl">
-                <!-- Item 1 -->
-                <div class="flex items-center justify-between py-2 border-b">
-                    <div>
-                        <p class="font-bold">Product Name</p>
-                        <p class="text-gray-500">x Quantity</p>
-                    </div>
-                    <p class="font-bold">Price</p>
+        <div class="paymentDetail mt-5 flex">
+            {{-- voucher --}}
+            <div class="w-2/3">
+                <div class="text-[40px] font-black text-center mt-5">
+                    Vouchers
                 </div>
+                <div class="list-voucher">
+                    @foreach ($vouchers as $voucher)
+                        <div
+                            class="w-2/3 border border-blue-900 flex items-center p-2 rounded-md mx-auto mt-5 justify-between">
+                            <img src="{{ asset('frontend/admin/images/logo.png') }}" alt="Voucher Image" width="90"
+                                height="90">
+                            <div class="ml-4 flex flex-col space-y-4">
+                                <!-- Tên Voucher -->
+                                <div class="text-[32px] font-black text-center">{{ $voucher->voucher_name }}</div>
 
-                @foreach ($products as $product)
-                <div class="flex items-center justify-between py-2 border-b">
-                           <div>
+                                <!-- Mô tả giảm giá -->
+                                <div class="description text-2xl">
+                                    @if ($voucher->discount_type === 'percentage')
+                                        Decrease {{ $voucher->discount_value }}% of total price
+                                    @else
+                                        Decrease {{ number_format($voucher->discount_value, 0, ',', '.') }} VND
+                                    @endif
+                                </div>
+
+                                <!-- Thời gian hiệu lực -->
+                                <div class="expire text-2xl">
+                                    Expiration:
+                                    <span>{{ \Carbon\Carbon::parse($voucher->startdate)->format('d/m/Y') }}</span> to
+                                    <span>{{ \Carbon\Carbon::parse($voucher->enddate)->format('d/m/Y') }}</span>
+                                </div>
+                            </div>
+                            <div class="checkbox">
+                                <input type="checkbox" name="voucher[]" value="{{ $voucher->voucher_id }}"
+                                    data-discount-type="{{ $voucher->discount_type }}"
+                                    data-discount-value="{{ $voucher->discount_value }}">
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+
+            {{-- Invoice --}}
+            <div class="w-2/3">
+                <div class="text-[40px] font-black text-center mt-5">
+                    Invoice Detail
+                </div>
+                <div class="text-[32px] font-black text-center mt-5">
+                    Date: <span>{{ $date }}</span>
+                </div>
+                <div class="max-w-[564px] mx-auto bg-white rounded-md shadow-md p-4 text-2xl">
+                    <!-- Item 1 -->
+                    <div class="flex items-center justify-between py-2 border-b">
+                        <div>
+                            <p class="font-bold">Product Name</p>
+                            <p class="text-gray-500">x Quantity</p>
+                        </div>
+                        <p class="font-bold">Price</p>
+                    </div>
+
+                    @foreach ($products as $product)
+                        <div class="flex items-center justify-between py-2 border-b">
+                            <div>
                                 <p class="font-bold">{{ $product['name'] }}</p>
                                 <p class="text-gray-500">x {{ $product['quantity'] }}</p>
-                           </div>
+                            </div>
                             <p class="font-bold">{{ number_format($product['total'], 0, ',', '.') }} VND</p>
-                </div>
+                        </div>
                     @endforeach
 
+                </div>
             </div>
 
         </div>
@@ -124,7 +170,7 @@ session(['total' => $total]);
             <div class="w-[80%] h-0.5 bg-black"></div>
         </div>
         {{-- Total --}}
-        <div class="text-[28px] font-black text-center mt-5">
+        <div id="total" class="text-[28px] font-black text-center mt-5">
             Total: <span>{{ number_format($total, 0, ',', '.') }} VND</span>
         </div>
         <div class="bg-[#FFCCCC] text-[32px] font-black rounded-[20px] max-w-[528px] text-center">
@@ -136,35 +182,105 @@ session(['total' => $total]);
                 Cash on delivery
             </div>
             <a href="{{ url('/payment_momo') }}">
-                <div class="w-[438px] h-[100px] text-[40px] font-black bg-black text-white rounded-[20px] flex items-center justify-center">
+                <div
+                    class="w-[438px] h-[100px] text-[40px] font-black bg-black text-white rounded-[20px] flex items-center justify-center">
                     Momo
                 </div>
             </a>
         </div>
     </div>
 
-<!-- Thêm jQuery và AJAX script -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $('#client-info-form').on('submit', function(e) {
-        e.preventDefault(); // Ngừng reload trang khi submit form
+    <!-- Thêm jQuery và AJAX script -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $('#client-info-form').on('submit', function(e) {
+            e.preventDefault(); // Ngừng reload trang khi submit form
 
-        var formData = $(this).serialize(); // Lấy dữ liệu form
+            var formData = $(this).serialize(); // Lấy dữ liệu form
 
-        $.ajax({
-            type: 'POST',
-            url: $(this).attr('action'), // Đường dẫn tới controller saveClientInfo
-            data: formData,
-            success: function(response) {
-                // Hiển thị thông báo thành công
-                $('#message').html('<div class="bg-green-500 text-white text-center p-4 rounded-md mb-5">' + response.success + '</div>');
-            },
-            error: function(xhr, status, error) {
-                // Hiển thị lỗi nếu có
-                $('#message').html('<div class="bg-red-500 text-white text-center p-4 rounded-md mb-5">Có lỗi xảy ra. Vui lòng thử lại!</div>');
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('action'), // Đường dẫn tới controller saveClientInfo
+                data: formData,
+                success: function(response) {
+                    // Hiển thị thông báo thành công
+                    $('#message').html(
+                        '<div class="bg-green-500 text-white text-center p-4 rounded-md mb-5">' +
+                        response.success + '</div>');
+                },
+                error: function(xhr, status, error) {
+                    // Hiển thị lỗi nếu có
+                    $('#message').html(
+                        '<div class="bg-red-500 text-white text-center p-4 rounded-md mb-5">Có lỗi xảy ra. Vui lòng thử lại!</div>'
+                    );
+                }
+            });
+
+        });
+    </script>
+    {{-- chọn 1 voucher 1 lần --}}
+    <script>
+        $(document).ready(function() {
+            // Khi người dùng chọn hoặc bỏ chọn một voucher
+            $('input[name="voucher[]"]').on('change', function() {
+                // Nếu người dùng chọn một voucher
+                if ($(this).prop('checked')) {
+                    // Bỏ chọn tất cả các voucher khác
+                    $('input[name="voucher[]"]').not(this).prop('checked', false);
+                }
+
+                // Cập nhật tổng sau khi chọn voucher
+                updateTotal();
+            });
+
+            // Hàm cập nhật tổng sau khi chọn voucher
+            function updateTotal() {
+                var selectedVoucher = $('input[name="voucher[]"]:checked');
+                var discountValue = 0;
+                var discountType = '';
+
+                // Nếu có voucher được chọn
+                if (selectedVoucher.length > 0) {
+                    discountValue = selectedVoucher.data('discount-value');
+                    discountType = selectedVoucher.data('discount-type');
+                }
+
+                var total = {{ $total }}; // Giá trị tổng hiện tại
+                if (discountType === 'percentage') {
+                    // Nếu là giảm giá theo phần trăm
+                    total = total - (total * (discountValue / 100));
+                } else if (discountType === 'fixed') {
+                    // Nếu là giảm giá cố định
+                    total = total - discountValue;
+                }
+
+                // Cập nhật tổng tiền
+                $('#total').text(total.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',') + ' VND');
+
+                // Gửi giá trị tổng về server để cập nhật session
+                updateSessionTotal(total);
+            }
+
+            // Hàm gửi giá trị tổng về server để cập nhật session
+            function updateSessionTotal(total) {
+                $.ajax({
+                    url: '/apply-voucher', // URL cho yêu cầu API
+                    type: 'POST',
+                    data: {
+                        total: total,
+                        _token: $('meta[name="csrf-token"]').attr('content') // Thêm CSRF token
+                    }, // Gửi giá trị tổng
+                    success: function(response) {
+                        console.log('Total updated in session:', response);
+                    },
+                    error: function(error) {
+                        console.log('Error updating total:', error);
+                    }
+                });
             }
         });
+    </script>
 
-    });
-</script>
+
+
 @endsection

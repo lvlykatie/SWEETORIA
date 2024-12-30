@@ -12,6 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if (!Schema::hasTable('tb_user')) {
         Schema::create('tb_user', function (Blueprint $table) {
             $table->increments('user_id');
             $table->string('user_email')->unique();
@@ -32,6 +33,9 @@ return new class extends Migration
             ['user_email' => 'thu@gmail.com', 'user_password' => '12345', 'user_name' => 'Thu ne', 'user_phone' => '2222', 'role' => 'customer'],
             ['user_email' => 'thanh@gmail.com', 'user_password' => '12345', 'user_name' => 'Thanh ne', 'user_phone' => '3333', 'role' => 'admin']
         ]);
+        }
+
+
 
         if (!Schema::hasTable('password_reset_tokens')) {
             Schema::create('password_reset_tokens', function (Blueprint $table) {

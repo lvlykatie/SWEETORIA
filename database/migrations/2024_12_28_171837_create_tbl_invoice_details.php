@@ -11,14 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tbl_invoice_details', function (Blueprint $table) {
-            $table->increments('invoice_details_id');
-            $table->integer('invoice_id');
-            $table->integer('product_id');
-            $table->integer('quantity');
-            $table->integer('price');
-            $table->timestamps();
-        });
+       if (!Schema::hasTable('tbl_invoice_details')) { // Kiểm tra bảng có tồn tại hay không
+            Schema::create('tbl_invoice_details', function (Blueprint $table) {
+                $table->increments('ivd_id');
+                $table->integer('iv_id');
+                $table->integer('product_id');
+                $table->integer('quantity');
+                $table->float('price');
+                $table->timestamps();
+            });
+        }
     }
 
     /**
