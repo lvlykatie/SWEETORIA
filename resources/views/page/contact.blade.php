@@ -17,11 +17,7 @@
                 $stores = [
                 [
                 'name' => 'Store 1',
-<<<<<<< HEAD
                 'address' => '5 Hoàng Minh Giám, Phường 9, Phú Nhuận, Hồ Chí Minh',
-=======
-                'address' => '1 Đường Hàn Thuyên, khu phố 6 P, Thủ Đức, Hồ Chí Minh',
->>>>>>> 4b272d7d41b83c347923e3aef9374962155fe7ba
                 'phone' => '123456789',
                 'hours' => '8:00 - 22:00',
                 'map' => '5 Hoàng Minh Giám, Phường 9, Phú Nhuận, Hồ Chí Minh',
