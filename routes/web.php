@@ -67,7 +67,7 @@ Route::group(['middleware' => AdminAuth::class], function () {
     Route::get('/admin/feedbacks/accept/{fb_id}','App\Http\Controllers\admin\FeedbackController@acceptFeedback');
     Route::get('/admin/feedbacks/delete/{fb_id}', 'App\Http\Controllers\admin\FeedbackController@deleteFeedback');
     // logout
-    Route::post('admin/logout', [AccountController::class, 'logout'])->name('logout');
+    Route::post('admin/logout', [AccountController::class, 'logout'])->name('logout'); 
 });
 
 Route::group(['middleware' => ManagerAuth::class], function () {
