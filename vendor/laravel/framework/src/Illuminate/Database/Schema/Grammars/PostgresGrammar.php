@@ -5,6 +5,7 @@ namespace Illuminate\Database\Schema\Grammars;
 use Illuminate\Database\Connection;
 use Illuminate\Database\Query\Expression;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Fluent;
 use LogicException;
 
@@ -65,6 +66,23 @@ class PostgresGrammar extends Grammar
         return sprintf(
             'drop database if exists %s',
             $this->wrapValue($name)
+        );
+    }
+
+    /**
+     * Compile the query to determine if the given table exists.
+     *
+     * @param  string  $schema
+     * @param  string  $table
+     * @return string
+     */
+    public function compileTableExists($schema, $table)
+    {
+        return sprintf(
+            'select exists (select 1 from pg_class c, pg_namespace n where '
+            ."n.nspname = %s and c.relname = %s and c.relkind in ('r', 'p') and n.oid = c.relnamespace)",
+            $this->quoteString($schema),
+            $this->quoteString($table)
         );
     }
 
@@ -646,7 +664,7 @@ class PostgresGrammar extends Grammar
     public function escapeNames($names)
     {
         return array_map(static function ($name) {
-            return '"'.collect(explode('.', $name))
+            return '"'.(new Collection(explode('.', $name)))
                 ->map(fn ($segment) => trim($segment, '\'"'))
                 ->implode('"."').'"';
         }, $names);
@@ -1051,6 +1069,19 @@ class PostgresGrammar extends Grammar
         }
 
         return 'geography';
+    }
+
+    /**
+     * Create the column definition for a vector type.
+     *
+     * @param  \Illuminate\Support\Fluent  $column
+     * @return string
+     */
+    protected function typeVector(Fluent $column)
+    {
+        return isset($column->dimensions) && $column->dimensions !== ''
+            ? "vector({$column->dimensions})"
+            : 'vector';
     }
 
     /**

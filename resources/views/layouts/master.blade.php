@@ -247,9 +247,9 @@
             url.searchParams.set('page', 1);
 
             if (filters) {
-                url.searchParams.set('filter', filters);
+                url.searchParams.set('filters', filters);
             } else {
-                url.searchParams.delete('filter');
+                url.searchParams.delete('filters');
             }
 
             if (sort) {

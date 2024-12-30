@@ -20,6 +20,7 @@ use function is_file;
 use function is_numeric;
 use function sprintf;
 use function str_contains;
+use function strtolower;
 use PHPUnit\Event\Facade as EventFacade;
 use PHPUnit\Runner\TestSuiteSorter;
 use PHPUnit\Util\Filesystem;
@@ -76,6 +77,7 @@ final class Builder
         'group=',
         'covers=',
         'uses=',
+        'requires-php-extension=',
         'help',
         'resolve-dependencies',
         'ignore-dependencies',
@@ -113,7 +115,7 @@ final class Builder
         'fail-on-skipped',
         'fail-on-warning',
         'stop-on-defect',
-        'stop-on-deprecation',
+        'stop-on-deprecation==',
         'stop-on-error',
         'stop-on-failure',
         'stop-on-incomplete',
@@ -213,6 +215,7 @@ final class Builder
         $failOnWarning                     = null;
         $stopOnDefect                      = null;
         $stopOnDeprecation                 = null;
+        $specificDeprecationToStopOn       = null;
         $stopOnError                       = null;
         $stopOnFailure                     = null;
         $stopOnIncomplete                  = null;
@@ -230,6 +233,7 @@ final class Builder
         $groups                            = null;
         $testsCovering                     = null;
         $testsUsing                        = null;
+        $testsRequiringPhpExtension        = null;
         $help                              = false;
         $includePath                       = null;
         $iniSettings                       = [];
@@ -517,6 +521,17 @@ final class Builder
 
                     break;
 
+                case '--requires-php-extension':
+                    if ($testsRequiringPhpExtension === null) {
+                        $testsRequiringPhpExtension = [];
+                    }
+
+                    $testsRequiringPhpExtension[] = strtolower($option[1]);
+
+                    $optionAllowedMultipleTimes = true;
+
+                    break;
+
                 case '--test-suffix':
                     if (str_contains($option[1], ',')) {
                         EventFacade::emitter()->testRunnerTriggeredWarning(
@@ -688,6 +703,10 @@ final class Builder
 
                 case '--stop-on-deprecation':
                     $stopOnDeprecation = true;
+
+                    if ($option[1] !== null) {
+                        $specificDeprecationToStopOn = $option[1];
+                    }
 
                     break;
 
@@ -1021,6 +1040,7 @@ final class Builder
             $failOnWarning,
             $stopOnDefect,
             $stopOnDeprecation,
+            $specificDeprecationToStopOn,
             $stopOnError,
             $stopOnFailure,
             $stopOnIncomplete,
@@ -1038,6 +1058,7 @@ final class Builder
             $groups,
             $testsCovering,
             $testsUsing,
+            $testsRequiringPhpExtension,
             $help,
             $includePath,
             $iniSettings,

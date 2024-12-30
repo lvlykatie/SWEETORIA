@@ -2,12 +2,14 @@
 
 namespace Illuminate\Bus;
 
-use BackedEnum;
 use Closure;
 use Illuminate\Queue\CallQueuedClosure;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use PHPUnit\Framework\Assert as PHPUnit;
 use RuntimeException;
+
+use function Illuminate\Support\enum_value;
 
 trait Queueable
 {
@@ -82,9 +84,7 @@ trait Queueable
      */
     public function onConnection($connection)
     {
-        $this->connection = $connection instanceof BackedEnum
-            ? $connection->value
-            : $connection;
+        $this->connection = enum_value($connection);
 
         return $this;
     }
@@ -97,9 +97,7 @@ trait Queueable
      */
     public function onQueue($queue)
     {
-        $this->queue = $queue instanceof BackedEnum
-            ? $queue->value
-            : $queue;
+        $this->queue = enum_value($queue);
 
         return $this;
     }
@@ -112,9 +110,7 @@ trait Queueable
      */
     public function allOnConnection($connection)
     {
-        $resolvedConnection = $connection instanceof BackedEnum
-            ? $connection->value
-            : $connection;
+        $resolvedConnection = enum_value($connection);
 
         $this->chainConnection = $resolvedConnection;
         $this->connection = $resolvedConnection;
@@ -130,9 +126,7 @@ trait Queueable
      */
     public function allOnQueue($queue)
     {
-        $resolvedQueue = $queue instanceof BackedEnum
-            ? $queue->value
-            : $queue;
+        $resolvedQueue = enum_value($queue);
 
         $this->chainQueue = $resolvedQueue;
         $this->queue = $resolvedQueue;
@@ -210,7 +204,7 @@ trait Queueable
      */
     public function chain($chain)
     {
-        $jobs = ChainedBatch::prepareNestedBatches(collect($chain));
+        $jobs = ChainedBatch::prepareNestedBatches(new Collection($chain));
 
         $this->chained = $jobs->map(function ($job) {
             return $this->serializeJob($job);
@@ -227,7 +221,7 @@ trait Queueable
      */
     public function prependToChain($job)
     {
-        $jobs = ChainedBatch::prepareNestedBatches(collect([$job]));
+        $jobs = ChainedBatch::prepareNestedBatches(new Collection([$job]));
 
         $this->chained = Arr::prepend($this->chained, $this->serializeJob($jobs->first()));
 
@@ -242,7 +236,7 @@ trait Queueable
      */
     public function appendToChain($job)
     {
-        $jobs = ChainedBatch::prepareNestedBatches(collect([$job]));
+        $jobs = ChainedBatch::prepareNestedBatches(new Collection([$job]));
 
         $this->chained = array_merge($this->chained, [$this->serializeJob($jobs->first())]);
 
@@ -301,7 +295,7 @@ trait Queueable
      */
     public function invokeChainCatchCallbacks($e)
     {
-        collect($this->chainCatchCallbacks)->each(function ($callback) use ($e) {
+        (new Collection($this->chainCatchCallbacks))->each(function ($callback) use ($e) {
             $callback($e);
         });
     }
@@ -315,14 +309,14 @@ trait Queueable
     public function assertHasChain($expectedChain)
     {
         PHPUnit::assertTrue(
-            collect($expectedChain)->isNotEmpty(),
+            (new Collection($expectedChain))->isNotEmpty(),
             'The expected chain can not be empty.'
         );
 
-        if (collect($expectedChain)->contains(fn ($job) => is_object($job))) {
-            $expectedChain = collect($expectedChain)->map(fn ($job) => serialize($job))->all();
+        if ((new Collection($expectedChain))->contains(fn ($job) => is_object($job))) {
+            $expectedChain = (new Collection($expectedChain))->map(fn ($job) => serialize($job))->all();
         } else {
-            $chain = collect($this->chained)->map(fn ($job) => get_class(unserialize($job)))->all();
+            $chain = (new Collection($this->chained))->map(fn ($job) => get_class(unserialize($job)))->all();
         }
 
         PHPUnit::assertTrue(

@@ -17,10 +17,10 @@
                 $stores = [
                 [
                 'name' => 'Store 1',
-                'address' => 'Đường Hàn Thuyên, khu phố 6 P, Thủ Đức, Hồ Chí Minh',
+                'address' => '5 Hoàng Minh Giám, Phường 9, Phú Nhuận, Hồ Chí Minh',
                 'phone' => '123456789',
                 'hours' => '8:00 - 22:00',
-                'map' => 'Đường Hàn Thuyên, khu phố 6 P, Thủ Đức, Hồ Chí Minh',
+                'map' => '5 Hoàng Minh Giám, Phường 9, Phú Nhuận, Hồ Chí Minh',
                 ],
                 [
                 'name' => 'Store 2',

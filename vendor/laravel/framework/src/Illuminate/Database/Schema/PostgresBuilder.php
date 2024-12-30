@@ -49,14 +49,9 @@ class PostgresBuilder extends Builder
 
         $table = $this->connection->getTablePrefix().$table;
 
-        foreach ($this->getTables() as $value) {
-            if (strtolower($table) === strtolower($value['name'])
-                && strtolower($schema) === strtolower($value['schema'])) {
-                return true;
-            }
-        }
-
-        return false;
+        return (bool) $this->connection->scalar(
+            $this->grammar->compileTableExists($schema, $table)
+        );
     }
 
     /**
@@ -102,17 +97,15 @@ class PostgresBuilder extends Builder
     {
         $tables = [];
 
-        $excludedTables = $this->grammar->escapeNames(
-            $this->connection->getConfig('dont_drop') ?? ['spatial_ref_sys']
-        );
+        $excludedTables = $this->connection->getConfig('dont_drop') ?? ['spatial_ref_sys'];
 
-        $schemas = $this->grammar->escapeNames($this->getSchemas());
+        $schemas = $this->getSchemas();
 
         foreach ($this->getTables() as $table) {
             $qualifiedName = $table['schema'].'.'.$table['name'];
 
-            if (empty(array_intersect($this->grammar->escapeNames([$table['name'], $qualifiedName]), $excludedTables))
-                && in_array($this->grammar->escapeNames([$table['schema']])[0], $schemas)) {
+            if (in_array($table['schema'], $schemas) &&
+                empty(array_intersect([$table['name'], $qualifiedName], $excludedTables))) {
                 $tables[] = $qualifiedName;
             }
         }
@@ -135,10 +128,10 @@ class PostgresBuilder extends Builder
     {
         $views = [];
 
-        $schemas = $this->grammar->escapeNames($this->getSchemas());
+        $schemas = $this->getSchemas();
 
         foreach ($this->getViews() as $view) {
-            if (in_array($this->grammar->escapeNames([$view['schema']])[0], $schemas)) {
+            if (in_array($view['schema'], $schemas)) {
                 $views[] = $view['schema'].'.'.$view['name'];
             }
         }
@@ -162,10 +155,10 @@ class PostgresBuilder extends Builder
         $types = [];
         $domains = [];
 
-        $schemas = $this->grammar->escapeNames($this->getSchemas());
+        $schemas = $this->getSchemas();
 
         foreach ($this->getTypes() as $type) {
-            if (! $type['implicit'] && in_array($this->grammar->escapeNames([$type['schema']])[0], $schemas)) {
+            if (! $type['implicit'] && in_array($type['schema'], $schemas)) {
                 if ($type['type'] === 'domain') {
                     $domains[] = $type['schema'].'.'.$type['name'];
                 } else {
@@ -241,7 +234,7 @@ class PostgresBuilder extends Builder
      *
      * @return array
      */
-    protected function getSchemas()
+    public function getSchemas()
     {
         return $this->parseSearchPath(
             $this->connection->getConfig('search_path') ?: $this->connection->getConfig('schema') ?: 'public'

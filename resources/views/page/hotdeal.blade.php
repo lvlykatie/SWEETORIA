@@ -38,17 +38,17 @@
 <script>
     const showDeals = () => {
         // Lấy các giá trị filter và sort
-        const filters = 'dealnow';
+        const deal = 'dealnow';
 
         // Xây dựng URL mới với các tham số filter, sort và search
         let url = new URL(window.location.href);
         url.pathname = "/sweetoria/product"; // Cập nhật đường dẫn
 
         // Cập nhật tham số filter
-        if (filters) {
-            url.searchParams.set('filters', filters);
+        if (deal) {
+            url.searchParams.set('deal', deal);
         } else {
-            url.searchParams.delete('filters');
+            url.searchParams.delete('deal');
         }
 
         // Thêm tham số page (set page = 1)

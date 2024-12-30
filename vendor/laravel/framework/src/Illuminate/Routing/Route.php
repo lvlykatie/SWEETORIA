@@ -16,16 +16,20 @@ use Illuminate\Routing\Matching\MethodValidator;
 use Illuminate\Routing\Matching\SchemeValidator;
 use Illuminate\Routing\Matching\UriValidator;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use Illuminate\Support\Traits\Conditionable;
 use Illuminate\Support\Traits\Macroable;
 use InvalidArgumentException;
 use Laravel\SerializableClosure\SerializableClosure;
 use LogicException;
 use Symfony\Component\Routing\Route as SymfonyRoute;
 
+use function Illuminate\Support\enum_value;
+
 class Route
 {
-    use CreatesRegularExpressionRouteConstraints, FiltersControllerMiddleware, Macroable, ResolvesRouteDependencies;
+    use Conditionable, CreatesRegularExpressionRouteConstraints, FiltersControllerMiddleware, Macroable, ResolvesRouteDependencies;
 
     /**
      * The URI pattern the route responds to.
@@ -1081,12 +1085,14 @@ class Route
     /**
      * Specify that the "Authorize" / "can" middleware should be applied to the route with the given options.
      *
-     * @param  string  $ability
+     * @param  \BackedEnum|string  $ability
      * @param  array|string  $models
      * @return $this
      */
     public function can($ability, $models = [])
     {
+        $ability = enum_value($ability);
+
         return empty($models)
                     ? $this->middleware(['can:'.$ability])
                     : $this->middleware(['can:'.$ability.','.implode(',', Arr::wrap($models))]);
@@ -1132,7 +1138,7 @@ class Route
      */
     protected function staticallyProvidedControllerMiddleware(string $class, string $method)
     {
-        return collect($class::middleware())->map(function ($middleware) {
+        return (new Collection($class::middleware()))->map(function ($middleware) {
             return $middleware instanceof Middleware
                 ? $middleware
                 : new Middleware($middleware);

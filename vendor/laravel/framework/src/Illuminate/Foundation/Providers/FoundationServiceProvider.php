@@ -13,7 +13,6 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Database\Grammar;
 use Illuminate\Foundation\Console\CliDumper;
-use Illuminate\Foundation\Defer\DeferredCallbackCollection;
 use Illuminate\Foundation\Exceptions\Renderer\Listener;
 use Illuminate\Foundation\Exceptions\Renderer\Mappers\BladeMapper;
 use Illuminate\Foundation\Exceptions\Renderer\Renderer;
@@ -26,7 +25,9 @@ use Illuminate\Http\Request;
 use Illuminate\Log\Events\MessageLogged;
 use Illuminate\Queue\Events\JobAttempted;
 use Illuminate\Support\AggregateServiceProvider;
+use Illuminate\Support\Defer\DeferredCallbackCollection;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Uri;
 use Illuminate\Testing\LoggedExceptionCollection;
 use Illuminate\Testing\ParallelTestingServiceProvider;
 use Illuminate\Validation\ValidationException;
@@ -89,6 +90,7 @@ class FoundationServiceProvider extends AggregateServiceProvider
         $this->registerDumper();
         $this->registerRequestValidation();
         $this->registerRequestSignatureValidation();
+        $this->registerUriUrlGeneration();
         $this->registerDeferHandler();
         $this->registerExceptionTracking();
         $this->registerExceptionRenderer();
@@ -189,6 +191,16 @@ class FoundationServiceProvider extends AggregateServiceProvider
     }
 
     /**
+     * Register the URL resolver for the URI generator.
+     *
+     * @return void
+     */
+    protected function registerUriUrlGeneration()
+    {
+        Uri::setUrlGeneratorResolver(fn () => app('url'));
+    }
+
+    /**
      * Register the "defer" function termination handler.
      *
      * @return void
@@ -239,6 +251,8 @@ class FoundationServiceProvider extends AggregateServiceProvider
      */
     protected function registerExceptionRenderer()
     {
+        $this->loadViewsFrom(__DIR__.'/../Exceptions/views', 'laravel-exceptions');
+
         if (! $this->app->hasDebugModeEnabled()) {
             return;
         }

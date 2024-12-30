@@ -161,6 +161,12 @@ final readonly class Merger
             $stopOnDeprecation = $xmlConfiguration->phpunit()->stopOnDeprecation();
         }
 
+        $specificDeprecationToStopOn = null;
+
+        if ($cliConfiguration->hasSpecificDeprecationToStopOn()) {
+            $specificDeprecationToStopOn = $cliConfiguration->specificDeprecationToStopOn();
+        }
+
         if ($cliConfiguration->hasStopOnError()) {
             $stopOnError = $cliConfiguration->stopOnError();
         } else {
@@ -614,6 +620,12 @@ final readonly class Merger
             $testsUsing = $cliConfiguration->testsUsing();
         }
 
+        $testsRequiringPhpExtension = null;
+
+        if ($cliConfiguration->hasTestsRequiringPhpExtension()) {
+            $testsRequiringPhpExtension = $cliConfiguration->testsRequiringPhpExtension();
+        }
+
         $filter = null;
 
         if ($cliConfiguration->hasFilter()) {
@@ -822,6 +834,7 @@ final readonly class Merger
             $failOnWarning,
             $stopOnDefect,
             $stopOnDeprecation,
+            $specificDeprecationToStopOn,
             $stopOnError,
             $stopOnFailure,
             $stopOnIncomplete,
@@ -873,6 +886,7 @@ final readonly class Merger
             $testDoxOutputSummary,
             $testsCovering,
             $testsUsing,
+            $testsRequiringPhpExtension,
             $filter,
             $excludeFilter,
             $groups,

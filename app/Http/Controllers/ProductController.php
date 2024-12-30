@@ -18,6 +18,7 @@ class ProductController extends Controller
         $filters = $request->input('filters'); // 'dealnow' hoặc các giá trị khác
         $sort = $request->input('sort'); // 'low-to-high'
         $search = $request->input('search'); // Tên sản phẩm muốn tìm kiếm
+        $deal = $request->input('deal');
 
         // Truy vấn tất cả sản phẩm từ cơ sở dữ liệu
         $query = Product::query();
@@ -32,13 +33,11 @@ class ProductController extends Controller
                 return strtolower(str_replace('-', ' ', $filter)); // Thay dấu gạch nối thành khoảng trắng và chuyển thành chữ thường
             }, $filters);
 
-            // Nếu filters chứa 'dealnow', lọc các sản phẩm có deal_id khác null
-            if (in_array('dealnow', $filters)) {
-                $query->whereNotNull('tbl_product.deal_id');
-            } else {
-                // Lọc theo các category nếu filters không phải là 'dealnow'
-                $query->whereIn('category_name', $filters);
-            }
+            $query->whereIn('category_name', $filters);
+        }
+
+        if($deal){
+            $query->whereNotNull('tbl_deal.deal_id');
         }
 
         // Thêm điều kiện tìm kiếm
@@ -132,34 +131,35 @@ class ProductController extends Controller
             ->join('tb_user', 'tbl_feedback.user_id', '=', 'tb_user.user_id') // Join với bảng tbl_user
             ->select('tbl_feedback.*', 'tb_user.user_name as user_name') // Chọn thông tin cần thiết
             ->where('tbl_feedback.product_id', $id)
+            ->where('tbl_feedback.status', 'approved') // Thêm điều kiện chỉ lấy feedback có status là approved
             ->get();
-            // Count feedbacks for the product
-    $feedbackCount = $feedbacks->count();
+        // Count feedbacks for the product
+        $feedbackCount = $feedbacks->count();
 
-    // Calculate rating statistics
-    $ratingCounts = DB::table('tbl_feedback')
-        ->select(DB::raw('rate, COUNT(*) as count'))
-        ->where('product_id', $id)
-        ->groupBy('rate')
-        ->pluck('count', 'rate')->all();
+        // Calculate rating statistics
+        $ratingCounts = DB::table('tbl_feedback')
+            ->select(DB::raw('rate, COUNT(*) as count'))
+            ->where('product_id', $id)
+            ->groupBy('rate')
+            ->pluck('count', 'rate')->all();
 
-    $totalFeedbacks = array_sum($ratingCounts);
-    $ratingPercentages = [];
-    for ($i = 1; $i <= 5; $i++) {
-        $ratingPercentages[$i] = isset($ratingCounts[$i]) ? ($ratingCounts[$i] / $totalFeedbacks) * 100 : 0;
-    }
+        $totalFeedbacks = array_sum($ratingCounts);
+        $ratingPercentages = [];
+        for ($i = 1; $i <= 5; $i++) {
+            $ratingPercentages[$i] = isset($ratingCounts[$i]) ? ($ratingCounts[$i] / $totalFeedbacks) * 100 : 0;
+        }
 
-    // Calculate average rating
-    $averageRating = DB::table('tbl_feedback')
-        ->where('product_id', $id)
-        ->avg('rate');
+        // Calculate average rating
+        $averageRating = DB::table('tbl_feedback')
+            ->where('product_id', $id)
+            ->avg('rate');
 
-    // Update product_rate in tbl_product
-    DB::table('tbl_product')
-        ->where('product_id', $id)
-        ->update(['product_rate' => $averageRating]);
+        // Update product_rate in tbl_product
+        DB::table('tbl_product')
+            ->where('product_id', $id)
+            ->update(['product_rate' => $averageRating]);
 
-    return view('page.detail', compact('product', 'related_product', 'feedbacks', 'ratingPercentages', 'feedbackCount'));
+        return view('page.detail', compact('product', 'related_product', 'feedbacks', 'ratingPercentages', 'feedbackCount'));
     }
 
 
@@ -185,7 +185,8 @@ class ProductController extends Controller
                 'product_id' => $request->product_id,
                 'comment' => $request->feedback_content,
                 'rate' => $request->rating,
-                'image' => null, // Mặc định là null
+                'image' => null,
+                'status' => 'pending', // Mặc định là null
                 'created_at' => now(),
             ];
 

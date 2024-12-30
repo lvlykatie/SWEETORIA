@@ -27,6 +27,9 @@ use function sys_get_temp_dir;
 use function tempnam;
 use function trim;
 use function unlink;
+use function xdebug_is_debugger_active;
+use PHPUnit\Event\Facade;
+use PHPUnit\Runner\CodeCoverage;
 use SebastianBergmann\Environment\Runtime;
 
 /**
@@ -94,7 +97,6 @@ final readonly class DefaultJobRunner implements JobRunner
             }
 
             unset($key, $value);
-
         }
 
         $pipeSpec = [
@@ -114,6 +116,8 @@ final readonly class DefaultJobRunner implements JobRunner
             null,
             $environmentVariables,
         );
+
+        Facade::emitter()->testRunnerStartedChildProcess();
 
         if (!is_resource($process)) {
             // @codeCoverageIgnoreStart
@@ -184,6 +188,14 @@ final readonly class DefaultJobRunner implements JobRunner
                     array_keys($xdebugSettings),
                 ),
             );
+
+            // disable xdebug if not required to reduce xdebug performance overhead in subprocesses
+            if (
+                !CodeCoverage::instance()->isActive() &&
+                xdebug_is_debugger_active() === false
+            ) {
+                $phpSettings['xdebug.mode'] = 'xdebug.mode=off';
+            }
         }
 
         $command = array_merge($command, $this->settingsToParameters($phpSettings));

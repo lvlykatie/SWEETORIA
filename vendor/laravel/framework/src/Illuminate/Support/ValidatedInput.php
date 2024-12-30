@@ -93,7 +93,7 @@ class ValidatedInput implements ValidatedData
      * @param  callable|null  $default
      * @return $this|mixed
      */
-    public function whenMissing($key, callable $callback, callable $default = null)
+    public function whenMissing($key, callable $callback, ?callable $default = null)
     {
         if ($this->missing($key)) {
             return $callback(data_get($this->all(), $key)) ?: $this;
@@ -127,7 +127,7 @@ class ValidatedInput implements ValidatedData
      */
     public function string($key, $default = null)
     {
-        return str($this->input($key, $default));
+        return Str::of($this->input($key, $default));
     }
 
     /**
@@ -191,7 +191,7 @@ class ValidatedInput implements ValidatedData
      */
     public function collect($key = null)
     {
-        return collect(is_array($key) ? $this->only($key) : $this->input($key));
+        return new Collection(is_array($key) ? $this->only($key) : $this->input($key));
     }
 
     /**
@@ -212,7 +212,7 @@ class ValidatedInput implements ValidatedData
      * @param  callable|null  $default
      * @return $this|mixed
      */
-    public function whenHas($key, callable $callback, callable $default = null)
+    public function whenHas($key, callable $callback, ?callable $default = null)
     {
         if ($this->has($key)) {
             return $callback(data_get($this->all(), $key)) ?: $this;
@@ -290,7 +290,7 @@ class ValidatedInput implements ValidatedData
      * @param  callable|null  $default
      * @return $this|mixed
      */
-    public function whenFilled($key, callable $callback, callable $default = null)
+    public function whenFilled($key, callable $callback, ?callable $default = null)
     {
         if ($this->filled($key)) {
             return $callback(data_get($this->all(), $key)) ?: $this;

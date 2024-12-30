@@ -4,13 +4,15 @@ namespace Illuminate\Foundation\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Env;
 use Illuminate\Support\InteractsWithTime;
+use Illuminate\Support\Stringable;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Process\PhpExecutableFinder;
 use Symfony\Component\Process\Process;
 
+use function Illuminate\Support\php_binary;
 use function Termwind\terminal;
 
 #[AsCommand(name: 'serve')]
@@ -70,6 +72,7 @@ class ServeCommand extends Command
         'HERD_PHP_81_INI_SCAN_DIR',
         'HERD_PHP_82_INI_SCAN_DIR',
         'HERD_PHP_83_INI_SCAN_DIR',
+        'HERD_PHP_84_INI_SCAN_DIR',
         'IGNITION_LOCAL_SITES_PATH',
         'LARAVEL_SAIL',
         'PATH',
@@ -145,7 +148,7 @@ class ServeCommand extends Command
      */
     protected function startProcess($hasEnvironment)
     {
-        $process = new Process($this->serverCommand(), public_path(), collect($_ENV)->mapWithKeys(function ($value, $key) use ($hasEnvironment) {
+        $process = new Process($this->serverCommand(), public_path(), (new Collection($_ENV))->mapWithKeys(function ($value, $key) use ($hasEnvironment) {
             if ($this->option('no-reload') || ! $hasEnvironment) {
                 return [$key => $value];
             }
@@ -178,7 +181,7 @@ class ServeCommand extends Command
             : __DIR__.'/../resources/server.php';
 
         return [
-            (new PhpExecutableFinder)->find(false) ?: 'php',
+            php_binary(),
             '-S',
             $this->host().':'.$this->port(),
             $server,
@@ -269,7 +272,7 @@ class ServeCommand extends Command
      */
     protected function flushOutputBuffer()
     {
-        $lines = str($this->outputBuffer)->explode("\n");
+        $lines = (new Stringable($this->outputBuffer))->explode("\n");
 
         $this->outputBuffer = (string) $lines->pop();
 
@@ -277,7 +280,7 @@ class ServeCommand extends Command
             ->map(fn ($line) => trim($line))
             ->filter()
             ->each(function ($line) {
-                if (str($line)->contains('Development Server (http')) {
+                if ((new Stringable($line))->contains('Development Server (http')) {
                     if ($this->serverRunningHasBeenDisplayed === false) {
                         $this->serverRunningHasBeenDisplayed = true;
 
@@ -290,24 +293,24 @@ class ServeCommand extends Command
                     return;
                 }
 
-                if (str($line)->contains(' Accepted')) {
-                    $requestPort = $this->getRequestPortFromLine($line);
+                if ((new Stringable($line))->contains(' Accepted')) {
+                    $requestPort = static::getRequestPortFromLine($line);
 
                     $this->requestsPool[$requestPort] = [
                         $this->getDateFromLine($line),
                         $this->requestsPool[$requestPort][1] ?? false,
                         microtime(true),
                     ];
-                } elseif (str($line)->contains([' [200]: GET '])) {
-                    $requestPort = $this->getRequestPortFromLine($line);
+                } elseif ((new Stringable($line))->contains([' [200]: GET '])) {
+                    $requestPort = static::getRequestPortFromLine($line);
 
                     $this->requestsPool[$requestPort][1] = trim(explode('[200]: GET', $line)[1]);
-                } elseif (str($line)->contains('URI:')) {
-                    $requestPort = $this->getRequestPortFromLine($line);
+                } elseif ((new Stringable($line))->contains('URI:')) {
+                    $requestPort = static::getRequestPortFromLine($line);
 
                     $this->requestsPool[$requestPort][1] = trim(explode('URI: ', $line)[1]);
-                } elseif (str($line)->contains(' Closing')) {
-                    $requestPort = $this->getRequestPortFromLine($line);
+                } elseif ((new Stringable($line))->contains(' Closing')) {
+                    $requestPort = static::getRequestPortFromLine($line);
 
                     if (empty($this->requestsPool[$requestPort])) {
                         $this->requestsPool[$requestPort] = [
@@ -337,11 +340,11 @@ class ServeCommand extends Command
 
                     $this->output->write(' '.str_repeat('<fg=gray>.</>', $dots));
                     $this->output->writeln(" <fg=gray>~ {$runTime}</>");
-                } elseif (str($line)->contains(['Closed without sending a request', 'Failed to poll event'])) {
+                } elseif ((new Stringable($line))->contains(['Closed without sending a request', 'Failed to poll event'])) {
                     // ...
                 } elseif (! empty($line)) {
-                    if (str($line)->startsWith('[')) {
-                        $line = str($line)->after('] ');
+                    if ((new Stringable($line))->startsWith('[')) {
+                        $line = (new Stringable($line))->after('] ');
                     }
 
                     $this->output->writeln("  <fg=gray>$line</>");
@@ -357,7 +360,7 @@ class ServeCommand extends Command
      */
     protected function getDateFromLine($line)
     {
-        $regex = env('PHP_CLI_SERVER_WORKERS', 1) > 1
+        $regex = ! windows_os() && env('PHP_CLI_SERVER_WORKERS', 1) > 1
             ? '/^\[\d+]\s\[([a-zA-Z0-9: ]+)\]/'
             : '/^\[([^\]]+)\]/';
 
@@ -374,11 +377,15 @@ class ServeCommand extends Command
      * @param  string  $line
      * @return int
      */
-    protected function getRequestPortFromLine($line)
+    public static function getRequestPortFromLine($line)
     {
-        preg_match('/:(\d+)\s(?:(?:\w+$)|(?:\[.*))/', $line, $matches);
+        preg_match('/(\[\w+\s\w+\s\d+\s[\d:]+\s\d{4}\]\s)?:(\d+)\s(?:(?:\w+$)|(?:\[.*))/', $line, $matches);
 
-        return (int) $matches[1];
+        if (! isset($matches[2])) {
+            throw new \InvalidArgumentException("Failed to extract the request port. Ensure the log line contains a valid port: {$line}");
+        }
+
+        return (int) $matches[2];
     }
 
     /**

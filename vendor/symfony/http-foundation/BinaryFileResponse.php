@@ -70,7 +70,7 @@ class BinaryFileResponse extends Response
             if ($file instanceof \SplFileInfo) {
                 $file = new File($file->getPathname(), !$isTemporaryFile);
             } else {
-                $file = new File((string) $file);
+                $file = new File($file);
             }
         }
 
@@ -110,8 +110,8 @@ class BinaryFileResponse extends Response
      */
     public function setChunkSize(int $chunkSize): static
     {
-        if ($chunkSize < 1 || $chunkSize > \PHP_INT_MAX) {
-            throw new \LogicException('The chunk size of a BinaryFileResponse cannot be less than 1 or greater than PHP_INT_MAX.');
+        if ($chunkSize < 1) {
+            throw new \InvalidArgumentException('The chunk size of a BinaryFileResponse cannot be less than 1.');
         }
 
         $this->chunkSize = $chunkSize;
@@ -126,7 +126,7 @@ class BinaryFileResponse extends Response
      */
     public function setAutoLastModified(): static
     {
-        $this->setLastModified(\DateTimeImmutable::createFromFormat('U', $this->file->getMTime()));
+        $this->setLastModified(\DateTimeImmutable::createFromFormat('U', $this->tempFileObject ? time() : $this->file->getMTime()));
 
         return $this;
     }
@@ -197,7 +197,9 @@ class BinaryFileResponse extends Response
         $this->offset = 0;
         $this->maxlen = -1;
 
-        if (false === $fileSize = $this->file->getSize()) {
+        if ($this->tempFileObject) {
+            $fileSize = $this->tempFileObject->fstat()['size'];
+        } elseif (false === $fileSize = $this->file->getSize()) {
             return $this;
         }
         $this->headers->remove('Transfer-Encoding');
@@ -218,8 +220,12 @@ class BinaryFileResponse extends Response
             }
             if ('x-accel-redirect' === strtolower($type)) {
                 // Do X-Accel-Mapping substitutions.
-                // @link https://www.nginx.com/resources/wiki/start/topics/examples/x-accel/#x-accel-redirect
-                $parts = HeaderUtils::split($request->headers->get('X-Accel-Mapping', ''), ',=');
+                // @link https://github.com/rack/rack/blob/main/lib/rack/sendfile.rb
+                // @link https://mattbrictson.com/blog/accelerated-rails-downloads
+                if (!$request->headers->has('X-Accel-Mapping')) {
+                    throw new \LogicException('The "X-Accel-Mapping" header must be set when "X-Sendfile-Type" is set to "X-Accel-Redirect".');
+                }
+                $parts = HeaderUtils::split($request->headers->get('X-Accel-Mapping'), ',=');
                 foreach ($parts as $part) {
                     [$pathPrefix, $location] = $part;
                     if (str_starts_with($path, $pathPrefix)) {
@@ -256,13 +262,13 @@ class BinaryFileResponse extends Response
                         $end = min($end, $fileSize - 1);
                         if ($start < 0 || $start > $end) {
                             $this->setStatusCode(416);
-                            $this->headers->set('Content-Range', sprintf('bytes */%s', $fileSize));
+                            $this->headers->set('Content-Range', \sprintf('bytes */%s', $fileSize));
                         } elseif ($end - $start < $fileSize - 1) {
                             $this->maxlen = $end < $fileSize ? $end - $start + 1 : -1;
                             $this->offset = $start;
 
                             $this->setStatusCode(206);
-                            $this->headers->set('Content-Range', sprintf('bytes %s-%s/%s', $start, $end, $fileSize));
+                            $this->headers->set('Content-Range', \sprintf('bytes %s-%s/%s', $start, $end, $fileSize));
                             $this->headers->set('Content-Length', $end - $start + 1);
                         }
                     }

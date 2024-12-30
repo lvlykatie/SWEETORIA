@@ -32,6 +32,21 @@ class SQLiteBuilder extends Builder
     }
 
     /**
+     * Determine if the given table exists.
+     *
+     * @param  string  $table
+     * @return bool
+     */
+    public function hasTable($table)
+    {
+        $table = $this->connection->getTablePrefix().$table;
+
+        return (bool) $this->connection->scalar(
+            $this->grammar->compileTableExists($table)
+        );
+    }
+
+    /**
      * Get the tables for the database.
      *
      * @param  bool  $withSize
@@ -75,7 +90,12 @@ class SQLiteBuilder extends Builder
      */
     public function dropAllTables()
     {
-        if ($this->connection->getDatabaseName() !== ':memory:') {
+        $database = $this->connection->getDatabaseName();
+
+        if ($database !== ':memory:' &&
+            ! str_contains($database, '?mode=memory') &&
+            ! str_contains($database, '&mode=memory')
+        ) {
             return $this->refreshDatabaseFile();
         }
 

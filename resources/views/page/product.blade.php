@@ -47,13 +47,13 @@
                 <div class="flex flex-col flex-wrap gap-7 mt-4">
                     <div class="w-full text-3xl font-extrabold flex items-center">
                         <input type="checkbox" style="width: 30px; height: 30px;" id="baking-ingredients"
-                            name="filters[]" value="baking-ingredients">
-                        <label class="pl-8" for="">Baking ingredients </label>
+                            name="filter[]" value="Baking ingredients">
+                        <label class="pl-8" for="Baking ingredients">Baking ingredients </label>
                     </div>
                     <div class="w-auto text-3xl font-extrabold flex items-center">
-                        <input type="checkbox" style="width: 30px; height: 30px;" id="baking tools" name="filterss[]"
-                            value="baking-tools">
-                        <label class="pl-8" for="">Baking Tools </label>
+                        <input type="checkbox" style="width: 30px; height: 30px;" id="baking tools" name="filter[]"
+                            value="Baking Tools">
+                        <label class="pl-8" for="Baking Tools">Baking Tools </label>
                     </div>
                 </div>
 
@@ -65,12 +65,12 @@
                 </div>
                 <div class="flex flex-col items-center flex-wrap gap-4 mt-4">
                     <div class="w-full text-3xl font-extrabold flex items-center">
-                        <input type="checkbox" class="rounded-md" style="width: 30px; height: 30px; border-radius: 5px;" id="baking-trays" name="filterss[]" value="Baking trays, molds">
-                        <label class="pl-4" for="baking-trays">Baking trays, molds</label>
+                        <input type="checkbox" class="rounded-md" style="width: 30px; height: 30px; border-radius: 5px;" id="baking-trays" name="filter[]" value="Baking trays, molds">
+                        <label class="pl-4" for="Baking trays, molds">Baking trays, molds</label>
                     </div>
                     <div class="w-full text-3xl font-extrabold flex items-center">
-                        <input type="checkbox" style="width: 30px; height: 30px;" id="bags-boxes" name="filterss[]" value="Bags, boxes, cups, jars">
-                        <label class="pl-4" for="bags-boxes">Bags, boxes, cups, jars</label>
+                        <input type="checkbox" style="width: 30px; height: 30px;" id="bags-boxes" name="filter[]" value="Bags, boxes, cups, jars">
+                        <label class="pl-4" for="Bags, boxes, cups, jars">Bags, boxes, cups, jars</label>
                     </div>
                 </div>
             </div>
@@ -307,9 +307,9 @@
         url.searchParams.set('page', 1);
 
         if (filters) {
-            url.searchParams.set('filter', filters);
+            url.searchParams.set('filters', filters);
         } else {
-            url.searchParams.delete('filter');
+            url.searchParams.delete('filters');
         }
 
         if (sort) {

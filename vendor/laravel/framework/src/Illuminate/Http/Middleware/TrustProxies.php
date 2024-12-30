@@ -68,6 +68,10 @@ class TrustProxies
     {
         $trustedIps = $this->proxies() ?: config('trustedproxy.proxies');
 
+        if (is_null($trustedIps) && laravel_cloud()) {
+            $trustedIps = '*';
+        }
+
         if ($trustedIps === '*' || $trustedIps === '**') {
             return $this->setTrustedProxyIpAddressesToTheCallingIp($request);
         }
@@ -90,7 +94,13 @@ class TrustProxies
      */
     protected function setTrustedProxyIpAddressesToSpecificIps(Request $request, array $trustedIps)
     {
-        $request->setTrustedProxies($trustedIps, $this->getTrustedHeaderNames());
+        $request->setTrustedProxies(array_reduce($trustedIps, function ($ips, $trustedIp) use ($request) {
+            $ips[] = $trustedIp === 'REMOTE_ADDR'
+                ? $request->server->get('REMOTE_ADDR')
+                : $trustedIp;
+
+            return $ips;
+        }, []), $this->getTrustedHeaderNames());
     }
 
     /**

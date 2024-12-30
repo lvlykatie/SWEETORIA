@@ -6,6 +6,7 @@ use Illuminate\Database\Connection;
 use Illuminate\Database\Query\Expression;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Schema\ColumnDefinition;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Fluent;
 use RuntimeException;
 
@@ -29,7 +30,7 @@ class MySqlGrammar extends Grammar
     protected $serials = ['bigInteger', 'integer', 'mediumInteger', 'smallInteger', 'tinyInteger'];
 
     /**
-     * The commands to be executed outside of create or alter command.
+     * The commands to be executed outside of create or alter commands.
      *
      * @var string[]
      */
@@ -73,6 +74,23 @@ class MySqlGrammar extends Grammar
         return sprintf(
             'drop database if exists %s',
             $this->wrapValue($name)
+        );
+    }
+
+    /**
+     * Compile the query to determine if the given table exists.
+     *
+     * @param  string  $database
+     * @param  string  $table
+     * @return string
+     */
+    public function compileTableExists($database, $table)
+    {
+        return sprintf(
+            'select exists (select 1 from information_schema.tables where '
+            ."table_schema = %s and table_name = %s and table_type in ('BASE TABLE', 'SYSTEM VERSIONED')) as `exists`",
+            $this->quoteString($database),
+            $this->quoteString($table)
         );
     }
 
@@ -341,7 +359,7 @@ class MySqlGrammar extends Grammar
      */
     protected function compileLegacyRenameColumn(Blueprint $blueprint, Fluent $command, Connection $connection)
     {
-        $column = collect($connection->getSchemaBuilder()->getColumns($blueprint->getTable()))
+        $column = (new Collection($connection->getSchemaBuilder()->getColumns($blueprint->getTable())))
             ->firstWhere('name', $command->from);
 
         $modifiers = $this->addModifiers($column['type'], $blueprint, new ColumnDefinition([
@@ -1101,6 +1119,19 @@ class MySqlGrammar extends Grammar
     protected function typeComputed(Fluent $column)
     {
         throw new RuntimeException('This database driver requires a type, see the virtualAs / storedAs modifiers.');
+    }
+
+    /**
+     * Create the column definition for a vector type.
+     *
+     * @param  \Illuminate\Support\Fluent  $column
+     * @return string
+     */
+    protected function typeVector(Fluent $column)
+    {
+        return isset($column->dimensions) && $column->dimensions !== ''
+            ? "vector({$column->dimensions})"
+            : 'vector';
     }
 
     /**
