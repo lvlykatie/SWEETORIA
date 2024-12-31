@@ -101,7 +101,10 @@
                 <div x-show="isOpen" class="loginbox absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16">
                     <main class="w-full flex-grow p-6">
                         <a href="#" class="block px-4 py-2 account-link hover:text-black">Account</a>
-                        <a href="#" class="block px-4 py-2 account-link hover:text-black">Sign Out</a>
+                        <form action="{{ URL::to('admin/logout') }}" method="post" class="block px-4 py-2 account-link hover:text-black">
+                        @csrf
+                        <button>Sign Out</button>
+                    </form>
                 </div>
             </div>
         </header>
