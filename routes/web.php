@@ -19,7 +19,7 @@ use Illuminate\Http\Request;
 // admin routes
 Route::group(['middleware' => AdminAuth::class], function () {
     // Admin dashboard
-    Route::get('/admin/dashboard', 'App\Http\Controllers\admin\DashboardController@showDashboard');
+    Route::get('/admin/dashboard', 'App\Http\Controllers\admin\DashboardController@index');
 
     // Products
     Route::get('/admin/products', 'App\Http\Controllers\admin\ProductController@showProductPage');
@@ -64,7 +64,8 @@ Route::group(['middleware' => AdminAuth::class], function () {
 
     // Accounts
     Route::get('/admin/feedbacks', 'App\Http\Controllers\admin\FeedbackController@showFeedbackPage');
-
+    Route::get('/admin/feedbacks/accept/{fb_id}', 'App\Http\Controllers\admin\FeedbackController@acceptFeedback');
+    Route::get('/admin/feedbacks/delete/{fb_id}', 'App\Http\Controllers\admin\FeedbackController@deleteFeedback');
     // logout
     Route::post('admin/logout', [AccountController::class, 'logout'])->name('logout');
 });
