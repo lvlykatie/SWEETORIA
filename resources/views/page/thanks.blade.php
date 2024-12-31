@@ -15,7 +15,7 @@
     @endif
 
     <h1>SWEETORIA THANK YOU!</h1>
-    <a href="{{ url('/cart') }}">Back to your Cart</a>
+    <a href="{{ url('/account/ordersview') }}">See your Orders</a>
 
 </body>
 </html>

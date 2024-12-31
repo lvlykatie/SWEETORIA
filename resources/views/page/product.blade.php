@@ -163,7 +163,10 @@
                     </div>
                     <!-- icon thêm giỏ hàng -->
                 </div>
-                <button class="md:w-[330px] font-semibold mt-4 md:h-[60px] text-2xl text-white bg-[#D65050] rounded-[60px] absolute bottom-4 left-1/2 transform -translate-x-1/2">
+                <button class="buy-now-btn md:w-[330px] font-semibold mt-4 md:h-[60px] text-2xl text-white bg-[#D65050] rounded-[60px] absolute bottom-4 left-1/2 transform -translate-x-1/2"
+                data-product-id="{{ $product->product_id }}" 
+                data-product-name="{{ $product->product_name }}" 
+                data-product-price="{{ $product->product_price }}">
                     <span class="px-4 py-8">BUY NOW</span>
                 </button>
             </div>
@@ -330,6 +333,44 @@
         // Gửi yêu cầu lọc lại sản phẩm
         window.location.href = url;
     }
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const buyNowButtons = document.querySelectorAll('.buy-now-btn');
+        
+        buyNowButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const productId = this.dataset.productId;
+                const productName = this.dataset.productName;
+                const productPrice = this.dataset.productPrice;
+
+                // Gửi thông tin sản phẩm tới server qua AJAX
+                fetch('{{ route("buy.now") }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({
+                        productId: productId,
+                        productName: productName,
+                        productPrice: productPrice,
+                        quantity: 1 // Số lượng mặc định
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Chuyển hướng sang trang payment
+                        window.location.href = '{{ route("payment.page") }}';
+                    } else {
+                        alert('Error adding product to cart: ' + data.message);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            });
+        });
+    });
 </script>
 
 @endsection
