@@ -72,7 +72,7 @@ Route::group(['middleware' => AdminAuth::class], function () {
 
 Route::group(['middleware' => ManagerAuth::class], function () {
     //manager
-    Route::get('/manager/dashboard', 'App\Http\Controllers\manager\DashboardController@showDashboard');
+    Route::get('/manager/dashboard', 'App\Http\Controllers\manager\DashboardController@index');
 
     //products
     Route::get('/manager/products', 'App\Http\Controllers\manager\ProductController@showProductPage');
