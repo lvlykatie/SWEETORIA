@@ -163,6 +163,8 @@ Route::get('/delivery', [PageController::class, 'delivery'])->name('delivery');
 
 // Payment Route (test)
 Route::post('/cart/buy-now', [CartController::class, 'buyNow'])->name('cart.buyNow');
+Route::post('/buy-now', [ProductController::class, 'buyNow'])->name('buy.now');
+Route::post('/buy-nowPD', [ProductController::class, 'buyNowPD'])->name('buy.nowPD');
 Route::get('/payment', [PaymentController::class, 'showPaymentPage'])->name('payment.page');
 Route::post('/payment/momo', [MomoController::class, 'createPayment']);
 Route::get('/payment_momo', [PaymentController::class, 'showPaymentMomo']);
