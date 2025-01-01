@@ -10,37 +10,42 @@ use App\Models\InvoiceDetails;
 
 class OrderController extends Controller
 {
-    //
     public function index()
     {
-        $userId = Auth::id();
+         $userId = Auth::id();
          // Lấy danh sách hóa đơn
         $orders = Invoice::where('user_id', $userId)
         ->orderBy('orderdate', 'desc')
         ->get();
-    
+
         // Lấy chi tiết hóa đơn với thông tin sản phẩm
         $orderDetails = InvoiceDetails::with('product')
         ->whereIn('invoice_id', $orders->pluck('iv_id'))
         ->get();
-    
+
         return view('account.orders', compact('orders', 'orderDetails'));
     }
-
-    public function orders()
-    {
-        // return view('account.orders');
+    public function getOrdersByStatus($status='all'){
         $userId = Auth::id();
 
-        // Lấy danh sách hóa đơn
+    if ($status === 'all') {
         $orders = Invoice::where('user_id', $userId)
             ->orderBy('orderdate', 'desc')
-            ->get(); // Sử dụng get() để trả về Collection
-    
-        $orderDetails = InvoiceDetails::with('product')
-            ->whereIn('invoice_id', $orders->pluck('iv_id'))
             ->get();
-    
-        return view('account.orders', compact('orders', 'orderDetails'));
+    } else {
+        $orders = Invoice::where('user_id', $userId)
+            ->where('iv_status', $status)
+            ->orderBy('orderdate', 'desc')
+            ->get();
+    }
+
+    $orderDetails = InvoiceDetails::with('product')
+        ->whereIn('invoice_id', $orders->pluck('iv_id'))
+        ->get();
+
+    return response()->json([
+        'orders' => $orders,
+        'orderDetails' => $orderDetails,
+    ]);
     }
 }
