@@ -28,19 +28,6 @@
                         <label class="block text-xl text-gray-600" for="name">Voucher name</label>
                         <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="name" name="voucher_name" type="text" required="" placeholder="Enter voucher's name" aria-label="Name">
                     </div>
-                    <div class="mt-2 relative">
-                        <label class="block text-xl text-gray-600" for="price">Discount type</label>
-                        <input class="w-full pl-16 pr-5 py-2 text-gray-700 bg-gray-200 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            id="discount_type"
-                            name="discount_type"
-                            type="number"
-                            step="1000"
-                            value="0"
-                            required
-                            placeholder="1000"
-                            aria-label="Discount type">
-                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">₫</span>
-                    </div>
                     <div class="mt-2">
                         <label class="block text-xl text-gray-600" for="sku">Discount value</label>
                         <input class="w-full px-5 py-2 text-gray-700 bg-gray-200 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -59,7 +46,7 @@
                     </div>
                     <div class="mt-2 relative">
                         <label class="block text-xl text-gray-600" for="name">Minimum order value</label>
-                        <input type="number" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="minimum_order_value" name="minimum_order_value" required="" placeholder="Enter voucher's max usage" aria-label="Max usage"></input>
+                        <input type="number" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="minimum_order_value" name="minimum_order_value" required="" placeholder="Enter voucher's minimum order value" aria-label="Minimum order value"></input>
                     </div>
                     <div class="">
                         <label class="block text-xl text-gray-600" for="name">Start date</label>

@@ -41,7 +41,7 @@ class PaymentController extends Controller
 
         $total = array_sum(array_column($productDetails, 'total'));
 
-            // Lưu thông tin vào session
+        // Lưu thông tin vào session
         session([
             'name' => $user->user_name ?? null,
             'address' => $user->user_address ?? null,
@@ -50,8 +50,8 @@ class PaymentController extends Controller
             'total' => $total, // Tổng tiền
         ]);
         $vouchers = Voucher::where('enddate', '>=', now()->format('Y-m-d'))  // Chỉ lấy voucher còn hạn
-        ->where('minimum_order_value', '<=', $total) // Lọc theo giá trị đơn hàng
-        ->get();
+            ->where('minimum_order_value', '<=', $total) // Lọc theo giá trị đơn hàng
+            ->get();
         // dd($vouchers,  $total , now());
         return view('page.payment', [
             'products' => $productDetails,
@@ -86,25 +86,18 @@ class PaymentController extends Controller
             'address' => session('address'),
         ]);
 
-            // Trả về JSON response với thông báo thành công
-         return response()->json(['success' => 'Save Infomation success! ']);
+        // Trả về JSON response với thông báo thành công
+        return response()->json(['success' => 'Save Infomation success! ']);
     }
     public function applyVoucher(Request $request)
     {
-        // Lấy giá trị total từ request
-        $total = $request->input('total');
-
-        // Debug giá trị total (có thể dùng dd để debug)
-        // dd($total);
-
-        // Cập nhật giá trị vào session
-        session(['total' => $total]);
-
-        // Trả về phản hồi JSON
-        return response()->json([
-            'message' => 'Total has been updated in session.',
-            'total' => $total
-        ]);
+        $voucher = Voucher::find($request->voucher_id); // Lấy voucher từ DB
+        if ($voucher) {
+            $discount = $voucher->discount_value / 100;
+            $total = session('total') * (1 - $discount);
+            session(['total' => $total]);
+            return response()->json(['success' => 'Voucher applied successfully', 'total' => $total]);
+        }
+        return response()->json(['error' => 'Invalid voucher'], 400);
     }
-
 }

@@ -31,7 +31,6 @@ class VoucherController extends Controller
     {
         $data = array();
         $data['voucher_name'] = $request->voucher_name;
-        $data['discount_type'] = $request->discount_type;
         $data['discount_value'] = $request->discount_value;
         $data['max_usage'] = $request->max_usage;
         $data['minimum_order_value'] = $request->minimum_order_value;
@@ -52,7 +51,6 @@ class VoucherController extends Controller
     {
         $data = array();
         $data['voucher_name'] = $request->voucher_name;
-        $data['discount_type'] = $request->discount_type;
         $data['discount_value'] = $request->discount_value;
         $data['max_usage'] = $request->max_usage;
         $data['minimum_order_value'] = $request->minimum_order_value;
