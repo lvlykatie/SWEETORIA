@@ -210,6 +210,10 @@
                                         <i class="fa-solid fa-sort sort-icon" onclick="sortTable(4, this)"></i>
                                     </th>
                                     <th class="text-center py-3 px-4 uppercase font-semibold text-sm">
+                                        Minimum order value
+                                        <i class="fa-solid fa-sort sort-icon" onclick="sortTable(7, this)"></i>
+                                    </th>
+                                    <th class="text-center py-3 px-4 uppercase font-semibold text-sm">
                                         Current usage
                                         <i class="fa-solid fa-sort sort-icon" onclick="sortTable(5, this)"></i>
                                     </th>
@@ -232,6 +236,7 @@
                                     <td class="text-center py-3">{{ $voucher->discount_type }}</td>
                                     <td class="text-center py-3 px-4">{{ $voucher->discount_value }}</td>
                                     <td class="text-center py-3 px-4">{{ $voucher->max_usage }}</td>
+                                    <td class="text-center py-3 px-4">{{ $voucher->minimum_order_value }}</td>
                                     <td class="text-center py-3 px-4">{{ $voucher->current_usage }}</td>
                                     <td class="text-center py-3 px-4">{{ $voucher->startdate }}</td>
                                     <td class="text-center py-3 px-4">{{ $voucher->enddate }}</td>
