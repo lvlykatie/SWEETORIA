@@ -173,8 +173,8 @@ Route::post('/save-client-info', [PaymentController::class, 'saveClientInfo']);
 // Account Routes
 Route::prefix('account')->group(function () {
     Route::get('/', [AccountController::class, 'index'])->name('account');
-    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
-    Route::get('/ordersview', [OrderController::class, 'orders'])->name('orders');
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders');
+
     Route::get('/changepw', [AccountController::class, 'changePassword'])->name('changepw');
     Route::get('/policy', [AccountController::class, 'policy'])->name('policy');
     Route::get('/edit', [AccountController::class, 'edit'])->name('account.edit');
@@ -192,7 +192,7 @@ Route::prefix('cart')->group(function () {
     Route::post('/remove', [CartController::class, 'remove'])->name('cart.remove');
 });
 
-
+Route::get('/orders/{status?}', [OrderController::class, 'getOrdersByStatus']);
 
 // User account route
 Route::post('/logout', [AccountController::class, 'logout'])->name('logout');
