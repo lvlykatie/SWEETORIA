@@ -101,7 +101,7 @@ session(['total' => $total]);
                     @foreach ($vouchers as $voucher)
                         <div
                             class="w-2/3 border border-blue-900 flex items-center p-2 rounded-md mx-auto mt-5 justify-between">
-                            <img src="{{ asset('frontend/admin/images/logo.png') }}" alt="Voucher Image" width="90"
+                            <img src="{{ asset('public/frontend/admin/images/logo.png') }}" alt="Voucher Image" width="90"
                                 height="90">
                             <div class="ml-4 flex flex-col space-y-4">
                                 <!-- Tên Voucher -->

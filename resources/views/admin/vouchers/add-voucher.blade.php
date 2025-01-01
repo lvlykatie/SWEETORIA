@@ -57,6 +57,10 @@
                         <label class="block text-xl text-gray-600" for="name">Max usage</label>
                         <input type="number" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="max_usage" name="max_usage" required="" placeholder="Enter voucher's max usage" aria-label="Max usage"></input>
                     </div>
+                    <div class="mt-2 relative">
+                        <label class="block text-xl text-gray-600" for="name">Minimum order value</label>
+                        <input type="number" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="minimum_order_value" name="minimum_order_value" required="" placeholder="Enter voucher's max usage" aria-label="Max usage"></input>
+                    </div>
                     <div class="">
                         <label class="block text-xl text-gray-600" for="name">Start date</label>
                         <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="startdate" name="startdate" type="date" required="" placeholder="Choose start date" aria-label="Start date" oninput="validateDateRange()">

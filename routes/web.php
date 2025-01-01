@@ -19,7 +19,7 @@ use Illuminate\Http\Request;
 // admin routes
 Route::group(['middleware' => AdminAuth::class], function () {
     // Admin dashboard
-    Route::get('/admin/dashboard', 'App\Http\Controllers\admin\DashboardController@showDashboard');
+    Route::get('/admin/dashboard', 'App\Http\Controllers\admin\DashboardController@index');
 
     // Products
     Route::get('/admin/products', 'App\Http\Controllers\admin\ProductController@showProductPage');
@@ -64,14 +64,15 @@ Route::group(['middleware' => AdminAuth::class], function () {
 
     // Accounts
     Route::get('/admin/feedbacks', 'App\Http\Controllers\admin\FeedbackController@showFeedbackPage');
-
+    Route::get('/admin/feedbacks/accept/{fb_id}', 'App\Http\Controllers\admin\FeedbackController@acceptFeedback');
+    Route::get('/admin/feedbacks/delete/{fb_id}', 'App\Http\Controllers\admin\FeedbackController@deleteFeedback');
     // logout
     Route::post('admin/logout', [AccountController::class, 'logout'])->name('logout');
 });
 
 Route::group(['middleware' => ManagerAuth::class], function () {
     //manager
-    Route::get('/manager/dashboard', 'App\Http\Controllers\manager\DashboardController@showDashboard');
+    Route::get('/manager/dashboard', 'App\Http\Controllers\manager\DashboardController@index');
 
     //products
     Route::get('/manager/products', 'App\Http\Controllers\manager\ProductController@showProductPage');
@@ -162,6 +163,8 @@ Route::get('/delivery', [PageController::class, 'delivery'])->name('delivery');
 
 // Payment Route (test)
 Route::post('/cart/buy-now', [CartController::class, 'buyNow'])->name('cart.buyNow');
+Route::post('/buy-now', [ProductController::class, 'buyNow'])->name('buy.now');
+Route::post('/buy-nowPD', [ProductController::class, 'buyNowPD'])->name('buy.nowPD');
 Route::get('/payment', [PaymentController::class, 'showPaymentPage'])->name('payment.page');
 Route::post('/payment/momo', [MomoController::class, 'createPayment']);
 Route::get('/payment_momo', [PaymentController::class, 'showPaymentMomo']);

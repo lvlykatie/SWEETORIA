@@ -8,6 +8,7 @@ use App\Models\Product;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class ProductController extends Controller
 {
@@ -214,4 +215,54 @@ class ProductController extends Controller
             dd($e); // In ra toàn bộ thông tin lỗi để debug
         }
     }
+
+    public function buyNow(Request $request)
+    {
+            // Xóa toàn bộ session của sản phẩm trước đó
+        Session::forget('selectedProducts');
+        $selectedProducts = Session::get('selectedProducts', []);
+
+        // Xóa sản phẩm trùng lặp nếu có
+        $selectedProducts = array_filter($selectedProducts, function($product) use ($request) {
+            return $product['productId'] !== $request->productId;
+        });
+
+        // Thêm sản phẩm mới với số lượng mặc định là 1
+        $selectedProducts[] = [
+            'productId' => $request->productId,
+            'name' => $request->productName,
+            'price' => $request->productPrice,
+            'quantity' => 1, // Mặc định là 1
+        ];
+
+        // Lưu lại vào session
+        Session::put('selectedProducts', $selectedProducts);
+
+        return response()->json(['success' => true, 'message' => 'BUY NOW']);
+    }
+
+    public function buyNowPD(Request $request)
+    {
+            // Xóa toàn bộ session của sản phẩm trước đó
+        Session::forget('selectedProducts');
+        $selectedProducts = Session::get('selectedProducts', []);
+
+        // Xóa sản phẩm trùng lặp nếu có
+        $selectedProducts = array_filter($selectedProducts, function($product) use ($request) {
+            return $product['productId'] !== $request->productId;
+        });
+
+        $selectedProducts[] = [
+            'productId' => $request->productId,
+            'name' => $request->productName,
+            'price' => $request->productPrice,
+            'quantity' => $request->quantity ?? 1,
+        ];
+
+        // Lưu lại vào session
+        Session::put('selectedProducts', $selectedProducts);
+
+        return response()->json(['success' => true, 'message' => 'BUY NOW']);
+    }
+
 }

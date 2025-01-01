@@ -75,7 +75,10 @@
                 <button x-show="isOpen" @click="isOpen = false" class="h-full w-full fixed inset-0 cursor-default"></button>
                 <div x-show="isOpen" class="loginbox absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16">
                     <a href="#" class="block px-4 py-2 account-link hover:text-black">Account</a>
-                    <a href="#" class="block px-4 py-2 account-link hover:text-black">Sign Out</a>
+                    <form action="{{ URL::to('admin/logout') }}" method="post" class="block px-4 py-2 account-link hover:text-black">
+                        @csrf
+                        <button>Sign Out</button>
+                    </form>
                 </div>
             </div>
         </header>
@@ -116,7 +119,7 @@
                     <i class="fas fa-calendar mr-3"></i>
                     Vouchers
                 </a>
-                <a href="{{('./Feedbacks')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                <a href="{{('./feedbacks')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                     <i class="fas fa-tablet-alt mr-3"></i>
                     Feedback
                 </a>
