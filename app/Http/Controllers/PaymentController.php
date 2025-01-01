@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Container\Attributes\Log;
+use Illuminate\Support\Facades\Log;
 use App\Models\Cart;
 use App\Models\CartDetails;
+use App\Models\Invoice;
 use App\Models\Product;
 use App\Models\Voucher;
 use Illuminate\Support\Facades\Session;
@@ -90,14 +91,16 @@ class PaymentController extends Controller
         return response()->json(['success' => 'Save Infomation success! ']);
     }
     public function applyVoucher(Request $request)
-    {
-        $voucher = Voucher::find($request->voucher_id); // Lấy voucher từ DB
-        if ($voucher) {
-            $discount = $voucher->discount_value / 100;
-            $total = session('total') * (1 - $discount);
-            session(['total' => $total]);
-            return response()->json(['success' => 'Voucher applied successfully', 'total' => $total]);
-        }
-        return response()->json(['error' => 'Invalid voucher'], 400);
+{
+    $newTotal =  $request->total;
+    session(['total' => $newTotal]);
+    $voucher = Voucher::find($request->voucher_id); // Lấy voucher từ DB
+    if ($voucher) {
+        return response()->json(['success' => 'Apply voucher success!']);
+
     }
+
+    return response()->json(['error' => 'Invalid voucher'], 400);
+}
+
 }

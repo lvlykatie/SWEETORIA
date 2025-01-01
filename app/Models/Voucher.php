@@ -10,6 +10,7 @@ class Voucher extends Model
     use HasFactory;
 
     protected $table = 'tbl_voucher';
+    protected $primaryKey = 'voucher_id'; // Tên cột khóa chính
 
     protected $fillable = [
         'voucher_id',
