@@ -91,16 +91,16 @@ class PaymentController extends Controller
         return response()->json(['success' => 'Save Infomation success! ']);
     }
     public function applyVoucher(Request $request)
-{
+    {
     $newTotal =  $request->total;
     session(['total' => $newTotal]);
+    session(['voucher' => $request->voucher_id]);
     $voucher = Voucher::find($request->voucher_id); // Lấy voucher từ DB
     if ($voucher) {
         return response()->json(['success' => 'Apply voucher success!']);
 
     }
-
     return response()->json(['error' => 'Invalid voucher'], 400);
-}
+    }
 
 }
