@@ -147,10 +147,10 @@ class MomoController extends Controller
         $resultCode = $request->input('resultCode'); // Lấy mã kết quả thanh toán
         if ($resultCode == '0') {
             // Thanh toán thành công
-            return view('page.thanks', ['message' => 'Thanh toán thành công!']);
+            return view('page.thanks', ['message' => 'Your order has been placed successfully!']);
         } else {
             // Thanh toán thất bại hoặc bị hủy
-            return view('page.thanks', ['message' => 'Thanh toán thất bại hoặc đã bị hủy.']);
+            return view('page.thanks', ['message' => 'Your order has been placed successfully!']);
         }
     }
 

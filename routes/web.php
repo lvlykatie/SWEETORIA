@@ -169,8 +169,10 @@ Route::get('/payment', [PaymentController::class, 'showPaymentPage'])->name('pay
 Route::post('/payment/momo', [MomoController::class, 'createPayment']);
 Route::get('/payment_momo', [PaymentController::class, 'showPaymentMomo']);
 Route::post('/payment-notify', [MomoController::class, 'paymentNotify']);
-Route::get('/payment-success', [MomoController::class, 'paymentSuccess']);
+Route::get('/payment-success', [MomoController::class, 'paymentSuccess'])->name('paymentSuccess');
 Route::post('/save-client-info', [PaymentController::class, 'saveClientInfo']);
+Route::post('/cash-on-delivery', [PaymentController::class, 'cashOnDelivery'])->name('cash-on-delivery');
+
 
 
 // Account Routes

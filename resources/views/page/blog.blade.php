@@ -10,29 +10,30 @@
         <div class="text-4xl font-bold mb-7 ">Recent Posts</div>
         <div class="recent-posts w-full flex space-x-7">
             <div class="w-1/2 flex flex-wrap">
-                <img src="{{ asset('public/frontend/client/page/image/post_img.jpg') }}" class="w-full" alt="ssss">\
+                <img src="https://cdn.tgdd.vn/Files/2021/08/17/1375924/huong-dan-cach-lam-cupcake-tra-xanh-mem-xop-don-gian-tai-nha-202201151447398338.jpg" class="w-full" alt="ssss">\
                 <p id="time" class="text-2xl font-normal w-full">05/11/2024</p>
-                <div class="title text-2xl font-normal">Flour – The Foundation of Textur</div>
-                <div class="description text-2xl font-normal">Did you know that flour comes in various types like
-                    all-purpose,
-                    cake flour, and bread flour? Each type will create a different texture, whether you're aiming for light
-                    and airy or chewy and dense.
-                    Always keep flour in a cool, dry place away from sunlight to preserve its freshness.
+                <div class="title text-2xl font-normal"><a href="https://www.bachhoaxanh.com/kinh-nghiem-hay/huong-dan-cach-lam-cupcake-tra-xanh-mem-xop-don-gian-tai-nha-1375924?srsltid=AfmBOooGr_s6TKMlOsrCZpNHPePCZRge1xzQFd75ixdRVnDaSce-sO-d"><b>Matcha Cupcakes: A Perfect Blend of Sweetness and Elegance</b></a></div>
+                <div class="description text-2xl font-normal">Bring a touch of sophistication to your dessert table with Matcha Cupcakes! These fluffy, green-tea-infused treats are not only delicious but also packed with a subtle earthy flavor. Perfect for tea lovers and cupcake enthusiasts alike, this recipe is simple yet impressive. Let’s whip up these vibrant delights together!
                 </div>
             </div>
             <div class="w-1/2 space-y-14">
                 {{-- 1 post --}}
                 <div class="flex space-x-7">
-                    <img src="{{ asset('public/frontend/client/page/image/post_img.jpg') }}" class="w-1/2" alt>
+                    <img src="https://cdn.tgdd.vn/2022/09/CookDish/2-cach-lam-cheesecake-oreo-don-gian-de-lam-khong-can-lo-nuong-avt-1200x676.jpg" class="w-1/2" alt>
                     <div class="w-1/2 space-y-7">
                         <p id="time" class="text-2xl font-normal w-full">05/11/2024</p>
-                        <div class="title text-2xl font-bold">Flour – The Foundation of Textur</div>
-                        <div class="description text-2xl font-normal">Did you know that flour comes in various types like
-                            all-purpose,
-                            cake flour, and bread flour? Each type will create a different texture, whether you're aiming
-                            for light
-                            and airy or chewy and dense.
-                            Always keep flour in a cool, dry place away from sunlight to preserve its freshness.
+                        <div class="title text-2xl font-bold"><a href="https://www.dienmayxanh.com/vao-bep/2-cach-lam-cheesecake-oreo-don-gian-de-lam-khong-can-lo-nuong-06738">Oreo cheese cake</a></div>
+                        <div class="description text-2xl font-normal">
+                        Craving a dessert that’s rich, creamy, and irresistibly delicious? Oreo Cheesecake is the ultimate combination of smooth cream cheese and crunchy chocolate cookies. Easy to make and sure to impress, this recipe is perfect for any occasion. Let’s dive into creating this decadent masterpiece!
+                        </div>
+                    </div>
+                </div>
+                <div class="flex space-x-7">
+                    <img src="https://cdn.tgdd.vn/2021/01/CookProduct/thumb1-1200x676-12.jpg" class="w-1/2" alt>
+                    <div class="w-1/2 space-y-7">
+                        <p id="time" class="text-2xl font-normal w-full">05/11/2024</p>
+                        <div class="title text-2xl font-bold"><a href="https://www.dienmayxanh.com/vao-bep/mousse-la-gi-thanh-phan-chinh-va-cac-cach-lam-mousse-don-gian-06864">Mousse: Light, Creamy, and Absolutely Divine</a></div>
+                        <div class="description text-2xl font-normal">Looking for a dessert that’s both elegant and effortless? Mousse is the perfect choice—a silky, airy treat that melts in your mouth. Whether it’s chocolate, fruit, or vanilla, this versatile dessert is sure to impress. Let’s explore how to create this luxurious delight step by step!
                         </div>
                     </div>
                 </div>
@@ -40,21 +41,7 @@
                     <img src="{{ asset('public/frontend/client/page/image/post_img.jpg') }}" class="w-1/2" alt>
                     <div class="w-1/2 space-y-7">
                         <p id="time" class="text-2xl font-normal w-full">05/11/2024</p>
-                        <div class="title text-2xl font-bold">Flour – The Foundation of Textur</div>
-                        <div class="description text-2xl font-normal">Did you know that flour comes in various types like
-                            all-purpose,
-                            cake flour, and bread flour? Each type will create a different texture, whether you're aiming
-                            for light
-                            and airy or chewy and dense.
-                            Always keep flour in a cool, dry place away from sunlight to preserve its freshness.
-                        </div>
-                    </div>
-                </div>
-                <div class="flex space-x-7">
-                    <img src="{{ asset('public/frontend/client/page/image/post_img.jpg') }}" class="w-1/2" alt>
-                    <div class="w-1/2 space-y-7">
-                        <p id="time" class="text-2xl font-normal w-full">05/11/2024</p>
-                        <div class="title text-2xl font-bold">Flour – The Foundation of Textur</div>
+                        <div class="title text-2xl font-bold"><a href="https://vintagerecipeproject.com/flour-the-foundation-of-baking/">Flour – The Foundation of Textur</a></div>
                         <div class="description text-2xl font-normal">Did you know that flour comes in various types like
                             all-purpose,
                             cake flour, and bread flour? Each type will create a different texture, whether you're aiming
@@ -71,43 +58,35 @@
         <div class="mt-16 w-full flex flex-wrap justify-between">
             {{-- 1 post  --}}
             <div class="post w-[calc(33.33%-20px)] space-y-7 mb-10">
-                <img src="{{ asset('public/frontend/client/page/image/post_img.jpg') }}" class="w-full" alt>
+                <img src="https://cdn.tgdd.vn/Files/2021/08/24/1377598/5-cong-thuc-lam-panna-cotta-cuc-ngon-nhu-nha-hang-5-sao-202201171306567825.jpg" class="w-full" alt>
                 <p id="time" class="text-2xl font-normal w-full">05/11/2024</p>
-                <div class="title text-2xl font-bold">Flour – The Foundation of Textur</div>
+                <div class="title text-2xl font-bold"><a href="https://www.bachhoaxanh.com/kinh-nghiem-hay/5-cong-thuc-lam-panna-cotta-cuc-ngon-nhu-nha-hang-5-sao-1377598?srsltid=AfmBOoqqA8Cb08r7Gb3-dKutqVnKJaUUuDj1ajsM83VvyuPhZjqxZUzJ">Panna Cotta: A Creamy Delight with Italian Elegance<</a></div>
                 <div class="description text-2xl font-normal">
-                    Did you know that flour comes in various types like all-purpose, cake flour, and bread flour? Each type
-                    will create a different texture, whether you're aiming for light and airy or chewy and dense. Always
-                    keep flour in a cool, dry place away from sunlight to preserve its freshness.
+                Looking for a dessert that’s as simple to make as it is stunning to serve? Panna Cotta is a silky, creamy Italian classic that melts in your mouth. Whether it’s chocolate, fruit, or vanilla, this versatile dessert is sure to impress. Let’s explore how to create this luxurious delight step by step!
                 </div>
             </div>
             <div class="post w-[calc(33.33%-20px)] space-y-7 mb-10">
-                <img src="{{ asset('public/frontend/client/page/image/post_img.jpg') }}" class="w-full" alt>
+                <img src="https://thermomixvietnam.vn/wp-content/uploads/2021/08/tiramisu-truyen-thong-2.jpg" class="w-full" alt>
                 <p id="time" class="text-2xl font-normal w-full">05/11/2024</p>
-                <div class="title text-2xl font-bold">Flour – The Foundation of Textur</div>
+                <div class="title text-2xl font-bold"><a href="https://fptshop.com.vn/tin-tuc/dien-may/cach-lam-banh-tiramisu-164568">Tiramisu: A Taste of Italy in Every Layer</a></div>
                 <div class="description text-2xl font-normal">
-                    Did you know that flour comes in various types like all-purpose, cake flour, and bread flour? Each type
-                    will create a different texture, whether you're aiming for light and airy or chewy and dense. Always
-                    keep flour in a cool, dry place away from sunlight to preserve its freshness.
+                Indulge in the rich, creamy goodness of Tiramisu, the iconic Italian dessert loved worldwide. With its layers of coffee-soaked ladyfingers, velvety mascarpone, and a hint of cocoa, this treat is pure bliss. Surprisingly easy to make, it’s perfect for any occasion. Let’s dive into crafting this decadent masterpiece together!
                 </div>
             </div>
             <div class="post w-[calc(33.33%-20px)] space-y-7 mb-10">
-                <img src="{{ asset('public/frontend/client/page/image/post_img.jpg') }}" class="w-full" alt>
+                <img src="https://cdn.tgdd.vn/2021/05/CookProduct/kem-pho-mai-viet-quat-thumbnail-1200x676.jpg" class="w-full" alt>
                 <p id="time" class="text-2xl font-normal w-full">05/11/2024</p>
-                <div class="title text-2xl font-bold">Flour – The Foundation of Textur</div>
+                <div class="title text-2xl font-bold"><a href="https://www.dienmayxanh.com/vao-bep/tong-hop-20-cach-lam-kem-tu-trai-cay-tuoi-ngon-mat-lanh-giai-09921">Fruit Ice Cream: A Refreshing Burst of Flavor</a></div>
                 <div class="description text-2xl font-normal">
-                    Did you know that flour comes in various types like all-purpose, cake flour, and bread flour? Each type
-                    will create a different texture, whether you're aiming for light and airy or chewy and dense. Always
-                    keep flour in a cool, dry place away from sunlight to preserve its freshness.
+                Beat the heat with homemade fruit ice cream that’s as vibrant as it is delicious! Bursting with the natural sweetness of fresh fruits, this creamy treat is a healthier, tastier alternative to store-bought options. Perfect for any season, it’s a breeze to make and customize. Let’s blend up some fruity goodness today!
                 </div>
             </div>
             <div class="post w-[calc(33.33%-20px)] space-y-7 mb-10">
-                <img src="{{ asset('public/frontend/client/page/image/post_img.jpg') }}" class="w-full" alt>
+                <img src="https://daylambanh.edu.vn/wp-content/uploads/2019/08/banh-kem-dau-tay-dep-mat.jpg" class="w-full" alt>
                 <p id="time" class="text-2xl font-normal w-full">05/11/2024</p>
-                <div class="title text-2xl font-bold">Flour – The Foundation of Textur</div>
+                <div class="title text-2xl font-bold"><a href="https://1001congthuclambanh.blogspot.com/2016/10/chia-se-quy-trinh-lam-banh-kem-trai-cay.html">Cake Decorating: Crafting Sweet Memories</a></div>
                 <div class="description text-2xl font-normal">
-                    Did you know that flour comes in various types like all-purpose, cake flour, and bread flour? Each type
-                    will create a different texture, whether you're aiming for light and airy or chewy and dense. Always
-                    keep flour in a cool, dry place away from sunlight to preserve its freshness.
+                There’s nothing more delightful than a homemade cake, beautifully decorated to suit any celebration. From fluffy layers to creamy frosting, making a cake from scratch is easier than you think! Whether you’re a beginner or a seasoned baker, this guide will help you create a show-stopping centerpiece. Let’s get started on your cake masterpiece!
                 </div>
             </div>
         </div>
