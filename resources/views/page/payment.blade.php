@@ -177,10 +177,15 @@ session(['total' => $total]);
             Choose your payment method
         </div>
         <div class="flex justify-between mx-40 mt-20">
-            <div
-                class="w-[438px] h-[100px] text-[40px] font-black bg-black text-white rounded-[20px] flex items-center justify-center">
-                Cash on delivery
-            </div>
+            <!-- Nút thanh toán bằng tiền mặt -->
+            <!-- <form method="POST" action="{{ route('cash-on-delivery') }}"> -->
+                <!-- @csrf -->
+                <button type="submit" id="cash-on-delivery-btn"
+                    class="w-[438px] h-[100px] text-[40px] font-black bg-black text-white rounded-[20px] flex items-center justify-center">
+                    Cash on delivery
+                </button>
+            <!-- </form> -->
+            <!-- Nút thanh toán bằng Momo -->
             <a href="{{ url('/payment_momo') }}">
                 <div
                     class="w-[438px] h-[100px] text-[40px] font-black bg-black text-white rounded-[20px] flex items-center justify-center">
@@ -276,4 +281,26 @@ session(['total' => $total]);
             }
         });
     </script>
+<script>
+    $('#cash-on-delivery-btn').on('click', function(event) {
+        event.preventDefault();  // Ngăn chặn hành động submit form
+
+        $.ajax({
+            url: '{{ route("cash-on-delivery") }}',
+            type: 'POST',
+            data: {
+                _token: $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response) {
+                alert('Cash on delivery successful');
+                window.location.href = response.redirect_url; // Nếu có phản hồi điều hướng
+            },
+            error: function(xhr, status, error) {
+                alert('Error occurred: ' + error);
+                console.error(xhr.responseText); // Log chi tiết lỗi
+            }
+        });
+    });
+
+</script>
 @endsection

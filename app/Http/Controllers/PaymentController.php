@@ -11,6 +11,8 @@ use App\Models\Invoice;
 use App\Models\Product;
 use App\Models\Voucher;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
+use App\Models\InvoiceDetails;
 
 class PaymentController extends Controller
 {
@@ -102,5 +104,86 @@ class PaymentController extends Controller
     }
     return response()->json(['error' => 'Invalid voucher'], 400);
     }
+
+    public function cashOnDelivery(Request $request)
+    {
+        // Lấy ID người dùng hiện tại
+        $userId = Auth::id();
+    
+        // Lấy danh sách sản phẩm và thông tin từ session
+        $sessionProducts = session('products', []);
+        $total = session('total', 0);
+        $name = session('name');
+        $phone = session('phone');
+        $address = session('address');
+        $voucher = session('voucher');
+    
+        // Kiểm tra các điều kiện cơ bản
+        if (empty($sessionProducts) || $total <= 0) {
+            return back()->withErrors(['message' => 'Không có sản phẩm nào để thanh toán.']);
+        }
+    
+        if (!$name || !$phone || !$address) {
+            return redirect()->back()->withErrors(['message' => 'Vui lòng cung cấp đầy đủ thông tin!']);
+        }
+    
+        try {
+            // Bắt đầu transaction để đảm bảo tính toàn vẹn dữ liệu
+            DB::beginTransaction();
+    
+            // Tạo hóa đơn
+            $invoice = Invoice::create([
+                'user_id' => $userId,
+                'voucher_id' => $voucher,
+                'orderdate' => now(),
+                'method' => 'Momo',
+                'note' => $request->input('note', ''),
+                'total_price' => $total,
+                'actual_price' => $total,
+                'iv_receiver' => $name,
+                'iv_address' => $address,
+                'iv_phone' => $phone,
+                'iv_status' => 'Pending',
+            ]);
+    
+            // Lưu chi tiết hóa đơn
+            foreach ($sessionProducts as $product) {
+                if (isset($product['product_id'], $product['quantity'], $product['price'])) {
+                    InvoiceDetails::create([
+                        'invoice_id' => $invoice->iv_id,
+                        'product_id' => $product['product_id'],
+                        'quantity' => $product['quantity'],
+                        'price' => $product['price'],
+                    ]);
+                } else {
+                    \Log::warning("Sản phẩm không đầy đủ thông tin: ", $product);
+                }
+            }
+    
+            // Xóa thông tin giỏ hàng sau khi đặt hàng thành công
+            session()->forget(['products', 'total', 'name', 'phone', 'address', 'voucher']);
+    
+            // Commit transaction
+            DB::commit();
+    
+            // Thông báo thành công và chuyển hướng
+            \Log::info("Đặt hàng thành công: Hóa đơn #" . $invoice->iv_id);
+            return response()->json([
+                'success' => true,
+                'redirect_url' => route('paymentSuccess', ['id' => $invoice->iv_id])
+            ]);
+        } catch (\Exception $e) {
+            // Rollback nếu có lỗi
+            DB::rollBack();
+    
+            \Log::error("Lỗi khi tạo hóa đơn: " . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'Đã có lỗi xảy ra, vui lòng thử lại sau.'
+            ]);
+        }
+    }
+    
+
 
 }

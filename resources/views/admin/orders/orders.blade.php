@@ -107,6 +107,7 @@
                     </form>
                 </div>
             </div>
+        </div>
         </header>
 
         <!-- Mobile Header & Nav -->
