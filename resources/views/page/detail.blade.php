@@ -47,7 +47,7 @@
                     {{ $product->product_name }}
                 </div>
                 <div class="md:h-auto font-[Jomhuria] text-[64px] font-normal text-center">
-                    {{ $product->product_price }}
+                    {{ number_format($product->product_price, 0, ',', '.') . ' VND' }}
                 </div>
                 <div class="flex items-center justify-around">
                     <!-- icon trái tim thêm sản phẩm vào wishlist -->
@@ -67,13 +67,13 @@
                     <!-- icon thêm giỏ hàng -->
                     <i class="fa-solid fa-cart-plus text-[40px]" id="addToCartIcon" class="add-to-cart-icon"
                         data-product-id="{{ $product->product_id }}" data-product-name="{{ $product->product_name }}"
-                        data-product-price="{{ $product->product_price }}"></i>
+                        data-product-price="{{ number_format($product->product_price, 0, ',', '.') . ' VND' }}"></i>
                 </div>
                 <button
                     class="buy-now-btnPD md:w-full font-semibold mt-4 md:h-[60px] text-[48px] text-white bg-[#D65050] rounded-[60px] flex items-center justify-center"
                     data-product-id="{{ $product->product_id }}" 
                     data-product-name="{{ $product->product_name }}" 
-                    data-product-price="{{ $product->product_price }}">
+                    data-product-price="{{ number_format($product->product_price, 0, ',', '.') . ' VND' }}">
                     <span>BUY NOW</span>
                 </button>
 
@@ -244,7 +244,7 @@
     </div>
     </div>
     <!-- các bài báo -->
-    <div class="text-center text-6xl font-black rounded-3xl my-5 py-6 bg-[#FFFDD0]">
+    <div class="text-center text-6xl font-black text py-6 mb-7 mx-auto mt-16" style="width: 50%; border-radius: 50px;background-color: #FFFDD0">
         Some recipes use this ingredient
     </div>
     <div class="products flex flex-col gap-y-10 items-center justify-center">
@@ -306,11 +306,31 @@
                                     <i class="fa-solid fa-circle-check text-[#004FA8]"></i>
                                 </span>
                             </div> -->
-                <a href="{{ route('detail', ['id' => $product->product_id]) }}" class="cursor-pointer">
-                    <img src="{{ filter_var($product->product_image, FILTER_VALIDATE_URL) ? $product->product_image : asset('public/backend/image/' . $product->product_image) }}"
-                        class="hover:scale-90 w-[305px] h-[305px] mt-6 ml-6 mr-6 object-cover rounded-[20px]"
-                        alt="Product Image">
-                </a>
+                            <a href="{{ route('detail', ['id' => $product->product_id]) }}" class="cursor-pointer relative">
+                            <img src="{{ filter_var($product->product_image, FILTER_VALIDATE_URL) ? $product->product_image : asset('public/backend/image/' . $product->product_image) }}"
+                                class="hover:scale-90 w-[305px] h-[305px] mt-6 ml-6 mr-6 object-cover rounded-[20px]" alt="Product Image">
+                            <div class="md:w-[160px] md:h-[40px] bg-[#f8f8f8] flex justify-center items-center rounded-full absolute bottom-2 right-2 shadow-lg">
+                                <span class="text-lg font-semibold text-gray-800 flex items-center gap-1">
+                                    {{-- Hiển thị sao vàng --}}
+                                    @for ($i = 1; $i <= floor($product->product_rate); $i++)
+                                        <i class="fa-solid fa-star text-yellow-500"></i>
+                                        @endfor
+
+                                        {{-- Hiển thị sao nửa nếu cần --}}
+                                        @if ($product->product_rate - floor($product->product_rate) >= 0.5)
+                                        <i class="fa-solid fa-star-half-alt text-yellow-500"></i>
+                                        @endif
+
+                                        {{-- Hiển thị sao trống nếu chưa đủ 5 sao --}}
+                                        @for ($i = ceil($product->product_rate); $i < 5; $i++)
+                                            <i class="fa-regular fa-star text-gray-400"></i>
+                                            @endfor
+
+                                            {{-- Hiển thị giá trị đánh giá --}}
+                                            <span class="ml-2 text-sm font-medium text-gray-600">({{ number_format($product->product_rate, 1) }})</span>
+                                </span>
+                            </div>
+                        </a>
                 <div class="item-name text-3xl text-center font-bold mt-8">
                     <a href="{{ route('detail', ['id' => $product->product_id]) }}" class="text-black hover:underline">
                         {{ $product->product_name }}
@@ -319,16 +339,12 @@
                 <div class="price relative w-full pt-2 ml-6 flex justify-between mt-6">
                     <span
                         class="text-3xl ml-[20px] font-medium">{{ number_format($product->product_price, 0, ',', '.') . ' VND' }}</span>
-                    <span class="text-3xl font-normal">
-                        <i class="fa-solid fa-star text-yellow-300"></i>
-                        <span>{{ $product->product_rate }}</span>
-                    </span>
 
                     <!-- icon thêm giỏ hàng -->
                     <div class="mr-[35px]">
                     <i class="fa-solid fa-cart-plus text-[30px]" id="addToCartIcon1" class="add-to-cart-icon"
                         data-product-id="{{ $product->product_id }}" data-product-name="{{ $product->product_name }}"
-                        data-product-price="{{ $product->product_price }}"></i>
+                        data-product-price="{{ number_format($product->product_price, 0, ',', '.') . ' VND' }}"></i>
                     </div>
                     <!-- icon thêm giỏ hàng -->
                 </div>
@@ -336,7 +352,7 @@
                     class="buy-now-btn md:w-[330px] font-semibold mt-4 md:h-[60px] text-2xl text-white bg-[#D65050] rounded-[60px] absolute bottom-4 left-1/2 transform -translate-x-1/2"
                     data-product-id="{{ $product->product_id }}" 
                     data-product-name="{{ $product->product_name }}" 
-                    data-product-price="{{ $product->product_price }}">
+                    data-product-price="{{ number_format($product->product_price, 0, ',', '.') . ' VND' }}">
                     <span class="px-4 py-8">BUY NOW</span>
                 </button>
             </div>

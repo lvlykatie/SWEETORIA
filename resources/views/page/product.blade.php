@@ -103,14 +103,14 @@
             </button>
         </div>
     </div>
-    <div class="text-center text-6xl font-black rounded-3xl text py-6 mb-7" style="background-color: #FFFDD0">
+    <div class="text-center text-6xl font-black text py-6 mb-7 mx-auto mt-16" style="width: 30%; border-radius: 50px;background-color: #FFFDD0">
         PRODUCTS
     </div>
     <div class="product-list mx-24">
         <div class="flex flex-wrap justify-center gap-x-[45px] gap-y-9">
             @foreach ($products as $product)
             <div class="md:w-[356px] h-[507px] w-full flex flex-col items-center bg-[#FFDEDE80] rounded-[28px] relative">
-            <!-- <div class="md:w-[160px] md:h-[40px] bg-gray-200 flex justify-center items-center rounded-full absolute bottom-2 right-2 shadow-lg">
+                <!-- <div class="md:w-[160px] md:h-[40px] bg-gray-200 flex justify-center items-center rounded-full absolute bottom-2 right-2 shadow-lg">
                     <span class="text-lg font-semibold text-gray-800 flex items-center gap-1">
                         {{-- Hiển thị sao vàng --}}
                         @for ($i = 1; $i <= floor($product->product_rate); $i++)
@@ -131,7 +131,7 @@
                                 <span class="ml-2 text-sm font-medium text-gray-600">({{ number_format($product->product_rate, 1) }})</span>
                     </span>
                 </div> -->
-            
+
                 {{-- sale --}}
                 @if ($product->deal_id)
                 <div class="bg-[#004FA8] w-[128px] h-[36px] rounded-tr-[20px] rounded-br-[20px] flex justify-center items-center absolute left-0 top-4" style="z-index: 1000;">
@@ -139,9 +139,30 @@
                     <span class="text-white text-2xl font-bold">SALE <span>{{ $product->deal_discount * 100 }}%</span></span>
                 </div>
                 @endif
-                <a href="{{ route('detail', ['id' => $product->product_id]) }}" class="cursor-pointer">
+                <a href="{{ route('detail', ['id' => $product->product_id]) }}" class="cursor-pointer relative">
                     <img src="{{ filter_var($product->product_image, FILTER_VALIDATE_URL) ? $product->product_image : asset('public/backend/image/' . $product->product_image) }}"
                         class="hover:scale-90 w-[305px] h-[305px] mt-6 ml-6 mr-6 object-cover rounded-[20px]" alt="Product Image">
+                    <div class="md:w-[160px] md:h-[40px] bg-[#f8f8f8] flex justify-center items-center rounded-full absolute bottom-2 right-2 shadow-lg">
+                        <span class="text-lg font-semibold text-gray-800 flex items-center gap-1">
+                            {{-- Hiển thị sao vàng --}}
+                            @for ($i = 1; $i <= floor($product->product_rate); $i++)
+                                <i class="fa-solid fa-star text-yellow-500"></i>
+                                @endfor
+
+                                {{-- Hiển thị sao nửa nếu cần --}}
+                                @if ($product->product_rate - floor($product->product_rate) >= 0.5)
+                                <i class="fa-solid fa-star-half-alt text-yellow-500"></i>
+                                @endif
+
+                                {{-- Hiển thị sao trống nếu chưa đủ 5 sao --}}
+                                @for ($i = ceil($product->product_rate); $i < 5; $i++)
+                                    <i class="fa-regular fa-star text-gray-400"></i>
+                                    @endfor
+
+                                    {{-- Hiển thị giá trị đánh giá --}}
+                                    <span class="ml-2 text-sm font-medium text-gray-600">({{ number_format($product->product_rate, 1) }})</span>
+                        </span>
+                    </div>
                 </a>
                 <div class="item-name text-3xl text-center font-bold mt-8">
                     <a href="{{ route('detail', ['id' => $product->product_id]) }}" class="text-black hover:underline">
@@ -164,9 +185,9 @@
                     <!-- icon thêm giỏ hàng -->
                 </div>
                 <button class="buy-now-btn md:w-[330px] font-semibold mt-4 md:h-[60px] text-2xl text-white bg-[#D65050] rounded-[60px] absolute bottom-4 left-1/2 transform -translate-x-1/2"
-                data-product-id="{{ $product->product_id }}" 
-                data-product-name="{{ $product->product_name }}" 
-                data-product-price="{{ $product->product_price }}">
+                    data-product-id="{{ $product->product_id }}"
+                    data-product-name="{{ $product->product_name }}"
+                    data-product-price="{{ $product->product_price }}">
                     <span class="px-4 py-8">BUY NOW</span>
                 </button>
             </div>
@@ -249,7 +270,7 @@
         const productPrice = element.dataset.productPrice;
 
         // Gửi yêu cầu Ajax để thêm vào giỏ hàng
-        fetch('{{ url('/cart/add') }}', {
+        fetch('{{ url(' / cart / add ') }}', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -337,7 +358,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const buyNowButtons = document.querySelectorAll('.buy-now-btn');
-        
+
         buyNowButtons.forEach(button => {
             button.addEventListener('click', function() {
                 const productId = this.dataset.productId;
@@ -346,28 +367,28 @@
 
                 // Gửi thông tin sản phẩm tới server qua AJAX
                 fetch('{{ route("buy.now") }}', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                    body: JSON.stringify({
-                        productId: productId,
-                        productName: productName,
-                        productPrice: productPrice,
-                        quantity: 1 // Số lượng mặc định
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        body: JSON.stringify({
+                            productId: productId,
+                            productName: productName,
+                            productPrice: productPrice,
+                            quantity: 1 // Số lượng mặc định
+                        })
                     })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        // Chuyển hướng sang trang payment
-                        window.location.href = '{{ route("payment.page") }}';
-                    } else {
-                        alert('Error adding product to cart: ' + data.message);
-                    }
-                })
-                .catch(error => console.error('Error:', error));
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Chuyển hướng sang trang payment
+                            window.location.href = '{{ route("payment.page") }}';
+                        } else {
+                            alert('Error adding product to cart: ' + data.message);
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
             });
         });
     });
