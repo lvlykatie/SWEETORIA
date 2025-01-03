@@ -187,6 +187,7 @@ Route::prefix('account')->group(function () {
     Route::get('/wishlist', [WishlistController::class, 'wishlist'])->name('wishlist');
     Route::post('/wishlist/toggle', [WishlistController::class, 'toggle'])->name('wishlist.toggle');
     Route::post('/wishlist/remove', [WishlistController::class, 'remove'])->name('wishlist.remove');
+    Route::get('/orders/{status?}', [OrderController::class, 'getOrdersByStatus'])->name('orders.status');
 });
 
 // Cart Route
@@ -197,7 +198,7 @@ Route::prefix('cart')->group(function () {
     Route::post('/remove', [CartController::class, 'remove'])->name('cart.remove');
 });
 
-Route::get('/orders/{status?}', [OrderController::class, 'getOrdersByStatus']);
+
 
 // User account route
 Route::post('/logout', [AccountController::class, 'logout'])->name('logout');

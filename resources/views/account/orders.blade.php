@@ -73,14 +73,14 @@
             // Lấy loại trạng thái từ data-type
             let status = $(this).data('type');
 
-            // Gửi yêu cầu AJAX để lấy dữ liệu
-            $.ajax({
-                url: `/orders/${status}`,
-                type: 'GET',
-                success: function(response) {
-                    // Xóa nội dung cũ
-                    $('.order-container')
-                        .empty(); // Xóa tất cả nội dung cũ, bao gồm thông báo nếu có
+                // Gửi yêu cầu AJAX để lấy dữ liệu
+                $.ajax({
+                    url: '{{ route("orders.status") }}',
+                    type: 'GET',
+                    success: function(response) {
+                        // Xóa nội dung cũ
+                        $('.order-container')
+                    .empty(); // Xóa tất cả nội dung cũ, bao gồm thông báo nếu có
 
                     if (response.orders.length === 0) {
                         $('.order-container').html(
