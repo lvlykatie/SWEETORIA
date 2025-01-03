@@ -94,7 +94,7 @@
 
                 // Gửi yêu cầu AJAX để lấy dữ liệu
                 $.ajax({
-                    url: `/orders/${status}`,
+                    url: '{{ route("orders.status") }}',
                     type: 'GET',
                     success: function(response) {
                         // Xóa nội dung cũ

@@ -26,26 +26,26 @@ class OrderController extends Controller
         return view('account.orders', compact('orders', 'orderDetails'));
     }
     public function getOrdersByStatus($status='all'){
-        $userId = Auth::id();
+            $userId = Auth::id();
 
-    if ($status === 'all') {
-        $orders = Invoice::where('user_id', $userId)
-            ->orderBy('orderdate', 'desc')
+        if ($status === 'all') {
+            $orders = Invoice::where('user_id', $userId)
+                ->orderBy('orderdate', 'desc')
+                ->get();
+        } else {
+            $orders = Invoice::where('user_id', $userId)
+                ->where('iv_status', $status)
+                ->orderBy('orderdate', 'desc')
+                ->get();
+        }
+
+        $orderDetails = InvoiceDetails::with('product')
+            ->whereIn('invoice_id', $orders->pluck('iv_id'))
             ->get();
-    } else {
-        $orders = Invoice::where('user_id', $userId)
-            ->where('iv_status', $status)
-            ->orderBy('orderdate', 'desc')
-            ->get();
-    }
 
-    $orderDetails = InvoiceDetails::with('product')
-        ->whereIn('invoice_id', $orders->pluck('iv_id'))
-        ->get();
-
-    return response()->json([
-        'orders' => $orders,
-        'orderDetails' => $orderDetails,
-    ]);
+        return response()->json([
+            'orders' => $orders,
+            'orderDetails' => $orderDetails,
+        ]);
     }
 }
