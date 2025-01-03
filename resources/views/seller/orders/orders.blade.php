@@ -58,10 +58,6 @@
             </button>
         </div>
         <nav class="text-black text-base font-semibold pt-3">
-            <a href="{{('./dashboard')}}" class="flex items-center  text-black py-4 pl-6 nav-item">
-                <i class="fas fa-tachometer-alt mr-3"></i>
-                Dashboard
-            </a>
             <a href="{{('./products')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                 <i class="fas fa-sticky-note mr-3"></i>
                 Products
@@ -106,10 +102,6 @@
 
             <!-- Dropdown Nav -->
             <nav class="text-black text-base font-semibold pt-3">
-                <a href="{{('./dashboard')}}" class="flex items-center  text-black py-4 pl-6 nav-item">
-                    <i class="fas fa-tachometer-alt mr-3"></i>
-                    Dashboard
-                </a>
                 <a href="{{('./products')}}" class="flex items-center text-black opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                     <i class="fas fa-sticky-note mr-3"></i>
                     Products

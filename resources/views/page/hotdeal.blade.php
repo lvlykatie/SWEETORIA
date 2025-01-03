@@ -31,6 +31,27 @@
 
             </div>
         </div>
+        {{-- hot 2 --}}
+        <div class="flex flex-wrap justify-around">
+            <div class="w-full md:w-[745px] md:h-[559px] overflow-hidden rounded-[100px]">
+                <img src="{{ asset('public/frontend/client/page/image/deal_1.png') }}" alt="Mid Autumn Festive Sale"
+                    width="100%" height="100%">
+
+            </div>
+            <div class="flex flex-col items-center">
+                <div class="md:w-[510px] md:h-[478px] font-[Inter] font-normal text-5xl leading-[50px] text-gray-800">
+                    Get 20% off on our Cupcake Kit! All the ingredients you need to make delicious donuts at
+                    home.
+                    Hurry, limited time offer!
+                </div>
+
+                <button class="text-center h-24 bg-red-500 rounded-2xl text-white font-black w-[320px]"
+                    style="font-size: 50px; line-height: 61px;" onclick="showDeals()">BUY
+                    NOW</button>
+
+            </div>
+        </div>
+
 
     </div>
 </div>
