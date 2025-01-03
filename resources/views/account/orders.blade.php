@@ -6,18 +6,18 @@
 
 
 <div id="menu" class="flex border border-gray-300 text-center text-[20px] font-normal font-[Joan] mt-16">
-    <div class="item flex-1 h-[105px] py-2 bg-red-100 font-bold text-black flex items-center justify-center cursor-pointer"
-        data-type="all">All</div>
-    <div class="item flex-1 h-[105px] py-2 border-l border-gray-300 flex items-center justify-center cursor-pointer"
-        data-type="transport">Pending</div>
-    <div class="item flex-1 h-[105px] py-2 border-l border-gray-300 flex items-center justify-center cursor-pointer"
-        data-type="waiting">Paid</div>
-    <div class="item flex-1 h-[105px] py-2 border-l border-gray-300 flex items-center justify-center cursor-pointer"
-        data-type="complete">Dispatched</div>
-    <div class="item flex-1 h-[105px] py-2 border-l border-gray-300 flex items-center justify-center cursor-pointer"
-        data-type="canceled">Returned</div>
-    <div class="item flex-1 h-[105px] py-2 border-l border-gray-300 flex items-center justify-center cursor-pointer"
-        data-type="returns">Completed</div>
+        <div class="item flex-1 h-[105px] py-2 bg-red-100 font-bold text-black flex items-center justify-center cursor-pointer"
+            data-type="all">All</div>
+        <div class="item flex-1 h-[105px] py-2 border-l border-gray-300 flex items-center justify-center cursor-pointer"
+            data-type="pending">Pending</div>
+        <div class="item flex-1 h-[105px] py-2 border-l border-gray-300 flex items-center justify-center cursor-pointer"
+            data-type="paid">Paid</div>
+        <div class="item flex-1 h-[105px] py-2 border-l border-gray-300 flex items-center justify-center cursor-pointer"
+            data-type="dispatched">Dispatched</div>
+        <div class="item flex-1 h-[105px] py-2 border-l border-gray-300 flex items-center justify-center cursor-pointer"
+            data-type="returned">Returned</div>
+        <div class="item flex-1 h-[105px] py-2 border-l border-gray-300 flex items-center justify-center cursor-pointer"
+            data-type="completed">Completed</div>
 </div>
 
 <div
